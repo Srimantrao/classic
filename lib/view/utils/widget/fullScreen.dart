@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,11 +16,11 @@ class Fullscreen extends StatelessWidget {
         width: Get.width,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(image!),
+            image: AssetImage(image ?? ''),
             fit: BoxFit.fill,
           ),
         ),
-        child: child,
+        child: SafeArea(child: child ?? SizedBox()),
       ),
     );
   }

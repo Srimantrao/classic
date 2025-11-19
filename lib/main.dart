@@ -9,8 +9,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      theme: ThemeData(fontFamily: 'Sans-Bold'),
       debugShowCheckedModeBanner: false,
-      title: 'Classic',
       home: Logo(),
     );
   }

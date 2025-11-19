@@ -19,7 +19,7 @@ Widget have({required String have, required String tab}){
         tab,
         style: TextStyle(
           fontSize: Textsize.normal,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w200,
           decoration: TextDecoration.underline,
         ),
       ),

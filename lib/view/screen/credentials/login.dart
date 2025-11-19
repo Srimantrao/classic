@@ -68,7 +68,7 @@ Widget inputFields() {
   return Column(
     children: [
       Inputfield(hinttext: AppString.username_hint),
-      Inputfield(hinttext: AppString.password_hint),
+      Inputfield(hinttext: AppString.password_hint, obscureText: true),
     ],
   );
 }
@@ -82,7 +82,7 @@ Widget passwordingetInput() {
             AppString.forgotpassword,
             style: TextStyle(
               fontSize: Textsize.normal,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w500,
               decoration: TextDecoration.underline,
             ),
           ),
@@ -91,7 +91,7 @@ Widget passwordingetInput() {
             AppString.sendOTP,
             style: TextStyle(
               fontSize: Textsize.normal,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w500,
               decoration: TextDecoration.underline,
             ),
           ),

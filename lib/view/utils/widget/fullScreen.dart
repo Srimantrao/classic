@@ -14,12 +14,12 @@ class Fullscreen extends StatelessWidget {
       body: Container(
         height: Get.height,
         width: Get.width,
-        decoration: BoxDecoration(
+        decoration: image != null ? BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(image ?? ''),
+            image: AssetImage(image!),
             fit: BoxFit.fill,
           ),
-        ),
+        ) : null,
         child: SafeArea(child: child ?? SizedBox()),
       ),
     );

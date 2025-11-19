@@ -16,9 +16,7 @@ import '../../utils/widget/inputfield.dart';
 
 class Login extends StatelessWidget {
   final loginUI = Get.put(LoginuiController());
-
   Login({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Fullscreen(

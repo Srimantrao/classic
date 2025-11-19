@@ -1,3 +1,5 @@
+import 'package:classic/controller/user_Interface/credentials/loginUI_Controller.dart';
+import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_Image.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
@@ -13,14 +15,39 @@ import 'package:get/get.dart';
 import '../../utils/widget/inputfield.dart';
 
 class Login extends StatelessWidget {
-  const Login({super.key});
+  final loginUI = Get.put(LoginuiController());
+
+  Login({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
       child: horizontalPadding(
         child: SingleChildScrollView(
-          child: Column(children: [image(), singInContainer()]),
+          child: Column(
+            children: [
+              image(),
+              Obx(() {
+                final usernameError = loginUI.usernameHasError.value;
+                final passwordError = loginUI.passwordHasError.value;
+                return singInContainer(
+                  usernameController: loginUI.usernameController,
+                  passwordController: loginUI.passwordController,
+                  colorusername: usernameError ? AppColor.red : AppColor.white,
+                  colorpassword: passwordError ? AppColor.red : AppColor.white,
+                  onChangedusername: (value) => loginUI.onChanged1(),
+                  onChangedpassword: (value) => loginUI.onChanged2(),
+                  onTap: () {
+                    loginUI.onTap().then((value) {
+                      if (usernameError == false && passwordError == false) {
+                        print('success');
+                      }
+                    });
+                  },
+                );
+              }),
+            ],
+          ),
         ),
       ),
     );
@@ -37,21 +64,39 @@ Widget image() {
   );
 }
 
-Widget singInContainer() {
+Widget singInContainer({
+  required TextEditingController usernameController,
+  required TextEditingController passwordController,
+  void Function()? onTap,
+  void Function(String)? onChangedusername,
+  void Function(String)? onChangedpassword,
+  Color? colorusername,
+  Color? colorpassword,
+}) {
   return cartConatiner(
     child: Column(
       children: [
         singInInformation(),
-        inputFields(),
+        inputFields(
+          usernameController: usernameController,
+          passwordController: passwordController,
+          colorusername: colorusername,
+          colorpassword: colorpassword,
+          onChangedusername: onChangedusername,
+          onChangedpassword: onChangedpassword,
+        ),
         passwordingetInput(),
-        signinbutton(),
+        signinbutton(
+          usernameController: usernameController,
+          passwordController: passwordController,
+          onTap: onTap,
+        ),
         donthave(),
       ],
     ),
   );
 }
 
-//IF You Have A Classic Grown Diamonds Customer Account, Please Sing In
 Widget singInInformation() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,11 +109,29 @@ Widget singInInformation() {
   );
 }
 
-Widget inputFields() {
+Widget inputFields({
+  required TextEditingController usernameController,
+  required TextEditingController passwordController,
+  Color? colorusername,
+  Color? colorpassword,
+  void Function(String)? onChangedusername,
+  void Function(String)? onChangedpassword,
+}) {
   return Column(
     children: [
-      Inputfield(hinttext: AppString.username_hint),
-      Inputfield(hinttext: AppString.password_hint, obscureText: true),
+      Inputfield(
+        hinttext: AppString.username_hint,
+        controller: usernameController,
+        onChanged: onChangedusername,
+        color: colorusername,
+      ),
+      Inputfield(
+        hinttext: AppString.password_hint,
+        obscureText: true,
+        controller: passwordController,
+        onChanged: onChangedpassword,
+        color: colorpassword,
+      ),
     ],
   );
 }
@@ -102,8 +165,12 @@ Widget passwordingetInput() {
   );
 }
 
-Widget signinbutton() {
-  return button(AppString.signIn);
+Widget signinbutton({
+  required TextEditingController usernameController,
+  required TextEditingController passwordController,
+  void Function()? onTap,
+}) {
+  return button(onTap: onTap, AppString.signIn);
 }
 
 Widget donthave() {

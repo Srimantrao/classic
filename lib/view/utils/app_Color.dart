@@ -36,7 +36,7 @@
 
 // ignore_for_file: file_names
 
-import 'dart:ui';
+import 'package:flutter/material.dart';
 
 class AppColor{
   static Color iconColor = Color(0xff949494);
@@ -45,6 +45,7 @@ class AppColor{
   static Color gray3 = Color(0xffCFCFCF);
   static Color gray4 = Color(0xffFAFAFA);
   static Color gray5 = Color(0xff7989AE);
+  static Color red = Colors.red;
   static Color shadeGreen = Color(0xff31A44A);
   static Color green1 = Color(0xff168944);
   static Color green2 = Color(0xff208E53);

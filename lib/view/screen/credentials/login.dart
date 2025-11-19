@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:classic/controller/user_Interface/credentials/loginUI_Controller.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_Image.dart';
@@ -9,6 +11,7 @@ import 'package:classic/view/utils/widget/dontHaveAndyouHave.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/heddingText.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
+import 'package:classic/view/utils/widget/logo.dart';
 import 'package:classic/view/utils/widget/subheding.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -50,16 +53,6 @@ class Login extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget image() {
-  return Column(
-    children: [
-      SizedBox(height: Get.height * 0.03),
-      Image.asset(AppImage.logo, scale: 2.5),
-      SizedBox(height: Get.height * 0.080),
-    ],
-  );
 }
 
 Widget singInContainer({

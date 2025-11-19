@@ -103,7 +103,7 @@ Widget passwordingetInput() {
 }
 
 Widget signinbutton() {
-  return button(AppString.sendOTP);
+  return button(AppString.signIn);
 }
 
 Widget donthave() {

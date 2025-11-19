@@ -6,7 +6,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 
-Widget have({required String have, required String tab}){
+Widget have({
+  required String have,
+  required String tab,
+  void Function()? onTap,
+}){
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
@@ -15,12 +19,15 @@ Widget have({required String have, required String tab}){
         style: TextStyle(fontSize: Textsize.normal),
       ),
       SizedBox(width : Get.width * 0.01),
-      Text(
-        tab,
-        style: TextStyle(
-          fontSize: Textsize.normal,
-          fontWeight: FontWeight.w200,
-          decoration: TextDecoration.underline,
+      GestureDetector(
+        onTap: onTap,
+        child: Text(
+          tab,
+          style: TextStyle(
+            fontSize: Textsize.normal,
+            fontWeight: FontWeight.w200,
+            decoration: TextDecoration.underline,
+          ),
         ),
       ),
     ],

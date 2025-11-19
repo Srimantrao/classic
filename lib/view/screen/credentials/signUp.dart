@@ -1,0 +1,333 @@
+// ignore_for_file: file_names, avoid_print
+
+import 'package:classic/controller/user_Interface/credentials/signupUI_Contoller.dart';
+import 'package:classic/view/utils/app_Borderradius.dart';
+import 'package:classic/view/utils/app_Color.dart';
+import 'package:classic/view/utils/app_Image.dart';
+import 'package:classic/view/utils/app_String.dart';
+import 'package:classic/view/utils/app_TextSize.dart';
+import 'package:classic/view/utils/widget/button.dart';
+import 'package:classic/view/utils/widget/cartcontainer.dart';
+import 'package:classic/view/utils/widget/fullScreen.dart';
+import 'package:classic/view/utils/widget/heddingText.dart';
+import 'package:classic/view/utils/widget/horizontalpaddind.dart';
+import 'package:classic/view/utils/widget/logo.dart';
+import 'package:classic/view/utils/widget/widgetSize.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../utils/widget/inputfield.dart';
+
+class Signup extends StatelessWidget {
+  final signupUi = Get.put(SignupuiContoller());
+
+  Signup({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Fullscreen(
+      image: AppImage.spalsh_background,
+      child: horizontalPadding(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              image(height: Get.height * 0.050),
+              Obx(() {
+                return Column(
+                  children: [
+                    singInContainer(
+                      fristnameController: signupUi.fristnameController,
+                      lastnameController: signupUi.lastnameController,
+                      mobileController: signupUi.mobileController,
+                      emailIdController: signupUi.emailIdController,
+                      confirmPasswordController: signupUi.confirmPasswordController,
+                      passwordController: signupUi.passwordController,
+                      valueIAM: signupUi.selectedValueIAM.value,
+                      listIAm: signupUi.getDropdownItems(),
+                      onChangedIAM: signupUi.iamvalueChange,
+                      valuehowdidyouhear: signupUi.selectedValueHowdidyourhear.value,
+                      listhowdidyouhear: signupUi.getDropdownItems2(),
+                      onChangedhowdidyouhear: signupUi.howdidyourhearvalueChange,
+                      valuememberof: signupUi.selectedValueMemberof.value,
+                      listmemberof: signupUi.getDropdownItems3(),
+                      onChangedmemberof: signupUi.memberoflueChange,
+                      country: signupUi.country.value,
+                      listcountry: signupUi.getDropdownCountry(),
+                      onChangedcountry: signupUi.countryValueChange,
+                    ),
+                    signupButton(
+                      onTapBack: (){
+                        Get.back();
+                      },
+                      onTapNext: (){
+                        print('Name');
+                      },
+                    ),
+                  ],
+                );
+              }),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+Widget singInContainer({
+  required TextEditingController fristnameController,
+  required TextEditingController lastnameController,
+  required TextEditingController emailIdController,
+  required TextEditingController passwordController,
+  required TextEditingController confirmPasswordController,
+  required TextEditingController mobileController,
+  required String valueIAM,
+  required List<DropdownMenuItem<String>> listIAm,
+  void Function(String?)? onChangedIAM,
+  required String country,
+  required List<DropdownMenuItem<String>> listcountry,
+  void Function(String?)? onChangedcountry,
+  required String valuehowdidyouhear,
+  required List<DropdownMenuItem<String>> listhowdidyouhear,
+  void Function(String?)? onChangedhowdidyouhear,
+  required String valuememberof,
+  required List<DropdownMenuItem<String>> listmemberof,
+  void Function(String?)? onChangedmemberof,
+}) {
+  return cartConatiner(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        singInInformationhedding(),
+        inputtype(
+          fristnameController: fristnameController,
+          lastnameController: lastnameController,
+          passwordController: passwordController,
+          confirmPasswordController: confirmPasswordController,
+          emailIdController: emailIdController,
+          mobileController: mobileController,
+          valueIAM: valueIAM,
+          listIAm: listIAm,
+          onChangedIAM: onChangedIAM,
+          valuehowdidyouhear: valuehowdidyouhear,
+          listhowdidyouhear: listhowdidyouhear,
+          onChangedhowdidyouhear: onChangedhowdidyouhear,
+          valuememberof: valuememberof,
+          listmemberof: listmemberof,
+          onChangedmemberof: onChangedmemberof,
+          country: country,
+          listcountry: listcountry,
+          onChangedcountry: onChangedcountry,
+        ),
+      ],
+    ),
+  );
+}
+
+Widget singInInformationhedding() {
+  return Column(
+    children: [
+      hedding(AppString.personalInformation),
+      SizedBox(height: Get.height * 0.01),
+    ],
+  );
+}
+
+Widget inputtype({
+  required TextEditingController fristnameController,
+  required TextEditingController lastnameController,
+  required TextEditingController emailIdController,
+  required TextEditingController passwordController,
+  required TextEditingController confirmPasswordController,
+  required TextEditingController mobileController,
+  required String valueIAM,
+  required List<DropdownMenuItem<String>> listIAm,
+  void Function(String?)? onChangedIAM,
+  required String country,
+  required List<DropdownMenuItem<String>> listcountry,
+  void Function(String?)? onChangedcountry,
+  required String valuehowdidyouhear,
+  required List<DropdownMenuItem<String>> listhowdidyouhear,
+  void Function(String?)? onChangedhowdidyouhear,
+  required String valuememberof,
+  required List<DropdownMenuItem<String>> listmemberof,
+  void Function(String?)? onChangedmemberof,
+}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      inputTyaping(
+        text: AppString.fristname,
+        controller: fristnameController,
+        hinttext: AppString.fristname_hint,
+      ),
+      inputTyaping(
+        text: AppString.lastname,
+        controller: lastnameController,
+        hinttext: AppString.lastname_hint,
+      ),
+      inputTyaping(
+        text: AppString.emailId,
+        controller: emailIdController,
+        hinttext: AppString.emailId_hint,
+      ),
+      inputTyaping(
+        text: AppString.password,
+        controller: passwordController,
+        hinttext: AppString.password_hint,
+        obscureText: true,
+      ),
+      inputTyaping(
+        text: AppString.confirmPassword,
+        controller: confirmPasswordController,
+        hinttext: AppString.confirmpassword_hint,
+        obscureText: true,
+      ),
+      Row(
+        children: [
+          Flexible(
+            flex: 2,
+            child: dropdowns(
+              AppString.countryCode,
+              value: country,
+              list: listcountry,
+              onChanged: onChangedcountry,
+              hinttext: AppString.countryCode
+            ),
+          ),
+          SizedBox(width: Get.width * 0.02),
+          Flexible(
+            flex: 3,
+            child: inputTyaping(
+              text: AppString.mobileNo,
+              controller: mobileController,
+              hinttext: AppString.mobile_hint,
+            ),
+          ),
+        ],
+      ),
+      dropdowns(
+        AppString.iam,
+        value: valueIAM,
+        list: listIAm,
+        onChanged: onChangedIAM,
+      ),
+      dropdowns(
+        AppString.howdidyouhear,
+        value: valuehowdidyouhear,
+        list: listhowdidyouhear,
+        onChanged: onChangedhowdidyouhear,
+      ),
+      dropdowns(
+        AppString.memberof,
+        value: valuememberof,
+        list: listmemberof,
+        onChanged: onChangedmemberof,
+      ),
+    ],
+  );
+}
+
+Widget inputTyaping({
+  required String text,
+  String? hinttext,
+  required TextEditingController controller,
+  bool? obscureText,
+}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        text,
+        style: TextStyle(
+          fontSize: Textsize.normal,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      SizedBox(height: Get.height * 0.01),
+      Inputfield(
+        hinttext: hinttext,
+        controller: controller,
+        obscureText: obscureText ?? false,
+      ),
+    ],
+  );
+}
+
+Widget dropdowns(
+  text, {
+   String? hinttext,
+  required String value,
+  required List<DropdownMenuItem<String>> list,
+  void Function(String?)? onChanged,
+}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        text,
+        style: TextStyle(
+          fontSize: Textsize.normal,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      SizedBox(height: Get.height * 0.01),
+      Container(
+        padding: EdgeInsets.only(right: 10),
+        width: Get.width,
+        height: Widgetsize.conatinerHeight,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(borderradius.buttonboder),
+          color: AppColor.white,
+        ),
+        child: DropdownButton2<String>(
+          iconStyleData: IconStyleData(
+            icon: Icon(Icons.keyboard_arrow_down, size: 18),
+          ),
+          value: value.isEmpty ? null : value,
+          underline: SizedBox(),
+          isExpanded: true,
+          hint: Text(hinttext ?? AppString.select),
+          style: TextStyle(fontWeight: FontWeight.w500),
+          items: list,
+          onChanged: onChanged,
+        ),
+      ),
+      SizedBox(height: Get.height * 0.02),
+    ],
+  );
+}
+
+Widget signupButton({
+  void Function()? onTapBack,
+  void Function()? onTapNext,
+}){
+  return Column(
+    children: [
+      SizedBox(height: Get.height * 0.02),
+      Row(
+        children: [
+          Flexible(
+            flex: 6,
+            child: button(
+              onTap: onTapBack,
+              AppString.back,
+              backgroundColor: AppColor.white,
+              borderColor: AppColor.primary,
+              textColor: AppColor.primary,
+            ),
+          ),
+          Spacer(),
+          Flexible(
+            flex: 6,
+            child: button(
+              onTap: onTapNext,
+              AppString.next,
+            ),
+          ),
+        ],
+      ),
+      SizedBox(height: Get.height * 0.02),
+    ],
+  );
+}

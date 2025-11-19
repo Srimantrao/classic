@@ -2,6 +2,7 @@
 
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
+import 'package:classic/view/utils/widget/widgetSize.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,7 +25,7 @@ Widget Inputfield({
                   return Column(
                     children: [
                       SizedBox(
-                        height: Get.height * 0.05,
+                        height: Widgetsize.conatinerHeight,
                         child: TextField(
                           onSubmitted: onSubmitted,
                           onChanged: onChanged,
@@ -51,21 +52,9 @@ Widget Inputfield({
                             hintStyle: TextStyle(fontSize: Textsize.normal),
                             filled: true,
                             fillColor: Colors.white,
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: color ?? AppColor.white,
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: color ?? AppColor.white,
-                              ),
-                            ),
-                            disabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: color ?? AppColor.white,
-                              ),
-                            ),
+                            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: color ?? AppColor.white)),
+                            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: color ?? AppColor.white)),
+                            disabledBorder: OutlineInputBorder(borderSide: BorderSide(color: color ?? AppColor.white)),
                           ),
                         ),
                       ),

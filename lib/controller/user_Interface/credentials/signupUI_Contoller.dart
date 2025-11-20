@@ -70,7 +70,7 @@ class SignupuiContoller extends GetxController {
 
   //onChnage Value of Dropdown
   void countryValueChange(String? newValue) {
-    selectedValueIAM.value = newValue!;
+    country.value = newValue!;
     if (newValue != null) {
       print('Selected value: ${signUpDropdown.dropdownOptions[newValue]}');
     }
@@ -98,8 +98,6 @@ class SignupuiContoller extends GetxController {
   }
 
   //validation value
-
-
   void onChanged_fristname(String value) {
     if (value.isEmpty) {
       fristnameColor.value = true;

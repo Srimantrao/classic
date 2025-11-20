@@ -6,6 +6,7 @@ class AppString{
   static const signUp = 'Sign Up';
   static const back = 'Back';
   static const next = 'Next';
+  static const reset = 'Reset';
 
   //login
   static const loginsubhedding = 'IF You Have A Classic Grown Diamonds Customer Account, Please Sign In';
@@ -33,4 +34,24 @@ class AppString{
   static const confirmpassword_hint = 'Enter Confirm password';
   static const mobile_hint = 'Enter Mobile No';
   static const select = 'Select Any';
+
+  //business Inromation
+  static const businessInformation = 'Business Information';
+  static const compamnyname = 'Compamny Name';
+  static const compamnyname_hint = 'Enter Compamny Name';
+  static const country = 'Country';
+  static const country_hint = 'Select Country';
+  static const state = 'State';
+  static const state_hint = 'Enter State';
+  static const city = 'City';
+  static const city_hint = 'Enter City';
+  static const zipCode = 'Zip Code';
+  static const zipCode_hint = 'Enter Zip Code';
+  static const address = 'Address';
+  static const terms = 'Terms And Documantations';
+  static const readAndAgree = 'I Have Read And Agree To The. Terms & Conditions';
+  static const stockupdate = 'News Leter / Promotional Letter / Stock Update Requird.';
+  static const downloadKYCformant = 'Download KYC Format';
+  static const robot = 'I,M Not A Robot';
+  static const haveanAccount = 'Have An Account?';
 }

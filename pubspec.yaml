@@ -36,6 +36,8 @@ dependencies:
   cupertino_icons:
   get:
   dropdown_button2:
+  dotted_border:
+  webview_flutter:
 
 dev_dependencies:
   flutter_test:

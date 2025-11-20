@@ -4,5 +4,5 @@
 import 'package:get/get.dart';
 
 class Widgetsize {
-  static final conatinerHeight = Get.height * 0.05;
+  static double conatinerHeight = Get.height * 0.05;
 }

@@ -2,23 +2,20 @@
 
 import 'package:classic/controller/user_Interface/credentials/signupUI_Contoller.dart';
 import 'package:classic/view/screen/credentials/businessInformation.dart';
-import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_Image.dart';
 import 'package:classic/view/utils/app_String.dart';
-import 'package:classic/view/utils/app_TextSize.dart';
 import 'package:classic/view/utils/widget/cartcontainer.dart';
+import 'package:classic/view/utils/widget/dropdownSelected.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/heddingText.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
+import 'package:classic/view/utils/widget/inputTyping.dart';
 import 'package:classic/view/utils/widget/logo.dart';
 import 'package:classic/view/utils/widget/signupButtons.dart';
-import 'package:classic/view/utils/widget/widgetSize.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import '../../utils/widget/inputfield.dart';
 
 class Signup extends StatelessWidget {
   final signupUi = Get.put(SignupuiContoller());
@@ -35,7 +32,7 @@ class Signup extends StatelessWidget {
               Obx(() {
                 return Column(
                   children: [
-                    singInContainer(
+                    singUpContainer(
                       fristnameController: signupUi.firstNameController,
                       lastnameController: signupUi.lastNameController,
                       mobileController: signupUi.mobileController,
@@ -83,7 +80,7 @@ class Signup extends StatelessWidget {
   }
 }
 
-Widget singInContainer({
+Widget singUpContainer({
   required TextEditingController fristnameController,
   required TextEditingController lastnameController,
   required TextEditingController emailIdController,
@@ -119,7 +116,7 @@ Widget singInContainer({
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        singInInformationhedding(),
+        singUpInformationhedding(),
         inputtype(
           fristnameController: fristnameController,
           lastnameController: lastnameController,
@@ -157,7 +154,7 @@ Widget singInContainer({
   );
 }
 
-Widget singInInformationhedding() {
+Widget singUpInformationhedding() {
   return Column(
     children: [
       hedding(AppString.personalInformation),
@@ -290,84 +287,5 @@ Widget inputtype({
   );
 }
 
-Widget inputTyaping({
-  required String text,
-  String? hinttext,
-  required TextEditingController controller,
-  bool? obscureText,
-  Color? color,
-  void Function(String)? onChanged,
-  TextInputAction? textInputAction,
-  int? maxLength,
-  TextInputType? keyboardType,
-  List<TextInputFormatter>? inputFormatters,
-}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        text,
-        style: TextStyle(
-          fontSize: Textsize.normal,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-      SizedBox(height: Get.height * 0.01),
-      Inputfield(
-        hinttext: hinttext,
-        controller: controller,
-        obscureText: obscureText ?? false,
-        color: color,
-        onChanged: onChanged,
-        textInputAction: textInputAction,
-        maxLength: maxLength,
-        keyboardType: keyboardType,
-        inputFormatters: inputFormatters,
-      ),
-    ],
-  );
-}
 
-Widget dropdowns(
-  text, {
-   String? hinttext,
-  required String value,
-  required List<DropdownMenuItem<String>> list,
-  void Function(String?)? onChanged,
-}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        text,
-        style: TextStyle(
-          fontSize: Textsize.normal,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-      SizedBox(height: Get.height * 0.01),
-      Container(
-        padding: EdgeInsets.only(right: 10),
-        width: Get.width,
-        height: Widgetsize.conatinerHeight,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(borderradius.buttonboder),
-          color: AppColor.white,
-        ),
-        child: DropdownButton2<String>(
-          iconStyleData: IconStyleData(
-            icon: Icon(Icons.keyboard_arrow_down, size: 18),
-          ),
-          value: value.isEmpty ? null : value,
-          underline: SizedBox(),
-          isExpanded: true,
-          hint: Text(hinttext ?? AppString.select),
-          style: TextStyle(fontWeight: FontWeight.w500),
-          items: list,
-          onChanged: onChanged,
-        ),
-      ),
-      SizedBox(height: Get.height * 0.02),
-    ],
-  );
-}
+

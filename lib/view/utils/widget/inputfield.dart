@@ -18,6 +18,9 @@ Widget Inputfield({
   TextInputAction? textInputAction,
   TextInputType? keyboardType,
   List<TextInputFormatter>? inputFormatters,
+  double? height,
+  bool? expands,
+  TextAlignVertical? textAlignVertical,
 }) {
   return StatefulBuilder(
     builder: (BuildContext context, void Function(void Function()) setState) {
@@ -26,11 +29,14 @@ Widget Inputfield({
         builder: (BuildContext context) {
           return StatefulBuilder(
             builder:
-                (BuildContext context, void Function(void Function()) setState) {
+                (
+                  BuildContext context,
+                  void Function(void Function()) setState,
+                ) {
                   return Column(
                     children: [
                       SizedBox(
-                        height: Widgetsize.conatinerHeight,
+                        height: height ?? Widgetsize.conatinerHeight,
                         child: TextField(
                           maxLength: maxLength,
                           textInputAction: textInputAction,
@@ -39,7 +45,11 @@ Widget Inputfield({
                           obscureText: localObscure,
                           controller: controller,
                           keyboardType: keyboardType,
+                          expands: !localObscure ? (expands ?? true) : false,
+                          maxLines: localObscure ? 1 : null,
+                          minLines: localObscure ? 1 : null,
                           inputFormatters: inputFormatters,
+                          textAlignVertical: textAlignVertical,
                           decoration: InputDecoration(
                             counterText: '',
                             suffixIcon: obscureText
@@ -55,16 +65,28 @@ Widget Inputfield({
                                   )
                                 : null,
                             contentPadding: EdgeInsets.symmetric(
-                              vertical: Get.width * 0.03,
+                              vertical: Get.width * 0.02,
                               horizontal: Get.width * 0.02,
                             ),
                             hintText: hinttext,
                             hintStyle: TextStyle(fontSize: Textsize.normal),
                             filled: true,
                             fillColor: Colors.white,
-                            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: color ?? AppColor.white)),
-                            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: color ?? AppColor.white)),
-                            disabledBorder: OutlineInputBorder(borderSide: BorderSide(color: color ?? AppColor.white)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: color ?? AppColor.white,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: color ?? AppColor.white,
+                              ),
+                            ),
+                            disabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: color ?? AppColor.white,
+                              ),
+                            ),
                           ),
                         ),
                       ),

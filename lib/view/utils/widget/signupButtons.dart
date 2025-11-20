@@ -11,6 +11,7 @@ Widget signupButton({
   void Function()? onTapBack,
   void Function()? onTapNext,
   required String text,
+  String? text2,
 }){
   return Column(
     children: [
@@ -21,7 +22,7 @@ Widget signupButton({
             flex: 6,
             child: button(
               onTap: onTapBack,
-              AppString.back,
+              text2 ?? AppString.back,
               backgroundColor: AppColor.white,
               borderColor: AppColor.primary,
               textColor: AppColor.primary,

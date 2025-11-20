@@ -27,7 +27,7 @@ Widget button(
       ),
       child: Center(
         child: Text(
-          text,
+          text.toUpperCase(),
           style: TextStyle(
             fontSize: Textsize.normal,
             color: textColor ?? AppColor.white,

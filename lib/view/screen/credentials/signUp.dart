@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, avoid_print, non_constant_identifier_names
 
 import 'package:classic/controller/user_Interface/credentials/signupUI_Contoller.dart';
+import 'package:classic/view/screen/credentials/businessInformation.dart';
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_Image.dart';
@@ -68,7 +69,7 @@ class Signup extends StatelessWidget {
                     signupButton(
                       text: AppString.next,
                       onTapBack: Get.back,
-                      onTapNext: signupUi.signUpNext,
+                      onTapNext: () => signupUi.allDoneGotonextPage(Businessinformation()),
                     ),
                   ],
                 );

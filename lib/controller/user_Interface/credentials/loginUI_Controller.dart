@@ -39,4 +39,17 @@ class LoginuiController extends GetxController{
       passwordHasError.value = false;
     }
   }
+
+  void allDoneGotonextPage(Widget page) {
+    onTap().then((value) {
+      final usernameError = usernameHasError.value;
+      final passwordError = passwordHasError.value;
+      if (!usernameError && !passwordError) {
+        print('success');
+        page;
+      } else {
+        print('error found');
+      }
+    });
+  }
 }

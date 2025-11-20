@@ -193,7 +193,19 @@ class SignupuiContoller extends GetxController {
       passwordColor.value = false;
       confirmPasswordColor.value = false;
       mobileNoColor.value = false;
-      print('success');
     }
+  }
+
+  void allDoneGotonextPage(Widget page){
+    signUpNext().then((value){
+      if(firstNameController.text.isNotEmpty &&
+          lastNameController.text.isNotEmpty &&
+          emailIdController.text.isNotEmpty &&
+          passwordController.text.isNotEmpty &&
+          confirmPasswordController.text.isNotEmpty &&
+          mobileController.text.isNotEmpty){
+        Get.to(() => page);
+      }
+    });
   }
 }

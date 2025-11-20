@@ -40,13 +40,7 @@ class Login extends StatelessWidget {
                   colorpassword: passwordError ? AppColor.red : AppColor.white,
                   onChangedusername: (value) => loginUI.onChanged1(),
                   onChangedpassword: (value) => loginUI.onChanged2(),
-                  onTap: () {
-                    loginUI.onTap().then((value) {
-                      if (usernameError == false && passwordError == false) {
-                        print('success');
-                      }
-                    });
-                  },
+                  onTap: () => loginUI.allDoneGotonextPage(Text('success TAB')),
                 );
               }),
             ],
@@ -173,9 +167,7 @@ Widget donthave() {
       have(
         have: AppString.donthaveanaccount,
         tab: AppString.signUp,
-        onTap: (){
-          Get.to(() => Signup());
-        }
+        onTap: () => Get.to(() => Signup()),
       ),
     ],
   );

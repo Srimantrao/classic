@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print, file_names
 
+import 'package:classic/controller/user_Interface/credentials/loginUI_Controller.dart';
+import 'package:classic/controller/user_Interface/credentials/signupUI_Contoller.dart';
 import 'package:classic/modal/credentials/signUp.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,8 @@ import 'package:get/get.dart';
 class BusinessinformationuiController extends GetxController {
   final countryDropdown = Get.put(CountryDropdownContoller());
   final signUpDropdown = Get.put(SignupDropdownContoller());
+  final signupUi = Get.put(SignupuiContoller());
+  final loginUI = Get.put(LoginuiController());
 
   final companyController = TextEditingController();
   final stateController = TextEditingController();
@@ -154,5 +158,35 @@ class BusinessinformationuiController extends GetxController {
       print('Unexpected error: $e');
       return false;
     }
+  }
+
+  Future<void> resetvalues() async {
+    //businessinformation
+    companyController.clear();
+    stateController.clear();
+    cityController.clear();
+    zipController.clear();
+    addressController.clear();
+
+    //Sinupscreen
+    signupUi.country.value = '';
+    signupUi.selectedValueIAM.value = '';
+    signupUi.selectedValueHowdidyourhear.value = '';
+    signupUi.selectedValueMemberof.value = '';
+    signupUi.firstNameController.clear();
+    signupUi.lastNameController.clear();
+    signupUi.mobileController.clear();
+    signupUi.emailIdController.clear();
+    signupUi.mobileController.clear();
+    signupUi.confirmPasswordController.clear();
+    signupUi.passwordController.clear();
+
+    //logonScreen
+    loginUI.usernameController.clear();
+    loginUI.passwordController.clear();
+
+    country.value = '';
+    readandAgree.value = false;
+    isCheck.value = false;
   }
 }

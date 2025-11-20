@@ -23,7 +23,9 @@ import '../../utils/widget/signupButtons.dart';
 
 class Businessinformation extends StatelessWidget {
   final businessinUI = Get.put(BusinessinformationuiController());
+
   Businessinformation({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
@@ -45,9 +47,15 @@ class Businessinformation extends StatelessWidget {
                       cityController: businessinUI.cityController,
                       zipController: businessinUI.zipController,
                       addressController: businessinUI.addressController,
-                      cityColor: businessinUI.cityColor.value ? AppColor.red : AppColor.white,
-                      stateColor: businessinUI.stateColor.value ? AppColor.red : AppColor.white,
-                      companyColor: businessinUI.companyColor.value ? AppColor.red : AppColor.white,
+                      cityColor: businessinUI.cityColor.value
+                          ? AppColor.red
+                          : AppColor.white,
+                      stateColor: businessinUI.stateColor.value
+                          ? AppColor.red
+                          : AppColor.white,
+                      companyColor: businessinUI.companyColor.value
+                          ? AppColor.red
+                          : AppColor.white,
                       onChangedComapny: businessinUI.comapnyColor,
                       onChangedState: businessinUI.stateColors,
                       onChangedCity: businessinUI.cityColors,
@@ -65,14 +73,18 @@ class Businessinformation extends StatelessWidget {
                     signupButton(
                       text: AppString.signUp,
                       text2: AppString.reset,
-                      onTapBack: Get.back,
+                      onTapBack: () {
+                        businessinUI.resetvalues().then((value) {
+                          Get.off(() => Login());
+                        });
+                      },
                       onTapNext: () => businessinUI.okLetsGetSignUP(Text('Ok Get Login')),
                     ),
                     have(
                       have: AppString.haveanAccount,
                       tab: AppString.signIn,
                       onTap: () => Get.offAll(() => Login()),
-                    )
+                    ),
                   ],
                 );
               }),
@@ -119,7 +131,7 @@ Widget businessContainerOne({
           hinttext: AppString.compamnyname_hint,
           controller: companyController,
           color: companyColor,
-          onChanged: onChangedComapny
+          onChanged: onChangedComapny,
         ),
         dropdowns(
           AppString.country,
@@ -132,14 +144,14 @@ Widget businessContainerOne({
           hinttext: AppString.state_hint,
           controller: stateController,
           color: stateColor,
-          onChanged: onChangedState
+          onChanged: onChangedState,
         ),
         inputTyaping(
           text: AppString.city,
           hinttext: AppString.city_hint,
           controller: cityController,
           color: cityColor,
-          onChanged: onChangedCity
+          onChanged: onChangedCity,
         ),
         inputTyaping(
           text: AppString.zipCode,

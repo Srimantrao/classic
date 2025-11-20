@@ -37,8 +37,8 @@ class AppString{
 
   //business Inromation
   static const businessInformation = 'Business Information';
-  static const compamnyname = 'Compamny Name';
-  static const compamnyname_hint = 'Enter Compamny Name';
+  static const compamnyname = 'Company Name';
+  static const companyname_hint = 'Enter Company Name';
   static const country = 'Country';
   static const country_hint = 'Select Country';
   static const state = 'State';
@@ -48,10 +48,10 @@ class AppString{
   static const zipCode = 'Zip Code';
   static const zipCode_hint = 'Enter Zip Code';
   static const address = 'Address';
-  static const terms = 'Terms And Documantations';
-  static const readAndAgree = 'I Have Read And Agree To The. Terms & Conditions';
-  static const stockupdate = 'News Leter / Promotional Letter / Stock Update Requird.';
+  static const terms = 'Terms And Documentation';
+  static const readAndAgree = 'I Have Read And Agree To The Terms & Conditions';
+  static const stockupdate = 'News Letter / Promotional Letter / Stock Update Required.';
   static const downloadKYCformant = 'Download KYC Format';
-  static const robot = 'I,M Not A Robot';
+  static const robot = "I'M Not A Robot";
   static const haveanAccount = 'Have An Account?';
 }

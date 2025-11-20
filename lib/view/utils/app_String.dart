@@ -8,7 +8,7 @@ class AppString{
   static const next = 'Next';
 
   //login
-  static const loginsubhedding = 'IF You Have A Classic Grown Diamonds Customer Account, Please Sing In';
+  static const loginsubhedding = 'IF You Have A Classic Grown Diamonds Customer Account, Please Sign In';
   static const username_hint = 'Enter username';
   static const password_hint = 'Enter password';
   static const forgotpassword = 'Forgot Password?';

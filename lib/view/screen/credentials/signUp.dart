@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_print
+// ignore_for_file: file_names, avoid_print, non_constant_identifier_names
 
 import 'package:classic/controller/user_Interface/credentials/signupUI_Contoller.dart';
 import 'package:classic/view/utils/app_Borderradius.dart';
@@ -6,12 +6,12 @@ import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_Image.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
-import 'package:classic/view/utils/widget/button.dart';
 import 'package:classic/view/utils/widget/cartcontainer.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/heddingText.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:classic/view/utils/widget/logo.dart';
+import 'package:classic/view/utils/widget/signupButtons.dart';
 import 'package:classic/view/utils/widget/widgetSize.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +20,7 @@ import '../../utils/widget/inputfield.dart';
 
 class Signup extends StatelessWidget {
   final signupUi = Get.put(SignupuiContoller());
-
   Signup({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
@@ -36,8 +34,8 @@ class Signup extends StatelessWidget {
                 return Column(
                   children: [
                     singInContainer(
-                      fristnameController: signupUi.fristnameController,
-                      lastnameController: signupUi.lastnameController,
+                      fristnameController: signupUi.firstNameController,
+                      lastnameController: signupUi.lastNameController,
                       mobileController: signupUi.mobileController,
                       emailIdController: signupUi.emailIdController,
                       confirmPasswordController: signupUi.confirmPasswordController,
@@ -54,14 +52,23 @@ class Signup extends StatelessWidget {
                       country: signupUi.country.value,
                       listcountry: signupUi.getDropdownCountry(),
                       onChangedcountry: signupUi.countryValueChange,
+                      fristnameColor: signupUi.fristnameColor.value ? AppColor.red : AppColor.white,
+                      lastnameColor: signupUi.lastnameColor.value ? AppColor.red : AppColor.white,
+                      emailIdColor: signupUi.emailIdColor.value ? AppColor.red : AppColor.white,
+                      passwordColor: signupUi.passwordColor.value ? AppColor.red : AppColor.white,
+                      confirmPasswordColor: signupUi.confirmPasswordColor.value ? AppColor.red : AppColor.white,
+                      mobileNoColor: signupUi.mobileNoColor.value ? AppColor.red : AppColor.white,
+                      onChanged_fristname: signupUi.onChanged_fristname,
+                      onChanged_lastname: signupUi.onChanged_lastname,
+                      onChanged_password: signupUi.onChanged_password,
+                      onChanged_confirmPassword: signupUi.onChanged_confirmPassword,
+                      onChanged_emailId: signupUi.onChanged_emailId,
+                      onChanged_mobile: signupUi.onChanged_mobile,
                     ),
                     signupButton(
-                      onTapBack: (){
-                        Get.back();
-                      },
-                      onTapNext: (){
-                        print('Name');
-                      },
+                      text: AppString.next,
+                      onTapBack: Get.back,
+                      onTapNext: signupUi.signUpNext,
                     ),
                   ],
                 );
@@ -93,6 +100,18 @@ Widget singInContainer({
   required String valuememberof,
   required List<DropdownMenuItem<String>> listmemberof,
   void Function(String?)? onChangedmemberof,
+  Color? fristnameColor,
+  Color? lastnameColor,
+  Color? emailIdColor,
+  Color? passwordColor,
+  Color? confirmPasswordColor,
+  Color? mobileNoColor,
+  void Function(String)? onChanged_fristname,
+  void Function(String)? onChanged_lastname,
+  void Function(String)? onChanged_emailId,
+  void Function(String)? onChanged_password,
+  void Function(String)? onChanged_confirmPassword,
+  void Function(String)? onChanged_mobile,
 }) {
   return cartConatiner(
     child: Column(
@@ -118,6 +137,18 @@ Widget singInContainer({
           country: country,
           listcountry: listcountry,
           onChangedcountry: onChangedcountry,
+          fristnameColor: fristnameColor,
+          lastnameColor: lastnameColor,
+          emailIdColor: emailIdColor,
+          confirmPasswordColor: confirmPasswordColor,
+          mobileNoColor: mobileNoColor,
+          passwordColor: passwordColor,
+          onChanged_fristname: onChanged_fristname,
+          onChanged_lastname: onChanged_lastname,
+          onChanged_password: onChanged_password,
+          onChanged_confirmPassword: onChanged_confirmPassword,
+          onChanged_emailId: onChanged_emailId,
+          onChanged_mobile: onChanged_mobile,
         ),
       ],
     ),
@@ -152,6 +183,18 @@ Widget inputtype({
   required String valuememberof,
   required List<DropdownMenuItem<String>> listmemberof,
   void Function(String?)? onChangedmemberof,
+  Color? fristnameColor,
+  Color? lastnameColor,
+  Color? emailIdColor,
+  Color? passwordColor,
+  Color? confirmPasswordColor,
+  Color? mobileNoColor,
+  void Function(String)? onChanged_fristname,
+  void Function(String)? onChanged_lastname,
+  void Function(String)? onChanged_emailId,
+  void Function(String)? onChanged_password,
+  void Function(String)? onChanged_confirmPassword,
+  void Function(String)? onChanged_mobile,
 }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -160,28 +203,38 @@ Widget inputtype({
         text: AppString.fristname,
         controller: fristnameController,
         hinttext: AppString.fristname_hint,
+        color: fristnameColor,
+        onChanged: onChanged_fristname,
       ),
       inputTyaping(
         text: AppString.lastname,
         controller: lastnameController,
         hinttext: AppString.lastname_hint,
+        color: lastnameColor,
+        onChanged: onChanged_lastname,
       ),
       inputTyaping(
         text: AppString.emailId,
         controller: emailIdController,
         hinttext: AppString.emailId_hint,
+        color: emailIdColor,
+        onChanged: onChanged_emailId,
       ),
       inputTyaping(
         text: AppString.password,
         controller: passwordController,
         hinttext: AppString.password_hint,
         obscureText: true,
+        color: passwordColor,
+        onChanged: onChanged_password
       ),
       inputTyaping(
         text: AppString.confirmPassword,
         controller: confirmPasswordController,
         hinttext: AppString.confirmpassword_hint,
         obscureText: true,
+        color: confirmPasswordColor,
+        onChanged: onChanged_confirmPassword,
       ),
       Row(
         children: [
@@ -192,7 +245,7 @@ Widget inputtype({
               value: country,
               list: listcountry,
               onChanged: onChangedcountry,
-              hinttext: AppString.countryCode
+              hinttext: AppString.countryCode,
             ),
           ),
           SizedBox(width: Get.width * 0.02),
@@ -202,6 +255,8 @@ Widget inputtype({
               text: AppString.mobileNo,
               controller: mobileController,
               hinttext: AppString.mobile_hint,
+              color: mobileNoColor,
+              onChanged: onChanged_mobile,
             ),
           ),
         ],
@@ -233,6 +288,8 @@ Widget inputTyaping({
   String? hinttext,
   required TextEditingController controller,
   bool? obscureText,
+  Color? color,
+  void Function(String)? onChanged,
 }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -249,6 +306,8 @@ Widget inputTyaping({
         hinttext: hinttext,
         controller: controller,
         obscureText: obscureText ?? false,
+        color: color,
+        onChanged: onChanged
       ),
     ],
   );
@@ -292,40 +351,6 @@ Widget dropdowns(
           items: list,
           onChanged: onChanged,
         ),
-      ),
-      SizedBox(height: Get.height * 0.02),
-    ],
-  );
-}
-
-Widget signupButton({
-  void Function()? onTapBack,
-  void Function()? onTapNext,
-}){
-  return Column(
-    children: [
-      SizedBox(height: Get.height * 0.02),
-      Row(
-        children: [
-          Flexible(
-            flex: 6,
-            child: button(
-              onTap: onTapBack,
-              AppString.back,
-              backgroundColor: AppColor.white,
-              borderColor: AppColor.primary,
-              textColor: AppColor.primary,
-            ),
-          ),
-          Spacer(),
-          Flexible(
-            flex: 6,
-            child: button(
-              onTap: onTapNext,
-              AppString.next,
-            ),
-          ),
-        ],
       ),
       SizedBox(height: Get.height * 0.02),
     ],

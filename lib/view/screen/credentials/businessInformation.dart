@@ -1,4 +1,5 @@
 import 'package:classic/view/utils/app_Image.dart';
+import 'package:classic/view/utils/widget/cartcontainer.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:classic/view/utils/widget/logo.dart';
@@ -13,13 +14,13 @@ class Businessinformation extends StatelessWidget {
       image: AppImage.spalsh_background,
       child: horizontalPadding(
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              image(),
-            ],
-          ),
+          child: Column(children: [image(), singInContainer()]),
         ),
       ),
     );
   }
+}
+
+Widget singInContainer() {
+  return cartConatiner(child: Column(children: []));
 }

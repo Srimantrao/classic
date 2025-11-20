@@ -5,6 +5,7 @@ import 'package:classic/view/utils/app_TextSize.dart';
 import 'package:classic/view/utils/widget/widgetSize.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/services.dart';
 
 Widget Inputfield({
   String? hinttext,
@@ -13,6 +14,10 @@ Widget Inputfield({
   Color? color,
   void Function(String)? onChanged,
   void Function(String)? onSubmitted,
+  int? maxLength,
+  TextInputAction? textInputAction,
+  TextInputType? keyboardType,
+  List<TextInputFormatter>? inputFormatters,
 }) {
   return StatefulBuilder(
     builder: (BuildContext context, void Function(void Function()) setState) {
@@ -27,11 +32,16 @@ Widget Inputfield({
                       SizedBox(
                         height: Widgetsize.conatinerHeight,
                         child: TextField(
+                          maxLength: maxLength,
+                          textInputAction: textInputAction,
                           onSubmitted: onSubmitted,
                           onChanged: onChanged,
                           obscureText: localObscure,
                           controller: controller,
+                          keyboardType: keyboardType,
+                          inputFormatters: inputFormatters,
                           decoration: InputDecoration(
+                            counterText: '',
                             suffixIcon: obscureText
                                 ? GestureDetector(
                                     onTap: () {

@@ -16,6 +16,7 @@ import 'package:classic/view/utils/widget/signupButtons.dart';
 import 'package:classic/view/utils/widget/widgetSize.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../utils/widget/inputfield.dart';
 
@@ -258,6 +259,11 @@ Widget inputtype({
               hinttext: AppString.mobile_hint,
               color: mobileNoColor,
               onChanged: onChanged_mobile,
+              maxLength: 10,
+              keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+              ]
             ),
           ),
         ],
@@ -291,6 +297,10 @@ Widget inputTyaping({
   bool? obscureText,
   Color? color,
   void Function(String)? onChanged,
+  TextInputAction? textInputAction,
+  int? maxLength,
+  TextInputType? keyboardType,
+  List<TextInputFormatter>? inputFormatters,
 }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -308,7 +318,11 @@ Widget inputTyaping({
         controller: controller,
         obscureText: obscureText ?? false,
         color: color,
-        onChanged: onChanged
+        onChanged: onChanged,
+        textInputAction: textInputAction,
+        maxLength: maxLength,
+        keyboardType: keyboardType,
+        inputFormatters: inputFormatters,
       ),
     ],
   );

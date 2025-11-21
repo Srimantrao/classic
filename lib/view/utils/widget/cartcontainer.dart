@@ -11,7 +11,7 @@ Widget cartConatiner({required Widget child}) {
     decoration: BoxDecoration(
       boxShadow: kElevationToShadow[3],
       borderRadius: BorderRadius.circular(borderradius.boder),
-      color: AppColor.secondary,
+      color: AppColor.cardBg,
     ),
     child: child,
   );

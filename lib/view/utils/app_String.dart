@@ -8,7 +8,7 @@ class AppString{
   static const next = 'Next';
   static const reset = 'Reset';
 
-  //login
+  //login Screen
   static const loginsubhedding = 'IF You Have A Classic Grown Diamonds Customer Account, Please Sign In';
   static const username_hint = 'Enter username';
   static const password_hint = 'Enter password';
@@ -16,7 +16,7 @@ class AppString{
   static const sendOTP = 'Send OTP';
   static const donthaveanaccount = 'Don\'t have an account?';
 
-  //Sign Up
+  //Sign Up Screen
   static const personalInformation = 'Personal Information';
   static const fristname = 'First Name';
   static const lastname = 'Last Name';
@@ -54,4 +54,36 @@ class AppString{
   static const downloadKYCformant = 'Download KYC Format';
   static const robot = "I'M Not A Robot";
   static const haveanAccount = 'Have An Account?';
+
+  //home Screen
+  static const homeadd = '5% off On Registration & 1 Carat IGI Certified Starting At ₹450 /Ct';
+  static const ouerCollection = 'Our Collection';
+  static const chekout = 'Chek Out The Elegant And Finest Of Jewelry Designs That We Offer';
+  static const aPeekIntowhatClassic = 'A Peek Into What Classic Grown Jewelry Is About';
+  static const classicGrownJewelry = 'Classic Grown Jewelry, One The Finest Online Jewelry Retailers To Add Perfection To Your Style';
+  static const joinOur = 'Join Our Newsletter And Stay In Toch';
+  static const become = 'Become A Part Of The Classic Grwon Jewelry Network And Get Our Latest Updates Directy In Your Inbox! Subscribe For Ournewsletter Today!';
+  static const companyProfile = 'Company Profile';
+  static const shasvatprofile = 'SHASVAT DIAMOND INC.a.b.a CLASSIC GROWN DIAMONDS';
+  static const companyaddrtes = 'Address: 22W 48th Street Suite #300 New York,NY 100036 USA';
+  static const comapntEmailId = 'Sales@ClassicGrowndiamonds.com';
+  static const ourServices = 'Our Services';
+  static const aboutus = 'About Us';
+  static const termsConditions = 'Terms & Conditions';
+  static const privacyPolicy = 'Privacy Policy';
+  static const shippingPolicy = 'Shipping Policy';
+  static const returnsPolicy = 'Returns Policy';
+  static const smallLooseDimaonds = 'Small Loose Dimaonds';
+  static const labGrownDiamonds = 'Lab Grown Diamonds';
+  static const FAQs = 'FAQs';
+  static const knowledgeCenter = 'Knowledge Center';
+  static const findyourringSize = 'Find your Ring Size';
+  static const education = 'Education';
+  static const blogs = 'Blogs';
+  static const contactUs = 'Contact Us';
+  static const miscellaneous = 'Miscellaneous';
+  static const pandant = 'Pandant';
+  static const necklace = 'Necklace';
+  static const bracelet = 'Bracelet';
+  static const earrings = 'Earrings';
 }

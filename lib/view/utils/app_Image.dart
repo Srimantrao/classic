@@ -3,4 +3,5 @@
 class AppImage{
   static const spalsh_background = 'assets/images/Spalsh.jpg';
   static const logo = 'assets/images/newlogo.png';
+  static const sliderImage = 'assets/images/1.jpg';
 }

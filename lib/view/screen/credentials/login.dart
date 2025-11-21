@@ -6,6 +6,7 @@ import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_Image.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
+import 'package:classic/view/utils/widget/bottomBar.dart';
 import 'package:classic/view/utils/widget/button.dart';
 import 'package:classic/view/utils/widget/cartcontainer.dart';
 import 'package:classic/view/utils/widget/dontHaveAndyouHave.dart';
@@ -40,7 +41,7 @@ class Login extends StatelessWidget {
                   colorpassword: passwordError ? AppColor.red : AppColor.white,
                   onChangedusername: (value) => loginUI.onChanged1(),
                   onChangedpassword: (value) => loginUI.onChanged2(),
-                  onTap: () => loginUI.allDoneGotonextPage(Text('success TAB')),
+                  onTap: () => loginUI.allDoneGotonextPage(Bottombar()),
                 );
               }),
             ],

@@ -38,6 +38,8 @@ dependencies:
   dropdown_button2:
   dotted_border:
   webview_flutter:
+  floating_bottom_navigation_bar:
+
 
 dev_dependencies:
   flutter_test:

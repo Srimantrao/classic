@@ -45,8 +45,7 @@ class LoginuiController extends GetxController{
       final usernameError = usernameHasError.value;
       final passwordError = passwordHasError.value;
       if (!usernameError && !passwordError) {
-        print('success');
-        page;
+        Get.offAll(() => page);
       } else {
         print('error found');
       }

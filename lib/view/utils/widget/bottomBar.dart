@@ -12,7 +12,9 @@ import 'package:get/get.dart';
 
 class Bottombar extends StatelessWidget {
   final bottomController = Get.put(BottombarController());
+
   Bottombar({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +28,7 @@ class Bottombar extends StatelessWidget {
           Positioned(
             left: 1,
             right: 1,
-            bottom: 1,
+            bottom: -40,
             child: Column(
               children: [
                 horizontalPadding(child: flotingBar(bottomController)),
@@ -42,12 +44,12 @@ class Bottombar extends StatelessWidget {
 
 Widget flotingBar(bottomController) {
   return Container(
-    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+    padding: EdgeInsets.only(top: 10,left: 10,right: 10,bottom: 5),
     decoration: boxDecoration(),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        SizedBox(height: Get.height *0.007),
+        SizedBox(height: Get.height * 0.007),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -83,12 +85,16 @@ Widget flotingBar(bottomController) {
   );
 }
 
-BoxDecoration boxDecoration(){
+BoxDecoration boxDecoration() {
   return BoxDecoration(
     color: AppColor.secondary.withOpacity(0.8),
-    borderRadius: BorderRadius.circular(15),
+    borderRadius: BorderRadius.circular(borderradius.boder),
     boxShadow: [
-      BoxShadow(color: Colors.black26, blurRadius: 12, offset: Offset(0, 6)),
+      BoxShadow(
+        color: Colors.black26,
+        blurRadius: borderradius.boder,
+        offset: Offset(0, 6),
+      ),
     ],
   );
 }
@@ -132,8 +138,5 @@ Widget customIcon({
 }
 
 Widget dot() {
-  return CircleAvatar(
-    backgroundColor: AppColor.primary,
-    radius: 2,
-  );
+  return CircleAvatar(backgroundColor: AppColor.primary, radius: 2);
 }

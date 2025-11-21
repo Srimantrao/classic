@@ -15,9 +15,6 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
-
     return Fullscreen(
       appBar: appBar(),
       child: SingleChildScrollView(
@@ -154,27 +151,21 @@ Widget homeScreenSubheddingText(text) {
 
 Widget showIndexofCollection(homeUI) {
   return Obx(() {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: Get.width * 0.03,
-        vertical: Get.height * 0.01,
-      ),
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: Get.width * 0.06),
-            child: Column(
-              children: [
-                tabCollectText(homeUI),
-                SizedBox(height: 15),
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: Get.width * 0.06),
+          child: Column(
+            children: [
+              tabCollectText(homeUI),
+              SizedBox(height: 15),
 
-                /// Dynamic section
-                showSection(homeUI.index.value),
-              ],
-            ),
+              /// Dynamic section
+              showSection(homeUI.index.value),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   });
 }

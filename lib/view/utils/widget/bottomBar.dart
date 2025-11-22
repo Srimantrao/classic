@@ -18,24 +18,26 @@ class Bottombar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      body: Stack(
-        children: [
-          // Main content - takes full screen
-          Obx(() => bottomController.pages[bottomController.selectindex.value]),
-
-          // Floating bottom navigation bar
-          Positioned(
-            left: 1,
-            right: 1,
-            bottom: -40,
-            child: Column(
-              children: [
-                horizontalPadding(child: flotingBar(bottomController)),
-                SizedBox(height: Get.height * 0.08),
-              ],
+      body: SafeArea(
+        child: Stack(
+          children: [
+            // Main content - takes full screen
+            Obx(() => bottomController.pages[bottomController.selectindex.value]),
+        
+            // Floating bottom navigation bar
+            Positioned(
+              left: 1,
+              right: 1,
+              bottom: -60,
+              child: Column(
+                children: [
+                  horizontalPadding(child: flotingBar(bottomController)),
+                  SizedBox(height: Get.height * 0.08),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, file_names
+// ignore_for_file: deprecated_member_use, file_names, unnecessary_import
 
 import 'dart:ui';
 import 'package:classic/controller/user_Interface/widget/bottaomBar/bottombar_Controller.dart';
@@ -6,7 +6,6 @@ import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_icon.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
-import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

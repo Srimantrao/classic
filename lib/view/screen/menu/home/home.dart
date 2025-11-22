@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 
 class Home extends StatelessWidget {
   final homeUI = Get.put(HomeUIController());
+
   Home({super.key});
 
   @override
@@ -18,7 +19,9 @@ class Home extends StatelessWidget {
     return Fullscreen(
       appBar: appBar(),
       child: SingleChildScrollView(
-        child: Column(children: [sliderImages(), ourCollection(homeUI)]),
+        child: Column(
+          children: [sliderImages(), Obx(() => ourCollection(homeUI))],
+        ),
       ),
     );
   }
@@ -150,24 +153,22 @@ Widget homeScreenSubheddingText(text) {
 }
 
 Widget showIndexofCollection(homeUI) {
-  return Obx(() {
-    return Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: Get.width * 0.06),
-          child: Column(
-            children: [
-              tabCollectText(homeUI),
-              SizedBox(height: 15),
+  return Column(
+    children: [
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: Get.width * 0.06),
+        child: Column(
+          children: [
+            tabCollectText(homeUI),
+            SizedBox(height: 15),
 
-              /// Dynamic section
-              showSection(homeUI.index.value),
-            ],
-          ),
+            /// Dynamic section
+            showSection(homeUI.index.value),
+          ],
         ),
-      ],
-    );
-  });
+      ),
+    ],
+  );
 }
 
 /// SECTION CONTENTS BASED ON SELECTED TAB
@@ -210,19 +211,17 @@ Widget showSection(int index) {
 }
 
 Widget tabCollectText(homeUI) {
-  return Obx(() {
-    return Row(
-      children: [
-        tabItem(AppString.pandant, 0, homeUI),
-        SizedBox(height: Get.width * 0.07, child: VerticalDivider()),
-        tabItem(AppString.necklace, 1, homeUI),
-        SizedBox(height: Get.width * 0.07, child: VerticalDivider()),
-        tabItem(AppString.bracelet, 2, homeUI),
-        SizedBox(height: Get.width * 0.07, child: VerticalDivider()),
-        tabItem(AppString.earrings, 3, homeUI),
-      ],
-    );
-  });
+ return Row(
+   children: [
+     tabItem(AppString.pandant, 0, homeUI),
+     SizedBox(height: Get.width * 0.07, child: VerticalDivider()),
+     tabItem(AppString.necklace, 1, homeUI),
+     SizedBox(height: Get.width * 0.07, child: VerticalDivider()),
+     tabItem(AppString.bracelet, 2, homeUI),
+     SizedBox(height: Get.width * 0.07, child: VerticalDivider()),
+     tabItem(AppString.earrings, 3, homeUI),
+   ],
+ );
 }
 
 Widget tabItem(String text, int index, homeUI) {

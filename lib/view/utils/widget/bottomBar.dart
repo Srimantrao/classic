@@ -11,9 +11,7 @@ import 'package:get/get.dart';
 
 class Bottombar extends StatelessWidget {
   final bottomController = Get.put(BottombarController());
-
   Bottombar({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +29,9 @@ class Bottombar extends StatelessWidget {
               bottom: -60,
               child: Column(
                 children: [
-                  horizontalPadding(child: flotingBar(bottomController)),
+                  horizontalPadding(
+                    child: flotingBar(bottomController),
+                  ),
                   SizedBox(height: Get.height * 0.08),
                 ],
               ),
@@ -45,41 +45,49 @@ class Bottombar extends StatelessWidget {
 
 Widget flotingBar(bottomController) {
   return Container(
-    padding: EdgeInsets.only(top: 10,left: 10,right: 10,bottom: 5),
+    padding: EdgeInsets.only(
+      top: 20,
+      left: 10,
+      right: 10,
+      bottom: 5,
+    ),
     decoration: boxDecoration(),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    child: iconTabbing(bottomController),
+  );
+}
+
+Widget iconTabbing(bottomController){
+  return horizontalPadding(
+    child: Row(
       children: [
-        SizedBox(height: Get.height * 0.007),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            actionIconButton(
-              icon: AppIcon.home,
-              color: bottomController.selectindex.value == 0,
-              onTap: bottomController.indexOne,
-            ),
-            actionIconButton(
-              icon: AppIcon.jewelry,
-              color: bottomController.selectindex.value == 1,
-              onTap: bottomController.indexOne,
-            ),
-            actionIconButton(
-              icon: AppIcon.dashboard,
-              color: bottomController.selectindex.value == 2,
-              onTap: bottomController.indexOne,
-            ),
-            actionIconButton(
-              icon: AppIcon.diamond,
-              color: bottomController.selectindex.value == 2,
-              onTap: bottomController.indexOne,
-            ),
-            actionIconButton(
-              icon: AppIcon.custom,
-              color: bottomController.selectindex.value == 2,
-              onTap: bottomController.indexOne,
-            ),
-          ],
+        actionIconButton(
+          icon: AppIcon.home,
+          color: bottomController.selectindex.value == 0,
+          onTap: bottomController.indexOne,
+        ),
+        Spacer(),
+        actionIconButton(
+          icon: AppIcon.jewelry,
+          color: bottomController.selectindex.value == 1,
+          onTap: bottomController.indexOne,
+        ),
+        Spacer(),
+        actionIconButton(
+          icon: AppIcon.dashboard,
+          color: bottomController.selectindex.value == 2,
+          onTap: bottomController.indexOne,
+        ),
+        Spacer(),
+        actionIconButton(
+          icon: AppIcon.diamond,
+          color: bottomController.selectindex.value == 2,
+          onTap: bottomController.indexOne,
+        ),
+        Spacer(),
+        actionIconButton(
+          icon: AppIcon.custom,
+          color: bottomController.selectindex.value == 2,
+          onTap: bottomController.indexOne,
         ),
       ],
     ),

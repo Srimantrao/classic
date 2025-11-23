@@ -1,4 +1,5 @@
 import 'package:classic/controller/user_Interface/menu/home/home_Controller.dart';
+import 'package:classic/modal/menu/home/our_collection.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_Image.dart';
 import 'package:classic/view/utils/app_String.dart';
@@ -30,7 +31,7 @@ class Home extends StatelessWidget {
 //Appbar Start
 PreferredSizeWidget appBar() {
   return PreferredSize(
-    preferredSize: Size.fromHeight(Get.height * 0.11),
+    preferredSize: Size.fromHeight(kToolbarHeight + 40),
     child: Container(
       color: AppColor.white,
       child: SafeArea(
@@ -95,12 +96,15 @@ Widget setLogoIcon() {
 
 //Silder Section Start
 Widget sliderImages() {
-  return Container(
-    height: Get.height * 0.3,
-    decoration: BoxDecoration(
-      image: DecorationImage(
-        image: AssetImage(AppImage.sliderImage),
-        fit: BoxFit.cover,
+  return AspectRatio(
+    aspectRatio: 10 / 9, // Adjust as you want (4/3, 2/1, etc.)
+    child: Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(AppImage.sliderImage),
+          fit: BoxFit.cover,
+        ),
       ),
     ),
   );
@@ -112,7 +116,7 @@ Widget ourCollection(homeUI) {
   return SizedBox(
     child: Column(
       children: [
-        SizedBox(height: Get.height * 0.02),
+        SizedBox(height: Get.height * 0.01),
         homeScreenHeddingText(AppString.ouerCollection),
         homeScreenSubheddingText(AppString.chekout),
         showIndexofCollection(homeUI),
@@ -155,32 +159,23 @@ Widget homeScreenSubheddingText(text) {
 Widget showIndexofCollection(homeUI) {
   return Column(
     children: [
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: Get.width * 0.06),
-        child: Column(
-          children: [
-            tabCollectText(homeUI),
-            SizedBox(height: 15),
+      SizedBox(height: Get.height * 0.01),
+      tabCollectText(homeUI),
+      SizedBox(height: Get.height * 0.02),
 
-            /// Dynamic section
-            showSection(homeUI.index.value),
-          ],
-        ),
-      ),
+      /// Dynamic section
+      showSection(homeUI.index.value),
     ],
   );
 }
 
 /// SECTION CONTENTS BASED ON SELECTED TAB
 Widget showSection(int index) {
+  final collection = OurCollection();
   switch (index) {
     case 0:
-      return Column(
-        children: [
-          Image.asset(AppImage.sliderImage, scale: 10),
-          Text("Pandant Section"),
-        ],
-      );
+      //Pandant Section
+      return pandant(collection);
 
     case 1:
       return Column(
@@ -211,17 +206,20 @@ Widget showSection(int index) {
 }
 
 Widget tabCollectText(homeUI) {
- return Row(
-   children: [
-     tabItem(AppString.pandant, 0, homeUI),
-     SizedBox(height: Get.width * 0.07, child: VerticalDivider()),
-     tabItem(AppString.necklace, 1, homeUI),
-     SizedBox(height: Get.width * 0.07, child: VerticalDivider()),
-     tabItem(AppString.bracelet, 2, homeUI),
-     SizedBox(height: Get.width * 0.07, child: VerticalDivider()),
-     tabItem(AppString.earrings, 3, homeUI),
-   ],
- );
+  return SizedBox(
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        tabItem(AppString.pandant, 0, homeUI),
+        SizedBox(height: Get.width * 0.07, child: VerticalDivider()),
+        tabItem(AppString.necklace, 1, homeUI),
+        SizedBox(height: Get.width * 0.07, child: VerticalDivider()),
+        tabItem(AppString.bracelet, 2, homeUI),
+        SizedBox(height: Get.width * 0.07, child: VerticalDivider()),
+        tabItem(AppString.earrings, 3, homeUI),
+      ],
+    ),
+  );
 }
 
 Widget tabItem(String text, int index, homeUI) {
@@ -238,5 +236,40 @@ Widget tabItem(String text, int index, homeUI) {
         color: homeUI.index.value == index ? AppColor.primary : AppColor.gray5,
       ),
     ),
+  );
+}
+
+//OuerCollection
+Widget pandant(collection) {
+  return Column(
+    children: [
+      SizedBox(
+        height: Get.height * 0.3,
+        child: Expanded(
+          child: ListView.builder(
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            itemCount: collection.pandant.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                margin: EdgeInsets.all(Get.width * 0.02),
+                child: Column(
+                  children: [
+                    Image(
+                      image: AssetImage(
+                        collection.pandant[index]['Image'].toString(),
+                      ),
+                      height: 100,
+                      width: 100,
+                    ),
+                    Text(collection.pandant[index]['name']),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    ],
   );
 }

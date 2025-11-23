@@ -26,7 +26,7 @@ class Bottombar extends StatelessWidget {
             Positioned(
               left: 1,
               right: 1,
-              bottom: -60,
+              bottom: -30,
               child: Column(
                 children: [
                   horizontalPadding(
@@ -46,7 +46,7 @@ class Bottombar extends StatelessWidget {
 Widget flotingBar(bottomController) {
   return Container(
     padding: EdgeInsets.only(
-      top: 20,
+      top: 15,
       left: 10,
       right: 10,
       bottom: 5,
@@ -114,7 +114,7 @@ Widget actionIconButton({
   void Function()? onTap,
 }) {
   return SizedBox(
-    height: Get.height * 0.04,
+    height: Get.height * 0.06,
     child: Column(
       children: [
         customIcon(
@@ -142,10 +142,17 @@ Widget customIcon({
 }) {
   return GestureDetector(
     onTap: onTap,
-    child: Image.asset(icon, scale: 3.5, color: color),
+    child: Image.asset(
+      icon,
+      scale: 3.1,
+      color: color,
+    ),
   );
 }
 
 Widget dot() {
-  return CircleAvatar(backgroundColor: AppColor.primary, radius: 2);
+  return CircleAvatar(
+    backgroundColor: AppColor.primary,
+    radius: 2,
+  );
 }

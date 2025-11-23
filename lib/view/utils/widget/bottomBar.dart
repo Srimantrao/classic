@@ -26,14 +26,9 @@ class Bottombar extends StatelessWidget {
             Positioned(
               left: 1,
               right: 1,
-              bottom: -30,
-              child: Column(
-                children: [
-                  horizontalPadding(
-                    child: flotingBar(bottomController),
-                  ),
-                  SizedBox(height: Get.height * 0.08),
-                ],
+              bottom: Get.height * 0.03,
+              child: horizontalPadding(
+                child: flotingBar(bottomController),
               ),
             ),
           ],
@@ -46,10 +41,10 @@ class Bottombar extends StatelessWidget {
 Widget flotingBar(bottomController) {
   return Container(
     padding: EdgeInsets.only(
-      top: 15,
-      left: 10,
-      right: 10,
-      bottom: 5,
+      top: Get.height * 0.015,
+      left: Get.width * 0.04,
+      right: Get.width * 0.04,
+      bottom: Get.height * 0.02,
     ),
     decoration: boxDecoration(),
     child: iconTabbing(bottomController),
@@ -113,25 +108,22 @@ Widget actionIconButton({
   bool? color = false,
   void Function()? onTap,
 }) {
-  return SizedBox(
-    height: Get.height * 0.06,
-    child: Column(
-      children: [
-        customIcon(
-          icon: icon,
-          onTap: onTap,
-          color: (color!) ? AppColor.primary : null,
-        ),
-        (color)
-            ? Column(
-                children: [
-                  SizedBox(height: Get.height * 0.005),
-                  dot(),
-                ],
-              )
-            : SizedBox(),
-      ],
-    ),
+  return Column(
+    children: [
+      customIcon(
+        icon: icon,
+        onTap: onTap,
+        color: (color!) ? AppColor.primary : null,
+      ),
+      (color)
+          ? Column(
+              children: [
+                SizedBox(height: Get.height * 0.002),
+                dot(),
+              ],
+            )
+          : SizedBox(),
+    ],
   );
 }
 

@@ -32,22 +32,33 @@ Widget dropdowns(
       Container(
         padding: EdgeInsets.only(right: 10),
         width: Get.width,
-        height: Widgetsize.conatinerHeight,
+        height: Widgetsize.getContainerHeight(),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(borderradius.buttonboder),
           color: AppColor.white,
         ),
-        child: DropdownButton2<String>(
-          iconStyleData: IconStyleData(
-            icon: Icon(Icons.keyboard_arrow_down, size: 18),
+        child: Center(
+          child: DropdownButton2<String>(
+            iconStyleData: IconStyleData(
+              icon: Icon(Icons.keyboard_arrow_down, size: 18),
+            ),
+            value: value.isEmpty ? null : value,
+            underline: SizedBox(),
+            isExpanded: true,
+            hint: Text(
+              hinttext ?? AppString.select,
+              style: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: Get.width * 0.04,
+              ),
+            ),
+            style: TextStyle(
+              fontWeight: FontWeight.w300,
+              fontSize: Get.width * 0.04,
+            ),
+            items: list,
+            onChanged: onChanged,
           ),
-          value: value.isEmpty ? null : value,
-          underline: SizedBox(),
-          isExpanded: true,
-          hint: Text(hinttext ?? AppString.select),
-          style: TextStyle(fontWeight: FontWeight.w500),
-          items: list,
-          onChanged: onChanged,
         ),
       ),
       SizedBox(height: Get.height * 0.02),

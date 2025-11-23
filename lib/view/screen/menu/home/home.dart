@@ -175,7 +175,11 @@ Widget showSection(int index) {
   switch (index) {
     case 0:
       //Pandant Section
-      return pandant(collection);
+      return collectionList(
+        collection: collection.pandant.length,
+        image: collection.pandant[index]['Image'],
+        name: collection.pandant[index]['name'],
+      );
 
     case 1:
       return Column(
@@ -207,19 +211,24 @@ Widget showSection(int index) {
 
 Widget tabCollectText(homeUI) {
   return SizedBox(
+    width: Get.width * 0.9,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         tabItem(AppString.pandant, 0, homeUI),
-        SizedBox(height: Get.width * 0.07, child: VerticalDivider()),
+        varticalDivider(),
         tabItem(AppString.necklace, 1, homeUI),
-        SizedBox(height: Get.width * 0.07, child: VerticalDivider()),
+        varticalDivider(),
         tabItem(AppString.bracelet, 2, homeUI),
-        SizedBox(height: Get.width * 0.07, child: VerticalDivider()),
+        varticalDivider(),
         tabItem(AppString.earrings, 3, homeUI),
       ],
     ),
   );
+}
+
+Widget varticalDivider() {
+  return SizedBox(height: Get.width * 0.08, child: VerticalDivider());
 }
 
 Widget tabItem(String text, int index, homeUI) {
@@ -240,36 +249,32 @@ Widget tabItem(String text, int index, homeUI) {
 }
 
 //OuerCollection
-Widget pandant(collection) {
-  return Column(
-    children: [
-      SizedBox(
-        height: Get.height * 0.3,
-        child: Expanded(
-          child: ListView.builder(
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            itemCount: collection.pandant.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Container(
-                margin: EdgeInsets.all(Get.width * 0.02),
-                child: Column(
-                  children: [
-                    Image(
-                      image: AssetImage(
-                        collection.pandant[index]['Image'].toString(),
-                      ),
-                      height: 100,
-                      width: 100,
-                    ),
-                    Text(collection.pandant[index]['name']),
-                  ],
-                ),
-              );
-            },
+Widget collectionList({
+  required int collection,
+  required String image,
+  required String name,
+}) {
+  return SizedBox(
+    height: Get.height * 0.22,
+    child: ListView.builder(
+      shrinkWrap: true,
+      scrollDirection: Axis.horizontal,
+      itemCount: collection,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          margin: EdgeInsets.all(Get.width * 0.02),
+          child: Column(
+            children: [
+              Image(
+                image: AssetImage(image.toString()),
+                height: 100,
+                width: 100,
+              ),
+              Text(name, style: TextStyle(fontSize: Textsize.normal)),
+            ],
           ),
-        ),
-      ),
-    ],
+        );
+      },
+    ),
   );
 }

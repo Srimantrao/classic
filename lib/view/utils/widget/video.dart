@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-class VideoSeparatorWidget extends StatefulWidget {
+class Video extends StatefulWidget {
   final String videoUrl;
 
-  const VideoSeparatorWidget({
+  const Video({
     super.key,
     required this.videoUrl,
   });
 
   @override
-  State<VideoSeparatorWidget> createState() => _VideoSeparatorWidgetState();
+  State<Video> createState() => _VideoState();
 }
 
-class _VideoSeparatorWidgetState extends State<VideoSeparatorWidget> {
+class _VideoState extends State<Video> {
   late VideoPlayerController _controller;
-  bool showPlayButton = true;
+  bool showPlayButton = false; // autoplay → hide play button
 
   @override
   void initState() {
@@ -24,16 +24,14 @@ class _VideoSeparatorWidgetState extends State<VideoSeparatorWidget> {
     _controller = VideoPlayerController.asset(widget.videoUrl)
       ..initialize().then((_) {
         setState(() {});
+        _controller.setLooping(true);
+        _controller.play();
+        showPlayButton = false;
       });
 
     _controller.addListener(() {
       if (_controller.value.position == _controller.value.duration) {
-        /// Reset UI when video finishes
-        setState(() {
-          showPlayButton = true;
-          _controller.pause();
-          _controller.seekTo(Duration.zero);
-        });
+        // This will not run now because LOOPING keeps it playing
       }
     });
   }
@@ -56,51 +54,41 @@ class _VideoSeparatorWidgetState extends State<VideoSeparatorWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        AspectRatio(
-          aspectRatio: _controller.value.isInitialized
-              ? _controller.value.aspectRatio
-              : 16 / 9,
-          child: Stack(
-            children: [
-              /// Video Player
-              _controller.value.isInitialized
-                  ? VideoPlayer(_controller)
-                  : const Center(child: CircularProgressIndicator()),
+    return AspectRatio(
+      aspectRatio:
+      _controller.value.isInitialized ? _controller.value.aspectRatio : 16 / 9,
+      child: Stack(
+        children: [
+          /// VIDEO
+          _controller.value.isInitialized
+              ? VideoPlayer(_controller)
+              : const Center(child: CircularProgressIndicator()),
 
-              /// Play/Pause Button
-              if (showPlayButton)
-                Center(
-                  child: IconButton(
-                    iconSize: 55,
-                    icon: const Icon(Icons.play_circle_fill),
-                    color: Colors.white,
-                    onPressed: handlePlayPause,
-                  ),
-                ),
-
-              /// Tap anywhere to toggle
-              Positioned.fill(
-                child: GestureDetector(
-                  onTap: handlePlayPause,
-                  child: Container(color: Colors.transparent),
-                ),
-              ),
-            ],
+          /// BLACK OPACITY OVERLAY
+          Container(
+            color: Colors.black.withOpacity(0.3), // adjust opacity here
           ),
-        ),
 
-        const SizedBox(height: 12),
+          /// PLAY BUTTON
+          if (showPlayButton)
+            Center(
+              child: IconButton(
+                iconSize: 55,
+                icon: const Icon(Icons.play_circle_fill),
+                color: Colors.white,
+                onPressed: handlePlayPause,
+              ),
+            ),
 
-        const Divider(
-          thickness: 1.2,
-          color: Colors.grey,
-        ),
-
-        const SizedBox(height: 12),
-      ],
+          /// TAP TO PLAY/PAUSE
+          Positioned.fill(
+            child: GestureDetector(
+              onTap: handlePlayPause,
+              child: Container(color: Colors.transparent),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

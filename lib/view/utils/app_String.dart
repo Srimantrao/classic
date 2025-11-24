@@ -86,4 +86,11 @@ class AppString{
   static const necklace = 'Necklace';
   static const bracelet = 'Bracelet';
   static const earrings = 'Earrings';
+  static const ringsThatPerfectly = 'Rings That Perfectly reflect \n your style and taste';
+  static const chooseFromOurSignature = 'Choose From Our Signature Class Grown Diamonds Collection \n Or Enquire with Our Diamonds Concierge To Have Your Own \n Personalized And Unique Piece Of Diamond And Jewelry Curated For You you....';
+  static const scheduleaCAll = 'Schedule A Call';
+  static const customizeYourOwnJewelry = 'Customize Your Own Jewelry';
+  static const doYouHaveAnyIdea = 'Do You Have Any Idea That You Wish To See In Your Jewelry?';
+  static const letUsKnowWhat = 'Let Us Know What You Are Looking For And We Shall Desin \n It For Your With Utmost Perfection. Celebrate With The Finest \n Jewelry, You Deserve It....';
+  static const customProduct = 'Custom Product';
 }

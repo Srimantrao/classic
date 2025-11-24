@@ -10,6 +10,7 @@ import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 
 import '../../../utils/widget/video.dart';
 
@@ -26,6 +27,8 @@ class Home extends StatelessWidget {
             sliderImages(),
             Obx(() => ourCollection(homeUI)),
             adVideo(),
+            adImage(),
+            whatClassic(),
           ],
         ),
       ),
@@ -107,7 +110,7 @@ Widget sliderImages() {
       width: double.infinity,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(AppImage.sliderImage),
+          image: AssetImage(AppImage.sliderImage3),
           fit: BoxFit.cover,
         ),
       ),
@@ -131,10 +134,171 @@ Widget ourCollection(homeUI) {
 }
 //Over Collection End
 
-Widget adVideo(){
-  return VideoSeparatorWidget(videoUrl: AppVideo.addVideo);
+//Video Containner Start
+Widget adVideo() {
+  return SizedBox(
+    height: Get.height * 0.4,
+    width: Get.width,
+    child: Stack(
+      children: [
+        Positioned.fill(
+          child: Video(
+            videoUrl: AppVideo.addVideo,
+          ),
+        ),
+
+        /// Overlay text
+        Positioned(
+          left: Get.width * 0.05,
+          right: Get.width * 0.025,
+          top: Get.height * 0.04,
+          bottom: Get.height * 0.003,
+          child: Column(
+            children: [
+              videotext(
+                text: AppString.ringsThatPerfectly.toUpperCase(),
+                fontSize: Get.width * 0.06,
+                fontWeight: FontWeight.w600,
+              ),
+              SizedBox(height: Get.height * 0.01),
+              videotext(
+                text: AppString.chooseFromOurSignature,
+                fontSize: Get.width * 0.03,
+              ),
+              SizedBox(height: Get.height * 0.03),
+              schedulebutton(AppString.scheduleaCAll),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
 }
+//Video Container End
+
+//Image Conatiner Start
+Widget adImage(){
+  return Container(
+    height: Get.height * 0.4,
+    width: Get.width,
+    decoration: BoxDecoration(
+     image: DecorationImage(
+       image: AssetImage(AppImage.adImage),
+       fit: BoxFit.cover,
+     ),
+    ),
+    child: Column(
+      children: [
+        SizedBox(height: Get.height * 0.04),
+        videotext(
+          text: AppString.customizeYourOwnJewelry,
+          fontSize: Get.width * 0.06,
+          fontWeight: FontWeight.w600,
+        ),
+        SizedBox(height: Get.height * 0.01),
+        videotext(
+          text: AppString.doYouHaveAnyIdea,
+          fontSize: Get.width * 0.03,
+        ),
+        SizedBox(height: Get.height * 0.01),
+        videotext(
+          text: AppString.letUsKnowWhat,
+          fontSize: Get.width * 0.03,
+        ),
+        SizedBox(height: Get.height * 0.03),
+        schedulebutton(AppString.customProduct),
+      ],
+    ),
+  );
+}
+//Image Conatiner End
+
+Widget whatClassic(){
+  return Column(
+    children: [
+      SizedBox(height: Get.height * 0.02),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: Get.width * 0.09),
+        child: SizedBox(
+          width: Get.width / 1.1,
+          child: homeScreenHeddingText(AppString.aPeekIntowhatClassic),
+        ),
+      ),
+      homeScreenSubheddingText(AppString.classicGrownJewelry),
+      SizedBox(height: Get.height * 0.03),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          iconSize(AppImage.icon1,'100% Original'.toUpperCase()),
+          iconSize(AppImage.icon2,'Quality Assuerd'.toUpperCase()),
+          iconSize(AppImage.icon3,'100% Certified'.toUpperCase()),
+        ],
+      ),
+    ],
+  );
+}
+
 //Body End
+
+Widget iconSize(icon,text){
+  return SizedBox(
+    width: Get.width * 0.3,
+    child: Column(
+      children: [
+        Image(
+          image: AssetImage(icon),
+          fit: BoxFit.cover,
+          width: 80,
+          height: 80,
+        ),
+        Text(
+          text,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: AppColor.primary,
+            fontWeight: FontWeight.w600,
+          ),
+        )
+      ],
+    ),
+  );
+}
+
+Widget videotext({
+  required String text,
+  required double fontSize,
+  FontWeight? fontWeight,
+}){
+  return Text(
+    textAlign: TextAlign.center,
+    text,
+    style: TextStyle(
+      color: Colors.white,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      fontFamily: 'FuturaCyrillic',
+    ),
+  );
+}
+
+Widget schedulebutton(text){
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 40,vertical: 10),
+    decoration: BoxDecoration(
+      border: Border.all(
+        color: AppColor.white,
+      ),
+    ),
+    child: Text(
+      text.toUpperCase(),
+      style: TextStyle(
+        color: AppColor.white,
+        fontWeight: FontWeight.w600,
+        fontSize: Textsize.normal,
+      ),
+    ),
+  );
+}
 
 Widget homeScreenIcon(icon) {
   return Image.asset(icon, scale: 3.5);
@@ -154,9 +318,10 @@ Widget homeScreenHeddingText(text) {
 
 Widget homeScreenSubheddingText(text) {
   return Text(
+    textAlign: TextAlign.center,
     text,
     style: TextStyle(
-      fontSize: Get.width * 0.032,
+      fontSize: Get.width * 0.040,
       fontWeight: FontWeight.w500,
       fontFamily: 'FuturaCyrillic',
       color: AppColor.gray5,
@@ -248,7 +413,7 @@ Widget tabItem(String text, int index, homeUI) {
 //OuerCollection
 Widget collectionList(List list) {
   return SizedBox(
-    height: Get.height * 0.2,
+    height: Get.height * 0.24,
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: list.length,

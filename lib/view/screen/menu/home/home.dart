@@ -5,10 +5,13 @@ import 'package:classic/view/utils/app_Image.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
 import 'package:classic/view/utils/app_icon.dart';
+import 'package:classic/view/utils/app_video.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../utils/widget/video.dart';
 
 class Home extends StatelessWidget {
   final homeUI = Get.put(HomeUIController());
@@ -22,6 +25,7 @@ class Home extends StatelessWidget {
           children: [
             sliderImages(),
             Obx(() => ourCollection(homeUI)),
+            adVideo(),
           ],
         ),
       ),
@@ -126,6 +130,10 @@ Widget ourCollection(homeUI) {
   );
 }
 //Over Collection End
+
+Widget adVideo(){
+  return VideoSeparatorWidget(videoUrl: AppVideo.addVideo);
+}
 //Body End
 
 Widget homeScreenIcon(icon) {
@@ -212,7 +220,10 @@ Widget tabCollectText(homeUI) {
 }
 
 Widget varticalDivider() {
-  return SizedBox(height: Get.width * 0.08, child: VerticalDivider());
+  return SizedBox(
+    height: Get.width * 0.08,
+    child: VerticalDivider(),
+  );
 }
 
 Widget tabItem(String text, int index, homeUI) {
@@ -226,7 +237,9 @@ Widget tabItem(String text, int index, homeUI) {
         fontSize: Textsize.normal,
         fontWeight: FontWeight.w500,
         fontFamily: 'FuturaCyrillic',
-        color: homeUI.index.value == index ? AppColor.primary : AppColor.gray5,
+        color: homeUI.index.value == index
+            ? AppColor.primary
+            : AppColor.gray5,
       ),
     ),
   );
@@ -235,7 +248,7 @@ Widget tabItem(String text, int index, homeUI) {
 //OuerCollection
 Widget collectionList(List list) {
   return SizedBox(
-    height: Get.height * 0.19,
+    height: Get.height * 0.2,
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: list.length,

@@ -9,6 +9,7 @@ import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 class Home extends StatelessWidget {
   final homeUI = Get.put(HomeUIController());
   Home({super.key});

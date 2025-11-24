@@ -9,19 +9,19 @@ import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 class Home extends StatelessWidget {
   final homeUI = Get.put(HomeUIController());
-
   Home({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
       appBar: appBar(),
       child: SingleChildScrollView(
         child: Column(
-          children: [sliderImages(), Obx(() => ourCollection(homeUI))],
+          children: [
+            sliderImages(),
+            Obx(() => ourCollection(homeUI)),
+          ],
         ),
       ),
     );
@@ -125,7 +125,6 @@ Widget ourCollection(homeUI) {
   );
 }
 //Over Collection End
-
 //Body End
 
 Widget homeScreenIcon(icon) {
@@ -161,7 +160,7 @@ Widget showIndexofCollection(homeUI) {
     children: [
       SizedBox(height: Get.height * 0.01),
       tabCollectText(homeUI),
-      SizedBox(height: Get.height * 0.02),
+      SizedBox(height: Get.height * 0.01),
 
       /// Dynamic section
       showSection(homeUI.index.value),
@@ -175,35 +174,19 @@ Widget showSection(int index) {
   switch (index) {
     case 0:
       //Pandant Section
-      return collectionList(
-        collection: collection.pandant.length,
-        image: collection.pandant[index]['Image'],
-        name: collection.pandant[index]['name'],
-      );
+      return collectionList(collection.pandant);
 
     case 1:
-      return Column(
-        children: [
-          Image.asset(AppImage.sliderImage, scale: 10),
-          Text("Necklace Section"),
-        ],
-      );
+      //Necklace Section
+      return collectionList(collection.necklace);
 
     case 2:
-      return Column(
-        children: [
-          Image.asset(AppImage.sliderImage, scale: 10),
-          Text("Bracelet Section"),
-        ],
-      );
+      //Bracelet Section
+      return collectionList(collection.bracelet);
 
     case 3:
-      return Column(
-        children: [
-          Image.asset(AppImage.sliderImage, scale: 10),
-          Text("Earrings Section"),
-        ],
-      );
+      //Earrings Section
+      return collectionList(collection.earrings);
     default:
       return SizedBox.shrink();
   }
@@ -239,7 +222,7 @@ Widget tabItem(String text, int index, homeUI) {
     child: Text(
       text,
       style: TextStyle(
-        fontSize: Get.width * 0.045,
+        fontSize: Textsize.normal,
         fontWeight: FontWeight.w500,
         fontFamily: 'FuturaCyrillic',
         color: homeUI.index.value == index ? AppColor.primary : AppColor.gray5,
@@ -249,28 +232,31 @@ Widget tabItem(String text, int index, homeUI) {
 }
 
 //OuerCollection
-Widget collectionList({
-  required int collection,
-  required String image,
-  required String name,
-}) {
+Widget collectionList(List list) {
   return SizedBox(
-    height: Get.height * 0.22,
+    height: Get.height * 0.19,
     child: ListView.builder(
-      shrinkWrap: true,
       scrollDirection: Axis.horizontal,
-      itemCount: collection,
-      itemBuilder: (BuildContext context, int index) {
+      itemCount: list.length,
+      itemBuilder: (context, index) {
         return Container(
-          margin: EdgeInsets.all(Get.width * 0.02),
+          margin: EdgeInsets.all(Get.width * 0.01),
           child: Column(
             children: [
-              Image(
-                image: AssetImage(image.toString()),
+              Image.asset(
+                list[index]['Image'],
                 height: 100,
                 width: 100,
               ),
-              Text(name, style: TextStyle(fontSize: Textsize.normal)),
+              Center(
+                child: Text(
+                  list[index]['name'],
+                  style: TextStyle(
+                    fontSize: Textsize.small,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
             ],
           ),
         );

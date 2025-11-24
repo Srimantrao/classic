@@ -7,4 +7,5 @@ class Textsize {
   static double heading = Get.width * 0.06;
   static double subheding = Get.width * 0.045;
   static double normal = Get.width * 0.04;
+  static double small = Get.width * 0.03;
 }

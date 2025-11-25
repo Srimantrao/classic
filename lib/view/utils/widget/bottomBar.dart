@@ -20,17 +20,23 @@ class Bottombar extends StatelessWidget {
         child: Stack(
           children: [
             // Main content - takes full screen
-            Obx(() => bottomController.pages[bottomController.selectindex.value]),
-        
-            // Floating bottom navigation bar
-            Positioned(
-              left: 1,
-              right: 1,
-              bottom: Get.height * 0.03,
-              child: horizontalPadding(
-                child: flotingBar(bottomController),
-              ),
-            ),
+            Obx(() {
+              return bottomController.selectscreen(
+                bottomController.selectindex.value,
+              );
+            }),
+
+            Obx((){
+              return // Floating bottom navigation bar
+                Positioned(
+                  left: 1,
+                  right: 1,
+                  bottom: Get.height * 0.02,
+                  child: horizontalPadding(
+                    child: flotingBar(bottomController),
+                  ),
+                );
+            })
           ],
         ),
       ),
@@ -38,7 +44,7 @@ class Bottombar extends StatelessWidget {
   }
 }
 
-Widget flotingBar(bottomController) {
+Widget flotingBar(BottombarController bottomController) {
   return Container(
     padding: EdgeInsets.only(
       top: Get.height * 0.015,
@@ -51,38 +57,35 @@ Widget flotingBar(bottomController) {
   );
 }
 
-Widget iconTabbing(bottomController){
+Widget iconTabbing(BottombarController bottomController) {
   return horizontalPadding(
     child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         actionIconButton(
           icon: AppIcon.home,
           color: bottomController.selectindex.value == 0,
-          onTap: bottomController.indexOne,
+          onTap: () => bottomController.changePage(0),
         ),
-        Spacer(),
         actionIconButton(
           icon: AppIcon.jewelry,
           color: bottomController.selectindex.value == 1,
-          onTap: bottomController.indexOne,
+          onTap: () => bottomController.changePage(1),
         ),
-        Spacer(),
         actionIconButton(
           icon: AppIcon.dashboard,
           color: bottomController.selectindex.value == 2,
-          onTap: bottomController.indexOne,
+          onTap: () => bottomController.changePage(2),
         ),
-        Spacer(),
         actionIconButton(
           icon: AppIcon.diamond,
-          color: bottomController.selectindex.value == 2,
-          onTap: bottomController.indexOne,
+          color: bottomController.selectindex.value == 3,
+          onTap: () => bottomController.changePage(3),
         ),
-        Spacer(),
         actionIconButton(
           icon: AppIcon.custom,
-          color: bottomController.selectindex.value == 2,
-          onTap: bottomController.indexOne,
+          color: bottomController.selectindex.value == 4,
+          onTap: () => bottomController.changePage(4),
         ),
       ],
     ),

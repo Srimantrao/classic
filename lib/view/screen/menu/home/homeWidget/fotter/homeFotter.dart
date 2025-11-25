@@ -67,7 +67,7 @@ Widget fotter() {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Follow Us On: ', style: TextStyle(color: AppColor.gray5)),
+              Text(AppString.followUsOn, style: TextStyle(color: AppColor.gray5)),
               fotterImage(AppImage.instagram),
               fotterImage(AppImage.twitter),
               fotterImage(AppImage.facebook),

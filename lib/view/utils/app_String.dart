@@ -94,4 +94,5 @@ class AppString{
   static const doYouHaveAnyIdea = 'Do You Have Any Idea That You Wish To See In Your Jewelry?';
   static const letUsKnowWhat = 'Let Us Know What You Are Looking For And We Shall Desin \n It For Your With Utmost Perfection. Celebrate With The Finest \n Jewelry, You Deserve It....';
   static const customProduct = 'Custom Product';
+  static const followUsOn = 'Follow Us On: ';
 }

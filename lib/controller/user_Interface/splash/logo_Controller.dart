@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 
-import 'package:classic/view/screen/credentials/login.dart';
+import 'package:classic/view/screen/credentials/login/loginScreen/login.dart';
 import 'package:get/get.dart';
 
 class LogoController extends GetxController {

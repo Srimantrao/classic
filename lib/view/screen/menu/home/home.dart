@@ -12,11 +12,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 
+import '../../../utils/widget/inputfield.dart';
+import '../../../utils/widget/logo.dart';
 import '../../../utils/widget/video.dart';
+import '../../../utils/widget/widgetSize.dart';
 
 class Home extends StatelessWidget {
   final homeUI = Get.put(HomeUIController());
+
   Home({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
@@ -29,6 +34,8 @@ class Home extends StatelessWidget {
             adVideo(),
             adImage(),
             whatClassic(),
+            emailContainer(),
+            fotter(),
           ],
         ),
       ),
@@ -141,11 +148,7 @@ Widget adVideo() {
     width: Get.width,
     child: Stack(
       children: [
-        Positioned.fill(
-          child: Video(
-            videoUrl: AppVideo.addVideo,
-          ),
-        ),
+        Positioned.fill(child: Video(videoUrl: AppVideo.addVideo)),
 
         /// Overlay text
         Positioned(
@@ -177,15 +180,15 @@ Widget adVideo() {
 //Video Container End
 
 //Image Conatiner Start
-Widget adImage(){
+Widget adImage() {
   return Container(
     height: Get.height * 0.4,
     width: Get.width,
     decoration: BoxDecoration(
-     image: DecorationImage(
-       image: AssetImage(AppImage.adImage),
-       fit: BoxFit.cover,
-     ),
+      image: DecorationImage(
+        image: AssetImage(AppImage.adImage),
+        fit: BoxFit.cover,
+      ),
     ),
     child: Column(
       children: [
@@ -196,15 +199,9 @@ Widget adImage(){
           fontWeight: FontWeight.w600,
         ),
         SizedBox(height: Get.height * 0.01),
-        videotext(
-          text: AppString.doYouHaveAnyIdea,
-          fontSize: Get.width * 0.03,
-        ),
+        videotext(text: AppString.doYouHaveAnyIdea, fontSize: Get.width * 0.03),
         SizedBox(height: Get.height * 0.01),
-        videotext(
-          text: AppString.letUsKnowWhat,
-          fontSize: Get.width * 0.03,
-        ),
+        videotext(text: AppString.letUsKnowWhat, fontSize: Get.width * 0.03),
         SizedBox(height: Get.height * 0.03),
         schedulebutton(AppString.customProduct),
       ],
@@ -213,7 +210,8 @@ Widget adImage(){
 }
 //Image Conatiner End
 
-Widget whatClassic(){
+//What is Classic Start
+Widget whatClassic() {
   return Column(
     children: [
       SizedBox(height: Get.height * 0.02),
@@ -229,18 +227,148 @@ Widget whatClassic(){
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          iconSize(AppImage.icon1,'100% Original'.toUpperCase()),
-          iconSize(AppImage.icon2,'Quality Assuerd'.toUpperCase()),
-          iconSize(AppImage.icon3,'100% Certified'.toUpperCase()),
+          iconSize(AppImage.icon1, '100% Original'.toUpperCase()),
+          iconSize(AppImage.icon2, 'Quality Assuerd'.toUpperCase()),
+          iconSize(AppImage.icon3, '100% Certified'.toUpperCase()),
         ],
       ),
     ],
   );
 }
+//What is Classic End
+
+//EmailContainer Start
+Widget emailContainer() {
+  return Column(
+    children: [
+      SizedBox(height: Get.height * 0.03),
+      Container(
+        width: Get.width,
+        decoration: BoxDecoration(color: AppColor.primary),
+        child: horizontalPadding(
+          child: Column(
+            children: [
+              SizedBox(height: Get.height * 0.05),
+              SizedBox(
+                width: Get.width / 1.3,
+                child: homeScreenHeddingText(
+                  textAlign: TextAlign.center,
+                  AppString.joinOur,
+                  color: AppColor.white,
+                ),
+              ),
+              SizedBox(height: Get.height * 0.01),
+              SizedBox(
+                width: Get.width / 1.1,
+                child: homeScreenSubheddingText(
+                  AppString.become,
+                  color: AppColor.white,
+                  fontSize: Get.width * 0.03,
+                ),
+              ),
+              SizedBox(height: Get.height * 0.04),
+              Inputfield(
+                height: Widgetsize.getContainerHeight(),
+                color: AppColor.gray5,
+                hinttext: AppString.emailId_hint,
+                fillColor: AppColor.primary,
+                hintstyleColor: AppColor.white,
+                hintstylefontFamily: 'FuturaCyrillic',
+                textfontFamily: 'FuturaCyrillic',
+                suffixIcon: Icon(
+                  Icons.send_time_extension_outlined,
+                  color: AppColor.gray5,
+                ),
+              ),
+              SizedBox(height: Get.height * 0.05),
+            ],
+          ),
+        ),
+      ),
+      SizedBox(height: Get.height * 0.03),
+    ],
+  );
+}
+//EmailConyainer End
+
+//Fotter Start
+Widget fotter() {
+  return Container(
+    width: Get.width,
+    child: horizontalPadding(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [image(height: Get.height * 0.03)],
+          ),
+          samiHedding(AppString.companyProfile),
+          samitextvalue(AppString.shasvatprofile),
+          samitextvalue(AppString.companyaddrtes),
+          samitextvalue(AppString.comapntPhone),
+          samitextvalue(AppString.comapntEmailId),
+          SizedBox(height: Get.height * 0.01),
+          Divider(color: AppColor.gray5),
+          SizedBox(height: Get.height * 0.02),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  samiHedding(AppString.ourServices),
+                  samitextvalue(AppString.aboutus),
+                  samitextvalue(AppString.termsConditions),
+                  samitextvalue(AppString.privacyPolicy),
+                  samitextvalue(AppString.shippingPolicy),
+                  samitextvalue(AppString.returnsPolicy),
+                  samitextvalue(AppString.smallLooseDimaonds),
+                  samitextvalue(AppString.labGrownDiamonds),
+                  samitextvalue(AppString.FAQs),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  samiHedding(AppString.ourServices),
+                  samitextvalue(AppString.aboutus),
+                  samitextvalue(AppString.termsConditions),
+                  samitextvalue(AppString.privacyPolicy),
+                  samitextvalue(AppString.shippingPolicy),
+                  samitextvalue(AppString.returnsPolicy),
+                  samitextvalue(AppString.smallLooseDimaonds),
+                  samitextvalue(AppString.labGrownDiamonds),
+                  samitextvalue(AppString.FAQs),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(height: Get.height * 0.01),
+          Divider(color: AppColor.gray5),
+          SizedBox(height: Get.height * 0.02),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Follow Us On: ', style: TextStyle(color: AppColor.gray5)),
+              fotterImage(AppImage.instagram),
+              fotterImage(AppImage.twitter),
+              fotterImage(AppImage.facebook),
+              fotterImage(AppImage.pinterest),
+              fotterImage(AppImage.youtube),
+            ],
+          ),
+          SizedBox(height: Get.height * 0.13),
+        ],
+      ),
+    ),
+  );
+}
+//Fotter End
 
 //Body End
 
-Widget iconSize(icon,text){
+Widget iconSize(icon, text) {
   return SizedBox(
     width: Get.width * 0.3,
     child: Column(
@@ -258,9 +386,47 @@ Widget iconSize(icon,text){
             color: AppColor.primary,
             fontWeight: FontWeight.w600,
           ),
-        )
+        ),
       ],
     ),
+  );
+}
+
+Widget samiHedding(text) {
+  return Column(
+    children: [
+      Text(
+        text,
+        style: TextStyle(
+          color: AppColor.primary,
+          fontSize: Textsize.samiHedding,
+          fontFamily: 'FuturaCyrillic',
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      SizedBox(height: Get.height * 0.02),
+    ],
+  );
+}
+
+Widget samitextvalue(text) {
+  return Column(
+    children: [
+      Text(
+        text,
+        style: TextStyle(color: AppColor.primary, fontSize: Textsize.small),
+      ),
+      SizedBox(height: Get.height * 0.02),
+    ],
+  );
+}
+
+Widget fotterImage(image) {
+  return Row(
+    children: [
+      Image(image: AssetImage(image), width: 26, height: 26),
+      SizedBox(width: Get.width * 0.02),
+    ],
   );
 }
 
@@ -268,7 +434,7 @@ Widget videotext({
   required String text,
   required double fontSize,
   FontWeight? fontWeight,
-}){
+}) {
   return Text(
     textAlign: TextAlign.center,
     text,
@@ -281,14 +447,10 @@ Widget videotext({
   );
 }
 
-Widget schedulebutton(text){
+Widget schedulebutton(text) {
   return Container(
-    padding: EdgeInsets.symmetric(horizontal: 40,vertical: 10),
-    decoration: BoxDecoration(
-      border: Border.all(
-        color: AppColor.white,
-      ),
-    ),
+    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+    decoration: BoxDecoration(border: Border.all(color: AppColor.white)),
     child: Text(
       text.toUpperCase(),
       style: TextStyle(
@@ -304,11 +466,12 @@ Widget homeScreenIcon(icon) {
   return Image.asset(icon, scale: 3.5);
 }
 
-Widget homeScreenHeddingText(text) {
+Widget homeScreenHeddingText(text, {Color? color, TextAlign? textAlign}) {
   return Text(
+    textAlign: textAlign,
     text.toUpperCase(),
     style: TextStyle(
-      color: AppColor.primary,
+      color: color ?? AppColor.primary,
       fontWeight: FontWeight.w800,
       fontSize: Textsize.heading,
       fontFamily: 'FuturaCyrillic',
@@ -316,15 +479,15 @@ Widget homeScreenHeddingText(text) {
   );
 }
 
-Widget homeScreenSubheddingText(text) {
+Widget homeScreenSubheddingText(text, {Color? color, double? fontSize}) {
   return Text(
     textAlign: TextAlign.center,
     text,
     style: TextStyle(
-      fontSize: Get.width * 0.040,
+      fontSize: fontSize ?? Get.width * 0.040,
       fontWeight: FontWeight.w500,
       fontFamily: 'FuturaCyrillic',
-      color: AppColor.gray5,
+      color: color ?? AppColor.gray5,
     ),
   );
 }
@@ -385,10 +548,7 @@ Widget tabCollectText(homeUI) {
 }
 
 Widget varticalDivider() {
-  return SizedBox(
-    height: Get.width * 0.08,
-    child: VerticalDivider(),
-  );
+  return SizedBox(height: Get.width * 0.08, child: VerticalDivider());
 }
 
 Widget tabItem(String text, int index, homeUI) {
@@ -402,9 +562,7 @@ Widget tabItem(String text, int index, homeUI) {
         fontSize: Textsize.normal,
         fontWeight: FontWeight.w500,
         fontFamily: 'FuturaCyrillic',
-        color: homeUI.index.value == index
-            ? AppColor.primary
-            : AppColor.gray5,
+        color: homeUI.index.value == index ? AppColor.primary : AppColor.gray5,
       ),
     ),
   );
@@ -422,11 +580,7 @@ Widget collectionList(List list) {
           margin: EdgeInsets.all(Get.width * 0.01),
           child: Column(
             children: [
-              Image.asset(
-                list[index]['Image'],
-                height: 100,
-                width: 100,
-              ),
+              Image.asset(list[index]['Image'], height: 100, width: 100),
               Center(
                 child: Text(
                   list[index]['name'],

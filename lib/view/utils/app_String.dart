@@ -66,7 +66,8 @@ class AppString{
   static const companyProfile = 'Company Profile';
   static const shasvatprofile = 'SHASVAT DIAMOND INC.a.b.a CLASSIC GROWN DIAMONDS';
   static const companyaddrtes = 'Address: 22W 48th Street Suite #300 New York,NY 100036 USA';
-  static const comapntEmailId = 'Sales@ClassicGrowndiamonds.com';
+  static const comapntEmailId = 'Email Id: Sales@ClassicGrowndiamonds.com';
+  static const comapntPhone = 'Phone: +1_212_221_3667';
   static const ourServices = 'Our Services';
   static const aboutus = 'About Us';
   static const termsConditions = 'Terms & Conditions';

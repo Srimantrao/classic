@@ -21,6 +21,12 @@ Widget Inputfield({
   double? height,
   bool? expands,
   TextAlignVertical? textAlignVertical,
+  Color? fillColor,
+  Color? hintstyleColor,
+  Color? textColor,
+  String? hintstylefontFamily,
+  String? textfontFamily,
+  Widget? suffixIcon
 }) {
   return StatefulBuilder(
     builder: (BuildContext context, void Function(void Function()) setState) {
@@ -28,16 +34,16 @@ Widget Inputfield({
       return Builder(
         builder: (BuildContext context) {
           return StatefulBuilder(
-            builder:
-                (
-                  BuildContext context,
-                  void Function(void Function()) setState,
-                ) {
+            builder: (BuildContext context, void Function(void Function()) setState) {
                   return Column(
                     children: [
                       SizedBox(
                         height: Widgetsize.getContainerHeight(),
                         child: TextField(
+                          style: TextStyle(
+                            color: textColor,
+                            fontFamily: textfontFamily,
+                          ),
                           maxLength: maxLength,
                           textInputAction: textInputAction,
                           onSubmitted: onSubmitted,
@@ -52,7 +58,9 @@ Widget Inputfield({
                           textAlignVertical: textAlignVertical,
                           decoration: InputDecoration(
                             counterText: '',
-                            suffixIcon: obscureText
+                            suffixIcon: (suffixIcon != null)
+                                ? suffixIcon
+                                : obscureText
                                 ? GestureDetector(
                                     onTap: () {
                                       setState(() {
@@ -69,9 +77,13 @@ Widget Inputfield({
                               horizontal: Get.width * 0.02,
                             ),
                             hintText: hinttext,
-                            hintStyle: TextStyle(fontSize: Textsize.normal),
+                            hintStyle: TextStyle(
+                              fontSize: Textsize.normal,
+                              color: hintstyleColor,
+                              fontFamily: hintstylefontFamily,
+                            ),
                             filled: true,
-                            fillColor: Colors.white,
+                            fillColor: fillColor ?? AppColor.white,
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: color ?? AppColor.white,

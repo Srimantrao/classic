@@ -1,7 +1,7 @@
 
 // ignore_for_file: file_names
 
-import 'package:classic/view/screen/menu/home/home.dart';
+import 'package:classic/view/screen/menu/home/homeScreen/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

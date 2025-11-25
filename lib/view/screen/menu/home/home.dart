@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, unused_import
+
 import 'package:classic/controller/user_Interface/menu/home/home_Controller.dart';
 import 'package:classic/modal/menu/home/our_collection.dart';
 import 'package:classic/view/utils/app_Color.dart';

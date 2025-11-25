@@ -21,9 +21,7 @@ import '../../../utils/widget/widgetSize.dart';
 
 class Home extends StatelessWidget {
   final homeUI = Get.put(HomeUIController());
-
   Home({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Fullscreen(

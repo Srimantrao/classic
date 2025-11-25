@@ -1,4 +1,6 @@
 
+// ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers
+
 import 'package:classic/view/screen/menu/home/homeExtraWidget/homeconnectingWideget.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_Image.dart';

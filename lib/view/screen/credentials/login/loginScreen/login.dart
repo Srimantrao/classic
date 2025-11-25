@@ -2,23 +2,14 @@
 
 import 'package:classic/controller/user_Interface/credentials/loginUI_Controller.dart';
 import 'package:classic/view/screen/credentials/login/loginWidget/loginWidget.dart';
-import 'package:classic/view/screen/credentials/signUp/signUpScreen/signUp.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_Image.dart';
-import 'package:classic/view/utils/app_String.dart';
-import 'package:classic/view/utils/app_TextSize.dart';
-import 'package:classic/view/utils/widget/bottomBar.dart';
-import 'package:classic/view/utils/widget/button.dart';
-import 'package:classic/view/utils/widget/cartcontainer.dart';
-import 'package:classic/view/utils/widget/dontHaveAndyouHave.dart';
+import 'package:classic/view/utils/widget/bottom/bottomShow/bottomBar.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
-import 'package:classic/view/utils/widget/heddingText.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:classic/view/utils/widget/logo.dart';
-import 'package:classic/view/utils/widget/subheding.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../utils/widget/inputfield.dart';
 
 class Login extends StatelessWidget {
   final loginUI = Get.put(LoginuiController());

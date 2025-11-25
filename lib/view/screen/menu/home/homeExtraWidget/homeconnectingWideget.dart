@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:classic/modal/menu/home/our_collection.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_Image.dart';
@@ -5,7 +7,6 @@ import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../../utils/app_TextSize.dart';
 
 Widget addText(text) {

@@ -1,4 +1,6 @@
 
+// ignore_for_file: file_names
+
 import 'package:classic/view/screen/credentials/signUp/signUpScreen/signUp.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_TextSize.dart';

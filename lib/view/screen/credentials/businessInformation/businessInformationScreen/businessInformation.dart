@@ -3,23 +3,15 @@
 import 'package:classic/controller/user_Interface/credentials/businessInformationUI_Controller.dart';
 import 'package:classic/view/screen/credentials/businessInformation/businessInformationWidget/businessInformationWidget.dart';
 import 'package:classic/view/screen/credentials/login/loginScreen/login.dart';
-import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_Image.dart';
 import 'package:classic/view/utils/app_String.dart';
-import 'package:classic/view/utils/app_TextSize.dart';
-import 'package:classic/view/utils/widget/cartcontainer.dart';
-import 'package:classic/view/utils/widget/checkbox.dart';
 import 'package:classic/view/utils/widget/dontHaveAndyouHave.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
-import 'package:classic/view/utils/widget/heddingText.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
-import 'package:classic/view/utils/widget/inputTyping.dart';
 import 'package:classic/view/utils/widget/logo.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../utils/widget/dropdownSelected.dart';
 import '../../../../utils/widget/signupButtons.dart';
 
 class Businessinformation extends StatelessWidget {

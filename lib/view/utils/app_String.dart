@@ -1,6 +1,9 @@
 // ignore_for_file: file_names, constant_identifier_names
 
 class AppString{
+  //hedding
+  static const category = 'Category';
+
   //button
   static const signIn = 'Sign In';
   static const signUp = 'Sign Up';

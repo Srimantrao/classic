@@ -6,16 +6,11 @@ import 'package:classic/view/screen/credentials/signUp/singUpWidget/sinupWidget.
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_Image.dart';
 import 'package:classic/view/utils/app_String.dart';
-import 'package:classic/view/utils/widget/cartcontainer.dart';
-import 'package:classic/view/utils/widget/dropdownSelected.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
-import 'package:classic/view/utils/widget/heddingText.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
-import 'package:classic/view/utils/widget/inputTyping.dart';
 import 'package:classic/view/utils/widget/logo.dart';
 import 'package:classic/view/utils/widget/signupButtons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class Signup extends StatelessWidget {

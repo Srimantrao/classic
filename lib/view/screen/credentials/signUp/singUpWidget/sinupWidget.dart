@@ -1,4 +1,6 @@
 
+// ignore_for_file: file_names, non_constant_identifier_names
+
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/widget/cartcontainer.dart';
 import 'package:classic/view/utils/widget/dropdownSelected.dart';

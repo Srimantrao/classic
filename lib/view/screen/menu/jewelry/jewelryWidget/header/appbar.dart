@@ -3,13 +3,21 @@
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
 import 'package:flutter/material.dart';
 
-PreferredSizeWidget appBarCategory(prefix, suffix, hedding) {
+PreferredSizeWidget appBarCategory({
+  required prefixIcon,
+  required suffixIcon,
+  required hedding,
+  void Function()? prefixOnTap,
+  void Function()? suffixOnTap,
+}) {
   return PreferredSize(
     preferredSize: Size.fromHeight(kToolbarHeight),
     child: comanAppBar(
-      prefix: prefix,
-      suffix: suffix,
+      prefix: prefixIcon,
+      suffix: suffixIcon,
       hedding: hedding,
-    ),
+      prefixOnTap: prefixOnTap,
+      suffixOnTap: suffixOnTap,
+    )
   );
 }

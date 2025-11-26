@@ -3,6 +3,7 @@
 class AppString{
   //hedding
   static const category = 'Category';
+  static const dashboard = 'Dashboard';
 
   //button
   static const signIn = 'Sign In';
@@ -98,4 +99,12 @@ class AppString{
   static const letUsKnowWhat = 'Let Us Know What You Are Looking For And We Shall Desin \n It For Your With Utmost Perfection. Celebrate With The Finest \n Jewelry, You Deserve It....';
   static const customProduct = 'Custom Product';
   static const followUsOn = 'Follow Us On: ';
+
+  //DashBoard
+  static const diamond = 'Diamonds';
+  static const jewellwery = 'Jewellwery';
+  static const Orders = 'Orders';
+  static const Hold = 'Hold';
+  static const recentViwe = 'Recent Viwe';
+  static const myCart = 'My Cart';
 }

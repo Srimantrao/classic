@@ -1,6 +1,7 @@
 
 // ignore_for_file: file_names
 
+import 'package:classic/view/screen/menu/dashbord/dashbordScreen/dashbord.dart';
 import 'package:classic/view/screen/menu/home/homeScreen/home.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/jewelry.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class BottombarController extends GetxController{
   final List<Widget> pages = [
     Home(),
     Jewelry(),
+    Dashbord(),
   ].obs;
 
   void indexOne() => selectindex.value = 0;
@@ -32,9 +34,9 @@ class BottombarController extends GetxController{
         return Home();
       case 1:
         return Jewelry();
-      // case 2:
-      //   return Buynow();
-      // case 3:
+      case 2:
+        return Dashbord();
+      case 3:
       //   return Overstore();
       // case 4:
       //   return Account();

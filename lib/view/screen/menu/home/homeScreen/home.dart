@@ -4,7 +4,7 @@ import 'package:classic/controller/user_Interface/menu/home/home_Controller.dart
 import 'package:classic/modal/menu/home/our_collection.dart';
 import 'package:classic/view/screen/menu/home/homeWidget/body/homeBody.dart';
 import 'package:classic/view/screen/menu/home/homeWidget/fotter/homeFotter.dart';
-import 'package:classic/view/screen/menu/home/homeWidget/hedder/appbar.dart';
+import 'package:classic/view/screen/menu/home/homeWidget/header/appbar.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_Image.dart';
 import 'package:classic/view/utils/app_String.dart';

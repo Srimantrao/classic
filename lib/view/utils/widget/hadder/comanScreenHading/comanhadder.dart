@@ -1,4 +1,3 @@
-
 // ignore_for_file: avoid_unnecessary_containers
 
 import 'package:classic/view/utils/app_Color.dart';
@@ -11,6 +10,8 @@ PreferredSizeWidget comanAppBar({
   required String prefix,
   required String suffix,
   required String hedding,
+  void Function()? prefixOnTap,
+  void Function()? suffixOnTap,
 }) {
   return PreferredSize(
     preferredSize: Size.fromHeight(kToolbarHeight + 0.15),
@@ -21,7 +22,11 @@ PreferredSizeWidget comanAppBar({
           padding: EdgeInsetsGeometry.symmetric(vertical: Get.height * 0.015),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [icon(prefix), appbarheddingText(hedding), icon(suffix)],
+            children: [
+              GestureDetector(onTap: prefixOnTap, child: icon(prefix)),
+              appbarheddingText(hedding),
+              GestureDetector(onTap: suffixOnTap, child: icon(suffix)),
+            ],
           ),
         ),
       ),

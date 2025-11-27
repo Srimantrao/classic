@@ -17,16 +17,18 @@ PreferredSizeWidget comanAppBar({
     preferredSize: Size.fromHeight(kToolbarHeight + 0.15),
     child: Container(
       decoration: BoxDecoration(color: AppColor.primary),
-      child: horizontalPadding(
-        child: Padding(
-          padding: EdgeInsetsGeometry.symmetric(vertical: Get.height * 0.015),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(onTap: prefixOnTap, child: icon(prefix)),
-              appbarheddingText(hedding),
-              GestureDetector(onTap: suffixOnTap, child: icon(suffix)),
-            ],
+      child: SafeArea(
+        child: horizontalPadding(
+          child: Padding(
+            padding: EdgeInsetsGeometry.symmetric(vertical: Get.height * 0.015),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(onTap: prefixOnTap, child: icon(prefix)),
+                appbarheddingText(hedding),
+                GestureDetector(onTap: suffixOnTap, child: icon(suffix)),
+              ],
+            ),
           ),
         ),
       ),

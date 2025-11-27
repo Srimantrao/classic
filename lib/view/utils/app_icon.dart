@@ -5,6 +5,11 @@ class AppIcon{
   static const newcart = 'assets/icons/newcart.png';
   static const drawer = 'assets/icons/drawer.png';
 
+  //DashBorad Screen Icon
+  static const camera = 'assets/icons/camera.png';
+  static const video = 'assets/icons/video.png';
+
+
   //Bottom Navigation Icon
   static const home = 'assets/icons/home.png';
   static const jewelry = 'assets/icons/jewelry.png';

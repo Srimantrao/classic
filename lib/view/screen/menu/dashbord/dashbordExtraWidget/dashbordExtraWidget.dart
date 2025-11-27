@@ -2,7 +2,6 @@
 
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
-import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_icon.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +19,7 @@ Widget indexButton({
     onTap: onTap,
     child: Container(
       padding: EdgeInsets.symmetric(
-        horizontal: Get.width * 0.14,
+        horizontal: Get.width * 0.12,
         vertical: Get.height * 0.009,
       ),
       decoration: BoxDecoration(
@@ -99,7 +98,7 @@ Widget intexText(String text, {void Function()? onTap, Color? color}) {
                 text,
                 style: TextStyle(
                   color: AppColor.primary,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),

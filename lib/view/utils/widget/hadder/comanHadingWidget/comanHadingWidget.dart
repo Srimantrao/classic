@@ -11,12 +11,12 @@ Widget appbarheddingText(text) {
     style: TextStyle(
       color: AppColor.white,
       fontWeight: FontWeight.w800,
-      fontSize: Textsize.small,
+      fontSize: Textsize.subheding,
     ),
   );
 }
 
 Widget icon(String icon) {
-  double size = Get.width * 0.045;
+  double size = Get.width * 0.056;
   return Image.asset(icon, color: AppColor.white, width: size, height: size);
 }

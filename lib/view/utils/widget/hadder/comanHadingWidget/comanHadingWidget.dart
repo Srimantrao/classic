@@ -11,12 +11,18 @@ Widget appbarheddingText(text) {
     style: TextStyle(
       color: AppColor.white,
       fontWeight: FontWeight.w800,
-      fontSize: Textsize.subheding,
+      fontSize: Textsize.samiHedding,
+      fontFamily: 'FuturaCyrillic'
     ),
   );
 }
 
 Widget icon(String icon) {
-  double size = Get.width * 0.056;
-  return Image.asset(icon, color: AppColor.white, width: size, height: size);
+  double size = Get.width * 0.050;
+  return Image.asset(
+    icon,
+    color: AppColor.white,
+    width: size,
+    height: size,
+  );
 }

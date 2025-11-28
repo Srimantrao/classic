@@ -77,7 +77,6 @@ Widget fotter() {
               fotterImage(AppImage.youtube),
             ],
           ),
-          SizedBox(height: Get.height * 0.13),
         ],
       ),
     ),

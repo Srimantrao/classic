@@ -27,14 +27,14 @@ class Bottombar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               horizontalPadding(child: flotingBar(bottomController)),
-              SizedBox(height: 60),
+              SizedBox(height: Get.height * 0.08),
             ],
           ),
         );
       }),
 
 
-      //Flotting bottom bar
+      //Floating bottom bar
       // extendBody: true,
       // body: SafeArea(
       //   child: Stack(

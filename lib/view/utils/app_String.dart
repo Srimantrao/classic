@@ -4,6 +4,7 @@ class AppString{
   //hedding
   static const category = 'Category';
   static const dashboard = 'Dashboard';
+  static const diamondSearch = 'Diamond Search';
 
   //button
   static const signIn = 'Sign In';
@@ -100,11 +101,19 @@ class AppString{
   static const customProduct = 'Custom Product';
   static const followUsOn = 'Follow Us On: ';
 
-  //DashBoard
+  //DashBoard Scrren
   static const diamond = 'Diamonds';
   static const jewellwery = 'Jewellwery';
   static const Orders = 'Orders';
   static const Hold = 'Hold';
   static const recentViwe = 'Recent Viwe';
   static const myCart = 'My Cart';
+
+  //Dimaond Search Screen
+  static const whiteDiamond = 'White \n Diamond';
+  static const coloredDiamond = 'Colored \n Diamond';
+  static const shape = 'Shape';
+  static const carat = 'Carat';
+  static const clarity = 'Clarity';
+  static const whiteColor = 'White Color';
 }

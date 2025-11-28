@@ -11,10 +11,10 @@ import 'package:get/get.dart';
 Widget flotingBar(BottombarController bottomController) {
   return Container(
     padding: EdgeInsets.only(
-      top: Get.height * 0.015,
+      top: Get.height * 0.010,
       left: Get.width * 0.04,
       right: Get.width * 0.04,
-      bottom: Get.height * 0.02,
+      bottom: Get.height * 0.01,
     ),
     decoration: boxDecoration(),
     child: iconTabbing(bottomController),
@@ -103,7 +103,7 @@ Widget customIcon({
     onTap: onTap,
     child: Image.asset(
       icon,
-      scale: 3.1,
+      scale: 3.2,
       color: color,
     ),
   );

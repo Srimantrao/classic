@@ -10,9 +10,7 @@ import '../jewelryWidget/body/jewelryBody.dart';
 
 class Jewelry extends StatelessWidget {
   final product = ProductList();
-
   Jewelry({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Fullscreen(

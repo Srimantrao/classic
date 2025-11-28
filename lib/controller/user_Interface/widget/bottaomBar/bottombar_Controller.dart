@@ -2,6 +2,7 @@
 // ignore_for_file: file_names
 
 import 'package:classic/view/screen/menu/dashbord/dashbordScreen/dashbord.dart';
+import 'package:classic/view/screen/menu/diamondSearch/diamondSearchScreen/diamondSearch.dart';
 import 'package:classic/view/screen/menu/home/homeScreen/home.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/jewelry.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class BottombarController extends GetxController{
     Home(),
     Jewelry(),
     Dashbord(),
+    Diamondsearch(),
   ].obs;
 
   void indexOne() => selectindex.value = 0;
@@ -37,7 +39,7 @@ class BottombarController extends GetxController{
       case 2:
         return Dashbord();
       case 3:
-      //   return Overstore();
+        return Diamondsearch();
       // case 4:
       //   return Account();
       default:

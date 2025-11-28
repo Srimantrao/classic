@@ -6,7 +6,6 @@ import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_Image.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
-import 'package:classic/view/utils/app_icon.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -40,8 +39,7 @@ Widget diamondSection({
                 informationContainerOrderText,
                 informationContainerOrderValue,
               ),
-              (informationContainerHoldText == '' &&
-                      informationContainerHoldValue == '')
+              (informationContainerHoldText == '' && informationContainerHoldValue == '')
                   ? SizedBox()
                   : informationOfProduct(
                       informationContainerHoldText,
@@ -107,15 +105,22 @@ Widget jewelryListViwe({required List jewelryList}) {
                             fontWeight: FontWeight.w800,
                           ),
                         ),
-                        Text(jewelryList[index]['price'],style: TextStyle(fontSize: Get.width * 0.05,color: AppColor.primary,fontWeight: FontWeight.w500)),
+                        Text(
+                          jewelryList[index]['price'],
+                          style: TextStyle(
+                            fontSize: Get.width * 0.05,
+                            color: AppColor.primary,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                         valueShow('SKU: ', jewelryList[index]['SKU']),
-                        valueShow('Metal: ',jewelryList[index]['Metal']),
-                        valueShow('Weight(Apx): ',jewelryList[index]['Weight(Apx)']),
-                        valueShow('Engriving: ',jewelryList[index]['Engriving']),
-                        valueShow('Shape: ',jewelryList[index]['Shape']),
-                        valueShow('Color: ',jewelryList[index]['Color']),
-                        valueShow('Clarity: ',jewelryList[index]['Clarity']),
-                        valueShow('Total Weight: ',jewelryList[index]['TotalWeight']),
+                        valueShow('Metal: ', jewelryList[index]['Metal']),
+                        valueShow('Weight(Apx): ', jewelryList[index]['Weight(Apx)']),
+                        valueShow('Engriving: ', jewelryList[index]['Engriving']),
+                        valueShow('Shape: ', jewelryList[index]['Shape']),
+                        valueShow('Color: ', jewelryList[index]['Color']),
+                        valueShow('Clarity: ', jewelryList[index]['Clarity']),
+                        valueShow('Total Weight: ', jewelryList[index]['TotalWeight']),
                       ],
                     ),
                   ),

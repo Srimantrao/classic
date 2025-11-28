@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, deprecated_member_use
 
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
@@ -7,33 +7,6 @@ import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../utils/app_TextSize.dart';
-
-Widget indexButton({
-  required String text,
-  required Color color,
-  required Color textColor,
-  required Color borderColor,
-  void Function()? onTap,
-}) {
-  return GestureDetector(
-    onTap: onTap,
-    child: Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: Get.width * 0.12,
-        vertical: Get.height * 0.009,
-      ),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(Get.width * 0.009),
-        border: Border.all(color: borderColor),
-      ),
-      child: Text(
-        text,
-        style: TextStyle(color: textColor, fontWeight: FontWeight.w600),
-      ),
-    ),
-  );
-}
 
 Widget informationOfProduct(text, value, {bool isFirst = false}) {
   return Container(
@@ -44,8 +17,8 @@ Widget informationOfProduct(text, value, {bool isFirst = false}) {
     padding: EdgeInsets.all(Get.width * 0.013),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(borderradius.buttonboder),
-      border: Border.all(color: AppColor.gray5),
-      color: AppColor.secondary,
+      border: Border.all(color: AppColor.secondary),
+      color: AppColor.secondary.withOpacity(0.5),
     ),
     child: Row(
       children: [

@@ -27,7 +27,6 @@ Widget shape(DiamondSearchUIController diamondSearch) {
     builder: (controller) {
       return Expanded(
         child: GridView.builder(
-          physics: const NeverScrollableScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 4,
             crossAxisSpacing: Get.width * 0.02,
@@ -182,10 +181,7 @@ Widget shortcutColor(
 }
 
 //Lab
-Widget lab(
-    DiamondSearchUIController diamondSearch,
-    DiamondList diamondList,
-    ) {
+Widget lab(DiamondSearchUIController diamondSearch, DiamondList diamondList) {
   return GetBuilder<DiamondSearchUIController>(
     builder: (controller) {
       return viweList(
@@ -193,7 +189,7 @@ Widget lab(
         itemBuilder: (context, index) {
           bool isSelected =
               controller.selectLAB.contains(index) ||
-                  controller.selectLAB.contains(diamondList.lab[index]);
+              controller.selectLAB.contains(diamondList.lab[index]);
           return viweContainer(
             onTap: () => controller.toggleLABSelection(index),
             colorBoder: isSelected ? AppColor.primary : AppColor.gray3,
@@ -210,9 +206,9 @@ Widget lab(
 
 //polish
 Widget polish(
-    DiamondSearchUIController diamondSearch,
-    DiamondList diamondList,
-    ) {
+  DiamondSearchUIController diamondSearch,
+  DiamondList diamondList,
+) {
   return GetBuilder<DiamondSearchUIController>(
     builder: (controller) {
       return viweList(
@@ -220,7 +216,7 @@ Widget polish(
         itemBuilder: (context, index) {
           bool isSelected =
               controller.selectPolish.contains(index) ||
-                  controller.selectPolish.contains(diamondList.polsih[index]);
+              controller.selectPolish.contains(diamondList.polsih[index]);
           return viweContainer(
             onTap: () => controller.togglePolishSelection(index),
             colorBoder: isSelected ? AppColor.primary : AppColor.gray3,
@@ -237,9 +233,9 @@ Widget polish(
 
 //Symmetry
 Widget symmetry(
-    DiamondSearchUIController diamondSearch,
-    DiamondList diamondList,
-    ) {
+  DiamondSearchUIController diamondSearch,
+  DiamondList diamondList,
+) {
   return GetBuilder<DiamondSearchUIController>(
     builder: (controller) {
       return viweList(
@@ -247,7 +243,7 @@ Widget symmetry(
         itemBuilder: (context, index) {
           bool isSelected =
               controller.selectSymmetry.contains(index) ||
-                  controller.selectSymmetry.contains(diamondList.symmetry[index]);
+              controller.selectSymmetry.contains(diamondList.symmetry[index]);
           return viweContainer(
             onTap: () => controller.toggleSymmetrySelection(index),
             colorBoder: isSelected ? AppColor.primary : AppColor.gray3,
@@ -262,14 +258,12 @@ Widget symmetry(
   );
 }
 
-
 Widget viweList({
   required int itemCount,
   required Widget Function(BuildContext, int) itemBuilder,
 }) {
   return Expanded(
     child: GridView.builder(
-      physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 4,
         crossAxisSpacing: Get.width * 0.02,
@@ -315,3 +309,51 @@ Widget viweContainer({
     ),
   );
 }
+
+
+// // ...existing code...
+
+// // Generic selection grid widget
+// Widget selectionGrid<T>({
+//   required List<T> items,
+//   required bool Function(DiamondSearchUIController controller, int index, T item) isSelected,
+//   required void Function(DiamondSearchUIController controller, int index) onTap,
+// }) {
+//   return GetBuilder<DiamondSearchUIController>(
+//     builder: (controller) {
+//       return viweList(
+//         itemCount: items.length,
+//         itemBuilder: (context, index) {
+//           final item = items[index];
+//           final selected = isSelected(controller, index, item);
+//           return viweContainer(
+//             onTap: () => onTap(controller, index),
+//             colorBoder: selected ? AppColor.primary : AppColor.gray3,
+//             color: selected ? AppColor.primary : Colors.transparent,
+//             textColor: selected ? AppColor.white : AppColor.black,
+//             text: item.toString(),
+//             fontWeight: selected ? FontWeight.w500 : FontWeight.normal,
+//           );
+//         },
+//       );
+//     },
+//   );
+// }
+
+// // ...existing code...
+
+// //Symmetry (refactored to use selectionGrid)
+// Widget symmetry(
+//     DiamondSearchUIController diamondSearch,
+//     DiamondList diamondList,
+//     ) {
+//   return selectionGrid<String>(
+//     items: diamondList.symmetry,
+//     isSelected: (controller, index, item) =>
+//         controller.selectSymmetry.contains(index) ||
+//         controller.selectSymmetry.contains(item),
+//     onTap: (controller, index) => controller.toggleSymmetrySelection(index),
+//   );
+// }
+
+// // ...existing code...

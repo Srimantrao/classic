@@ -7,7 +7,9 @@ import 'package:get/get.dart';
 
 PreferredSizeWidget appBar() {
   return PreferredSize(
-    preferredSize: Size.fromHeight(kToolbarHeight + 34),
+    preferredSize: Size.fromHeight(
+      kToolbarHeight + Get.height * 0.05,
+    ),
     child: Container(
       color: AppColor.primary,
       child: SafeArea(

@@ -26,7 +26,10 @@ Widget Inputfield({
   Color? textColor,
   String? hintstylefontFamily,
   String? textfontFamily,
-  Widget? suffixIcon
+  Widget? suffixIcon,
+  InputBorder? focusedBorder,
+  InputBorder? enabledBorder,
+  InputBorder? disabledBorder,
 }) {
   return StatefulBuilder(
     builder: (BuildContext context, void Function(void Function()) setState) {
@@ -84,17 +87,17 @@ Widget Inputfield({
                             ),
                             filled: true,
                             fillColor: fillColor ?? AppColor.white,
-                            focusedBorder: OutlineInputBorder(
+                            focusedBorder: focusedBorder ?? OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: color ?? AppColor.white,
                               ),
                             ),
-                            enabledBorder: OutlineInputBorder(
+                            enabledBorder: enabledBorder ?? OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: color ?? AppColor.white,
                               ),
                             ),
-                            disabledBorder: OutlineInputBorder(
+                            disabledBorder: disabledBorder ??  OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: color ?? AppColor.white,
                               ),

@@ -116,4 +116,5 @@ class AppString{
   static const carat = 'Carat';
   static const clarity = 'Clarity';
   static const whiteColor = 'White Color';
+  static const searchDiamond = 'Search Diamond';
 }

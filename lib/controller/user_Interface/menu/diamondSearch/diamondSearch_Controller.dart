@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
@@ -13,6 +14,27 @@ class DiamondSearchUIController extends GetxController {
   List<int> selectLAB = [];
   List<int> selectPolish = [];
   List<int> selectSymmetry = [];
+  List<int> selectAvailability = [];
+  List<int> selectTreatment = [];
+  List<int> selectFluorescence = [];
+  List<int> selectedEyeClean = [];
+
+  TextEditingController lengthMinController = TextEditingController();
+  TextEditingController lengthMaxController = TextEditingController();
+  TextEditingController widthMinController = TextEditingController();
+  TextEditingController widthMaxController = TextEditingController();
+  TextEditingController depthMinController = TextEditingController();
+  TextEditingController depthMaxController = TextEditingController();
+  TextEditingController tableMinController = TextEditingController();
+  TextEditingController tableMaxController = TextEditingController(); 
+  TextEditingController crownHeightMinController = TextEditingController();
+  TextEditingController crownHeightMaxController = TextEditingController();
+  TextEditingController crownAngleMinController = TextEditingController();
+  TextEditingController crownAngleMaxController = TextEditingController();
+  TextEditingController pavilionDepthMinController = TextEditingController();
+  TextEditingController pavilionDepthMaxController = TextEditingController();
+  TextEditingController pavilionAngleMinController = TextEditingController();
+  TextEditingController pavilionAngleMaxController = TextEditingController();
 
   //Multiple selection White Color
   void toggleWhiteColorSelection(int index) {
@@ -20,6 +42,46 @@ class DiamondSearchUIController extends GetxController {
       selectWhiteColor.remove(index);
     } else {
       selectWhiteColor.add(index);
+    }
+    update();
+  }
+
+  //Multiple selection Eye Clean
+  void toggleEyeCleanSelection(int index) {
+    if (selectedEyeClean.contains(index)) {
+      selectedEyeClean.remove(index);
+    } else {
+      selectedEyeClean.add(index);
+    }
+    update();
+  }
+
+  //Multiple selection Fluorescence
+  void toggleFluorescenceSelection(int index) {
+    if (selectFluorescence.contains(index)) {
+      selectFluorescence.remove(index);
+    } else {
+      selectFluorescence.add(index);
+    }
+    update();
+  }
+
+  //Multiple selection Treatment
+  void toggleTreatmentSelection(int index) {
+    if (selectTreatment.contains(index)) {
+      selectTreatment.remove(index);
+    } else {
+      selectTreatment.add(index);
+    }
+    update();
+  }
+
+  //Multiple selection Availability
+  void toggleAvailabilitySelection(int index) {
+    if (selectAvailability.contains(index)) {
+      selectAvailability.remove(index);
+    } else {
+      selectAvailability.add(index);
     }
     update();
   }
@@ -102,6 +164,27 @@ class DiamondSearchUIController extends GetxController {
     update();
   }
 
+  //For single selection (if you prefer) Eye Clean
+  void selectEyeClean(int index) {
+    selectedEyeClean.clear();
+    selectedEyeClean.add(index);  
+    update();
+  }
+
+  //For single selection (if you prefer) Treatment
+  void selecttreatment(int index) {
+    selectTreatment.clear();
+    selectTreatment.add(index);
+    update();
+  }
+
+// For single selection (if you prefer) Availability
+  void selectAvailabilitys(int index) {
+    selectAvailability.clear();
+    selectAvailability.add(index);
+    update();
+  }
+
   // For single selection (if you prefer) Symmetry
   void selectsymmetry (int index) {
     selectSymmetry.clear();
@@ -145,6 +228,13 @@ class DiamondSearchUIController extends GetxController {
     update();
   }
 
+  // For single selection (if you prefer) Fluorescence
+  void selectFluorescences(int index) {
+    selectFluorescence.clear();
+    selectFluorescence.add(index);
+    update();
+  }
+
   // For single selection (if you prefer) Shape
   void selectShape(int index) {
     selectedShapes.clear();
@@ -162,6 +252,10 @@ class DiamondSearchUIController extends GetxController {
     selectLAB.clear();
     selectPolish.clear();
     selectSymmetry.clear();
+    selectAvailability.clear();
+    selectTreatment.clear();
+    selectFluorescence.clear();
+    selectedEyeClean.clear();
     update();
   }
 

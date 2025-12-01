@@ -81,4 +81,27 @@ class DiamondList{
     'GD',
     'Poor',
   ];
+
+  List<String> availability = [
+    'ALL',
+    'HOLD',
+    'Available',
+  ];
+
+  List<String> treatment =[
+    'CVD',
+    'HPHT',
+  ];
+
+  List<String> fluorescence = [
+    'None',
+    'Faint',
+    'Medium',
+    'Strong',
+  ];
+
+  List<String> eyeClean = [
+    'Yes',
+    'No',
+  ];
 }

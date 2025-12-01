@@ -7,6 +7,8 @@ import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:classic/view/utils/widget/indexButton.dart';
+import 'package:classic/view/utils/widget/inputfield.dart';
+import 'package:classic/view/utils/widget/subheding.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -40,7 +42,7 @@ Widget indexButtons({
 }
 
 //Shape
-Widget shapeViwe(diamondSearch,text) {
+Widget shapeViwe(diamondSearch, text) {
   return SizedBox(
     height: Get.height / 4,
     child: horizontalPadding(
@@ -60,8 +62,8 @@ Widget shapeViwe(diamondSearch,text) {
 Widget searchColor({
   required DiamondSearchUIController diamondSearch,
   required String text,
-  required Widget  contain,
-  double? height
+  required Widget contain,
+  double? height,
 }) {
   return SizedBox(
     height: height ?? Get.height / 4.7,
@@ -79,4 +81,68 @@ Widget searchColor({
   );
 }
 
-
+Widget measurements({
+  TextEditingController? lengthMinController,
+  TextEditingController? lengthMaxController,
+  TextEditingController? widthMinController,
+  TextEditingController? widthMaxController,
+  TextEditingController? depthMinController,
+  TextEditingController? depthMaxController,
+  TextEditingController? tableMinController,
+  TextEditingController? tableMaxController,
+  TextEditingController? crownHeightMinController,
+  TextEditingController? crownHeightMaxController,
+  TextEditingController? crownAngleMinController,
+  TextEditingController? crownAngleMaxController,
+  TextEditingController? pavilionDepthMinController,
+  TextEditingController? pavilionDepthMaxController,
+  TextEditingController? pavilionAngleMinController,
+  TextEditingController? pavilionAngleMaxController,
+}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      horizontalPadding(child: shapeHedding('Measurements')),
+      textLine(
+        hediingtext: 'Length',
+        maxController: lengthMaxController ?? TextEditingController(),
+        minController: lengthMinController ?? TextEditingController(),
+      ),
+      textLine(
+        hediingtext: 'width',
+        maxController: widthMaxController ?? TextEditingController(),
+        minController: widthMinController ?? TextEditingController(),
+      ),
+      textLine(
+        hediingtext: 'Depth',
+        maxController: depthMaxController ?? TextEditingController(),
+        minController: depthMinController ?? TextEditingController(),
+      ),
+      textLine(
+        hediingtext: 'Teble %',
+        maxController: tableMaxController ?? TextEditingController(),
+        minController: tableMinController ?? TextEditingController(),
+      ),
+      textLine(
+        hediingtext: 'Crown Height %',
+        maxController: crownHeightMaxController ?? TextEditingController(),
+        minController: crownHeightMinController ?? TextEditingController(),
+      ),
+      textLine(
+        hediingtext: 'Crown Angle %',
+        maxController: crownAngleMaxController ?? TextEditingController(),
+        minController: crownAngleMinController ?? TextEditingController(),
+      ),
+      textLine(
+        hediingtext: 'Pavilion Depth %',
+        maxController: pavilionDepthMaxController ?? TextEditingController(),
+        minController: pavilionDepthMinController ?? TextEditingController(),
+      ),
+      textLine(
+        hediingtext: 'Pavilion Angle %',
+        maxController: pavilionAngleMaxController ?? TextEditingController(),
+        minController: pavilionAngleMinController ?? TextEditingController(),
+      ),
+    ],
+  );
+}

@@ -6,7 +6,9 @@ import 'package:classic/view/screen/menu/diamondSearch/diamondSearchExtraWidget/
 import 'package:classic/view/screen/menu/diamondSearch/diamondWidget/header/appbar.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_icon.dart';
+import 'package:classic/view/utils/widget/button.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
+import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../diamondWidget/body/diamondSearchWidget.dart';
@@ -18,17 +20,26 @@ class Diamondsearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
+      bottomNavigationBar: SizedBox(
+        height: Get.height * 0.05,
+        child: horizontalPadding(
+          child: button(
+            AppString.searchDiamond,
+            onTap: () {},
+          ),
+        ),
+      ),
       appBar: appBarDiamond(
         prefixIcon: AppIcon.newcart,
         suffixIcon: AppIcon.drawer,
         hedding: AppString.diamondSearch,
       ),
-      child: Obx((){
+      child: Obx(() {
         return SingleChildScrollView(
           child: Column(
             children: [
               SizedBox(height: Get.height * 0.02),
-          
+
               // TOP TABS
               indexButtons(
                 isWhiteDimaond: diamondSearch.isWhite,
@@ -36,7 +47,7 @@ class Diamondsearch extends StatelessWidget {
                 onTapDiamond: () => diamondSearch.selectTab(0),
                 onTapJewellwery: () => diamondSearch.selectTab(1),
               ),
-          
+
               //Shape
               shapeViwe(diamondSearch, AppString.shape),
 
@@ -86,15 +97,69 @@ class Diamondsearch extends StatelessWidget {
                 height: Get.height / 9.5,
               ),
 
+              //Symmetry
               searchColor(
                 diamondSearch: diamondSearch,
                 text: 'Symmetry',
                 contain: symmetry(diamondSearch, diamondList),
+                height: Get.height / 9.5,
+              ),
+
+              //Availability
+              searchColor(
+                diamondSearch: diamondSearch,
+                text: 'Availability',
+                contain: availability(diamondSearch, diamondList),
+                height: Get.height / 9.5,
+              ),
+
+              //Treatment
+              searchColor(
+                diamondSearch: diamondSearch,
+                text: 'Treatment',
+                contain: treatment(diamondSearch, diamondList),
+                height: Get.height / 9.5,
+              ),
+
+              //Fluorescence
+              searchColor(
+                diamondSearch: diamondSearch,
+                text: 'Fluorescence',
+                contain: fluorescence(diamondSearch, diamondList),
+                height: Get.height / 9.5,
+              ),
+
+              //Eye Clean
+              searchColor(
+                diamondSearch: diamondSearch,
+                text: 'Eye Clean',
+                contain: eyeClean(diamondSearch, diamondList),
+                height: Get.height / 8.5,
+              ),
+
+              //Measurements
+              measurements(
+                lengthMinController: diamondSearch.lengthMinController,
+                lengthMaxController: diamondSearch.lengthMaxController,
+                widthMinController: diamondSearch.widthMinController,
+                widthMaxController: diamondSearch.widthMaxController,
+                depthMinController: diamondSearch.depthMinController,
+                depthMaxController: diamondSearch.depthMaxController,
+                tableMinController: diamondSearch.tableMinController,
+                tableMaxController: diamondSearch.tableMaxController,
+                crownHeightMinController:diamondSearch.crownHeightMinController,
+                crownHeightMaxController:diamondSearch.crownHeightMaxController,
+                crownAngleMaxController: diamondSearch.crownAngleMaxController,
+                crownAngleMinController: diamondSearch.crownAngleMinController,
+                pavilionDepthMinController: diamondSearch.pavilionDepthMinController,
+                pavilionDepthMaxController: diamondSearch.pavilionDepthMaxController,
+                pavilionAngleMinController: diamondSearch.pavilionAngleMinController,
+                pavilionAngleMaxController:diamondSearch.pavilionAngleMaxController,
               ),
             ],
           ),
         );
-      })
+      }),
     );
   }
 }

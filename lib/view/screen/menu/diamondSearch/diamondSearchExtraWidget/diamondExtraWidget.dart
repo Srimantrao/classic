@@ -6,6 +6,8 @@ import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
+import 'package:classic/view/utils/widget/horizontalpaddind.dart';
+import 'package:classic/view/utils/widget/inputfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -34,6 +36,8 @@ Widget shape(DiamondSearchUIController diamondSearch) {
             childAspectRatio: 1.7,
           ),
           itemCount: diamondList.shapes.length,
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
           itemBuilder: (context, index) {
             bool isSelected =
                 controller.selectedShapes.contains(index) ||
@@ -74,53 +78,31 @@ Widget shape(DiamondSearchUIController diamondSearch) {
 }
 
 //Carat
-Widget carat(DiamondSearchUIController diamondSearch, DiamondList diamondList) {
-  return GetBuilder<DiamondSearchUIController>(
-    builder: (controller) {
-      return viweList(
-        itemCount: diamondList.carat.length,
-        itemBuilder: (context, index) {
-          bool isSelected =
-              controller.selectedCarat.contains(index) ||
-              controller.selectedCarat.contains(diamondList.carat[index]);
-          return viweContainer(
-            onTap: () => controller.toggleCaratSelection(index),
-            colorBoder: isSelected ? AppColor.primary : AppColor.gray3,
-            color: isSelected ? AppColor.primary : Colors.transparent,
-            textColor: isSelected ? AppColor.white : AppColor.black,
-            text: diamondList.carat[index],
-            fontWeight: isSelected ? FontWeight.w500 : FontWeight.normal,
-          );
-        },
-      );
-    },
+Widget carat(
+  DiamondSearchUIController diamondSearch,
+  DiamondList diamondList,
+) {
+  return selectionGrid<String>(
+    items: diamondList.carat,
+    isSelected: (controller, index, item) =>
+        controller.selectedCarat.contains(index) ||
+              controller.selectedCarat.contains(diamondList.carat[index]),
+    onTap: (controller, index) => controller.toggleCaratSelection(index),
   );
 }
+
 
 //Clarity
 Widget clarity(
   DiamondSearchUIController diamondSearch,
   DiamondList diamondList,
 ) {
-  return GetBuilder<DiamondSearchUIController>(
-    builder: (controller) {
-      return viweList(
-        itemCount: diamondList.clarity.length,
-        itemBuilder: (context, index) {
-          bool isSelected =
-              controller.selectedClarity.contains(index) ||
-              controller.selectedClarity.contains(diamondList.clarity[index]);
-          return viweContainer(
-            onTap: () => controller.toggleClaritySelection(index),
-            colorBoder: isSelected ? AppColor.primary : AppColor.gray3,
-            color: isSelected ? AppColor.primary : Colors.transparent,
-            textColor: isSelected ? AppColor.white : AppColor.black,
-            text: diamondList.clarity[index],
-            fontWeight: isSelected ? FontWeight.w500 : FontWeight.normal,
-          );
-        },
-      );
-    },
+  return selectionGrid<String>(
+    items: diamondList.clarity,
+    isSelected: (controller, index, item) =>
+        controller.selectedClarity.contains(index) ||
+        controller.selectedClarity.contains(diamondList.clarity[index]),
+    onTap: (controller, index) => controller.toggleClaritySelection(index),
   );
 }
 
@@ -129,27 +111,10 @@ Widget whiteColor(
   DiamondSearchUIController diamondSearch,
   DiamondList diamondList,
 ) {
-  return GetBuilder<DiamondSearchUIController>(
-    builder: (controller) {
-      return viweList(
-        itemCount: diamondList.whiteColors.length,
-        itemBuilder: (context, index) {
-          bool isSelected =
-              controller.selectWhiteColor.contains(index) ||
-              controller.selectWhiteColor.contains(
-                diamondList.whiteColors[index],
-              );
-          return viweContainer(
-            onTap: () => controller.toggleWhiteColorSelection(index),
-            colorBoder: isSelected ? AppColor.primary : AppColor.gray3,
-            color: isSelected ? AppColor.primary : Colors.transparent,
-            textColor: isSelected ? AppColor.white : AppColor.black,
-            text: diamondList.whiteColors[index],
-            fontWeight: isSelected ? FontWeight.w500 : FontWeight.normal,
-          );
-        },
-      );
-    },
+  return selectionGrid<String>(
+    items: diamondList.whiteColors,
+    isSelected: (controller, index, item) => controller.selectWhiteColor.contains(index) || controller.selectWhiteColor.contains(diamondList.whiteColors[index]),
+    onTap: (controller, index) => controller.toggleWhiteColorSelection(index),
   );
 }
 
@@ -158,49 +123,19 @@ Widget shortcutColor(
   DiamondSearchUIController diamondSearch,
   DiamondList diamondList,
 ) {
-  return GetBuilder<DiamondSearchUIController>(
-    builder: (controller) {
-      return viweList(
-        itemCount: diamondList.shortcut.length,
-        itemBuilder: (context, index) {
-          bool isSelected =
-              controller.selectShortcut.contains(index) ||
-              controller.selectShortcut.contains(diamondList.shortcut[index]);
-          return viweContainer(
-            onTap: () => controller.toggleShortcutSelection(index),
-            colorBoder: isSelected ? AppColor.primary : AppColor.gray3,
-            color: isSelected ? AppColor.primary : Colors.transparent,
-            textColor: isSelected ? AppColor.white : AppColor.black,
-            text: diamondList.shortcut[index],
-            fontWeight: isSelected ? FontWeight.w500 : FontWeight.normal,
-          );
-        },
-      );
-    },
+  return selectionGrid<String>(
+    items: diamondList.shortcut,
+    isSelected: (controller, index, item) => controller.selectShortcut.contains(index) || controller.selectShortcut.contains(diamondList.shortcut[index]),
+    onTap: (controller, index) => controller.toggleShortcutSelection(index),
   );
 }
 
 //Lab
 Widget lab(DiamondSearchUIController diamondSearch, DiamondList diamondList) {
-  return GetBuilder<DiamondSearchUIController>(
-    builder: (controller) {
-      return viweList(
-        itemCount: diamondList.lab.length,
-        itemBuilder: (context, index) {
-          bool isSelected =
-              controller.selectLAB.contains(index) ||
-              controller.selectLAB.contains(diamondList.lab[index]);
-          return viweContainer(
-            onTap: () => controller.toggleLABSelection(index),
-            colorBoder: isSelected ? AppColor.primary : AppColor.gray3,
-            color: isSelected ? AppColor.primary : Colors.transparent,
-            textColor: isSelected ? AppColor.white : AppColor.black,
-            text: diamondList.lab[index],
-            fontWeight: isSelected ? FontWeight.w500 : FontWeight.normal,
-          );
-        },
-      );
-    },
+  return selectionGrid<String>(
+    items: diamondList.lab,
+    isSelected: (controller, index, item) => controller.selectLAB.contains(index) ||controller.selectLAB.contains(diamondList.lab[index]),
+    onTap: (controller, index) => controller.toggleLABSelection(index),
   );
 }
 
@@ -209,25 +144,10 @@ Widget polish(
   DiamondSearchUIController diamondSearch,
   DiamondList diamondList,
 ) {
-  return GetBuilder<DiamondSearchUIController>(
-    builder: (controller) {
-      return viweList(
-        itemCount: diamondList.polsih.length,
-        itemBuilder: (context, index) {
-          bool isSelected =
-              controller.selectPolish.contains(index) ||
-              controller.selectPolish.contains(diamondList.polsih[index]);
-          return viweContainer(
-            onTap: () => controller.togglePolishSelection(index),
-            colorBoder: isSelected ? AppColor.primary : AppColor.gray3,
-            color: isSelected ? AppColor.primary : Colors.transparent,
-            textColor: isSelected ? AppColor.white : AppColor.black,
-            text: diamondList.polsih[index],
-            fontWeight: isSelected ? FontWeight.w500 : FontWeight.normal,
-          );
-        },
-      );
-    },
+  return selectionGrid<String>(
+    items: diamondList.polsih,
+    isSelected: (controller, index, item) => controller.selectPolish.contains(index) ||controller.selectPolish.contains(diamondList.polsih[index]),
+    onTap: (controller, index) => controller.togglePolishSelection(index),
   );
 }
 
@@ -236,25 +156,58 @@ Widget symmetry(
   DiamondSearchUIController diamondSearch,
   DiamondList diamondList,
 ) {
-  return GetBuilder<DiamondSearchUIController>(
-    builder: (controller) {
-      return viweList(
-        itemCount: diamondList.symmetry.length,
-        itemBuilder: (context, index) {
-          bool isSelected =
-              controller.selectSymmetry.contains(index) ||
-              controller.selectSymmetry.contains(diamondList.symmetry[index]);
-          return viweContainer(
-            onTap: () => controller.toggleSymmetrySelection(index),
-            colorBoder: isSelected ? AppColor.primary : AppColor.gray3,
-            color: isSelected ? AppColor.primary : Colors.transparent,
-            textColor: isSelected ? AppColor.white : AppColor.black,
-            text: diamondList.symmetry[index],
-            fontWeight: isSelected ? FontWeight.w500 : FontWeight.normal,
-          );
-        },
-      );
-    },
+  return selectionGrid<String>(
+    items: diamondList.symmetry,
+    isSelected: (controller, index, item) => controller.selectSymmetry.contains(index) ||controller.selectSymmetry.contains(item),
+    onTap: (controller, index) => controller.toggleSymmetrySelection(index),
+  );
+}
+
+//Availability
+Widget availability(
+  DiamondSearchUIController diamondSearch,
+  DiamondList diamondList,
+) {
+  return selectionGrid<String>(
+    items: diamondList.availability,
+    isSelected: (controller, index, item) => controller.selectAvailability.contains(index) ||controller.selectAvailability.contains(item),
+    onTap: (controller, index) => controller.toggleAvailabilitySelection(index),
+  );
+}
+
+//Treatment
+Widget treatment(
+  DiamondSearchUIController diamondSearch,
+  DiamondList diamondList,
+) {
+  return selectionGrid<String>(
+    items: diamondList.treatment,
+    isSelected: (controller, index, item) => controller.selectTreatment.contains(index) ||  controller.selectTreatment.contains(item),
+    onTap: (controller, index) => controller.toggleTreatmentSelection(index),
+  );
+}
+
+//Fluorescence
+Widget fluorescence(
+  DiamondSearchUIController diamondSearch,
+  DiamondList diamondList,
+) {
+  return selectionGrid<String>(
+    items: diamondList.fluorescence,
+    isSelected: (controller, index, item) => controller.selectFluorescence.contains(index) ||  controller.selectFluorescence.contains(item),
+    onTap: (controller, index) => controller.toggleFluorescenceSelection(index),
+  );
+}
+
+//Eye Clean
+Widget eyeClean(
+  DiamondSearchUIController diamondSearch,
+  DiamondList diamondList,
+) {
+  return selectionGrid<String>(
+    items: diamondList.eyeClean,
+    isSelected: (controller, index, item) => controller.selectedEyeClean.contains(index) ||  controller.selectedEyeClean.contains(item),
+    onTap: (controller, index) => controller.toggleEyeCleanSelection(index),
   );
 }
 
@@ -272,6 +225,8 @@ Widget viweList({
       ),
       itemCount: itemCount,
       itemBuilder: itemBuilder,
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
     ),
   );
 }
@@ -310,50 +265,94 @@ Widget viweContainer({
   );
 }
 
+Widget selectionGrid<T>({
+  required List<T> items,
+  required bool Function(
+    DiamondSearchUIController controller,
+    int index,
+    T item,
+  )
+  isSelected,
+  required void Function(DiamondSearchUIController controller, int index) onTap,
+}) {
+  return GetBuilder<DiamondSearchUIController>(
+    builder: (controller) {
+      return viweList(
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          final item = items[index];
+          final selected = isSelected(controller, index, item);
+          return viweContainer(
+            onTap: () => onTap(controller, index),
+            colorBoder: selected ? AppColor.primary : AppColor.gray3,
+            color: selected ? AppColor.primary : Colors.transparent,
+            textColor: selected ? AppColor.white : AppColor.black,
+            text: item.toString(),
+            fontWeight: selected ? FontWeight.w500 : FontWeight.normal,
+          );
+        },
+      );
+    },
+  );
+}
 
-// // ...existing code...
-
-// // Generic selection grid widget
-// Widget selectionGrid<T>({
-//   required List<T> items,
-//   required bool Function(DiamondSearchUIController controller, int index, T item) isSelected,
-//   required void Function(DiamondSearchUIController controller, int index) onTap,
-// }) {
-//   return GetBuilder<DiamondSearchUIController>(
-//     builder: (controller) {
-//       return viweList(
-//         itemCount: items.length,
-//         itemBuilder: (context, index) {
-//           final item = items[index];
-//           final selected = isSelected(controller, index, item);
-//           return viweContainer(
-//             onTap: () => onTap(controller, index),
-//             colorBoder: selected ? AppColor.primary : AppColor.gray3,
-//             color: selected ? AppColor.primary : Colors.transparent,
-//             textColor: selected ? AppColor.white : AppColor.black,
-//             text: item.toString(),
-//             fontWeight: selected ? FontWeight.w500 : FontWeight.normal,
-//           );
-//         },
-//       );
-//     },
-//   );
-// }
-
-// // ...existing code...
-
-// //Symmetry (refactored to use selectionGrid)
-// Widget symmetry(
-//     DiamondSearchUIController diamondSearch,
-//     DiamondList diamondList,
-//     ) {
-//   return selectionGrid<String>(
-//     items: diamondList.symmetry,
-//     isSelected: (controller, index, item) =>
-//         controller.selectSymmetry.contains(index) ||
-//         controller.selectSymmetry.contains(item),
-//     onTap: (controller, index) => controller.toggleSymmetrySelection(index),
-//   );
-// }
-
-// // ...existing code...
+Widget textLine({
+  required String hediingtext,
+  required TextEditingController minController,
+  required TextEditingController maxController,
+}) {
+  return horizontalPadding(
+    child: SizedBox(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(height: Get.height * 0.01),
+          Text(
+            hediingtext,
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontFamily: 'FuturaCyrillic',
+              fontSize: Textsize.subheding,
+            ),
+          ),
+          SizedBox(height: Get.height * 0.01),
+          Row(
+            children: [
+              Expanded(
+                child: Inputfield(
+                  controller: minController,
+                  hinttext: 'Min',
+                  hintstylefontFamily: 'Sans-Regular',
+                  textfontFamily: 'Sans-Regular',
+                  hintstyleColor: AppColor.gray,
+                  textColor: AppColor.black,
+                  keyboardType: TextInputType.number,
+                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: AppColor.primary)),
+                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: AppColor.gray)),
+                  disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: AppColor.gray)),
+                ),
+              ),
+              SizedBox(width: Get.width * 0.05),
+              Expanded(
+                child: Inputfield(
+                  controller: maxController,
+                  hinttext: 'Max',
+                  hintstylefontFamily: 'Sans-Regular',
+                  textfontFamily: 'Sans-Regular',
+                  hintstyleColor: AppColor.gray,
+                  textColor: AppColor.black,
+                  keyboardType: TextInputType.number,
+                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: AppColor.primary)),
+                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: AppColor.gray)),
+                  disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: AppColor.gray)),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}

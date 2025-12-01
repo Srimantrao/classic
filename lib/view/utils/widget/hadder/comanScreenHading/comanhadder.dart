@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 PreferredSizeWidget comanAppBar({
-  required String prefix,
-  required String suffix,
+  required dynamic prefix,
+  required dynamic suffix,
   required String hedding,
   void Function()? prefixOnTap,
   void Function()? suffixOnTap,
@@ -20,7 +20,7 @@ PreferredSizeWidget comanAppBar({
       child: SafeArea(
         child: horizontalPadding(
           child: Padding(
-            padding: EdgeInsetsGeometry.symmetric(vertical: Get.height * 0.015),
+            padding: EdgeInsets.symmetric(vertical: Get.height * 0.015),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

@@ -139,4 +139,15 @@ class AppString{
   static const crownAngle = 'Crown Angle %';
   static const pavilionDepth = 'Pavilion Depth %';
   static const pavilionAngle = 'Pavilion Angle %';  
+
+  //Add Custom Jewellery Screen
+  static const addCustomJewellery = 'Add Custom Jewellery';
+  static const productType = 'Product Type';
+  static const metalType = 'Metal Type';
+  static const metalStamp = 'Metal Stamp';
+  static const uploadYourImage = 'Upload Your Image';
+  static const youmay = 'You May Upload Image, Video And URL Of The Product That You Want Us To Design,For You.';
+  static const image = ' Image';
+  static const video = ' Video';
+  static const url = ' URL';
 }

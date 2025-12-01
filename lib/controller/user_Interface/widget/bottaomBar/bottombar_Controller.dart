@@ -1,6 +1,7 @@
 
 // ignore_for_file: file_names
 
+import 'package:classic/view/screen/menu/addCustomJewellery/addCustomJewelleryScreen/addCustomJewellery.dart';
 import 'package:classic/view/screen/menu/dashbord/dashbordScreen/dashbord.dart';
 import 'package:classic/view/screen/menu/diamondSearch/diamondSearchScreen/diamondSearch.dart';
 import 'package:classic/view/screen/menu/home/homeScreen/home.dart';
@@ -16,6 +17,7 @@ class BottombarController extends GetxController{
     Jewelry(),
     Dashbord(),
     Diamondsearch(),
+    AddCustomJewellery()
   ].obs;
 
   void indexOne() => selectindex.value = 0;
@@ -40,8 +42,8 @@ class BottombarController extends GetxController{
         return Dashbord();
       case 3:
         return Diamondsearch();
-      // case 4:
-      //   return Account();
+      case 4:
+        return AddCustomJewellery();
       default:
         return Home();
     }

@@ -4,5 +4,5 @@ import 'package:get/get.dart';
 
 class borderradius {
   static final boder = Get.width * 0.03;
-  static final buttonboder = Get.width * 0.005;
+  static final buttonboder = Get.width * 0.008;
 }

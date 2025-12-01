@@ -15,9 +15,7 @@ import 'package:get/get.dart';
 
 class Signup extends StatelessWidget {
   final signupUi = Get.put(SignupuiContoller());
-
   Signup({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Fullscreen(

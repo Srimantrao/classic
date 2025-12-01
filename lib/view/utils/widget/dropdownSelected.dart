@@ -17,11 +17,13 @@ Widget dropdowns(
       required String value,
       required List<DropdownMenuItem<String>> list,
       void Function(String?)? onChanged,
+      BoxBorder? border,
+      FontWeight? fontWeight
     }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(
+     (text == '') ? SizedBox() : Text(
         text,
         style: TextStyle(
           fontSize: Textsize.normal,
@@ -34,6 +36,7 @@ Widget dropdowns(
         width: Get.width,
         height: Widgetsize.getContainerHeight(),
         decoration: BoxDecoration(
+          border: border,
           borderRadius: BorderRadius.circular(borderradius.buttonboder),
           color: AppColor.white,
         ),
@@ -48,12 +51,12 @@ Widget dropdowns(
             hint: Text(
               hinttext ?? AppString.select,
               style: TextStyle(
-                fontWeight: FontWeight.w400,
+                fontWeight: fontWeight ?? FontWeight.w400,
                 fontSize: Get.width * 0.04,
               ),
             ),
             style: TextStyle(
-              fontWeight: FontWeight.w300,
+              fontWeight: fontWeight ?? FontWeight.w300,
               fontSize: Get.width * 0.04,
             ),
             items: list,

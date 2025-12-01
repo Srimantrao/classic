@@ -17,12 +17,24 @@ Widget appbarheddingText(text) {
   );
 }
 
-Widget icon(String icon) {
+Widget icon(dynamic icon) {
   double size = Get.width * 0.050;
-  return Image.asset(
-    icon,
-    color: AppColor.white,
-    width: size,
-    height: size,
-  );
+  if (icon is IconData) {
+    return Icon(icon, color: AppColor.white, size: size);
+  }
+  if (icon is String) {
+    return Image.asset(
+      icon,
+      color: AppColor.white,
+      width: size,
+      height: size,
+    );
+  }
+  // Fallback: if a widget is passed in directly
+  if (icon is Widget) {
+    return icon;
+  }
+
+  // Default empty container to avoid runtime crashes
+  return SizedBox(width: size, height: size);
 }

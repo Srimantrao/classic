@@ -7,8 +7,6 @@ import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:classic/view/utils/widget/indexButton.dart';
-import 'package:classic/view/utils/widget/inputfield.dart';
-import 'package:classic/view/utils/widget/subheding.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -102,44 +100,44 @@ Widget measurements({
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      horizontalPadding(child: shapeHedding('Measurements')),
+      horizontalPadding(child: shapeHedding(AppString.measurements)),
       textLine(
-        hediingtext: 'Length',
+        hediingtext: AppString.length,
         maxController: lengthMaxController ?? TextEditingController(),
         minController: lengthMinController ?? TextEditingController(),
       ),
       textLine(
-        hediingtext: 'width',
+        hediingtext: AppString.width,
         maxController: widthMaxController ?? TextEditingController(),
         minController: widthMinController ?? TextEditingController(),
       ),
       textLine(
-        hediingtext: 'Depth',
+        hediingtext: AppString.depth,
         maxController: depthMaxController ?? TextEditingController(),
         minController: depthMinController ?? TextEditingController(),
       ),
       textLine(
-        hediingtext: 'Teble %',
+        hediingtext: AppString.table,
         maxController: tableMaxController ?? TextEditingController(),
         minController: tableMinController ?? TextEditingController(),
       ),
       textLine(
-        hediingtext: 'Crown Height %',
+        hediingtext: AppString.crownHeight,
         maxController: crownHeightMaxController ?? TextEditingController(),
         minController: crownHeightMinController ?? TextEditingController(),
       ),
       textLine(
-        hediingtext: 'Crown Angle %',
+        hediingtext: AppString.crownAngle,
         maxController: crownAngleMaxController ?? TextEditingController(),
         minController: crownAngleMinController ?? TextEditingController(),
       ),
       textLine(
-        hediingtext: 'Pavilion Depth %',
+        hediingtext: AppString.pavilionDepth,
         maxController: pavilionDepthMaxController ?? TextEditingController(),
         minController: pavilionDepthMinController ?? TextEditingController(),
       ),
       textLine(
-        hediingtext: 'Pavilion Angle %',
+        hediingtext: AppString.pavilionAngle,
         maxController: pavilionAngleMaxController ?? TextEditingController(),
         minController: pavilionAngleMinController ?? TextEditingController(),
       ),

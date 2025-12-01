@@ -24,7 +24,7 @@ class Diamondsearch extends StatelessWidget {
         height: Get.height * 0.05,
         child: horizontalPadding(
           child: button(
-            AppString.searchDiamond,
+            AppString.searchdiamond,
             onTap: () {},
           ),
         ),
@@ -76,7 +76,7 @@ class Diamondsearch extends StatelessWidget {
               //ShortCut
               searchColor(
                 diamondSearch: diamondSearch,
-                text: 'Shortcut',
+                text: AppString.shortcut,
                 contain: shortcutColor(diamondSearch, diamondList),
                 height: Get.height / 8.5,
               ),
@@ -84,7 +84,7 @@ class Diamondsearch extends StatelessWidget {
               //Lab
               searchColor(
                 diamondSearch: diamondSearch,
-                text: 'Lab',
+                text: AppString.lab,
                 contain: lab(diamondSearch, diamondList),
                 height: Get.height / 6.5,
               ),
@@ -92,7 +92,7 @@ class Diamondsearch extends StatelessWidget {
               //Polish
               searchColor(
                 diamondSearch: diamondSearch,
-                text: 'Polish',
+                text: AppString.polish,
                 contain: polish(diamondSearch, diamondList),
                 height: Get.height / 9.5,
               ),
@@ -100,7 +100,7 @@ class Diamondsearch extends StatelessWidget {
               //Symmetry
               searchColor(
                 diamondSearch: diamondSearch,
-                text: 'Symmetry',
+                text: AppString.symmetry,
                 contain: symmetry(diamondSearch, diamondList),
                 height: Get.height / 9.5,
               ),
@@ -108,7 +108,7 @@ class Diamondsearch extends StatelessWidget {
               //Availability
               searchColor(
                 diamondSearch: diamondSearch,
-                text: 'Availability',
+                text: AppString.availability,
                 contain: availability(diamondSearch, diamondList),
                 height: Get.height / 9.5,
               ),
@@ -116,7 +116,7 @@ class Diamondsearch extends StatelessWidget {
               //Treatment
               searchColor(
                 diamondSearch: diamondSearch,
-                text: 'Treatment',
+                text: AppString.treatment,
                 contain: treatment(diamondSearch, diamondList),
                 height: Get.height / 9.5,
               ),
@@ -124,7 +124,7 @@ class Diamondsearch extends StatelessWidget {
               //Fluorescence
               searchColor(
                 diamondSearch: diamondSearch,
-                text: 'Fluorescence',
+                text: AppString.fluorescence,
                 contain: fluorescence(diamondSearch, diamondList),
                 height: Get.height / 9.5,
               ),
@@ -132,7 +132,7 @@ class Diamondsearch extends StatelessWidget {
               //Eye Clean
               searchColor(
                 diamondSearch: diamondSearch,
-                text: 'Eye Clean',
+                text: AppString.eyeClean,
                 contain: eyeClean(diamondSearch, diamondList),
                 height: Get.height / 8.5,
               ),

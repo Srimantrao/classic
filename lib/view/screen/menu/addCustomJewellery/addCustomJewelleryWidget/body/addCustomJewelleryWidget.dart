@@ -6,7 +6,6 @@ import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
 import 'package:classic/view/utils/widget/dropdownSelected.dart';
-import 'package:classic/view/utils/widget/inputTyping.dart';
 import 'package:classic/view/utils/widget/inputfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -186,7 +185,7 @@ Widget metalDetails({
         hinttext: AppString.metalType,
       ),
 
-      //Metal Stamp 
+      //Metal Stamp
       selectdropdown(
         AppString.metalStamp,
         list: metalStampList,

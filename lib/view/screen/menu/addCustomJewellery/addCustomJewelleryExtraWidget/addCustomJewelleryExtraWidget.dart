@@ -1,7 +1,11 @@
 // ignore_for_file: file_names
 
+import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
+import 'package:classic/view/utils/widget/dropdownSelected.dart';
+import 'package:classic/view/utils/widget/inputTyping.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 
@@ -49,14 +53,33 @@ Widget roundCircleSelector({
   required Color imageColor,
   required Color videoColor,
   required Color urlColor,
+  // per-item radii (so selected item can be smaller/larger than others)
+  required double imageRadius,
+  required double videoRadius,
+  required double urlRadius,
 }) {
   return Row(
     children: [
-      roundCircal(text: imageText, onTap: imageOnTap, color: imageColor),
-      SizedBox(width: Get.width * 0.05),
-      roundCircal(text: videoText, onTap: videoOnTap, color: videoColor),
-      SizedBox(width: Get.width * 0.05),
-      roundCircal(text: urlText, onTap: urlOnTap, color: urlColor),
+      roundCircal(
+        text: imageText,
+        onTap: imageOnTap,
+        color: imageColor,
+        radius: imageRadius,
+      ),
+      SizedBox(width: Get.width * 0.15),
+      roundCircal(
+        text: videoText,
+        onTap: videoOnTap,
+        color: videoColor,
+        radius: videoRadius,
+      ),
+      SizedBox(width: Get.width * 0.15),
+      roundCircal(
+        text: urlText,
+        onTap: urlOnTap,
+        color: urlColor,
+        radius: urlRadius,
+      ),
     ],
   );
 }
@@ -65,25 +88,105 @@ Widget roundCircal({
   required String text,
   required void Function() onTap,
   required Color color,
+  required double radius,
 }) {
-  return Row(
-    children: [
-      GestureDetector(
-        onTap: onTap,
-        child: CircleAvatar(
+  return GestureDetector(
+    onTap: onTap,
+    child: Row(
+      children: [
+        CircleAvatar(
           backgroundColor: color,
           radius: 10,
-          child: CircleAvatar(backgroundColor: AppColor.white, radius: 7),
+          child: CircleAvatar(backgroundColor: AppColor.white, radius: radius),
         ),
-      ),
-      Text(
-        text,
-        style: TextStyle(
-          color: AppColor.black,
-          fontSize: Get.width * 0.04,
-          fontWeight: FontWeight.w500,
+        Text(
+          text,
+          style: TextStyle(
+            color: AppColor.black,
+            fontSize: Get.width * 0.04,
+            fontWeight: FontWeight.w500,
+          ),
         ),
+      ],
+    ),
+  );
+}
+
+Widget chooseFileButton({
+  required void Function() onTap,
+  required String buttonText,
+}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      SizedBox(height: Get.height * 0.01),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Center(
+            child: ElevatedButton(
+              onPressed: onTap,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColor.primary,
+                padding: EdgeInsets.symmetric(
+                  horizontal: Get.width * 0.1,
+                  vertical: Get.height * 0.015,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(borderradius.buttonboder),
+                ),
+              ),
+              child: Text(
+                buttonText,
+                style: TextStyle(
+                  color: AppColor.white,
+                  fontSize: Get.width * 0.04,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     ],
   );
 }
+
+Widget inputString({
+  required TextEditingController controller,
+  required String text,
+  required String hinttext,
+  int? maxLength,
+  TextInputType? keyboardType,
+  List<TextInputFormatter>? inputFormatters
+}) {
+  return inputTyaping(
+    text: text,
+    hinttext: hinttext,
+    controller: controller,
+    color: AppColor.gray5,
+    maxLength: maxLength,
+    keyboardType: keyboardType,
+    inputFormatters: inputFormatters,
+  );
+}
+
+Widget selectdropdown(
+  String? label, {
+  required List<DropdownMenuItem<String>> list,
+  required String value,
+  required ValueChanged<String?> onChanged,
+  required String hinttext,
+}) {
+  return dropdowns(
+    label,
+    hinttext: hinttext,
+    list: list,
+    value: value,
+    onChanged: onChanged,
+    border: Border.all(color: AppColor.gray5),
+    fontWeight: FontWeight.w500,
+  );
+}
+

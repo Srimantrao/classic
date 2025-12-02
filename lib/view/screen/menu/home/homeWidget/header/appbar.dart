@@ -6,24 +6,27 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 PreferredSizeWidget appBar() {
+  final topPadding = Get.mediaQuery.padding.top;
+  final double extraRowHeight = 56;
   return PreferredSize(
-    preferredSize: Size.fromHeight(kToolbarHeight + Get.height * 0.043),
+    preferredSize: Size.fromHeight(kToolbarHeight + extraRowHeight + topPadding),
     child: Container(
       color: AppColor.primary,
       child: SafeArea(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Container(
               width: Get.width,
-              padding: EdgeInsetsGeometry.symmetric(
+              padding: EdgeInsets.symmetric(
                 vertical: 7,
-                horizontal: Get.width / 30,
+                horizontal: Get.width / 80,
               ),
               decoration: BoxDecoration(color: AppColor.primary),
               child: addText(AppString.homeadd),
             ),
             Container(
-              padding: EdgeInsetsGeometry.symmetric(vertical: 8),
+              padding: EdgeInsets.symmetric(vertical: 8),
               decoration: BoxDecoration(color: AppColor.white),
               child: horizontalPadding(child: setLogoIcon()),
             ),

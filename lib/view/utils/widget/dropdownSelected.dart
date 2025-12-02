@@ -42,9 +42,8 @@ Widget dropdowns(
         ),
         child: Center(
           child: DropdownButton2<String>(
-            iconStyleData: IconStyleData(
-              icon: Icon(Icons.keyboard_arrow_down, size: 18),
-            ),
+            dropdownStyleData: DropdownStyleData(maxHeight: Get.height * 0.4),
+            iconStyleData: IconStyleData(icon: Icon(Icons.keyboard_arrow_down, size: 18)),
             value: value.isEmpty ? null : value,
             underline: SizedBox(),
             isExpanded: true,

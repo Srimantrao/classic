@@ -143,6 +143,7 @@ class AppString{
   //Add Custom Jewellery Screen
   static const addCustomJewellery = 'Add Custom Jewellery';
   static const productType = 'Product Type';
+  static const metalDetails = 'Metal Details';
   static const metalType = 'Metal Type';
   static const metalStamp = 'Metal Stamp';
   static const uploadYourImage = 'Upload Your Image';
@@ -150,4 +151,13 @@ class AppString{
   static const image = ' Image';
   static const video = ' Video';
   static const url = ' URL';
+  static const chooseFile = 'Choose File';
+  static const yourComments = 'Your Comments';
+  static const enterURL = 'Enter URL';
+  static const submitRequest = 'Submit Request';
+  static const appxMetalWeight = 'Appx Metal Weight (GM)';
+  static const budget = 'Budget';
+  static const engraving = 'Engraving';
+  static const ringSize = 'Ring Size (Check Ring Size)';
+  static const selectRingSize = 'Select Ring Size';
 }

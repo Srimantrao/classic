@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:classic/controller/user_Interface/menu/addCustomJewellery/addCustomJewellery_Controller.dart';
+import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';
 import 'package:classic/view/screen/menu/addCustomJewellery/addCustomJewelleryWidget/body/addCustomJewelleryWidget.dart';
 import 'package:classic/view/screen/menu/addCustomJewellery/addCustomJewelleryWidget/headder/appbar.dart';
 import 'package:classic/view/utils/app_Color.dart';
@@ -13,6 +14,7 @@ import 'package:get/get.dart';
 
 class AddCustomJewellery extends StatelessWidget {
   final addCustomJewellery = Get.put(AddcustomjewelleryUIController());
+  final diamondList = DiamondList();
   AddCustomJewellery({super.key});
   @override
   Widget build(BuildContext context) {
@@ -136,7 +138,7 @@ class AddCustomJewellery extends StatelessWidget {
                     ),
                     //Metal Details End
 
-                    //
+                    //Diamond And Gemstone Detail Start
                     diamondAndGemstoneDetails(
                       isCenterStonevalue:
                           addCustomJewellery.isCenterStone.value,
@@ -149,7 +151,18 @@ class AddCustomJewellery extends StatelessWidget {
                       isSideStoneonChanged: (value) {
                         addCustomJewellery.toggleSideStone(value);
                       },
+                      colorText: AppString.iscolor,
+                      isCenterColorvalue: addCustomJewellery.isColor.value,
+                      isSideColorChanged: (value) {
+                        addCustomJewellery.toggleIsColor(value);
+                      },
+                      diamondSearch: addCustomJewellery,
+                      shapetext: AppString.shape,
+                      colordiamondSearch: addCustomJewellery,
+                      colorDiamondList: diamondList,
                     ),
+
+                    //Diamond And Gemstone Detail End
                   ],
                 );
               }),

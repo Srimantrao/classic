@@ -149,6 +149,7 @@ class AddcustomjewelleryUIController extends GetxController {
   //Chekk Box
   var isCenterStone = false.obs;
   var isSideStone = false.obs;
+  var isColor = false.obs;
 
   void toggleCenterStone(bool? value) {
     isCenterStone.value = value ?? false;
@@ -156,5 +157,52 @@ class AddcustomjewelleryUIController extends GetxController {
 
   void toggleSideStone(bool? value) {
     isSideStone.value = value ?? false;
+  }
+
+  void toggleIsColor(bool? value) {
+    isColor.value = value ?? false;
+  }
+
+  //Center Stone
+  List<int> selectedShapes = [];
+  List<int> selectWhiteColor = [];
+
+  //Multiple selection Shape
+  void toggleShapeSelection(int index) {
+    if (selectedShapes.contains(index)) {
+      selectedShapes.remove(index);
+    } else {
+      selectedShapes.add(index);
+    }
+    update();
+  }
+
+  //Multiple selection Shape
+  void toggleColorSelection(int index) {
+    if (selectWhiteColor.contains(index)) {
+      selectWhiteColor.remove(index);
+    } else {
+      selectWhiteColor.add(index);
+    }
+    update();
+  }
+
+  // For single selection (if you prefer) Shape
+  void selectShape(int index) {
+    selectedShapes.clear();
+    selectedShapes.add(index);
+    update();
+  }
+
+  void selectColor(int index) {
+    selectWhiteColor.clear();
+    selectWhiteColor.add(index);
+    update();
+  }
+
+  void clearSelections() {
+    selectedShapes.clear();
+    selectWhiteColor.clear();
+    update();
   }
 }

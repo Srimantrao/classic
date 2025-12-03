@@ -1,10 +1,12 @@
-// ignore_for_file: file_names, avoid_print
+// ignore_for_file: file_names, avoid_print, unused_import
 
 import 'package:classic/controller/user_Interface/menu/addCustomJewellery/addCustomJewellery_Controller.dart';
+import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';
 import 'package:classic/view/screen/menu/addCustomJewellery/addCustomJewelleryExtraWidget/addCustomJewelleryExtraWidget.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
+import 'package:classic/view/utils/widget/cartcontainer.dart';
 import 'package:classic/view/utils/widget/dropdownSelected.dart';
 import 'package:classic/view/utils/widget/inputfield.dart';
 import 'package:flutter/material.dart';
@@ -237,10 +239,26 @@ Widget diamondAndGemstoneDetails({
   required String isSideStonetext,
   required bool isSideStonevalue,
   required void Function(bool?) isSideStoneonChanged,
+  required String colorText,
+  required bool isCenterColorvalue,
+  required void Function(bool?) isSideColorChanged,
+  required AddcustomjewelleryUIController diamondSearch,
+  required String shapetext,
+  required AddcustomjewelleryUIController colordiamondSearch,
+  required DiamondList colorDiamondList,
 }) {
   return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.start,
     children: [
-      addCustomJewelleryHeddingText(AppString.diamondAndGemstoneDetails),
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          addCustomJewelleryHeddingText(AppString.diamondAndGemstoneDetails),
+        ],
+      ),
+      SizedBox(height: Get.height * 0.02),
       checkBoxWidget(
         isCenterStonetext: isCenterStonetext,
         isCenterStonevalue: isCenterStonevalue,
@@ -248,6 +266,13 @@ Widget diamondAndGemstoneDetails({
         isSideStonetext: isSideStonetext,
         isSideStonevalue: isSideStonevalue,
         isSideStoneonChanged: isSideStoneonChanged,
+        colorText: colorText,
+        isCenterColorvalue: isCenterColorvalue,
+        isSideColorChanged: isSideColorChanged,
+        diamondSearch: diamondSearch,
+        shapetext: shapetext,
+        colordiamondSearch: colordiamondSearch,
+        colorDiamondList: colorDiamondList,
       ),
     ],
   );

@@ -78,19 +78,15 @@ Widget shape(DiamondSearchUIController diamondSearch) {
 }
 
 //Carat
-Widget carat(
-  DiamondSearchUIController diamondSearch,
-  DiamondList diamondList,
-) {
+Widget carat(DiamondSearchUIController diamondSearch, DiamondList diamondList) {
   return selectionGrid<String>(
     items: diamondList.carat,
     isSelected: (controller, index, item) =>
         controller.selectedCarat.contains(index) ||
-              controller.selectedCarat.contains(diamondList.carat[index]),
+        controller.selectedCarat.contains(diamondList.carat[index]),
     onTap: (controller, index) => controller.toggleCaratSelection(index),
   );
 }
-
 
 //Clarity
 Widget clarity(
@@ -113,7 +109,9 @@ Widget whiteColor(
 ) {
   return selectionGrid<String>(
     items: diamondList.whiteColors,
-    isSelected: (controller, index, item) => controller.selectWhiteColor.contains(index) || controller.selectWhiteColor.contains(diamondList.whiteColors[index]),
+    isSelected: (controller, index, item) =>
+        controller.selectWhiteColor.contains(index) ||
+        controller.selectWhiteColor.contains(diamondList.whiteColors[index]),
     onTap: (controller, index) => controller.toggleWhiteColorSelection(index),
   );
 }
@@ -125,7 +123,9 @@ Widget shortcutColor(
 ) {
   return selectionGrid<String>(
     items: diamondList.shortcut,
-    isSelected: (controller, index, item) => controller.selectShortcut.contains(index) || controller.selectShortcut.contains(diamondList.shortcut[index]),
+    isSelected: (controller, index, item) =>
+        controller.selectShortcut.contains(index) ||
+        controller.selectShortcut.contains(diamondList.shortcut[index]),
     onTap: (controller, index) => controller.toggleShortcutSelection(index),
   );
 }
@@ -134,7 +134,9 @@ Widget shortcutColor(
 Widget lab(DiamondSearchUIController diamondSearch, DiamondList diamondList) {
   return selectionGrid<String>(
     items: diamondList.lab,
-    isSelected: (controller, index, item) => controller.selectLAB.contains(index) ||controller.selectLAB.contains(diamondList.lab[index]),
+    isSelected: (controller, index, item) =>
+        controller.selectLAB.contains(index) ||
+        controller.selectLAB.contains(diamondList.lab[index]),
     onTap: (controller, index) => controller.toggleLABSelection(index),
   );
 }
@@ -146,7 +148,9 @@ Widget polish(
 ) {
   return selectionGrid<String>(
     items: diamondList.polsih,
-    isSelected: (controller, index, item) => controller.selectPolish.contains(index) ||controller.selectPolish.contains(diamondList.polsih[index]),
+    isSelected: (controller, index, item) =>
+        controller.selectPolish.contains(index) ||
+        controller.selectPolish.contains(diamondList.polsih[index]),
     onTap: (controller, index) => controller.togglePolishSelection(index),
   );
 }
@@ -158,7 +162,9 @@ Widget symmetry(
 ) {
   return selectionGrid<String>(
     items: diamondList.symmetry,
-    isSelected: (controller, index, item) => controller.selectSymmetry.contains(index) ||controller.selectSymmetry.contains(item),
+    isSelected: (controller, index, item) =>
+        controller.selectSymmetry.contains(index) ||
+        controller.selectSymmetry.contains(item),
     onTap: (controller, index) => controller.toggleSymmetrySelection(index),
   );
 }
@@ -170,7 +176,9 @@ Widget availability(
 ) {
   return selectionGrid<String>(
     items: diamondList.availability,
-    isSelected: (controller, index, item) => controller.selectAvailability.contains(index) ||controller.selectAvailability.contains(item),
+    isSelected: (controller, index, item) =>
+        controller.selectAvailability.contains(index) ||
+        controller.selectAvailability.contains(item),
     onTap: (controller, index) => controller.toggleAvailabilitySelection(index),
   );
 }
@@ -182,7 +190,9 @@ Widget treatment(
 ) {
   return selectionGrid<String>(
     items: diamondList.treatment,
-    isSelected: (controller, index, item) => controller.selectTreatment.contains(index) ||  controller.selectTreatment.contains(item),
+    isSelected: (controller, index, item) =>
+        controller.selectTreatment.contains(index) ||
+        controller.selectTreatment.contains(item),
     onTap: (controller, index) => controller.toggleTreatmentSelection(index),
   );
 }
@@ -194,7 +204,9 @@ Widget fluorescence(
 ) {
   return selectionGrid<String>(
     items: diamondList.fluorescence,
-    isSelected: (controller, index, item) => controller.selectFluorescence.contains(index) ||  controller.selectFluorescence.contains(item),
+    isSelected: (controller, index, item) =>
+        controller.selectFluorescence.contains(index) ||
+        controller.selectFluorescence.contains(item),
     onTap: (controller, index) => controller.toggleFluorescenceSelection(index),
   );
 }
@@ -206,7 +218,9 @@ Widget eyeClean(
 ) {
   return selectionGrid<String>(
     items: diamondList.eyeClean,
-    isSelected: (controller, index, item) => controller.selectedEyeClean.contains(index) ||  controller.selectedEyeClean.contains(item),
+    isSelected: (controller, index, item) =>
+        controller.selectedEyeClean.contains(index) ||
+        controller.selectedEyeClean.contains(item),
     onTap: (controller, index) => controller.toggleEyeCleanSelection(index),
   );
 }
@@ -329,9 +343,15 @@ Widget textLine({
                   hintstyleColor: AppColor.gray,
                   textColor: AppColor.black,
                   keyboardType: TextInputType.number,
-                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: AppColor.primary)),
-                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: AppColor.gray)),
-                  disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: AppColor.gray)),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: AppColor.primary),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: AppColor.gray),
+                  ),
+                  disabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: AppColor.gray),
+                  ),
                 ),
               ),
               SizedBox(width: Get.width * 0.05),
@@ -344,9 +364,15 @@ Widget textLine({
                   hintstyleColor: AppColor.gray,
                   textColor: AppColor.black,
                   keyboardType: TextInputType.number,
-                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: AppColor.primary)),
-                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: AppColor.gray)),
-                  disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: AppColor.gray)),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: AppColor.primary),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: AppColor.gray),
+                  ),
+                  disabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: AppColor.gray),
+                  ),
                 ),
               ),
             ],

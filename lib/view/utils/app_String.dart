@@ -177,4 +177,5 @@ class AppString {
   static const diamondAndGemstoneDetails = 'Diamond And Gemstone Details';
   static const centerStone = 'Center Stone';
   static const sideStone = 'Side Stone';
+  static const iscolor = 'Is Color';
 }

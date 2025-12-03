@@ -72,7 +72,8 @@ class AddCustomJewellery extends StatelessWidget {
                               chooseFile(
                                 onTap: () => addCustomJewellery.pickImageFile(),
                                 buttonText: AppString.chooseFile,
-                                yourCommentsController: addCustomJewellery.yourCommentsController,
+                                yourCommentsController:
+                                    addCustomJewellery.yourCommentsController,
                                 addCustomJewellery: addCustomJewellery,
                               ),
                               SizedBox(height: Get.height * 0.02),
@@ -88,7 +89,8 @@ class AddCustomJewellery extends StatelessWidget {
                               chooseFile(
                                 onTap: () => addCustomJewellery.pickVideoFile(),
                                 buttonText: AppString.chooseFile,
-                                yourCommentsController: addCustomJewellery.yourCommentsController,
+                                yourCommentsController:
+                                    addCustomJewellery.yourCommentsController,
                                 addCustomJewellery: addCustomJewellery,
                               ),
                               SizedBox(height: Get.height * 0.02),
@@ -101,8 +103,10 @@ class AddCustomJewellery extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               addURL(
-                                addURlTextController: addCustomJewellery.addURlTextController,
-                                yourCommentsController:addCustomJewellery.yourCommentsController,
+                                addURlTextController:
+                                    addCustomJewellery.addURlTextController,
+                                yourCommentsController:
+                                    addCustomJewellery.yourCommentsController,
                               ),
                               SizedBox(height: Get.height * 0.02),
                             ],
@@ -114,18 +118,38 @@ class AddCustomJewellery extends StatelessWidget {
                     metalDetails(
                       metalTypeList: addCustomJewellery.getMetalTypeItems(),
                       metalTypeValue: addCustomJewellery.metalType.value,
-                      metalTypeOnChanged: addCustomJewellery.metalTypeValueChange,
+                      metalTypeOnChanged:
+                          addCustomJewellery.metalTypeValueChange,
                       metalStampList: addCustomJewellery.getMetalStampItems(),
                       metalStampValue: addCustomJewellery.metalStamp.value,
-                      metalStampOnChanged: addCustomJewellery.metalStampValueChange,
-                      ringSizeOnChanged: addCustomJewellery.selectRingSizeValueChange,
+                      metalStampOnChanged:
+                          addCustomJewellery.metalStampValueChange,
+                      ringSizeOnChanged:
+                          addCustomJewellery.selectRingSizeValueChange,
                       ringSizeList: addCustomJewellery.getSelectRingSizeItems(),
                       ringSizeValue: addCustomJewellery.ringSize.value,
-                      appxMetalWeightController: addCustomJewellery.appxMetalWeightController,
+                      appxMetalWeightController:
+                          addCustomJewellery.appxMetalWeightController,
                       budgetController: addCustomJewellery.budgetController,
-                      engravingController: addCustomJewellery.engravingController,
+                      engravingController:
+                          addCustomJewellery.engravingController,
                     ),
                     //Metal Details End
+
+                    //
+                    diamondAndGemstoneDetails(
+                      isCenterStonevalue:
+                          addCustomJewellery.isCenterStone.value,
+                      isSideStonevalue: addCustomJewellery.isSideStone.value,
+                      isCenterStonetext: AppString.centerStone,
+                      isCenterStoneonChanged: (value) {
+                        addCustomJewellery.toggleCenterStone(value);
+                      },
+                      isSideStonetext: AppString.sideStone,
+                      isSideStoneonChanged: (value) {
+                        addCustomJewellery.toggleSideStone(value);
+                      },
+                    ),
                   ],
                 );
               }),

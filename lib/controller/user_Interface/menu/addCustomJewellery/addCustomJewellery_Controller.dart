@@ -32,7 +32,7 @@ class AddcustomjewelleryUIController extends GetxController {
       );
     }).toList();
   }
-  
+
   List<DropdownMenuItem<String>> getMetalTypeItems() {
     return addcustomjewelleryItems.metalTypeItem.entries.map((entry) {
       return DropdownMenuItem<String>(
@@ -70,9 +70,7 @@ class AddcustomjewelleryUIController extends GetxController {
 
   void metalTypeValueChange(String? newValue) {
     metalType.value = newValue!;
-    print(
-      'Selected value: ${addcustomjewelleryItems.metalTypeItem[newValue]}',
-    );
+    print('Selected value: ${addcustomjewelleryItems.metalTypeItem[newValue]}');
   }
 
   void metalStampValueChange(String? newValue) {
@@ -120,7 +118,9 @@ class AddcustomjewelleryUIController extends GetxController {
       final picker = ImagePicker();
       final XFile? picked = await picker.pickImage(source: ImageSource.gallery);
       if (picked != null) {
-        final name = picked.name.isNotEmpty ? picked.name : picked.path.split('/').last;
+        final name = picked.name.isNotEmpty
+            ? picked.name
+            : picked.path.split('/').last;
         selectedFileName.value = name;
         selectedFilePath.value = picked.path;
       }
@@ -135,12 +135,26 @@ class AddcustomjewelleryUIController extends GetxController {
       final picker = ImagePicker();
       final XFile? picked = await picker.pickVideo(source: ImageSource.gallery);
       if (picked != null) {
-        final name = picked.name.isNotEmpty ? picked.name : picked.path.split('/').last;
+        final name = picked.name.isNotEmpty
+            ? picked.name
+            : picked.path.split('/').last;
         selectedFileName.value = name;
         selectedFilePath.value = picked.path;
       }
     } catch (e) {
       print('pickVideoFile error: $e');
     }
+  }
+
+  //Chekk Box
+  var isCenterStone = false.obs;
+  var isSideStone = false.obs;
+
+  void toggleCenterStone(bool? value) {
+    isCenterStone.value = value ?? false;
+  }
+
+  void toggleSideStone(bool? value) {
+    isSideStone.value = value ?? false;
   }
 }

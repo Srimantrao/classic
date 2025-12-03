@@ -229,3 +229,26 @@ Widget metalDetails({
     ],
   );
 }
+
+Widget diamondAndGemstoneDetails({
+  required String isCenterStonetext,
+  required bool isCenterStonevalue,
+  required void Function(bool?) isCenterStoneonChanged,
+  required String isSideStonetext,
+  required bool isSideStonevalue,
+  required void Function(bool?) isSideStoneonChanged,
+}) {
+  return Column(
+    children: [
+      addCustomJewelleryHeddingText(AppString.diamondAndGemstoneDetails),
+      checkBoxWidget(
+        isCenterStonetext: isCenterStonetext,
+        isCenterStonevalue: isCenterStonevalue,
+        isCenterStoneonChanged: isCenterStoneonChanged,
+        isSideStonetext: isSideStonetext,
+        isSideStonevalue: isSideStonevalue,
+        isSideStoneonChanged: isSideStoneonChanged,
+      ),
+    ],
+  );
+}

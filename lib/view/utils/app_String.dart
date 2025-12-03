@@ -1,6 +1,6 @@
 // ignore_for_file: file_names, constant_identifier_names
 
-class AppString{
+class AppString {
   //hedding
   static const category = 'Category';
   static const dashboard = 'Dashboard';
@@ -14,7 +14,8 @@ class AppString{
   static const reset = 'Reset';
 
   //login Screen
-  static const loginsubhedding = 'IF You Have A Classic Grown Diamonds Customer Account, Please Sign In';
+  static const loginsubhedding =
+      'IF You Have A Classic Grown Diamonds Customer Account, Please Sign In';
   static const username_hint = 'Enter username';
   static const password_hint = 'Enter password';
   static const forgotpassword = 'Forgot Password?';
@@ -55,22 +56,30 @@ class AppString{
   static const address = 'Address';
   static const terms = 'Terms And Documentation';
   static const readAndAgree = 'I Have Read And Agree To The Terms & Conditions';
-  static const stockupdate = 'News Letter / Promotional Letter / Stock Update Required.';
+  static const stockupdate =
+      'News Letter / Promotional Letter / Stock Update Required.';
   static const downloadKYCformant = 'Download KYC Format';
   static const robot = "I'M Not A Robot";
   static const haveanAccount = 'Have An Account?';
 
   //home Screen
-  static const homeadd = '5% off On Registration & 1 Carat IGI Certified Starting At ₹450 /Ct';
+  static const homeadd =
+      '5% off On Registration & 1 Carat IGI Certified Starting At ₹450 /Ct';
   static const ouerCollection = 'Our Collection';
-  static const chekout = 'Chek Out The Elegant And Finest Of Jewelry Designs That We Offer';
-  static const aPeekIntowhatClassic = 'A Peek Into What Classic Grown Jewelry Is About';
-  static const classicGrownJewelry = 'Classic Grown Jewelry, One The Finest Online Jewelry Retailers To Add Perfection To Your Style';
+  static const chekout =
+      'Chek Out The Elegant And Finest Of Jewelry Designs That We Offer';
+  static const aPeekIntowhatClassic =
+      'A Peek Into What Classic Grown Jewelry Is About';
+  static const classicGrownJewelry =
+      'Classic Grown Jewelry, One The Finest Online Jewelry Retailers To Add Perfection To Your Style';
   static const joinOur = 'Join Our Newsletter And Stay In Toch';
-  static const become = 'Become A Part Of The Classic Grwon Jewelry Network And Get Our Latest Updates Directy In Your Inbox! Subscribe For Ournewsletter Today!';
+  static const become =
+      'Become A Part Of The Classic Grwon Jewelry Network And Get Our Latest Updates Directy In Your Inbox! Subscribe For Ournewsletter Today!';
   static const companyProfile = 'Company Profile';
-  static const shasvatprofile = 'SHASVAT DIAMOND INC.a.b.a CLASSIC GROWN DIAMONDS';
-  static const companyaddrtes = 'Address: 22W 48th Street Suite #300 New York,NY 100036 USA';
+  static const shasvatprofile =
+      'SHASVAT DIAMOND INC.a.b.a CLASSIC GROWN DIAMONDS';
+  static const companyaddrtes =
+      'Address: 22W 48th Street Suite #300 New York,NY 100036 USA';
   static const comapntEmailId = 'Email Id: Sales@ClassicGrowndiamonds.com';
   static const comapntPhone = 'Phone: +1_212_221_3667';
   static const ourServices = 'Our Services';
@@ -92,12 +101,16 @@ class AppString{
   static const necklace = 'Necklace';
   static const bracelet = 'Bracelet';
   static const earrings = 'Earrings';
-  static const ringsThatPerfectly = 'Rings That Perfectly reflect \n your style and taste';
-  static const chooseFromOurSignature = 'Choose From Our Signature Class Grown Diamonds Collection \n Or Enquire with Our Diamonds Concierge To Have Your Own \n Personalized And Unique Piece Of Diamond And Jewelry Curated For You you....';
+  static const ringsThatPerfectly =
+      'Rings That Perfectly reflect \n your style and taste';
+  static const chooseFromOurSignature =
+      'Choose From Our Signature Class Grown Diamonds Collection \n Or Enquire with Our Diamonds Concierge To Have Your Own \n Personalized And Unique Piece Of Diamond And Jewelry Curated For You you....';
   static const scheduleaCAll = 'Schedule A Call';
   static const customizeYourOwnJewelry = 'Customize Your Own Jewelry';
-  static const doYouHaveAnyIdea = 'Do You Have Any Idea That You Wish To See In Your Jewelry?';
-  static const letUsKnowWhat = 'Let Us Know What You Are Looking For And We Shall Desin \n It For Your With Utmost Perfection. Celebrate With The Finest \n Jewelry, You Deserve It....';
+  static const doYouHaveAnyIdea =
+      'Do You Have Any Idea That You Wish To See In Your Jewelry?';
+  static const letUsKnowWhat =
+      'Let Us Know What You Are Looking For And We Shall Desin \n It For Your With Utmost Perfection. Celebrate With The Finest \n Jewelry, You Deserve It....';
   static const customProduct = 'Custom Product';
   static const followUsOn = 'Follow Us On: ';
 
@@ -134,11 +147,11 @@ class AppString{
   static const length = 'Length';
   static const width = 'Width';
   static const depth = 'Depth';
-  static const table = 'Table %'; 
+  static const table = 'Table %';
   static const crownHeight = 'Crown Height %';
   static const crownAngle = 'Crown Angle %';
   static const pavilionDepth = 'Pavilion Depth %';
-  static const pavilionAngle = 'Pavilion Angle %';  
+  static const pavilionAngle = 'Pavilion Angle %';
 
   //Add Custom Jewellery Screen
   static const addCustomJewellery = 'Add Custom Jewellery';
@@ -147,7 +160,8 @@ class AppString{
   static const metalType = 'Metal Type';
   static const metalStamp = 'Metal Stamp';
   static const uploadYourImage = 'Upload Your Image';
-  static const youmay = 'You May Upload Image, Video And URL Of The Product That You Want Us To Design,For You.';
+  static const youmay =
+      'You May Upload Image, Video And URL Of The Product That You Want Us To Design,For You.';
   static const image = ' Image';
   static const video = ' Video';
   static const url = ' URL';
@@ -160,4 +174,7 @@ class AppString{
   static const engraving = 'Engraving';
   static const ringSize = 'Ring Size (Check Ring Size)';
   static const selectRingSize = 'Select Ring Size';
+  static const diamondAndGemstoneDetails = 'Diamond And Gemstone Details';
+  static const centerStone = 'Center Stone';
+  static const sideStone = 'Side Stone';
 }

@@ -2,12 +2,12 @@
 
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
+import 'package:classic/view/utils/widget/checkbox.dart';
 import 'package:classic/view/utils/widget/dropdownSelected.dart';
 import 'package:classic/view/utils/widget/inputTyping.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get.dart';
 
 Widget addCustomJewelleryHeddingText(
   text, {
@@ -15,8 +15,8 @@ Widget addCustomJewelleryHeddingText(
   TextAlign? textAlign,
 }) {
   return Text(
-    textAlign: textAlign,
     text,
+    textAlign: textAlign,
     style: TextStyle(
       color: color ?? AppColor.primary,
       fontWeight: FontWeight.w600,
@@ -32,8 +32,8 @@ Widget addCustomJewellerySubHeddingText(
   double? fontSize,
 }) {
   return Text(
-    textAlign: TextAlign.start,
     text,
+    textAlign: TextAlign.start,
     style: TextStyle(
       fontSize: fontSize ?? Get.width * 0.035,
       fontWeight: FontWeight.w400,
@@ -53,7 +53,6 @@ Widget roundCircleSelector({
   required Color imageColor,
   required Color videoColor,
   required Color urlColor,
-  // per-item radii (so selected item can be smaller/larger than others)
   required double imageRadius,
   required double videoRadius,
   required double urlRadius,
@@ -99,6 +98,7 @@ Widget roundCircal({
           radius: 10,
           child: CircleAvatar(backgroundColor: AppColor.white, radius: radius),
         ),
+        SizedBox(width: Get.width * 0.02),
         Text(
           text,
           style: TextStyle(
@@ -159,7 +159,7 @@ Widget inputString({
   required String hinttext,
   int? maxLength,
   TextInputType? keyboardType,
-  List<TextInputFormatter>? inputFormatters
+  List<TextInputFormatter>? inputFormatters,
 }) {
   return inputTyaping(
     text: text,
@@ -190,3 +190,60 @@ Widget selectdropdown(
   );
 }
 
+Widget checkBoxWidget({
+  required String isCenterStonetext,
+  required bool isCenterStonevalue,
+  required void Function(bool?) isCenterStoneonChanged,
+  required String isSideStonetext,
+  required bool isSideStonevalue,
+  required void Function(bool?) isSideStoneonChanged,
+}) {
+  return Column(
+    children: [
+      tabCheck(
+        text: isCenterStonetext,
+        value: isCenterStonevalue,
+        onChanged: isCenterStoneonChanged,
+      ),
+      SizedBox(height: Get.height * 0.01),
+      tabCheck(
+        text: isSideStonetext,
+        value: isSideStonevalue,
+        onChanged: isSideStoneonChanged,
+      ),
+    ],
+  );
+}
+
+Widget tabCheck({
+  required String text,
+  required bool value,
+  void Function(bool?)? onChanged,
+}) {
+  return Row(
+    children: [
+      checkBox(value, onChanged),
+      SizedBox(width: Get.width * 0.02),
+      Text(
+        text,
+        style: TextStyle(
+          fontSize: Get.width * 0.04,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+    ],
+  );
+}
+
+Widget customCheckbox() {
+  return Container(
+    height: Get.height * 0.03,
+    width: Get.width * 0.07,
+    decoration: BoxDecoration(
+      color: AppColor.primary,
+      border: Border.all(color: AppColor.primary),
+      borderRadius: BorderRadius.circular(borderradius.buttonboder),
+    ),
+    child: Icon(Icons.check, color: AppColor.white, size: 20),
+  );
+}

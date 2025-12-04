@@ -22,12 +22,12 @@ class Bottombar extends StatelessWidget {
       bottomNavigationBar: Obx(() {
         return Container(
           color: AppColor.white,
-          height: Get.height * 0.15,
+          height: Get.height * 0.11,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               horizontalPadding(child: flotingBar(bottomController)),
-              SizedBox(height: Get.height * 0.08),
+              SizedBox(height: Get.height * 0.04),
             ],
           ),
         );

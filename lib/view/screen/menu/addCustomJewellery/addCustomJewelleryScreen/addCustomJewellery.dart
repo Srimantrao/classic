@@ -96,6 +96,7 @@ class AddCustomJewellery extends StatelessWidget {
                       )
                     : SizedBox(),
 
+                //URL
                 (addCustomJewellery.selectedURLType.value)
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,7 +156,6 @@ class AddCustomJewellery extends StatelessWidget {
                   claritySearch: addCustomJewellery,
                   claritytext: AppString.clarity,
                 ),
-
                 //Diamond And Gemstone Detail End
               ],
             );

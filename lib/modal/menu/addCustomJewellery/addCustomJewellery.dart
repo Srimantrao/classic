@@ -17,7 +17,7 @@ class AddcustomjewelleryItems {
     'option4': 'Palladium',
     'option5': 'Rhodium',
   };
-  
+
   final Map<String, String> metalStampItem = {
     'option1': '14K',
     'option2': '18K',
@@ -61,5 +61,38 @@ class AddcustomjewelleryItems {
     'option31': '34',
     'option32': '35',
     'option33': '36',
+  };
+
+  final Map<String, String> shape = {
+    'option1': 'Round',
+    'option2': 'Marquise',
+    'option3': 'Princess',
+    'option4': 'Pear',
+    'option5': 'Emerald',
+    'option6': 'Heart',
+    'option7': 'Oval',
+    'option8': 'Cushion',
+    'option9': 'Radiant',
+    'option10': 'Asscher',
+    'option11': 'Other',
+  };
+
+  final Map<String, String> color = {
+    'option1': 'E-F',
+    'option2': 'PINK',
+    'option3': 'BLUE',
+    'option4': 'GREEN',
+    'option5': 'YELLOW',
+    'option6': 'F-G',
+    'option7': 'RED',
+  };
+
+  final Map<String, String> clarity = {'option1': 'CS', 'option2': 'PINK'};
+
+  final Map<String, String> size = {
+    'option1': '0.001-0.0049',
+    'option2': '0.005-0.0059',
+    'option3': '0.003-0.0089',
+    'option4': '0.006-0.0039',
   };
 }

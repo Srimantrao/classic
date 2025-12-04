@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 
-class DiamondList{
+class DiamondList {
   List<String> shapes = [
     'Round',
     'Marquise',
@@ -42,66 +42,21 @@ class DiamondList{
     'I3',
   ];
 
-  List<String> whiteColors = [
-    'D',
-    'E',
-    'F',
-    'G',
-    'H',
-    'I',
-    'J',
-    'L',
-  ];
+  List<String> whiteColors = ['D', 'E', 'F', 'G', 'H', 'I', 'J', 'L'];
 
-  List<String> shortcut = [
-    '3EX',
-    '3EXNON',
-    'NOBGm',
-  ];
+  List<String> shortcut = ['3EX', '3EXNON', 'NOBGm'];
 
-  List<String> lab = [
-    'IGI',
-    'GIA',
-    'AGS',
-    'HRD',
-    'NONE',
-    'GCAL',
-  ];
+  List<String> lab = ['IGI', 'GIA', 'AGS', 'HRD', 'NONE', 'GCAL'];
 
-  List<String> polsih = [
-    'EX',
-    'VG',
-    'GD',
-    'FR',
-  ];
+  List<String> polsih = ['EX', 'VG', 'GD', 'FR'];
 
-  List<String> symmetry = [
-    'EX',
-    'VG',
-    'GD',
-    'Poor',
-  ];
+  List<String> symmetry = ['EX', 'VG', 'GD', 'Poor'];
 
-  List<String> availability = [
-    'ALL',
-    'HOLD',
-    'Available',
-  ];
+  List<String> availability = ['ALL', 'HOLD', 'Available'];
 
-  List<String> treatment =[
-    'CVD',
-    'HPHT',
-  ];
+  List<String> treatment = ['CVD', 'HPHT'];
 
-  List<String> fluorescence = [
-    'None',
-    'Faint',
-    'Medium',
-    'Strong',
-  ];
+  List<String> fluorescence = ['None', 'Faint', 'Medium', 'Strong'];
 
-  List<String> eyeClean = [
-    'Yes',
-    'No',
-  ];
+  List<String> eyeClean = ['Yes', 'No'];
 }

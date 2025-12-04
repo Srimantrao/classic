@@ -3,8 +3,6 @@
 import 'package:classic/modal/menu/addCustomJewellery/addCustomJewellery.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,13 +13,22 @@ class AddcustomjewelleryUIController extends GetxController {
   final appxMetalWeightController = TextEditingController();
   final budgetController = TextEditingController();
   final engravingController = TextEditingController();
+  final piecessController = TextEditingController();
+  final weightController = TextEditingController();
 
   //Dorop Down
-  final addcustomjewelleryItems = Get.put(AddcustomjewelleryItems());
+  final addcustomjewelleryItems = AddcustomjewelleryItems();
+
   var productType = ''.obs;
   var metalType = ''.obs;
   var metalStamp = ''.obs;
   var ringSize = ''.obs;
+  var shape = ''.obs;
+  var color = ''.obs;
+  var clarity = ''.obs;
+  var size = ''.obs;
+
+  var allSelectdata = [];
 
   //List
   List<DropdownMenuItem<String>> getProductTypeItems() {
@@ -60,6 +67,42 @@ class AddcustomjewelleryUIController extends GetxController {
     }).toList();
   }
 
+  List<DropdownMenuItem<String>> getShape() {
+    return addcustomjewelleryItems.shape.entries.map((entry) {
+      return DropdownMenuItem<String>(
+        value: entry.key,
+        child: Text(entry.value, style: TextStyle(color: AppColor.black)),
+      );
+    }).toList();
+  }
+
+  List<DropdownMenuItem<String>> getColor() {
+    return addcustomjewelleryItems.color.entries.map((entry) {
+      return DropdownMenuItem<String>(
+        value: entry.key,
+        child: Text(entry.value, style: TextStyle(color: AppColor.black)),
+      );
+    }).toList();
+  }
+
+  List<DropdownMenuItem<String>> getClarity() {
+    return addcustomjewelleryItems.clarity.entries.map((entry) {
+      return DropdownMenuItem<String>(
+        value: entry.key,
+        child: Text(entry.value, style: TextStyle(color: AppColor.black)),
+      );
+    }).toList();
+  }
+
+  List<DropdownMenuItem<String>> getSize() {
+    return addcustomjewelleryItems.size.entries.map((entry) {
+      return DropdownMenuItem<String>(
+        value: entry.key,
+        child: Text(entry.value, style: TextStyle(color: AppColor.black)),
+      );
+    }).toList();
+  }
+
   //onChnage Value of Dropdown
   void productTypeValueChange(String? newValue) {
     productType.value = newValue!;
@@ -85,6 +128,54 @@ class AddcustomjewelleryUIController extends GetxController {
     print(
       'Selected value: ${addcustomjewelleryItems.selectRingSizeItem[newValue]}',
     );
+  }
+
+  void selectShapeDrop(String? newValue) {
+    shape.value = newValue!;
+    print('Selected value: ${addcustomjewelleryItems.shape[newValue]}');
+    update();
+  }
+
+  void selectColorDrop(String? newValue) {
+    color.value = newValue!;
+    print('Selected value: ${addcustomjewelleryItems.color[newValue]}');
+    update();
+  }
+
+  void selectClarityDrop(String? newValue) {
+    clarity.value = newValue!;
+    print('Selected value: ${addcustomjewelleryItems.clarity[newValue]}');
+    update();
+  }
+
+  void selectSizeDrop(String? newValue) {
+    size.value = newValue!;
+    print('Selected value: ${addcustomjewelleryItems.size[newValue]}');
+    update();
+  }
+
+  void selectAllData() {
+    allSelectdata.clear();
+
+    final selectedValues = [
+      isGemValue,
+      addcustomjewelleryItems.shape[shape.value],
+      addcustomjewelleryItems.color[color.value],
+      addcustomjewelleryItems.clarity[clarity.value],
+      addcustomjewelleryItems.size[size.value],
+      piecessController.text,
+      weightController.text,
+    ].where((e) => e != null && e.toString().isNotEmpty).toList();
+
+    allSelectdata.addAll(selectedValues);
+
+    for (var value in selectedValues) {
+      print("Selected Value: $value");
+    }
+
+    print("All Select Data: $allSelectdata");
+
+    update();
   }
 
   //Upload Your File
@@ -150,6 +241,7 @@ class AddcustomjewelleryUIController extends GetxController {
   var isCenterStone = false.obs;
   var isSideStone = false.obs;
   var isColor = false.obs;
+  var isGemValue = false.obs;
 
   void toggleCenterStone(bool? value) {
     isCenterStone.value = value ?? false;
@@ -161,6 +253,11 @@ class AddcustomjewelleryUIController extends GetxController {
 
   void toggleIsColor(bool? value) {
     isColor.value = value ?? false;
+  }
+
+  void toggleIsGam(bool? value) {
+    isGemValue.value = value ?? false;
+    update();
   }
 
   //Center Stone

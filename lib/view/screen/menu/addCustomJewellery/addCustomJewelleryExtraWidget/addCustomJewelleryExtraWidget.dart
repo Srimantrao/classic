@@ -7,10 +7,13 @@ import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
+import 'package:classic/view/utils/widget/button.dart';
 import 'package:classic/view/utils/widget/cartcontainer.dart';
 import 'package:classic/view/utils/widget/checkbox.dart';
 import 'package:classic/view/utils/widget/dropdownSelected.dart';
+import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:classic/view/utils/widget/inputTyping.dart';
+import 'package:classic/view/utils/widget/inputfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -240,6 +243,9 @@ Widget checkBoxWidget({
         value: isSideStonevalue,
         onChanged: isSideStoneonChanged,
       ),
+      SizedBox(height: Get.height * 0.01),
+      (isSideStonevalue) ? sideStoneContainer() : SizedBox(),
+      SizedBox(height: Get.height * 0.01),
     ],
   );
 }
@@ -265,6 +271,191 @@ Widget centerStoneContainer({
       ],
     ),
   );
+}
+
+Widget sideStoneContainer() {
+  return cartConatiner(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(mainAxisAlignment: MainAxisAlignment.end, children: [addButton()]),
+        SizedBox(height: Get.height * 0.01),
+        ListView.builder(
+          itemCount: 6,
+          padding: EdgeInsets.zero,
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            return Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              decoration: BoxDecoration(
+                color: AppColor.white,
+                boxShadow: kElevationToShadow[2],
+              ),
+              child: Column(
+                children: [
+                  Text('${AppString.shape} :'),
+                  Text('${AppString.shape} :'),
+                  Text('${AppString.shape} :'),
+                ],
+              ),
+            );
+          },
+        ),
+      ],
+    ),
+  );
+}
+
+Widget addButton() {
+  return GestureDetector(
+    onTap: openBottomSheet,
+    child: Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(borderradius.buttonboder),
+        color: AppColor.primary,
+      ),
+      padding: EdgeInsets.symmetric(
+        horizontal: Get.width * 0.09,
+        vertical: Get.height * 0.007,
+      ),
+      child: Text(
+        '+ Add',
+        style: TextStyle(
+          color: AppColor.white,
+          fontSize: Textsize.normal,
+          fontWeight: FontWeight.w400,
+          fontFamily: 'FuturaCyrillic',
+        ),
+      ),
+    ),
+  );
+}
+
+void openBottomSheet() {
+  Get.bottomSheet(
+    GetBuilder<AddcustomjewelleryUIController>(
+      builder: (AddcustomjewelleryUIController stoneUpdate) {
+        return Container(
+          height: Get.height * 0.7,
+          width: Get.width,
+          decoration: BoxDecoration(
+            color: AppColor.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(Get.width * 0.09),
+              topRight: Radius.circular(Get.width * 0.09),
+            ),
+          ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: Get.height * 0.02),
+            child: horizontalPadding(
+              child: Column(
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          bottomWidget(),
+                          SizedBox(height: Get.height * 0.02),
+
+                          chekISGem(
+                            value: stoneUpdate.isGemValue.value,
+                            onChanged: stoneUpdate.toggleIsGam,
+                          ),
+
+                          SizedBox(height: Get.height * 0.02),
+
+                          dropdowns(
+                            AppString.shape,
+                            value: stoneUpdate.shape.value,
+                            list: stoneUpdate.getShape(),
+                            onChanged: stoneUpdate.selectShapeDrop,
+                          ),
+                          dropdowns(
+                            AppString.color,
+                            value: stoneUpdate.color.value,
+                            list: stoneUpdate.getColor(),
+                            onChanged: stoneUpdate.selectColorDrop,
+                          ),
+                          dropdowns(
+                            AppString.clarity,
+                            value: stoneUpdate.clarity.value,
+                            list: stoneUpdate.getClarity(),
+                            onChanged: stoneUpdate.selectClarityDrop,
+                          ),
+                          dropdowns(
+                            AppString.size,
+                            value: stoneUpdate.size.value,
+                            list: stoneUpdate.getSize(),
+                            onChanged: stoneUpdate.selectSizeDrop,
+                          ),
+
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Inputfield(
+                                  color: AppColor.gray5,
+                                  hinttext: AppString.pieces,
+                                  controller: stoneUpdate.piecessController,
+                                  maxLength: 4,
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.digitsOnly,
+                                    LengthLimitingTextInputFormatter(4),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(width: Get.width * 0.02),
+                              Expanded(
+                                child: Inputfield(
+                                  color: AppColor.gray5,
+                                  hinttext: AppString.weight,
+                                  controller: stoneUpdate.weightController,
+                                  maxLength: 4,
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.digitsOnly,
+                                    LengthLimitingTextInputFormatter(4),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  /// ADD BUTTON FIXED AT BOTTOM
+                  GestureDetector(
+                    onTap: stoneUpdate.selectAllData,
+                    child: button('Add', isLowercase: true),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    ),
+    isScrollControlled: true,
+  );
+}
+
+Widget bottomWidget() {
+  return Text(
+    AppString.addsideStone,
+    style: TextStyle(
+      color: AppColor.black,
+      fontSize: Textsize.heading,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'FuturaCyrillic',
+    ),
+  );
+}
+
+Widget chekISGem({required bool value, void Function(bool?)? onChanged}) {
+  return tabCheck(text: AppString.IsGem, value: value, onChanged: onChanged);
 }
 
 Widget shapeViweDimondShape(diamondSearch, text) {

@@ -9,16 +9,17 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 Widget button(
-    String text, {
-      void Function()? onTap,
-      Color? borderColor,
-      Color? backgroundColor,
-      Color? textColor,
-    }) {
+  String text, {
+  void Function()? onTap,
+  Color? borderColor,
+  Color? backgroundColor,
+  Color? textColor,
+  bool isLowercase = false,
+}) {
   return GestureDetector(
     onTap: onTap,
     child: Container(
-      padding: const EdgeInsets.all(10),
+      padding: EdgeInsets.all(10),
       width: Get.width,
       decoration: BoxDecoration(
         border: Border.all(color: borderColor ?? Colors.transparent),
@@ -27,7 +28,7 @@ Widget button(
       ),
       child: Center(
         child: Text(
-          text.toUpperCase(),
+          isLowercase ? capitalizeFirst(text) : text.toUpperCase(),
           style: TextStyle(
             fontSize: Textsize.normal,
             color: textColor ?? AppColor.white,
@@ -37,4 +38,9 @@ Widget button(
       ),
     ),
   );
+}
+
+String capitalizeFirst(String text) {
+  if (text.isEmpty) return text;
+  return text[0].toUpperCase() + text.substring(1).toLowerCase();
 }

@@ -179,4 +179,9 @@ class AppString {
   static const sideStone = 'Side Stone';
   static const iscolor = 'Is Color';
   static const color = 'Color';
+  static const addsideStone = 'Add Side Stone';
+  static const IsGem = 'Is Gem';
+  static const size = 'Size';
+  static const pieces = 'Pieces';
+  static const weight = 'Weight';
 }

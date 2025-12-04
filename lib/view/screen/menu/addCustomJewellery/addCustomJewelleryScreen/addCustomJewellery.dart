@@ -26,148 +26,140 @@ class AddCustomJewellery extends StatelessWidget {
       ),
       child: SingleChildScrollView(
         child: horizontalPadding(
-          child: Column(
-            children: [
-              SizedBox(height: Get.height * 0.02),
-              Obx(() {
-                return Column(
-                  children: [
-                    //Product Type Dropdown
-                    productType(
-                      list: addCustomJewellery.getProductTypeItems(),
-                      value: addCustomJewellery.productType.value,
-                      onChanged: addCustomJewellery.productTypeValueChange,
-                    ),
+          child: Obx(() {
+            return Column(
+              children: [
+                SizedBox(height: Get.height * 0.02),
+                //Product Type Dropdown
+                productType(
+                  list: addCustomJewellery.getProductTypeItems(),
+                  value: addCustomJewellery.productType.value,
+                  onChanged: addCustomJewellery.productTypeValueChange,
+                ),
 
-                    //Upload Your Image, Video, URL Section Start
-                    //Upload Your File
-                    uploadYourFile(
-                      imageColor: addCustomJewellery.selectedImageType.value
-                          ? AppColor.primary
-                          : AppColor.gray,
-                      videoColor: addCustomJewellery.selectedVideoType.value
-                          ? AppColor.primary
-                          : AppColor.gray3,
-                      urlColor: addCustomJewellery.selectedURLType.value
-                          ? AppColor.primary
-                          : AppColor.gray3,
-                      videoOnTap: () => addCustomJewellery.selectVideoType(),
-                      imageOnTap: () => addCustomJewellery.selectImageType(),
-                      urlOnTap: () => addCustomJewellery.selectURLType(),
-                      imageRadius: addCustomJewellery.selectedImageType.value
-                          ? 7
-                          : 9,
-                      videoRadius: addCustomJewellery.selectedVideoType.value
-                          ? 7
-                          : 9,
-                      urlRadius: addCustomJewellery.selectedURLType.value
-                          ? 7
-                          : 9,
-                    ),
+                //Upload Your Image, Video, URL Section Start
+                //Upload Your File
+                uploadYourFile(
+                  imageColor: addCustomJewellery.selectedImageType.value
+                      ? AppColor.primary
+                      : AppColor.gray,
+                  videoColor: addCustomJewellery.selectedVideoType.value
+                      ? AppColor.primary
+                      : AppColor.gray3,
+                  urlColor: addCustomJewellery.selectedURLType.value
+                      ? AppColor.primary
+                      : AppColor.gray3,
+                  videoOnTap: () => addCustomJewellery.selectVideoType(),
+                  imageOnTap: () => addCustomJewellery.selectImageType(),
+                  urlOnTap: () => addCustomJewellery.selectURLType(),
+                  imageRadius: addCustomJewellery.selectedImageType.value
+                      ? 7
+                      : 9,
+                  videoRadius: addCustomJewellery.selectedVideoType.value
+                      ? 7
+                      : 9,
+                  urlRadius: addCustomJewellery.selectedURLType.value ? 7 : 9,
+                ),
 
-                    //Additional Details
-                    //Image
-                    (addCustomJewellery.selectedImageType.value)
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              chooseFile(
-                                onTap: () => addCustomJewellery.pickImageFile(),
-                                buttonText: AppString.chooseFile,
-                                yourCommentsController:
-                                    addCustomJewellery.yourCommentsController,
-                                addCustomJewellery: addCustomJewellery,
-                              ),
-                              SizedBox(height: Get.height * 0.02),
-                            ],
-                          )
-                        : SizedBox(),
+                //Additional Details
+                //Image
+                (addCustomJewellery.selectedImageType.value)
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          chooseFile(
+                            onTap: () => addCustomJewellery.pickImageFile(),
+                            buttonText: AppString.chooseFile,
+                            yourCommentsController:
+                                addCustomJewellery.yourCommentsController,
+                            addCustomJewellery: addCustomJewellery,
+                          ),
+                          SizedBox(height: Get.height * 0.02),
+                        ],
+                      )
+                    : SizedBox(),
 
-                    //video
-                    (addCustomJewellery.selectedVideoType.value)
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              chooseFile(
-                                onTap: () => addCustomJewellery.pickVideoFile(),
-                                buttonText: AppString.chooseFile,
-                                yourCommentsController:
-                                    addCustomJewellery.yourCommentsController,
-                                addCustomJewellery: addCustomJewellery,
-                              ),
-                              SizedBox(height: Get.height * 0.02),
-                            ],
-                          )
-                        : SizedBox(),
+                //video
+                (addCustomJewellery.selectedVideoType.value)
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          chooseFile(
+                            onTap: () => addCustomJewellery.pickVideoFile(),
+                            buttonText: AppString.chooseFile,
+                            yourCommentsController:
+                                addCustomJewellery.yourCommentsController,
+                            addCustomJewellery: addCustomJewellery,
+                          ),
+                          SizedBox(height: Get.height * 0.02),
+                        ],
+                      )
+                    : SizedBox(),
 
-                    (addCustomJewellery.selectedURLType.value)
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              addURL(
-                                addURlTextController:
-                                    addCustomJewellery.addURlTextController,
-                                yourCommentsController:
-                                    addCustomJewellery.yourCommentsController,
-                              ),
-                              SizedBox(height: Get.height * 0.02),
-                            ],
-                          )
-                        : SizedBox(),
-                    //Upload Your Image, Video, URL Section End
+                (addCustomJewellery.selectedURLType.value)
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          addURL(
+                            addURlTextController:
+                                addCustomJewellery.addURlTextController,
+                            yourCommentsController:
+                                addCustomJewellery.yourCommentsController,
+                          ),
+                          SizedBox(height: Get.height * 0.02),
+                        ],
+                      )
+                    : SizedBox(),
+                //Upload Your Image, Video, URL Section End
 
-                    //Metal Details Start
-                    metalDetails(
-                      metalTypeList: addCustomJewellery.getMetalTypeItems(),
-                      metalTypeValue: addCustomJewellery.metalType.value,
-                      metalTypeOnChanged:
-                          addCustomJewellery.metalTypeValueChange,
-                      metalStampList: addCustomJewellery.getMetalStampItems(),
-                      metalStampValue: addCustomJewellery.metalStamp.value,
-                      metalStampOnChanged:
-                          addCustomJewellery.metalStampValueChange,
-                      ringSizeOnChanged:
-                          addCustomJewellery.selectRingSizeValueChange,
-                      ringSizeList: addCustomJewellery.getSelectRingSizeItems(),
-                      ringSizeValue: addCustomJewellery.ringSize.value,
-                      appxMetalWeightController:
-                          addCustomJewellery.appxMetalWeightController,
-                      budgetController: addCustomJewellery.budgetController,
-                      engravingController:
-                          addCustomJewellery.engravingController,
-                    ),
-                    //Metal Details End
+                //Metal Details Start
+                metalDetails(
+                  metalTypeList: addCustomJewellery.getMetalTypeItems(),
+                  metalTypeValue: addCustomJewellery.metalType.value,
+                  metalTypeOnChanged: addCustomJewellery.metalTypeValueChange,
+                  metalStampList: addCustomJewellery.getMetalStampItems(),
+                  metalStampValue: addCustomJewellery.metalStamp.value,
+                  metalStampOnChanged: addCustomJewellery.metalStampValueChange,
+                  ringSizeOnChanged:
+                      addCustomJewellery.selectRingSizeValueChange,
+                  ringSizeList: addCustomJewellery.getSelectRingSizeItems(),
+                  ringSizeValue: addCustomJewellery.ringSize.value,
+                  appxMetalWeightController:
+                      addCustomJewellery.appxMetalWeightController,
+                  budgetController: addCustomJewellery.budgetController,
+                  engravingController: addCustomJewellery.engravingController,
+                ),
+                //Metal Details End
 
-                    //Diamond And Gemstone Detail Start
-                    diamondAndGemstoneDetails(
-                      isCenterStonevalue:
-                          addCustomJewellery.isCenterStone.value,
-                      isSideStonevalue: addCustomJewellery.isSideStone.value,
-                      isCenterStonetext: AppString.centerStone,
-                      isCenterStoneonChanged: (value) {
-                        addCustomJewellery.toggleCenterStone(value);
-                      },
-                      isSideStonetext: AppString.sideStone,
-                      isSideStoneonChanged: (value) {
-                        addCustomJewellery.toggleSideStone(value);
-                      },
-                      colorText: AppString.iscolor,
-                      isCenterColorvalue: addCustomJewellery.isColor.value,
-                      isSideColorChanged: (value) {
-                        addCustomJewellery.toggleIsColor(value);
-                      },
-                      diamondSearch: addCustomJewellery,
-                      shapetext: AppString.shape,
-                      colordiamondSearch: addCustomJewellery,
-                      colorDiamondList: diamondList,
-                    ),
+                //Diamond And Gemstone Detail Start
+                diamondAndGemstoneDetails(
+                  isCenterStonevalue: addCustomJewellery.isCenterStone.value,
+                  isSideStonevalue: addCustomJewellery.isSideStone.value,
+                  isCenterStonetext: AppString.centerStone,
+                  isCenterStoneonChanged: (value) {
+                    addCustomJewellery.toggleCenterStone(value);
+                  },
+                  isSideStonetext: AppString.sideStone,
+                  isSideStoneonChanged: (value) {
+                    addCustomJewellery.toggleSideStone(value);
+                  },
+                  colorText: AppString.iscolor,
+                  isCenterColorvalue: addCustomJewellery.isColor.value,
+                  isSideColorChanged: (value) {
+                    addCustomJewellery.toggleIsColor(value);
+                  },
+                  diamondSearch: addCustomJewellery,
+                  shapetext: AppString.shape,
+                  colorSearch: addCustomJewellery,
+                  colortext: AppString.color,
+                  claritySearch: addCustomJewellery,
+                  claritytext: AppString.clarity,
+                ),
 
-                    //Diamond And Gemstone Detail End
-                  ],
-                );
-              }),
-            ],
-          ),
+                //Diamond And Gemstone Detail End
+              ],
+            );
+          }),
         ),
       ),
     );

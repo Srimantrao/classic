@@ -208,8 +208,10 @@ Widget checkBoxWidget({
   required void Function(bool?) isSideColorChanged,
   required AddcustomjewelleryUIController diamondSearch,
   required String shapetext,
-  required AddcustomjewelleryUIController colordiamondSearch,
-  required DiamondList colorDiamondList,
+  required AddcustomjewelleryUIController colorSearch,
+  required String colortext,
+  required AddcustomjewelleryUIController claritySearch,
+  required String claritytext,
 }) {
   return Column(
     children: [
@@ -226,8 +228,10 @@ Widget checkBoxWidget({
               onChanged: isSideColorChanged,
               diamondSearch: diamondSearch,
               shapetext: shapetext,
-              colorDiamondList: colorDiamondList,
-              colordiamondSearch: colordiamondSearch,
+              colorSearch: colorSearch,
+              colortext: colortext,
+              claritySearch: claritySearch,
+              claritytext: claritytext,
             )
           : SizedBox(),
       SizedBox(height: Get.height * 0.01),
@@ -245,16 +249,19 @@ Widget centerStoneContainer({
   required bool value,
   required Function(bool?) onChanged,
   required AddcustomjewelleryUIController diamondSearch,
-  required AddcustomjewelleryUIController colordiamondSearch,
-  required DiamondList colorDiamondList,
   required String shapetext,
+  required AddcustomjewelleryUIController colorSearch,
+  required String colortext,
+  required AddcustomjewelleryUIController claritySearch,
+  required String claritytext,
 }) {
   return cartConatiner(
     child: Column(
       children: [
         tabCheck(text: text, value: value, onChanged: onChanged),
         shapeViweDimondShape(diamondSearch, shapetext),
-        whiteColorDimaond(colordiamondSearch, colorDiamondList),
+        shapeViweDimondColor(colorSearch, colortext),
+        shapeViweClarity(diamondSearch, text),
       ],
     ),
   );
@@ -270,6 +277,36 @@ Widget shapeViweDimondShape(diamondSearch, text) {
         shapeHedding(text),
         SizedBox(height: Get.height * 0.01),
         shapeDimaond(diamondSearch),
+      ],
+    ),
+  );
+}
+
+Widget shapeViweDimondColor(diamondSearch, text) {
+  return SizedBox(
+    height: Get.height / 8,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(height: Get.height * 0.02),
+        shapeHedding(text),
+        SizedBox(height: Get.height * 0.01),
+        colorDimaond(diamondSearch),
+      ],
+    ),
+  );
+}
+
+Widget shapeViweClarity(diamondSearch, text) {
+  return SizedBox(
+    height: Get.height / 7,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(height: Get.height * 0.02),
+        shapeHedding(text),
+        SizedBox(height: Get.height * 0.01),
+        colorClarity(diamondSearch),
       ],
     ),
   );
@@ -329,6 +366,102 @@ Widget shapeDimaond(AddcustomjewelleryUIController diamondSearch) {
   );
 }
 
+Widget colorDimaond(AddcustomjewelleryUIController diamondSearch) {
+  final diamondList = DiamondList();
+  return GetBuilder<AddcustomjewelleryUIController>(
+    builder: (controller) {
+      return GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 6,
+          crossAxisSpacing: Get.width * 0.02,
+          mainAxisSpacing: Get.height * 0.009,
+          childAspectRatio: 2.2,
+        ),
+        itemCount: diamondList.whiteColors.length,
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          bool isSelected =
+              controller.selectWhiteColor.contains(index) ||
+              controller.selectWhiteColor.contains(
+                diamondList.whiteColors[index],
+              );
+          return GestureDetector(
+            onTap: () => controller.toggleColorSelection(index),
+            child: Container(
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(borderradius.buttonboder),
+                border: Border.all(
+                  color: isSelected ? AppColor.primary : AppColor.gray5,
+                  width: 1.0,
+                ),
+                color: isSelected ? AppColor.primary : Colors.transparent,
+              ),
+              child: Text(
+                diamondList.whiteColors[index],
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: Textsize.samisubHedding,
+                  color: isSelected ? AppColor.white : AppColor.black,
+                  fontWeight: isSelected ? FontWeight.w500 : FontWeight.normal,
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    },
+  );
+}
+
+Widget colorClarity(AddcustomjewelleryUIController diamondSearch) {
+  final diamondList = DiamondList();
+  return GetBuilder<AddcustomjewelleryUIController>(
+    builder: (controller) {
+      return GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 6,
+          crossAxisSpacing: Get.width * 0.02,
+          mainAxisSpacing: Get.height * 0.009,
+          childAspectRatio: 1.7,
+        ),
+        itemCount: diamondList.clarity.length,
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          bool isSelected =
+              controller.selectedClarity.contains(index) ||
+              controller.selectedClarity.contains(diamondList.clarity[index]);
+          return GestureDetector(
+            onTap: () => controller.toggleClaritySelection(index),
+            child: Container(
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(borderradius.buttonboder),
+                border: Border.all(
+                  color: isSelected ? AppColor.primary : AppColor.gray5,
+                  width: 1.0,
+                ),
+                color: isSelected ? AppColor.primary : Colors.transparent,
+              ),
+              child: Text(
+                diamondList.clarity[index],
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: Textsize.samisubHedding,
+                  color: isSelected ? AppColor.white : AppColor.black,
+                  fontWeight: isSelected ? FontWeight.w500 : FontWeight.normal,
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    },
+  );
+}
+
 Widget tabCheck({
   required String text,
   required bool value,
@@ -359,50 +492,5 @@ Widget customCheckbox() {
       borderRadius: BorderRadius.circular(borderradius.buttonboder),
     ),
     child: Icon(Icons.check, color: AppColor.white, size: 20),
-  );
-}
-
-Widget whiteColorDimaond(
-  AddcustomjewelleryUIController diamondSearch,
-  DiamondList diamondList,
-) {
-  return selectionGridDimaond<String>(
-    items: diamondList.whiteColors,
-    isSelected: (controller, index, item) =>
-        controller.selectWhiteColor.contains(index) ||
-        controller.selectWhiteColor.contains(diamondList.whiteColors[index]),
-    onTap: (controller, index) => controller.toggleColorSelection(index),
-  );
-}
-
-Widget selectionGridDimaond<T>({
-  required List<T> items,
-  required bool Function(
-    AddcustomjewelleryUIController controller,
-    int index,
-    T item,
-  )
-  isSelected,
-  required void Function(AddcustomjewelleryUIController controller, int index)
-  onTap,
-}) {
-  return GetBuilder<AddcustomjewelleryUIController>(
-    builder: (controller) {
-      return viweList(
-        itemCount: items.length,
-        itemBuilder: (context, index) {
-          final item = items[index];
-          final selected = isSelected(controller, index, item);
-          return viweContainer(
-            onTap: () => onTap(controller, index),
-            colorBoder: selected ? AppColor.primary : AppColor.gray3,
-            color: selected ? AppColor.primary : Colors.transparent,
-            textColor: selected ? AppColor.white : AppColor.black,
-            text: item.toString(),
-            fontWeight: selected ? FontWeight.w500 : FontWeight.normal,
-          );
-        },
-      );
-    },
   );
 }

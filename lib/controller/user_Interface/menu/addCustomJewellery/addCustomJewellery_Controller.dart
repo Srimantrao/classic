@@ -166,6 +166,7 @@ class AddcustomjewelleryUIController extends GetxController {
   //Center Stone
   List<int> selectedShapes = [];
   List<int> selectWhiteColor = [];
+  List<int> selectedClarity = [];
 
   //Multiple selection Shape
   void toggleShapeSelection(int index) {
@@ -184,6 +185,23 @@ class AddcustomjewelleryUIController extends GetxController {
     } else {
       selectWhiteColor.add(index);
     }
+    update();
+  }
+
+  //Multiple selection clarity
+  void toggleClaritySelection(int index) {
+    if (selectedClarity.contains(index)) {
+      selectedClarity.remove(index);
+    } else {
+      selectedClarity.add(index);
+    }
+    update();
+  }
+
+  // For single selection (if you prefer) Clarity
+  void selectClarity(int index) {
+    selectedClarity.clear();
+    selectedClarity.add(index);
     update();
   }
 

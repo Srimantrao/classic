@@ -244,8 +244,10 @@ Widget diamondAndGemstoneDetails({
   required void Function(bool?) isSideColorChanged,
   required AddcustomjewelleryUIController diamondSearch,
   required String shapetext,
-  required AddcustomjewelleryUIController colordiamondSearch,
-  required DiamondList colorDiamondList,
+  required AddcustomjewelleryUIController colorSearch,
+  required String colortext,
+  required AddcustomjewelleryUIController claritySearch,
+  required String claritytext,
 }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -271,8 +273,10 @@ Widget diamondAndGemstoneDetails({
         isSideColorChanged: isSideColorChanged,
         diamondSearch: diamondSearch,
         shapetext: shapetext,
-        colordiamondSearch: colordiamondSearch,
-        colorDiamondList: colorDiamondList,
+        colorSearch: colorSearch,
+        colortext: colortext,
+        claritySearch: claritySearch,
+        claritytext: claritytext,
       ),
     ],
   );

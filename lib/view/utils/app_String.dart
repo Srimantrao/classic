@@ -178,4 +178,5 @@ class AppString {
   static const centerStone = 'Center Stone';
   static const sideStone = 'Side Stone';
   static const iscolor = 'Is Color';
+  static const color = 'Color';
 }

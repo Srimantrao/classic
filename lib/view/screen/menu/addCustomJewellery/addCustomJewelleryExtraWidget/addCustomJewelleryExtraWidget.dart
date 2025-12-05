@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, deprecated_member_use, collection_methods_unrelated_type
+// ignore_for_file: file_names, deprecated_member_use, collection_methods_unrelated_type, avoid_unnecessary_containers
 
 import 'package:classic/controller/user_Interface/menu/addCustomJewellery/addCustomJewellery_Controller.dart';
 import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';
@@ -215,6 +215,7 @@ Widget checkBoxWidget({
   required String colortext,
   required AddcustomjewelleryUIController claritySearch,
   required String claritytext,
+  required AddcustomjewelleryUIController stoneUpdate,
 }) {
   return Column(
     children: [
@@ -244,7 +245,7 @@ Widget checkBoxWidget({
         onChanged: isSideStoneonChanged,
       ),
       SizedBox(height: Get.height * 0.01),
-      (isSideStonevalue) ? sideStoneContainer() : SizedBox(),
+      (isSideStonevalue) ? sideStoneContainer(stoneUpdate) : SizedBox(),
       SizedBox(height: Get.height * 0.01),
     ],
   );
@@ -273,36 +274,24 @@ Widget centerStoneContainer({
   );
 }
 
-Widget sideStoneContainer() {
+Widget sideStoneContainer(AddcustomjewelleryUIController stoneUpdate) {
   return cartConatiner(
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(mainAxisAlignment: MainAxisAlignment.end, children: [addButton()]),
-        SizedBox(height: Get.height * 0.01),
-        ListView.builder(
-          itemCount: 6,
-          padding: EdgeInsets.zero,
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) {
-            return Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              decoration: BoxDecoration(
-                color: AppColor.white,
-                boxShadow: kElevationToShadow[2],
-              ),
-              child: Column(
-                children: [
-                  Text('${AppString.shape} :'),
-                  Text('${AppString.shape} :'),
-                  Text('${AppString.shape} :'),
-                ],
-              ),
-            );
-          },
-        ),
-      ],
+    child: GetBuilder<AddcustomjewelleryUIController>(
+      builder: (AddcustomjewelleryUIController stoneUpdate) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [addButton()],
+            ),
+            SizedBox(height: Get.height * 0.01),
+            (stoneUpdate.allSelectdata.isNotEmpty)
+                ? listofSaveSideStone(stoneUpdate)
+                : SizedBox(),
+          ],
+        );
+      },
     ),
   );
 }
@@ -428,7 +417,10 @@ void openBottomSheet() {
 
                   /// ADD BUTTON FIXED AT BOTTOM
                   GestureDetector(
-                    onTap: stoneUpdate.selectAllData,
+                    onTap: () async {
+                      await stoneUpdate.selectAllData();
+                      Get.back();
+                    },
                     child: button('Add', isLowercase: true),
                   ),
                 ],
@@ -439,6 +431,147 @@ void openBottomSheet() {
       },
     ),
     isScrollControlled: true,
+  );
+}
+
+Widget listofSaveSideStone(AddcustomjewelleryUIController stoneupdate) {
+  return ListView.builder(
+    itemCount: stoneupdate.allSelectdata.length,
+    padding: EdgeInsets.zero,
+    shrinkWrap: true,
+    physics: NeverScrollableScrollPhysics(),
+    itemBuilder: (context, index) {
+      final data = stoneupdate.allSelectdata[index];
+      final shape = stoneupdate.allSelectdata[index]['shape'];
+      final clarity = stoneupdate.allSelectdata[index]['clarity'];
+      final pieces = stoneupdate.allSelectdata[index]['pieces'];
+      final color = stoneupdate.allSelectdata[index]['color'];
+      final size = stoneupdate.allSelectdata[index]['size'];
+      final weight = stoneupdate.allSelectdata[index]['weight'];
+      return Container(
+        margin: EdgeInsets.symmetric(vertical: Get.height * 0.01),
+        decoration: BoxDecoration(
+          color: AppColor.white,
+          boxShadow: kElevationToShadow[1],
+          borderRadius: BorderRadius.circular(borderradius.buttonboder),
+        ),
+        child: horizontalPadding(
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: Get.height * 0.01),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    fuctionButton(
+                      AppString.edit,
+                      onTap: () {
+                        stoneupdate.updateingValue(index);
+                        openBottomSheet();
+                      },
+                    ),
+                    SizedBox(width: Get.width * 0.02),
+                    fuctionButton(
+                      AppString.remove,
+                      onTap: () {
+                        stoneupdate.removeStone(index);
+                      },
+                    ),
+                  ],
+                ),
+                SizedBox(height: Get.height * 0.005),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        selectedDimanondViwe(
+                          nameString: AppString.shape,
+                          valueString: shape,
+                        ),
+                        selectedDimanondViwe(
+                          nameString: AppString.clarity,
+                          valueString: clarity,
+                        ),
+                        selectedDimanondViwe(
+                          nameString: AppString.pieces,
+                          valueString: pieces,
+                        ),
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        selectedDimanondViwe(
+                          nameString: AppString.color,
+                          valueString: color,
+                        ),
+                        selectedDimanondViwe(
+                          nameString: AppString.size,
+                          valueString: size,
+                        ),
+                        selectedDimanondViwe(
+                          nameString: AppString.weight,
+                          valueString: weight,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    },
+  );
+}
+
+Widget fuctionButton(text, {void Function()? onTap}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Text(
+      text,
+      style: TextStyle(
+        decoration: TextDecoration.underline,
+        fontWeight: FontWeight.w500,
+      ),
+    ),
+  );
+}
+
+Widget selectedDimanondViwe({
+  required String nameString,
+  required String valueString,
+}) {
+  return Column(
+    children: [
+      Row(
+        children: [
+          Text(
+            '$nameString : ',
+            style: TextStyle(
+              fontWeight: FontWeight.w400,
+              fontFamily: 'FuturaCyrillic',
+            ),
+          ),
+          Text(
+            valueString,
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontFamily: 'FuturaCyrillic',
+              fontSize: Textsize.normal,
+              color: AppColor.primary,
+            ),
+          ),
+        ],
+      ),
+      SizedBox(height: Get.height * 0.005),
+    ],
   );
 }
 

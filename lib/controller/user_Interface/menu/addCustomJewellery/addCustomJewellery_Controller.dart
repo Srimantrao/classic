@@ -103,6 +103,42 @@ class AddcustomjewelleryUIController extends GetxController {
     }).toList();
   }
 
+  String getShapeKeyFromDisplayText(String displayText) {
+    return addcustomjewelleryItems.shape.entries
+        .firstWhere(
+          (entry) => entry.value == displayText,
+          orElse: () => MapEntry('', ''),
+        )
+        .key;
+  }
+
+  String getColorKeyFromDisplayText(String displayText) {
+    return addcustomjewelleryItems.color.entries
+        .firstWhere(
+          (entry) => entry.value == displayText,
+          orElse: () => MapEntry('', ''),
+        )
+        .key;
+  }
+
+  String getClarityKeyFromDisplayText(String displayText) {
+    return addcustomjewelleryItems.clarity.entries
+        .firstWhere(
+          (entry) => entry.value == displayText,
+          orElse: () => MapEntry('', ''),
+        )
+        .key;
+  }
+
+  String getSizeKeyFromDisplayText(String displayText) {
+    return addcustomjewelleryItems.size.entries
+        .firstWhere(
+          (entry) => entry.value == displayText,
+          orElse: () => MapEntry('', ''),
+        )
+        .key;
+  }
+
   //onChnage Value of Dropdown
   void productTypeValueChange(String? newValue) {
     productType.value = newValue!;
@@ -154,28 +190,61 @@ class AddcustomjewelleryUIController extends GetxController {
     update();
   }
 
-  void selectAllData() {
-    allSelectdata.clear();
+  int? editingIndex;
+  Future<void> updateingValue(index) async {
+    editingIndex = index;
+    final data = allSelectdata[index];
+    print('Editing data: $data');
 
-    final selectedValues = [
-      isGemValue,
-      addcustomjewelleryItems.shape[shape.value],
-      addcustomjewelleryItems.color[color.value],
-      addcustomjewelleryItems.clarity[clarity.value],
-      addcustomjewelleryItems.size[size.value],
-      piecessController.text,
-      weightController.text,
-    ].where((e) => e != null && e.toString().isNotEmpty).toList();
+    isGemValue.value = data['gemType'];
 
-    allSelectdata.addAll(selectedValues);
+    // Convert display text to keys
+    final shapeKey = getShapeKeyFromDisplayText(data['shape']);
+    final colorKey = getColorKeyFromDisplayText(data['color']);
+    final clarityKey = getClarityKeyFromDisplayText(data['clarity']);
+    final sizeKey = getSizeKeyFromDisplayText(data['size']);
 
-    for (var value in selectedValues) {
-      print("Selected Value: $value");
-    }
+    shape.value = shapeKey;
+    color.value = colorKey;
+    clarity.value = clarityKey;
+    size.value = sizeKey;
 
-    print("All Select Data: $allSelectdata");
+    piecessController.text = data['pieces'];
+    weightController.text = data['weight'];
 
     update();
+  }
+
+  Future<void> selectAllData() async {
+    // allSelectdata.clear();
+    final stoneData = {
+      'gemType': isGemValue.value,
+      'shape': addcustomjewelleryItems.shape[shape.value],
+      'color': addcustomjewelleryItems.color[color.value],
+      'clarity': addcustomjewelleryItems.clarity[clarity.value],
+      'size': addcustomjewelleryItems.size[size.value],
+      'pieces': piecessController.text,
+      'weight': weightController.text,
+    };
+
+    // UPDATE EXISTING
+    if (editingIndex != null) {
+      allSelectdata[editingIndex!] = stoneData;
+      editingIndex = null; // reset editing mode
+    }
+    // ADD NEW
+    else {
+      allSelectdata.add(stoneData);
+    }
+
+    update();
+  }
+
+  void removeStone(int index) {
+    if (index >= 0 && index < allSelectdata.length) {
+      allSelectdata.removeAt(index);
+      update();
+    }
   }
 
   //Upload Your File

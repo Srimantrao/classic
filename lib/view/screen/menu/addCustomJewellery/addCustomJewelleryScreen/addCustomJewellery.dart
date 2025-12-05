@@ -155,6 +155,7 @@ class AddCustomJewellery extends StatelessWidget {
                   colortext: AppString.color,
                   claritySearch: addCustomJewellery,
                   claritytext: AppString.clarity,
+                  stoneUpdate: addCustomJewellery,
                 ),
                 //Diamond And Gemstone Detail End
               ],

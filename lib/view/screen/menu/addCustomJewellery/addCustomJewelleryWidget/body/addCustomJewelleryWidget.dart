@@ -248,6 +248,7 @@ Widget diamondAndGemstoneDetails({
   required String colortext,
   required AddcustomjewelleryUIController claritySearch,
   required String claritytext,
+  required AddcustomjewelleryUIController stoneUpdate,
 }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -277,6 +278,7 @@ Widget diamondAndGemstoneDetails({
         colortext: colortext,
         claritySearch: claritySearch,
         claritytext: claritytext,
+        stoneUpdate: stoneUpdate,
       ),
     ],
   );

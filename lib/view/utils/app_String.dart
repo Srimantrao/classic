@@ -12,6 +12,8 @@ class AppString {
   static const back = 'Back';
   static const next = 'Next';
   static const reset = 'Reset';
+  static const edit = 'Edit';
+  static const remove = 'Remove';
 
   //login Screen
   static const loginsubhedding =

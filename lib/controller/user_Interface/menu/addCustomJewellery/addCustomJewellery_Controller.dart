@@ -16,6 +16,13 @@ class AddcustomjewelleryUIController extends GetxController {
   final piecessController = TextEditingController();
   final weightController = TextEditingController();
 
+  //Contact Information
+  final fristNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final emailController = TextEditingController();
+  final mobileController = TextEditingController();
+  final referredController = TextEditingController();
+
   //Dorop Down
   final addcustomjewelleryItems = AddcustomjewelleryItems();
 

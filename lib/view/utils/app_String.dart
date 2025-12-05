@@ -177,6 +177,7 @@ class AppString {
   static const ringSize = 'Ring Size (Check Ring Size)';
   static const selectRingSize = 'Select Ring Size';
   static const diamondAndGemstoneDetails = 'Diamond And Gemstone Details';
+  static const contactInformation = 'Contact Information';
   static const centerStone = 'Center Stone';
   static const sideStone = 'Side Stone';
   static const iscolor = 'Is Color';

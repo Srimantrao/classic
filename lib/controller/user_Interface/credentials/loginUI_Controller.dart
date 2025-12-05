@@ -3,19 +3,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginuiController extends GetxController{
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
+class LoginuiController extends GetxController {
+  final usernameController = TextEditingController(
+    text: 'Khushraaj Bhavan Cha Vijay Haso',
+  );
+  final passwordController = TextEditingController(
+    text: 'Jay Bhavani Jay Shivaji',
+  );
   var usernameHasError = false.obs;
   var passwordHasError = false.obs;
 
-  void onChanged1(){
+  void onChanged1() {
     if (usernameController.text.isNotEmpty) {
       usernameHasError.value = false;
     }
   }
 
-  void onChanged2(){
+  void onChanged2() {
     if (passwordController.text.isNotEmpty) {
       passwordHasError.value = false;
     }
@@ -33,7 +37,6 @@ class LoginuiController extends GetxController{
       } else {
         passwordHasError.value = false;
       }
-
     } else {
       usernameHasError.value = false;
       passwordHasError.value = false;

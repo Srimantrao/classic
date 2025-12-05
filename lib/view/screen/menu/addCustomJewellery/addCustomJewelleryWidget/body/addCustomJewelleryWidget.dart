@@ -283,3 +283,26 @@ Widget diamondAndGemstoneDetails({
     ],
   );
 }
+
+Widget contactInformation({
+  required String fristNameText,
+  required String fristNameHintText,
+  required TextEditingController fristNameController,
+}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [addCustomJewelleryHeddingText(AppString.contactInformation)],
+      ),
+      contactInformationWidet(
+        fristNameText: fristNameText,
+        fristNameController: fristNameController,
+        fristNameHintText: fristNameHintText,
+      ),
+    ],
+  );
+}

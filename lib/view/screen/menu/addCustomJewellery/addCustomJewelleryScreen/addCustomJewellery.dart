@@ -157,7 +157,13 @@ class AddCustomJewellery extends StatelessWidget {
                   claritytext: AppString.clarity,
                   stoneUpdate: addCustomJewellery,
                 ),
+
                 //Diamond And Gemstone Detail End
+                contactInformation(
+                  fristNameText: AppString.fristname,
+                  fristNameController: addCustomJewellery.fristNameController,
+                  fristNameHintText: AppString.fristname_hint,
+                ),
               ],
             );
           }),

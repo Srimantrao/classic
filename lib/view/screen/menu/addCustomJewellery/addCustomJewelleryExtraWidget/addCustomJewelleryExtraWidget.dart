@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, deprecated_member_use, collection_methods_unrelated_type, avoid_unnecessary_containers
+// ignore_for_file: file_names, deprecated_member_use, collection_methods_unrelated_type, avoid_unnecessary_containers, unused_local_variable
 
 import 'package:classic/controller/user_Interface/menu/addCustomJewellery/addCustomJewellery_Controller.dart';
 import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';
@@ -803,6 +803,44 @@ Widget tabCheck({
         ),
       ),
     ],
+  );
+}
+
+Widget contactInformationWidet({
+  required String fristNameText,
+  required String fristNameHintText,
+  required TextEditingController fristNameController,
+}) {
+  return cartConatiner(
+    child: Column(
+      children: [
+        inputTyaping(
+          text: fristNameText,
+          controller: fristNameController,
+          hinttext: fristNameHintText,
+        ),
+        inputTyaping(
+          text: fristNameText,
+          controller: fristNameController,
+          hinttext: fristNameHintText,
+        ),
+        inputTyaping(
+          text: fristNameText,
+          controller: fristNameController,
+          hinttext: fristNameHintText,
+        ),
+        inputTyaping(
+          text: fristNameText,
+          controller: fristNameController,
+          hinttext: fristNameHintText,
+        ),
+        inputTyaping(
+          text: fristNameText,
+          controller: fristNameController,
+          hinttext: fristNameHintText,
+        ),
+      ],
+    ),
   );
 }
 

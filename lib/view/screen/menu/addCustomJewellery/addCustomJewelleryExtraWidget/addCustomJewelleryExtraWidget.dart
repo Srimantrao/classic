@@ -325,105 +325,107 @@ void openBottomSheet() {
   Get.bottomSheet(
     GetBuilder<AddcustomjewelleryUIController>(
       builder: (AddcustomjewelleryUIController stoneUpdate) {
-        return Container(
-          height: Get.height * 0.7,
-          width: Get.width,
-          decoration: BoxDecoration(
-            color: AppColor.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(Get.width * 0.09),
-              topRight: Radius.circular(Get.width * 0.09),
+        return SafeArea(
+          child: Container(
+            height: Get.height * 0.7,
+            width: Get.width,
+            decoration: BoxDecoration(
+              color: AppColor.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(Get.width * 0.09),
+                topRight: Radius.circular(Get.width * 0.09),
+              ),
             ),
-          ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: Get.height * 0.02),
-            child: horizontalPadding(
-              child: Column(
-                children: [
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          bottomWidget(),
-                          SizedBox(height: Get.height * 0.02),
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: Get.height * 0.02),
+              child: horizontalPadding(
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            bottomWidget(),
+                            SizedBox(height: Get.height * 0.02),
 
-                          chekISGem(
-                            value: stoneUpdate.isGemValue.value,
-                            onChanged: stoneUpdate.toggleIsGam,
-                          ),
+                            chekISGem(
+                              value: stoneUpdate.isGemValue.value,
+                              onChanged: stoneUpdate.toggleIsGam,
+                            ),
 
-                          SizedBox(height: Get.height * 0.02),
+                            SizedBox(height: Get.height * 0.02),
 
-                          dropdowns(
-                            AppString.shape,
-                            value: stoneUpdate.shape.value,
-                            list: stoneUpdate.getShape(),
-                            onChanged: stoneUpdate.selectShapeDrop,
-                          ),
-                          dropdowns(
-                            AppString.color,
-                            value: stoneUpdate.color.value,
-                            list: stoneUpdate.getColor(),
-                            onChanged: stoneUpdate.selectColorDrop,
-                          ),
-                          dropdowns(
-                            AppString.clarity,
-                            value: stoneUpdate.clarity.value,
-                            list: stoneUpdate.getClarity(),
-                            onChanged: stoneUpdate.selectClarityDrop,
-                          ),
-                          dropdowns(
-                            AppString.size,
-                            value: stoneUpdate.size.value,
-                            list: stoneUpdate.getSize(),
-                            onChanged: stoneUpdate.selectSizeDrop,
-                          ),
+                            dropdowns(
+                              AppString.shape,
+                              value: stoneUpdate.shape.value,
+                              list: stoneUpdate.getShape(),
+                              onChanged: stoneUpdate.selectShapeDrop,
+                            ),
+                            dropdowns(
+                              AppString.color,
+                              value: stoneUpdate.color.value,
+                              list: stoneUpdate.getColor(),
+                              onChanged: stoneUpdate.selectColorDrop,
+                            ),
+                            dropdowns(
+                              AppString.clarity,
+                              value: stoneUpdate.clarity.value,
+                              list: stoneUpdate.getClarity(),
+                              onChanged: stoneUpdate.selectClarityDrop,
+                            ),
+                            dropdowns(
+                              AppString.size,
+                              value: stoneUpdate.size.value,
+                              list: stoneUpdate.getSize(),
+                              onChanged: stoneUpdate.selectSizeDrop,
+                            ),
 
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Inputfield(
-                                  color: AppColor.gray5,
-                                  hinttext: AppString.pieces,
-                                  controller: stoneUpdate.piecessController,
-                                  maxLength: 4,
-                                  keyboardType: TextInputType.number,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.digitsOnly,
-                                    LengthLimitingTextInputFormatter(4),
-                                  ],
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Inputfield(
+                                    color: AppColor.gray5,
+                                    hinttext: AppString.pieces,
+                                    controller: stoneUpdate.piecessController,
+                                    maxLength: 4,
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.digitsOnly,
+                                      LengthLimitingTextInputFormatter(4),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              SizedBox(width: Get.width * 0.02),
-                              Expanded(
-                                child: Inputfield(
-                                  color: AppColor.gray5,
-                                  hinttext: AppString.weight,
-                                  controller: stoneUpdate.weightController,
-                                  maxLength: 4,
-                                  keyboardType: TextInputType.number,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.digitsOnly,
-                                    LengthLimitingTextInputFormatter(4),
-                                  ],
+                                SizedBox(width: Get.width * 0.02),
+                                Expanded(
+                                  child: Inputfield(
+                                    color: AppColor.gray5,
+                                    hinttext: AppString.weight,
+                                    controller: stoneUpdate.weightController,
+                                    maxLength: 4,
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.digitsOnly,
+                                      LengthLimitingTextInputFormatter(4),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
 
-                  /// ADD BUTTON FIXED AT BOTTOM
-                  GestureDetector(
-                    onTap: () async {
-                      await stoneUpdate.selectAllData();
-                      Get.back();
-                    },
-                    child: button('Add', isLowercase: true),
-                  ),
-                ],
+                    /// ADD BUTTON FIXED AT BOTTOM
+                    GestureDetector(
+                      onTap: () async {
+                        await stoneUpdate.selectAllData();
+                        Get.back();
+                      },
+                      child: button('Add', isLowercase: true),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -810,6 +812,18 @@ Widget contactInformationWidet({
   required String fristNameText,
   required String fristNameHintText,
   required TextEditingController fristNameController,
+  required String lastNameText,
+  required String lastNameHintText,
+  required TextEditingController lastNameController,
+  required String emailIDText,
+  required String emailIDhintText,
+  required TextEditingController emailIdhintController,
+  required String mobileNumbarText,
+  required String mobileNumbarhintText,
+  required TextEditingController mobileNumbarhController,
+  required String referredmobileNumbarText,
+  required String referredNumbarhintText,
+  required TextEditingController referredController,
 }) {
   return cartConatiner(
     child: Column(
@@ -820,24 +834,24 @@ Widget contactInformationWidet({
           hinttext: fristNameHintText,
         ),
         inputTyaping(
-          text: fristNameText,
-          controller: fristNameController,
-          hinttext: fristNameHintText,
+          text: lastNameText,
+          controller: lastNameController,
+          hinttext: lastNameHintText,
         ),
         inputTyaping(
-          text: fristNameText,
-          controller: fristNameController,
-          hinttext: fristNameHintText,
+          text: emailIDText,
+          controller: emailIdhintController,
+          hinttext: emailIDhintText,
         ),
         inputTyaping(
-          text: fristNameText,
-          controller: fristNameController,
-          hinttext: fristNameHintText,
+          text: mobileNumbarText,
+          controller: mobileNumbarhController,
+          hinttext: mobileNumbarhintText,
         ),
         inputTyaping(
-          text: fristNameText,
-          controller: fristNameController,
-          hinttext: fristNameHintText,
+          text: referredmobileNumbarText,
+          controller: referredController,
+          hinttext: referredNumbarhintText,
         ),
       ],
     ),

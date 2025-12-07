@@ -21,12 +21,9 @@ class Diamondsearch extends StatelessWidget {
   Widget build(BuildContext context) {
     return Fullscreen(
       bottomNavigationBar: SizedBox(
-        height: Get.height * 0.05,
+        height: Get.height * 0.06,
         child: horizontalPadding(
-          child: button(
-            AppString.searchdiamond,
-            onTap: () {},
-          ),
+          child: button(AppString.searchdiamond, onTap: () {}),
         ),
       ),
       appBar: appBarDiamond(
@@ -147,14 +144,20 @@ class Diamondsearch extends StatelessWidget {
                 depthMaxController: diamondSearch.depthMaxController,
                 tableMinController: diamondSearch.tableMinController,
                 tableMaxController: diamondSearch.tableMaxController,
-                crownHeightMinController:diamondSearch.crownHeightMinController,
-                crownHeightMaxController:diamondSearch.crownHeightMaxController,
+                crownHeightMinController:
+                    diamondSearch.crownHeightMinController,
+                crownHeightMaxController:
+                    diamondSearch.crownHeightMaxController,
                 crownAngleMaxController: diamondSearch.crownAngleMaxController,
                 crownAngleMinController: diamondSearch.crownAngleMinController,
-                pavilionDepthMinController: diamondSearch.pavilionDepthMinController,
-                pavilionDepthMaxController: diamondSearch.pavilionDepthMaxController,
-                pavilionAngleMinController: diamondSearch.pavilionAngleMinController,
-                pavilionAngleMaxController:diamondSearch.pavilionAngleMaxController,
+                pavilionDepthMinController:
+                    diamondSearch.pavilionDepthMinController,
+                pavilionDepthMaxController:
+                    diamondSearch.pavilionDepthMaxController,
+                pavilionAngleMinController:
+                    diamondSearch.pavilionAngleMinController,
+                pavilionAngleMaxController:
+                    diamondSearch.pavilionAngleMaxController,
               ),
             ],
           ),

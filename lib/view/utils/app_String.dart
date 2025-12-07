@@ -42,6 +42,8 @@ class AppString {
   static const confirmpassword_hint = 'Enter Confirm password';
   static const mobile_hint = 'Enter Mobile No';
   static const select = 'Select Any';
+  static const refereddby = 'Referred By';
+  static const refereddby_hint = 'Enter Referred Name';
 
   //business Inromation
   static const businessInformation = 'Business Information';

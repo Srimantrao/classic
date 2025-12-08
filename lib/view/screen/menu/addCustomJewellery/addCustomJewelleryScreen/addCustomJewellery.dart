@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddCustomJewellery extends StatelessWidget {
-  final addCustomJewellery = Get.put(AddcustomjewelleryUIController());
+  final addCustom = Get.put(AddcustomjewelleryUIController());
   final diamondList = DiamondList();
   AddCustomJewellery({super.key});
   @override
@@ -32,47 +32,43 @@ class AddCustomJewellery extends StatelessWidget {
                 SizedBox(height: Get.height * 0.02),
                 //Product Type Dropdown
                 productType(
-                  list: addCustomJewellery.getProductTypeItems(),
-                  value: addCustomJewellery.productType.value,
-                  onChanged: addCustomJewellery.productTypeValueChange,
+                  list: addCustom.getProductTypeItems(),
+                  value: addCustom.productType.value,
+                  onChanged: addCustom.productTypeValueChange,
                 ),
 
                 //Upload Your Image, Video, URL Section Start
                 //Upload Your File
                 uploadYourFile(
-                  imageColor: addCustomJewellery.selectedImageType.value
+                  imageColor: addCustom.selectedImageType.value
                       ? AppColor.primary
                       : AppColor.gray,
-                  videoColor: addCustomJewellery.selectedVideoType.value
+                  videoColor: addCustom.selectedVideoType.value
                       ? AppColor.primary
                       : AppColor.gray3,
-                  urlColor: addCustomJewellery.selectedURLType.value
+                  urlColor: addCustom.selectedURLType.value
                       ? AppColor.primary
                       : AppColor.gray3,
-                  videoOnTap: () => addCustomJewellery.selectVideoType(),
-                  imageOnTap: () => addCustomJewellery.selectImageType(),
-                  urlOnTap: () => addCustomJewellery.selectURLType(),
-                  imageRadius: addCustomJewellery.selectedImageType.value
-                      ? 7
-                      : 9,
-                  videoRadius: addCustomJewellery.selectedVideoType.value
-                      ? 7
-                      : 9,
-                  urlRadius: addCustomJewellery.selectedURLType.value ? 7 : 9,
+                  videoOnTap: () => addCustom.selectVideoType(),
+                  imageOnTap: () => addCustom.selectImageType(),
+                  urlOnTap: () => addCustom.selectURLType(),
+                  imageRadius: addCustom.selectedImageType.value ? 7 : 9,
+                  videoRadius: addCustom.selectedVideoType.value ? 7 : 9,
+                  urlRadius: addCustom.selectedURLType.value ? 7 : 9,
                 ),
 
                 //Additional Details
                 //Image
-                (addCustomJewellery.selectedImageType.value)
+                (addCustom.selectedImageType.value)
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           chooseFile(
-                            onTap: () => addCustomJewellery.pickImageFile(),
+                            onTap: () => addCustom.pickImageFile(),
                             buttonText: AppString.chooseFile,
                             yourCommentsController:
-                                addCustomJewellery.yourCommentsController,
-                            addCustomJewellery: addCustomJewellery,
+                                addCustom.yourCommentsController,
+                            addCustomJewellery: addCustom,
                           ),
                           SizedBox(height: Get.height * 0.02),
                         ],
@@ -80,16 +76,16 @@ class AddCustomJewellery extends StatelessWidget {
                     : SizedBox(),
 
                 //video
-                (addCustomJewellery.selectedVideoType.value)
+                (addCustom.selectedVideoType.value)
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           chooseFile(
-                            onTap: () => addCustomJewellery.pickVideoFile(),
+                            onTap: () => addCustom.pickVideoFile(),
                             buttonText: AppString.chooseFile,
                             yourCommentsController:
-                                addCustomJewellery.yourCommentsController,
-                            addCustomJewellery: addCustomJewellery,
+                                addCustom.yourCommentsController,
+                            addCustomJewellery: addCustom,
                           ),
                           SizedBox(height: Get.height * 0.02),
                         ],
@@ -97,15 +93,15 @@ class AddCustomJewellery extends StatelessWidget {
                     : SizedBox(),
 
                 //URL
-                (addCustomJewellery.selectedURLType.value)
+                (addCustom.selectedURLType.value)
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           addURL(
                             addURlTextController:
-                                addCustomJewellery.addURlTextController,
+                                addCustom.addURlTextController,
                             yourCommentsController:
-                                addCustomJewellery.yourCommentsController,
+                                addCustom.yourCommentsController,
                           ),
                           SizedBox(height: Get.height * 0.02),
                         ],
@@ -115,67 +111,68 @@ class AddCustomJewellery extends StatelessWidget {
 
                 //Metal Details Start
                 metalDetails(
-                  metalTypeList: addCustomJewellery.getMetalTypeItems(),
-                  metalTypeValue: addCustomJewellery.metalType.value,
-                  metalTypeOnChanged: addCustomJewellery.metalTypeValueChange,
-                  metalStampList: addCustomJewellery.getMetalStampItems(),
-                  metalStampValue: addCustomJewellery.metalStamp.value,
-                  metalStampOnChanged: addCustomJewellery.metalStampValueChange,
-                  ringSizeOnChanged:
-                      addCustomJewellery.selectRingSizeValueChange,
-                  ringSizeList: addCustomJewellery.getSelectRingSizeItems(),
-                  ringSizeValue: addCustomJewellery.ringSize.value,
+                  metalTypeList: addCustom.getMetalTypeItems(),
+                  metalTypeValue: addCustom.metalType.value,
+                  metalTypeOnChanged: addCustom.metalTypeValueChange,
+                  metalStampList: addCustom.getMetalStampItems(),
+                  metalStampValue: addCustom.metalStamp.value,
+                  metalStampOnChanged: addCustom.metalStampValueChange,
+                  ringSizeOnChanged: addCustom.selectRingSizeValueChange,
+                  ringSizeList: addCustom.getSelectRingSizeItems(),
+                  ringSizeValue: addCustom.ringSize.value,
                   appxMetalWeightController:
-                      addCustomJewellery.appxMetalWeightController,
-                  budgetController: addCustomJewellery.budgetController,
-                  engravingController: addCustomJewellery.engravingController,
+                      addCustom.appxMetalWeightController,
+                  budgetController: addCustom.budgetController,
+                  engravingController: addCustom.engravingController,
                 ),
                 //Metal Details End
 
                 //Diamond And Gemstone Detail Start
                 diamondAndGemstoneDetails(
-                  isCenterStonevalue: addCustomJewellery.isCenterStone.value,
-                  isSideStonevalue: addCustomJewellery.isSideStone.value,
+                  isCenterStonevalue: addCustom.isCenterStone.value,
+                  isSideStonevalue: addCustom.isSideStone.value,
                   isCenterStonetext: AppString.centerStone,
                   isCenterStoneonChanged: (value) {
-                    addCustomJewellery.toggleCenterStone(value);
+                    addCustom.toggleCenterStone(value);
                   },
                   isSideStonetext: AppString.sideStone,
                   isSideStoneonChanged: (value) {
-                    addCustomJewellery.toggleSideStone(value);
+                    addCustom.toggleSideStone(value);
                   },
                   colorText: AppString.iscolor,
-                  isCenterColorvalue: addCustomJewellery.isColor.value,
+                  isCenterColorvalue: addCustom.isColor.value,
                   isSideColorChanged: (value) {
-                    addCustomJewellery.toggleIsColor(value);
+                    addCustom.toggleIsColor(value);
                   },
-                  diamondSearch: addCustomJewellery,
+                  diamondSearch: addCustom,
                   shapetext: AppString.shape,
-                  colorSearch: addCustomJewellery,
+                  colorSearch: addCustom,
                   colortext: AppString.color,
-                  claritySearch: addCustomJewellery,
+                  claritySearch: addCustom,
                   claritytext: AppString.clarity,
-                  stoneUpdate: addCustomJewellery,
+                  stoneUpdate: addCustom,
                 ),
 
                 //Diamond And Gemstone Detail End
                 contactInformation(
                   fristNameText: AppString.fristname,
-                  fristNameController: addCustomJewellery.fristNameController,
+                  fristNameController: addCustom.fristNameController,
                   fristNameHintText: AppString.fristname_hint,
                   lastNameText: AppString.lastname,
                   lastNameHintText: AppString.lastname_hint,
-                  lastNameController: addCustomJewellery.lastNameController,
+                  lastNameController: addCustom.lastNameController,
                   emailIDText: AppString.emailId,
                   emailIDhintText: AppString.emailId_hint,
-                  emailIdhintController: addCustomJewellery.emailController,
+                  emailIdhintController: addCustom.emailController,
                   mobileNumbarText: AppString.mobileNo,
                   mobileNumbarhintText: AppString.mobile_hint,
-                  mobileNumbarhController: addCustomJewellery.mobileController,
+                  mobileNumbarhController: addCustom.mobileController,
                   referredmobileNumbarText: AppString.refereddby,
                   referredNumbarhintText: AppString.refereddby_hint,
-                  referredController: addCustomJewellery.referredController,
+                  referredController: addCustom.referredController,
                 ),
+
+                submitButton(AppString.submit),
               ],
             );
           }),

@@ -14,6 +14,7 @@ class AppString {
   static const reset = 'Reset';
   static const edit = 'Edit';
   static const remove = 'Remove';
+  static const submit = 'Submit';
 
   //login Screen
   static const loginsubhedding =

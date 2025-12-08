@@ -6,6 +6,7 @@ import 'package:classic/view/screen/menu/addCustomJewellery/addCustomJewelleryEx
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
+import 'package:classic/view/utils/widget/button.dart';
 import 'package:classic/view/utils/widget/cartcontainer.dart';
 import 'package:classic/view/utils/widget/dropdownSelected.dart';
 import 'package:classic/view/utils/widget/inputfield.dart';
@@ -327,6 +328,16 @@ Widget contactInformation({
         referredNumbarhintText: referredmobileNumbarText,
         referredController: referredController,
       ),
+    ],
+  );
+}
+
+Widget submitButton(text, {void Function()? onTab}) {
+  return Column(
+    children: [
+      SizedBox(height: Get.height * 0.05),
+      GestureDetector(onTap: onTab, child: button(text)),
+      SizedBox(height: Get.height * 0.02),
     ],
   );
 }

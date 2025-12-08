@@ -2,6 +2,7 @@
 
 import 'package:classic/controller/user_Interface/menu/addCustomJewellery/addCustomJewellery_Controller.dart';
 import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';
+import 'package:classic/view/screen/hedder/cart/cartScreen/cart.dart';
 import 'package:classic/view/screen/menu/addCustomJewellery/addCustomJewelleryWidget/body/addCustomJewelleryWidget.dart';
 import 'package:classic/view/screen/menu/addCustomJewellery/addCustomJewelleryWidget/headder/appbar.dart';
 import 'package:classic/view/utils/app_Color.dart';
@@ -20,6 +21,7 @@ class AddCustomJewellery extends StatelessWidget {
   Widget build(BuildContext context) {
     return Fullscreen(
       appBar: appBarAddCustomJewellery(
+        prefixOnTap: () => Get.to(() => Cart()),
         prefixIcon: AppIcon.newcart,
         suffixIcon: AppIcon.drawer,
         hedding: AppString.addCustomJewellery,

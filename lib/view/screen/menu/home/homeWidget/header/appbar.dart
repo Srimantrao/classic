@@ -5,11 +5,13 @@ import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-PreferredSizeWidget appBar() {
+PreferredSizeWidget appBar({void Function()? drawerOntap}) {
   final topPadding = Get.mediaQuery.padding.top;
   final double extraRowHeight = 56;
   return PreferredSize(
-    preferredSize: Size.fromHeight(kToolbarHeight + extraRowHeight + topPadding),
+    preferredSize: Size.fromHeight(
+      kToolbarHeight + extraRowHeight + topPadding,
+    ),
     child: Container(
       color: AppColor.primary,
       child: SafeArea(
@@ -28,7 +30,9 @@ PreferredSizeWidget appBar() {
             Container(
               padding: EdgeInsets.symmetric(vertical: 8),
               decoration: BoxDecoration(color: AppColor.white),
-              child: horizontalPadding(child: setLogoIcon()),
+              child: horizontalPadding(
+                child: setLogoIcon(drawerOntap: drawerOntap),
+              ),
             ),
           ],
         ),

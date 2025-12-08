@@ -2,6 +2,7 @@
 
 import 'package:classic/controller/user_Interface/menu/home/home_Controller.dart';
 import 'package:classic/modal/menu/home/our_collection.dart';
+import 'package:classic/view/screen/hedder/drawer/drawerScreen/drawer.dart';
 import 'package:classic/view/screen/menu/home/homeWidget/body/homeBody.dart';
 import 'package:classic/view/screen/menu/home/homeWidget/fotter/homeFotter.dart';
 import 'package:classic/view/screen/menu/home/homeWidget/header/appbar.dart';
@@ -18,12 +19,17 @@ import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class Home extends StatelessWidget {
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   final homeUI = Get.put(HomeUIController());
   Home({super.key});
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
-      appBar: appBar(),
+      scaffoldKey: scaffoldKey,
+      endDrawer: Drawers(),
+      appBar: appBar(
+        drawerOntap: () => scaffoldKey.currentState?.openEndDrawer(),
+      ),
       child: SingleChildScrollView(
         child: Column(
           children: [

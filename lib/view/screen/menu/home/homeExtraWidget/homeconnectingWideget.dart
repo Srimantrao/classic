@@ -22,7 +22,7 @@ Widget addText(text) {
   );
 }
 
-Widget setLogoIcon() {
+Widget setLogoIcon({void Function()? drawerOntap}) {
   return Row(
     children: [
       Row(children: [Image.asset(AppImage.logo, scale: 3)]),
@@ -35,7 +35,10 @@ Widget setLogoIcon() {
           SizedBox(width: Get.width * 0.03),
           homeScreenIcon(AppIcon.newcart),
           SizedBox(width: Get.width * 0.03),
-          homeScreenIcon(AppIcon.drawer),
+          GestureDetector(
+            onTap: drawerOntap,
+            child: homeScreenIcon(AppIcon.drawer),
+          ),
         ],
       ),
     ],
@@ -184,19 +187,19 @@ Widget showSection(int index) {
   final collection = OurCollection();
   switch (index) {
     case 0:
-    //Pandant Section
+      //Pandant Section
       return collectionList(collection.pandant);
 
     case 1:
-    //Necklace Section
+      //Necklace Section
       return collectionList(collection.necklace);
 
     case 2:
-    //Bracelet Section
+      //Bracelet Section
       return collectionList(collection.bracelet);
 
     case 3:
-    //Earrings Section
+      //Earrings Section
       return collectionList(collection.earrings);
     default:
       return SizedBox.shrink();

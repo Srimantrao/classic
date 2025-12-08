@@ -2,6 +2,7 @@
 
 import 'package:classic/controller/user_Interface/menu/dashboard/dashboard_Controller.dart';
 import 'package:classic/modal/menu/dashbord/listViwe.dart';
+import 'package:classic/view/screen/hedder/cart/cartScreen/cart.dart';
 import 'package:classic/view/screen/menu/dashbord/dasboadWidget/body/dashboardWidget.dart';
 import 'package:classic/view/screen/menu/dashbord/dasboadWidget/body/diamondSection.dart';
 import 'package:classic/view/screen/menu/dashbord/dasboadWidget/header/appbar.dart';
@@ -21,7 +22,7 @@ class Dashbord extends StatelessWidget {
   Widget build(BuildContext context) {
     return Fullscreen(
       appBar: appBarDashboard(
-        prefixOnTap: () {},
+        prefixOnTap: () => Get.to(() => Cart()),
         suffixOnTap: () {},
         prefixIcon: AppIcon.newcart,
         suffixIcon: AppIcon.drawer,
@@ -69,9 +70,8 @@ class Dashbord extends StatelessWidget {
               if (dashboard_UI.selectedTab.value == 0)
                 valueList(valueList: value.valueList)
               else if (dashboard_UI.selectedTab.value == 1)
-                valueList(valueList: value.mycartList)
+                valueList(valueList: value.mycartList),
             ]
-
             // Jewelry Section
             else if (dashboard_UI.selectedIndex.value == 1) ...[
               Column(
@@ -96,8 +96,8 @@ class Dashbord extends StatelessWidget {
               // Sub-Tab Content (Recent / My Cart)
               if (dashboard_UI.selectedTab.value == 0)
                 jewelryListViwe(jewelryList: value.jewellweryListProduct)
-              else if(dashboard_UI.selectedTab.value == 1)
-                jewelryListViwe(jewelryList: value.jewellweryListMyCartProduct)
+              else if (dashboard_UI.selectedTab.value == 1)
+                jewelryListViwe(jewelryList: value.jewellweryListMyCartProduct),
             ],
           ],
         );

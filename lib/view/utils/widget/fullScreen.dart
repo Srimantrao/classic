@@ -9,8 +9,9 @@ class Fullscreen extends StatelessWidget {
   final String? image;
   final PreferredSizeWidget? appBar;
   final Widget? bottomNavigationBar;
-  final Widget? drawer;
+  final Widget? endDrawer;
   final Widget? floatingActionButton;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
 
   const Fullscreen({
     super.key,
@@ -18,16 +19,18 @@ class Fullscreen extends StatelessWidget {
     this.image,
     this.appBar,
     this.bottomNavigationBar,
-    this.drawer,
     this.floatingActionButton,
+    this.scaffoldKey,
+    this.endDrawer,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: appBar,
       bottomNavigationBar: bottomNavigationBar,
-      drawer: drawer,
+      endDrawer: endDrawer,
       floatingActionButton: floatingActionButton,
       body: Container(
         height: Get.height,

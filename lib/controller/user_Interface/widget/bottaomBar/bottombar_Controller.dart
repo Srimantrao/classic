@@ -1,4 +1,3 @@
-
 // ignore_for_file: file_names
 
 import 'package:classic/view/screen/menu/addCustomJewellery/addCustomJewelleryScreen/addCustomJewellery.dart';
@@ -9,15 +8,21 @@ import 'package:classic/view/screen/menu/jewelry/jewelryScreen/jewelry.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class BottombarController extends GetxController{
+class BottombarController extends GetxController {
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   var selectindex = 0.obs;
+  RxBool isDrawerOpen = false.obs;
+
+  void openDrawer(GlobalKey<ScaffoldState> key) {
+    key.currentState?.openEndDrawer();
+  }
 
   final List<Widget> pages = [
     Home(),
     Jewelry(),
     Dashbord(),
     Diamondsearch(),
-    AddCustomJewellery()
+    AddCustomJewellery(),
   ].obs;
 
   void indexOne() => selectindex.value = 0;

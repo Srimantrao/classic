@@ -9,16 +9,12 @@ import 'package:get/get.dart';
 
 class Bottombar extends StatelessWidget {
   final bottomController = Get.put(BottombarController());
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   Bottombar({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Obx(() {
-        return bottomController.selectscreen(
-          bottomController.selectindex.value,
-        );
-      }),
-
+      extendBody: true,
       bottomNavigationBar: Obx(() {
         return SafeArea(
           child: Container(
@@ -38,33 +34,67 @@ class Bottombar extends StatelessWidget {
           ),
         );
       }),
-
-      //Floating bottom bar
-      // extendBody: true,
-      // body: SafeArea(
-      //   child: Stack(
-      //     children: [
-      //       // Main content - takes full screen
-      //       Obx(() {
-      //         return bottomController.selectscreen(
-      //           bottomController.selectindex.value,
-      //         );
-      //       }),
-      //
-      //       Obx((){
-      //         return // Floating bottom navigation bar
-      //           Positioned(
-      //             left: 1,
-      //             right: 1,
-      //             bottom: Get.height * 0.02,
-      //             child: horizontalPadding(
-      //               child: flotingBar(bottomController),
-      //             ),
-      //           );
-      //       })
-      //     ],
-      //   ),
-      // ),
+      body: Obx(() {
+        return bottomController.selectscreen(
+          bottomController.selectindex.value,
+        );
+      }),
     );
   }
 }
+
+//Foltong
+// Scaffold(
+//       backgroundColor: AppColor.white,
+//       body: SafeArea(
+//         child: Stack(
+//           children: [
+//             // Main content - takes full screen
+//             Obx(() {
+//               return bottomController.selectscreen(
+//                 bottomController.selectindex.value,
+//               );
+//             }),
+
+//             Obx(() {
+//               return // Floating bottom navigation bar
+//               Positioned(
+//                 left: 1,
+//                 right: 1,
+//                 bottom: Get.height * 0.02,
+//                 child: horizontalPadding(child: flotingBar(bottomController)),
+//               );
+//             }),
+//           ],
+//         ),
+//       ),
+//     );
+
+//Stadiy
+// Scaffold(
+//       extendBody: true,
+//       bottomNavigationBar: Obx(() {
+//         return SafeArea(
+//           child: Container(
+//             color: AppColor.white,
+//             width: double.infinity,
+//             padding: EdgeInsets.only(
+//               top: Get.height * 0.01,
+//               bottom: Get.height * 0.009,
+//             ),
+//             child: Column(
+//               mainAxisSize: MainAxisSize.min,
+//               children: [
+//                 horizontalPadding(child: flotingBar(bottomController)),
+//                 SizedBox(height: Get.height * 0.008),
+//               ],
+//             ),
+//           ),
+//         );
+//       }),
+//       body: Obx(() {
+//         return bottomController.selectscreen(
+//           bottomController.selectindex.value,
+//         );
+//       }),
+//     );

@@ -15,6 +15,10 @@ class AppString {
   static const edit = 'Edit';
   static const remove = 'Remove';
   static const submit = 'Submit';
+  static const proceed = 'Procced To Checkout';
+
+  //cart Screen
+  static const total = 'Total';
 
   //login Screen
   static const loginsubhedding =

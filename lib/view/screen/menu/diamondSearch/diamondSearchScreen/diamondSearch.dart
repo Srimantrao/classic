@@ -67,7 +67,7 @@ class Diamondsearch extends StatelessWidget {
                 diamondSearch: diamondSearch,
                 text: AppString.whiteColor,
                 contain: whiteColor(diamondSearch, diamondList),
-                height: Get.height / 6.5,
+                height: Get.height / 6.3,
               ),
 
               //ShortCut
@@ -83,7 +83,7 @@ class Diamondsearch extends StatelessWidget {
                 diamondSearch: diamondSearch,
                 text: AppString.lab,
                 contain: lab(diamondSearch, diamondList),
-                height: Get.height / 6.5,
+                height: Get.height / 6.3,
               ),
 
               //Polish
@@ -91,7 +91,7 @@ class Diamondsearch extends StatelessWidget {
                 diamondSearch: diamondSearch,
                 text: AppString.polish,
                 contain: polish(diamondSearch, diamondList),
-                height: Get.height / 9.5,
+                height: Get.height / 9.3,
               ),
 
               //Symmetry
@@ -99,7 +99,7 @@ class Diamondsearch extends StatelessWidget {
                 diamondSearch: diamondSearch,
                 text: AppString.symmetry,
                 contain: symmetry(diamondSearch, diamondList),
-                height: Get.height / 9.5,
+                height: Get.height / 9.3,
               ),
 
               //Availability
@@ -107,7 +107,7 @@ class Diamondsearch extends StatelessWidget {
                 diamondSearch: diamondSearch,
                 text: AppString.availability,
                 contain: availability(diamondSearch, diamondList),
-                height: Get.height / 9.5,
+                height: Get.height / 8.9,
               ),
 
               //Treatment
@@ -115,7 +115,7 @@ class Diamondsearch extends StatelessWidget {
                 diamondSearch: diamondSearch,
                 text: AppString.treatment,
                 contain: treatment(diamondSearch, diamondList),
-                height: Get.height / 9.5,
+                height: Get.height / 8.9,
               ),
 
               //Fluorescence
@@ -123,7 +123,7 @@ class Diamondsearch extends StatelessWidget {
                 diamondSearch: diamondSearch,
                 text: AppString.fluorescence,
                 contain: fluorescence(diamondSearch, diamondList),
-                height: Get.height / 9.5,
+                height: Get.height / 8.9,
               ),
 
               //Eye Clean

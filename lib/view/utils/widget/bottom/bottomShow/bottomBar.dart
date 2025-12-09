@@ -18,7 +18,7 @@ class Bottombar extends StatelessWidget {
       key: scaffoldKey,
       bottomNavigationBar: Obx(() {
         if (bottomController.isDrawerOpen.value) {
-          return const SizedBox.shrink(); // hide the bar
+          return const SizedBox.shrink();
         }
         return SafeArea(
           child: Container(

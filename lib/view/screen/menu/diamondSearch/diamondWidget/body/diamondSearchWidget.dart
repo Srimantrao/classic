@@ -42,7 +42,7 @@ Widget indexButtons({
 //Shape
 Widget shapeViwe(diamondSearch, text) {
   return SizedBox(
-    height: Get.height / 4,
+    height: Get.height / 3,
     child: horizontalPadding(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

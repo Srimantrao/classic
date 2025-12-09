@@ -229,19 +229,21 @@ Widget viweList({
   required int itemCount,
   required Widget Function(BuildContext, int) itemBuilder,
 }) {
-  return Expanded(
-    child: GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 4,
-        crossAxisSpacing: Get.width * 0.02,
-        mainAxisSpacing: Get.height * 0.009,
-        childAspectRatio: 2.2,
-      ),
-      itemCount: itemCount,
-      itemBuilder: itemBuilder,
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-    ),
+  return LayoutBuilder(
+    builder: (context, constraints) {
+      return GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 4,
+          crossAxisSpacing: Get.width * 0.03,
+          mainAxisSpacing: Get.height * 0.009,
+          childAspectRatio: 2.9,
+        ),
+        itemCount: itemCount,
+        itemBuilder: itemBuilder,
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+      );
+    },
   );
 }
 

@@ -3,6 +3,7 @@
 import 'package:classic/controller/user_Interface/widget/bottaomBar/bottombar_Controller.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/widget/bottom/bottomWidget/bottomWidget.dart';
+import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,9 +14,12 @@ class Bottombar extends StatelessWidget {
   Bottombar({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBody: true,
+    return Fullscreen(
+      key: scaffoldKey,
       bottomNavigationBar: Obx(() {
+        if (bottomController.isDrawerOpen.value) {
+          return const SizedBox.shrink(); // hide the bar
+        }
         return SafeArea(
           child: Container(
             color: AppColor.white,

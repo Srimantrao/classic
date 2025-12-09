@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 class BottombarController extends GetxController {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   var selectindex = 0.obs;
-  RxBool isDrawerOpen = false.obs;
+  var isDrawerOpen = false.obs;
 
   void openDrawer(GlobalKey<ScaffoldState> key) {
     key.currentState?.openEndDrawer();

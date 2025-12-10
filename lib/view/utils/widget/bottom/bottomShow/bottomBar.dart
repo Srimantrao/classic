@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use, file_names, unnecessary_import
 
 import 'package:classic/controller/user_Interface/widget/bottaomBar/bottombar_Controller.dart';
+import 'package:classic/view/screen/hedder/drawer/drawerScreen/drawer.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/widget/bottom/bottomWidget/bottomWidget.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
@@ -16,36 +17,108 @@ class Bottombar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Fullscreen(
       key: scaffoldKey,
-      bottomNavigationBar: Obx(() {
-        if (bottomController.isDrawerOpen.value) {
-          return const SizedBox.shrink();
-        }
-        return SafeArea(
-          child: Container(
-            color: AppColor.white,
-            width: double.infinity,
-            padding: EdgeInsets.only(
-              top: Get.height * 0.01,
-              bottom: Get.height * 0.009,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                horizontalPadding(child: flotingBar(bottomController)),
-                SizedBox(height: Get.height * 0.008),
-              ],
-            ),
-          ),
-        );
-      }),
       body: Obx(() {
-        return bottomController.selectscreen(
-          bottomController.selectindex.value,
+        return Stack(
+          children: [
+            /// Main Screen
+            Positioned.fill(
+              child: KeyedSubtree(
+                key: ValueKey(bottomController.selectindex.value),
+                child: bottomController.selectscreen(
+                  bottomController.selectindex.value,
+                ),
+              ),
+            ),
+
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: SafeArea(
+                child: Container(
+                  color: AppColor.white,
+                  padding: EdgeInsets.only(
+                    top: Get.height * 0.01,
+                    bottom: Get.height * 0.009,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      horizontalPadding(child: flotingBar(bottomController)),
+                      SizedBox(height: Get.height * 0.008),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            if (bottomController.isDrawerOpen.value)
+              Positioned(
+                left: 0,
+                top: 0,
+                bottom: 0,
+                width: Get.width * 0.20,
+                child: GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () => bottomController.isDrawerOpen.value = false,
+                  child: Container(),
+                ),
+              ),
+
+            if (bottomController.isDrawerOpen.value)
+              Positioned(
+                top: 0,
+                bottom: 0,
+                right: 0,
+                width: Get.width * 0.80,
+                child: Drawers(),
+              ),
+          ],
         );
       }),
     );
   }
 }
+
+//hide bottom bar When tab Drawar
+// class Bottombar extends StatelessWidget {
+//   final bottomController = Get.put(BottombarController());
+//   final scaffoldKey = GlobalKey<ScaffoldState>();
+//   Bottombar({super.key});
+//   @override
+//   Widget build(BuildContext context) {
+//     return Fullscreen(
+//       key: scaffoldKey,
+//       bottomNavigationBar: Obx(() {
+//         if (bottomController.isDrawerOpen.value) {
+//           return const SizedBox.shrink();
+//         }
+//         return SafeArea(
+//           child: Container(
+//             color: AppColor.white,
+//             width: double.infinity,
+//             padding: EdgeInsets.only(
+//               top: Get.height * 0.01,
+//               bottom: Get.height * 0.009,
+//             ),
+//             child: Column(
+//               mainAxisSize: MainAxisSize.min,
+//               children: [
+//                 horizontalPadding(child: flotingBar(bottomController)),
+//                 SizedBox(height: Get.height * 0.008),
+//               ],
+//             ),
+//           ),
+//         );
+//       }),
+//       body: Obx(() {
+//         return bottomController.selectscreen(
+//           bottomController.selectindex.value,
+//         );
+//       }),
+//     );
+//   }
+// }
 
 //Foltong
 // Scaffold(

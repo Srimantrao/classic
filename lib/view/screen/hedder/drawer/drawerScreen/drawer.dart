@@ -21,11 +21,16 @@ class Drawers extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [image(height: Get.height * 0.02)],
+            children: [
+              image(height: Get.height * 0.02),
+            ],
           ),
           Divider(color: AppColor.gray),
           SizedBox(height: Get.height * 0.015),
-          iconDrawer(text: AppString.myAccount, icon: AppIcon.user1),
+          iconDrawer(
+            text: AppString.myAccount,
+            icon: AppIcon.user1,
+          ),
           iconDrawer(
             text: AppString.enagagement,
             icon: AppIcon.weddingRing,
@@ -41,23 +46,32 @@ class Drawers extends StatelessWidget {
             icon: AppIcon.jewelry,
             dot: true,
           ),
-          iconDrawer(text: AppString.diamond, icon: AppIcon.diamond, dot: true),
+          iconDrawer(
+            text: AppString.diamond,
+            icon: AppIcon.diamond,
+            dot: true,
+          ),
           iconDrawer(
             text: AppString.shopebymetal,
             icon: AppIcon.jewelry,
             dot: true,
           ),
-          iconDrawer(text: AppString.show, icon: AppIcon.hold, dot: true),
+          iconDrawer(
+            text: AppString.show,
+            icon: AppIcon.hold,
+            dot: true,
+          ),
           iconDrawer(
             text: AppString.findstore,
             icon: AppIcon.findstore1,
             dot: true,
           ),
-          iconDrawer(text: AppString.logout, icon: AppIcon.logout),
+          iconDrawer(
+            text: AppString.logout,
+            icon: AppIcon.logout,
+          ),
         ],
       ),
     );
   }
 }
-
-

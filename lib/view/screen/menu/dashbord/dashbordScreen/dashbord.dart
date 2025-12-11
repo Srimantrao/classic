@@ -3,6 +3,7 @@
 import 'package:classic/controller/user_Interface/menu/dashboard/dashboard_Controller.dart';
 import 'package:classic/modal/menu/dashbord/listViwe.dart';
 import 'package:classic/view/screen/hedder/cart/cartScreen/cart.dart';
+import 'package:classic/view/screen/hedder/drawer/drawerScreen/drawer.dart';
 import 'package:classic/view/screen/menu/dashbord/dasboadWidget/body/dashboardWidget.dart';
 import 'package:classic/view/screen/menu/dashbord/dasboadWidget/body/diamondSection.dart';
 import 'package:classic/view/screen/menu/dashbord/dasboadWidget/header/appbar.dart';
@@ -16,14 +17,17 @@ import '../../../../utils/widget/hadder/cartList.dart';
 
 class Dashbord extends StatelessWidget {
   final dashboard_UI = Get.put(DashboardUIController());
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   final value = Listviwe();
   Dashbord({super.key});
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
+      scaffoldKey: scaffoldKey,
+      endDrawer: Drawers(),
       appBar: appBarDashboard(
         prefixOnTap: () => Get.to(() => Cart()),
-        suffixOnTap: () {},
+        suffixOnTap: () => scaffoldKey.currentState?.openEndDrawer(),
         prefixIcon: AppIcon.newcart,
         suffixIcon: AppIcon.drawer,
         hedding: AppString.dashboard,

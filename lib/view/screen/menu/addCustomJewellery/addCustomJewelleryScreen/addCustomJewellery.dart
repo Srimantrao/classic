@@ -3,6 +3,7 @@
 import 'package:classic/controller/user_Interface/menu/addCustomJewellery/addCustomJewellery_Controller.dart';
 import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';
 import 'package:classic/view/screen/hedder/cart/cartScreen/cart.dart';
+import 'package:classic/view/screen/hedder/drawer/drawerScreen/drawer.dart';
 import 'package:classic/view/screen/menu/addCustomJewellery/addCustomJewelleryWidget/body/addCustomJewelleryWidget.dart';
 import 'package:classic/view/screen/menu/addCustomJewellery/addCustomJewelleryWidget/headder/appbar.dart';
 import 'package:classic/view/utils/app_Color.dart';
@@ -15,16 +16,22 @@ import 'package:get/get.dart';
 
 class AddCustomJewellery extends StatelessWidget {
   final addCustom = Get.put(AddcustomjewelleryUIController());
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   final diamondList = DiamondList();
+
   AddCustomJewellery({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
+      scaffoldKey: scaffoldKey,
+      endDrawer: Drawers(),
       appBar: appBarAddCustomJewellery(
         prefixOnTap: () => Get.to(() => Cart()),
         prefixIcon: AppIcon.newcart,
         suffixIcon: AppIcon.drawer,
         hedding: AppString.addCustomJewellery,
+        suffixOnTap: () => scaffoldKey.currentState?.openEndDrawer(),
       ),
       child: SingleChildScrollView(
         child: horizontalPadding(

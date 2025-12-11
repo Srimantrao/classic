@@ -1,4 +1,13 @@
 class AppIcon{
+  //Drawer Screen Icon
+  static const user = 'assets/icons/user.png';
+  static const user1 = 'assets/icons/user1.png';
+  static const hold = 'assets/icons/hold.png';
+  static const findstore = 'assets/icons/findstore.png';
+  static const findstore1 = 'assets/icons/findstore1.png';
+  static const logout = 'assets/icons/logout.png';
+  static const weddingRing = 'assets/icons/WeddingRing.png';
+
   //Home Screen Icon
   static const search = 'assets/icons/search.png';
   static const wishlist = 'assets/icons/wishlist.png';

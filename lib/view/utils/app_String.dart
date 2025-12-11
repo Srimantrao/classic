@@ -1,5 +1,7 @@
 // ignore_for_file: file_names, constant_identifier_names
 
+import 'package:classic/view/screen/menu/jewelry/jewelryScreen/jewelry.dart';
+
 class AppString {
   //hedding
   static const category = 'Category';
@@ -16,6 +18,17 @@ class AppString {
   static const remove = 'Remove';
   static const submit = 'Submit';
   static const proceed = 'Procced To Checkout';
+
+  //Drawer Screen
+  static const myAccount = 'MY ACCOUNT';
+  static const enagagement = 'ENGAGEMENT';
+  static const weddingbands = 'WEDDING BANDS';
+  static const Jewelry = 'JEWELRY';
+  static const Diamond = 'DIAMONDS';
+  static const shopebymetal = 'SHOPE BY METAL';
+  static const show = 'SHOW';
+  static const findstore = 'FIND STORE';
+  static const logout = 'LOGOUT';
 
   //cart Screen
   static const total = 'Total';

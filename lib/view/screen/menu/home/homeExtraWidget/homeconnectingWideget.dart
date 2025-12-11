@@ -22,7 +22,10 @@ Widget addText(text) {
   );
 }
 
-Widget setLogoIcon({void Function()? drawerOntap}) {
+Widget setLogoIcon({
+  void Function()? drawerOntap,
+  void Function()? newcartOntap,
+}) {
   return Row(
     children: [
       Row(children: [Image.asset(AppImage.logo, scale: 3)]),
@@ -33,7 +36,10 @@ Widget setLogoIcon({void Function()? drawerOntap}) {
           SizedBox(width: Get.width * 0.03),
           homeScreenIcon(AppIcon.wishlist),
           SizedBox(width: Get.width * 0.03),
-          homeScreenIcon(AppIcon.newcart),
+          GestureDetector(
+            onTap: newcartOntap,
+            child: homeScreenIcon(AppIcon.newcart),
+          ),
           SizedBox(width: Get.width * 0.03),
           GestureDetector(
             onTap: drawerOntap,

@@ -7,8 +7,16 @@ import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import '../../../../../utils/widget/logo.dart';
 
-Widget allDrawersBody({required Widget child}){
+Widget imageDrawer() {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [image(height: Get.height * 0.02)],
+  );
+}
+
+Widget allDrawersBody({required Widget child}) {
   return Container(
     decoration: BoxDecoration(
       color: AppColor.white,

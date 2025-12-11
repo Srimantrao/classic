@@ -19,12 +19,7 @@ class Drawers extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              image(height: Get.height * 0.02),
-            ],
-          ),
+          imageDrawer(),
           Divider(color: AppColor.gray),
           SizedBox(height: Get.height * 0.015),
           iconDrawer(

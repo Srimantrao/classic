@@ -39,7 +39,11 @@ PreferredSizeWidget comanAppBar({
   );
 }
 
-PreferredSizeWidget allOtherScreen(text, {bool? cart = false}) {
+PreferredSizeWidget allOtherScreen(
+  text, {
+  bool? cart = false,
+  bool? filter = false,
+}) {
   final double iconsize = 23;
   return PreferredSize(
     preferredSize: Size.fromHeight(kToolbarHeight + 0.15),
@@ -52,14 +56,22 @@ PreferredSizeWidget allOtherScreen(text, {bool? cart = false}) {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                GestureDetector(
-                  onTap: () => Get.back(),
-                  child: Icon(
-                    Icons.turn_left_outlined,
-                    color: AppColor.primary,
-                    size: iconsize,
-                  ),
-                ),
+                (filter == true)
+                    ? GestureDetector(
+                        child: Icon(
+                          Icons.turn_left_outlined,
+                          color: AppColor.secondary,
+                          size: iconsize,
+                        ),
+                      )
+                    : GestureDetector(
+                        onTap: () => Get.back(),
+                        child: Icon(
+                          Icons.turn_left_outlined,
+                          color: AppColor.primary,
+                          size: iconsize,
+                        ),
+                      ),
                 Text(
                   text,
                   style: TextStyle(
@@ -68,7 +80,16 @@ PreferredSizeWidget allOtherScreen(text, {bool? cart = false}) {
                     fontSize: Textsize.subheding,
                   ),
                 ),
-                (cart == true)
+                (filter == true)
+                    ? GestureDetector(
+                        onTap: () => Get.back(),
+                        child: Icon(
+                          Icons.cancel_outlined,
+                          color: AppColor.primary,
+                          size: iconsize,
+                        ),
+                      )
+                    : (cart == true)
                     ? GestureDetector(
                         onTap: () => Get.to(() => Cart()),
                         child: Image(

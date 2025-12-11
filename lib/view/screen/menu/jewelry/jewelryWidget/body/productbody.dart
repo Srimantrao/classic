@@ -7,18 +7,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 
-Widget search(searchController) {
+Widget search(searchController, {void Function()? filtertab}) {
   return Padding(
     padding: EdgeInsetsGeometry.symmetric(horizontal: Get.width * 0.02),
     child: Row(
       children: [
         Expanded(flex: 9, child: searchBar(searchController)),
-        Expanded(
-          flex: 1,
-          child: Icon(
-            Icons.filter_alt_outlined,
-            color: AppColor.gray3,
-            size: 30,
+        GestureDetector(
+          onTap: filtertab,
+          child: Expanded(
+            flex: 1,
+            child: Icon(
+              Icons.filter_alt_outlined,
+              color: AppColor.gray3,
+              size: 30,
+            ),
           ),
         ),
       ],

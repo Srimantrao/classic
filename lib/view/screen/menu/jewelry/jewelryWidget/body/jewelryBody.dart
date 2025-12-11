@@ -1,10 +1,10 @@
 // ignore_for_file: file_names
 
-import 'package:classic/view/screen/menu/jewelry/jewelryExtraWidget/product.dart';
+import 'package:classic/view/screen/menu/jewelry/jewelryExtraWidget/jewellry.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-Widget listOfItem({required List list}) {
+Widget listOfItem({required List list, void Function()? onTap}) {
   return Expanded(
     child: GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -17,6 +17,7 @@ Widget listOfItem({required List list}) {
       itemCount: list.length,
       itemBuilder: (BuildContext context, int index) {
         return product(
+          onTap: onTap,
           text: list[index]['name'],
           image: list[index]['image'],
         );

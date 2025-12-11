@@ -1,6 +1,5 @@
 // ignore_for_file: file_names, constant_identifier_names
 
-import 'package:classic/view/screen/menu/jewelry/jewelryScreen/jewelry.dart';
 
 class AppString {
   //hedding
@@ -135,6 +134,10 @@ class AppString {
       'Let Us Know What You Are Looking For And We Shall Desin \n It For Your With Utmost Perfection. Celebrate With The Finest \n Jewelry, You Deserve It....';
   static const customProduct = 'Custom Product';
   static const followUsOn = 'Follow Us On: ';
+
+  //Jewellery Scrren
+  static const product = 'Product';
+  static const search = 'Search';
 
   //DashBoard Scrren
   static const diamond = 'Diamonds';

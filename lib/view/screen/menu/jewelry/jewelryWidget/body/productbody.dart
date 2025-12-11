@@ -1,0 +1,90 @@
+import 'package:classic/view/screen/menu/jewelry/jewelryExtraWidget/product.dart';
+import 'package:classic/view/utils/app_Borderradius.dart';
+import 'package:classic/view/utils/app_Color.dart';
+import 'package:classic/view/utils/widget/horizontalpaddind.dart';
+import 'package:classic/view/utils/widget/search.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+
+Widget search(searchController) {
+  return Padding(
+    padding: EdgeInsetsGeometry.symmetric(horizontal: Get.width * 0.02),
+    child: Row(
+      children: [
+        Expanded(flex: 9, child: searchBar(searchController)),
+        Expanded(
+          flex: 1,
+          child: Icon(
+            Icons.filter_alt_outlined,
+            color: AppColor.gray3,
+            size: 30,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget productList({
+  required List list,
+}) {
+  return Expanded(
+    child: horizontalPadding(
+      child: GridView.builder(
+        itemCount: list.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          mainAxisExtent: 250,
+        ),
+        itemBuilder: (context, index) {
+          return productWidget(
+            productImagePath: list[index]['image'],
+            productNameText: list[index]['name'],
+            priceText: list[index]['price'],
+          );
+        },
+      ),
+    ),
+  );
+}
+
+Widget productWidget({
+  required String productImagePath,
+  required String productNameText,
+  required String priceText,
+}) {
+  return Container(
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(borderradius.buttonboder),
+      border: Border.all(color: AppColor.gray),
+    ),
+    child: Padding(
+      padding:  EdgeInsets.all(8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          productImage(productImagePath),
+          productName(productNameText),
+          price(priceText),
+          SizedBox(height: Get.height * 0.01),
+          Row(
+            children: [
+              information('Metal'),
+              Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: caratInformation(),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: Get.height * 0.01),
+          Row(children: [information('Carat'), caratHowMany('1')]),
+        ],
+      ),
+    ),
+  );
+}

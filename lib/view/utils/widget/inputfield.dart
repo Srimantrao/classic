@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 
 Widget Inputfield({
   String? hinttext,
+  TextStyle? hintStyle,
   TextEditingController? controller,
   bool obscureText = false,
   Color? color,
@@ -26,6 +27,7 @@ Widget Inputfield({
   Color? textColor,
   String? hintstylefontFamily,
   String? textfontFamily,
+  Widget? prefixIcon,
   Widget? suffixIcon,
   InputBorder? focusedBorder,
   InputBorder? enabledBorder,
@@ -37,7 +39,11 @@ Widget Inputfield({
       return Builder(
         builder: (BuildContext context) {
           return StatefulBuilder(
-            builder: (BuildContext context, void Function(void Function()) setState) {
+            builder:
+                (
+                  BuildContext context,
+                  void Function(void Function()) setState,
+                ) {
                   return Column(
                     children: [
                       SizedBox(
@@ -61,6 +67,7 @@ Widget Inputfield({
                           textAlignVertical: textAlignVertical,
                           decoration: InputDecoration(
                             counterText: '',
+                            prefixIcon: prefixIcon,
                             suffixIcon: (suffixIcon != null)
                                 ? suffixIcon
                                 : obscureText
@@ -80,28 +87,36 @@ Widget Inputfield({
                               horizontal: Get.width * 0.02,
                             ),
                             hintText: hinttext,
-                            hintStyle: TextStyle(
-                              fontSize: Textsize.normal,
-                              color: hintstyleColor,
-                              fontFamily: hintstylefontFamily,
-                            ),
+                            hintStyle:
+                                hintStyle ??
+                                TextStyle(
+                                  fontSize: Textsize.normal,
+                                  color: hintstyleColor,
+                                  fontFamily: hintstylefontFamily,
+                                ),
                             filled: true,
                             fillColor: fillColor ?? AppColor.white,
-                            focusedBorder: focusedBorder ?? OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: color ?? AppColor.white,
-                              ),
-                            ),
-                            enabledBorder: enabledBorder ?? OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: color ?? AppColor.white,
-                              ),
-                            ),
-                            disabledBorder: disabledBorder ??  OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: color ?? AppColor.white,
-                              ),
-                            ),
+                            focusedBorder:
+                                focusedBorder ??
+                                OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: color ?? AppColor.white,
+                                  ),
+                                ),
+                            enabledBorder:
+                                enabledBorder ??
+                                OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: color ?? AppColor.white,
+                                  ),
+                                ),
+                            disabledBorder:
+                                disabledBorder ??
+                                OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: color ?? AppColor.white,
+                                  ),
+                                ),
                           ),
                         ),
                       ),

@@ -3,6 +3,7 @@
 import 'package:classic/modal/menu/jewelry/lisofProduct.dart';
 import 'package:classic/view/screen/hedder/cart/cartScreen/cart.dart';
 import 'package:classic/view/screen/hedder/drawer/drawerScreen/drawer.dart';
+import 'package:classic/view/screen/menu/jewelry/jewelryScreen/product.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/header/appbar.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_icon.dart';
@@ -32,7 +33,10 @@ class Jewelry extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: Get.height / 40),
-            listOfItem(list: product.list_product),
+            listOfItem(
+              list: product.list_product,
+              onTap: () => Get.to(() => Product()),
+            ),
           ],
         ),
       ),

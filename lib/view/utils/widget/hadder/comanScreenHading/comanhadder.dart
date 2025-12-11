@@ -1,7 +1,9 @@
 // ignore_for_file: avoid_unnecessary_containers
 
+import 'package:classic/view/screen/hedder/cart/cartScreen/cart.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
+import 'package:classic/view/utils/app_icon.dart';
 import 'package:classic/view/utils/widget/hadder/comanHadingWidget/comanHadingWidget.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +39,8 @@ PreferredSizeWidget comanAppBar({
   );
 }
 
-PreferredSizeWidget allOtherScreen(text) {
+PreferredSizeWidget allOtherScreen(text, {bool? cart = false}) {
+  final double iconsize = 23;
   return PreferredSize(
     preferredSize: Size.fromHeight(kToolbarHeight + 0.15),
     child: Container(
@@ -54,7 +57,7 @@ PreferredSizeWidget allOtherScreen(text) {
                   child: Icon(
                     Icons.turn_left_outlined,
                     color: AppColor.primary,
-                    size: 35,
+                    size: iconsize,
                   ),
                 ),
                 Text(
@@ -65,13 +68,22 @@ PreferredSizeWidget allOtherScreen(text) {
                     fontSize: Textsize.subheding,
                   ),
                 ),
-                GestureDetector(
-                  child: Icon(
-                    Icons.turn_left_outlined,
-                    color: AppColor.secondary,
-                    size: 35,
-                  ),
-                ),
+                (cart == true)
+                    ? GestureDetector(
+                        onTap: () => Get.to(() => Cart()),
+                        child: Image(
+                          image: AssetImage(AppIcon.newcart),
+                          height: iconsize,
+                          width: iconsize,
+                        ),
+                      )
+                    : GestureDetector(
+                        child: Icon(
+                          Icons.turn_left_outlined,
+                          color: AppColor.secondary,
+                          size: iconsize,
+                        ),
+                      ),
               ],
             ),
           ),

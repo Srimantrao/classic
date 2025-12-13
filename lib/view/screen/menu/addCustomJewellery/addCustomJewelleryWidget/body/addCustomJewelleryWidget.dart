@@ -337,7 +337,7 @@ Widget submitButton(text, {void Function()? onTab}) {
     children: [
       SizedBox(height: Get.height * 0.05),
       GestureDetector(onTap: onTab, child: button(text)),
-      SizedBox(height: Get.height * 0.02),
+      SizedBox(height: Get.height * 0.09),
     ],
   );
 }

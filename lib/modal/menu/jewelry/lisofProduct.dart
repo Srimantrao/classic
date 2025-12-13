@@ -14,6 +14,14 @@ class ProductList {
 }
 
 class Lisofproduct {
+  List metalstame = [
+    '9k',
+    '14k',
+    '18k',
+    '22k',
+    '23k',
+  ];
+
   List product = [
     {
       'image': AppImage.pandant1,

@@ -1,6 +1,5 @@
 // ignore_for_file: file_names, constant_identifier_names
 
-
 class AppString {
   //hedding
   static const category = 'Category';
@@ -138,6 +137,15 @@ class AppString {
   //Jewellery Scrren
   static const product = 'Product';
   static const search = 'Search';
+      //Filter
+      static const filters = 'Filter';
+      static const whithegold = 'White Gold';
+      static const rosegold = 'Rose Gold';
+      static const yellowgold = 'Yellow Gold';
+      static const silver = 'White & Rose Gold';
+      static const yellowwhite = 'Yellow & White Gold';
+      static const roseWhitegold = 'Rose & White Gold';
+      static const whiteRosegold = 'White & rose Gold';
 
   //DashBoard Scrren
   static const diamond = 'Diamonds';

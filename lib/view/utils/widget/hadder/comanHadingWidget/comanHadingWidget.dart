@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, strict_top_level_inference
 
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_TextSize.dart';

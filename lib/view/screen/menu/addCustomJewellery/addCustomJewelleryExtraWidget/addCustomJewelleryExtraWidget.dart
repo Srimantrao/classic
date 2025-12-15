@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, deprecated_member_use, collection_methods_unrelated_type, avoid_unnecessary_containers, unused_local_variable
+// ignore_for_file: file_names, deprecated_member_use, collection_methods_unrelated_type, avoid_unnecessary_containers, unused_local_variable, strict_top_level_inference
 
 import 'package:classic/controller/user_Interface/menu/addCustomJewellery/addCustomJewellery_Controller.dart';
 import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';

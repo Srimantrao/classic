@@ -1,5 +1,9 @@
+// ignore_for_file: strict_top_level_inference
+
 import 'package:classic/controller/user_Interface/menu/jewelry/filter_Controller.dart';
 import 'package:classic/view/utils/app_Color.dart';
+import 'package:classic/view/utils/widget/button.dart';
+import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../utils/app_String.dart';
@@ -109,3 +113,142 @@ Widget metalstame(product) {
   );
 }
 
+Widget shapeSelected(dimaondlist) {
+  return GetBuilder<FilterUIController>(
+    builder: (FilterUIController controller) {
+      return horizontalPadding(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            heddingFilter(AppString.shape),
+            SizedBox(height: Get.height * 0.009),
+            GridView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: dimaondlist.shapes.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 5,
+                crossAxisSpacing: 5,
+                mainAxisExtent: 50,
+                mainAxisSpacing: 5,
+              ),
+              itemBuilder: (BuildContext context, int index) {
+                final isSelected = controller.selectedShape.value == index;
+                return GestureDetector(
+                  onTap: () => controller.selectShape(index),
+                  child: shapeContainer(
+                    text: dimaondlist.shapes[index],
+                    isSelected: isSelected,
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+Widget stoneType(filterCategory) {
+  return GetBuilder<FilterUIController>(
+    builder: (FilterUIController controller) {
+      return horizontalPadding(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            heddingFilter(AppString.stone),
+            SizedBox(height: Get.height * 0.009),
+            GridView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                mainAxisExtent: 25,
+              ),
+              itemCount: filterCategory.stoneTypeList.length,
+              itemBuilder: (context, index) {
+                final isSelected = controller.selectedStoneType.value == index;
+                return GestureDetector(
+                  onTap: () => controller.selectStoneType(index),
+                  child: stoneTypeSelected(
+                    text: filterCategory.stoneTypeList[index],
+                    isSelected: isSelected,
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+Widget shortBY({
+  void Function()? onTapLowToHigh,
+  void Function()? onTapHighToLow,
+  bool isSelectedLowToHigh = false,
+  bool isSelectedHighToLow = false,
+}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      horizontalPadding(child: heddingFilter(AppString.sortBy)),
+      SizedBox(height: Get.height * 0.009),
+      Row(
+        children: [
+          SizedBox(width: Get.width * 0.03),
+          GestureDetector(
+            onTap: onTapLowToHigh,
+            child: sortContainer(
+              'Price(Low To High)',
+              isSelected: isSelectedLowToHigh,
+            ),
+          ),
+          SizedBox(width: Get.width * 0.02),
+          GestureDetector(
+            onTap: onTapHighToLow,
+            child: sortContainer(
+              'Price(High To Low)',
+              isSelected: isSelectedHighToLow,
+            ),
+          ),
+        ],
+      ),
+    ],
+  );
+}
+
+Widget filterButton({
+  void Function()? onTapClear,
+  void Function()? onTapSave,
+}) {
+  return horizontalPadding(
+    child: Column(
+      children: [
+        SizedBox(height: Get.height * 0.03),
+        Row(
+          children: [
+            Expanded(
+              child: button(
+                textColor: AppColor.primary,
+                backgroundColor: AppColor.white,
+                borderColor: AppColor.primary,
+                AppString.clear,
+                onTap: () {},
+              ),
+            ),
+            SizedBox(width: Get.width * 0.05),
+            Expanded(child: button(AppString.save, onTap: () {})),
+          ],
+        ),
+      ],
+    ),
+  );
+}

@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_import
+// ignore_for_file: unnecessary_import, strict_top_level_inference
 
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:flutter/material.dart';

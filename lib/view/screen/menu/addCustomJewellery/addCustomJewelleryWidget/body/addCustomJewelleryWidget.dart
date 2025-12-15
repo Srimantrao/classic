@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_print, unused_import
+// ignore_for_file: file_names, avoid_print, unused_import, strict_top_level_inference
 
 import 'package:classic/controller/user_Interface/menu/addCustomJewellery/addCustomJewellery_Controller.dart';
 import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';

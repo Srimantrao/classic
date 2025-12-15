@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 
 class Drawers extends StatelessWidget {
   const Drawers({super.key});
-
   @override
   Widget build(BuildContext context) {
     return allDrawersBody(

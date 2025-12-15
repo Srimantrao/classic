@@ -1,3 +1,5 @@
+// ignore_for_file: strict_top_level_inference
+
 import 'package:classic/view/screen/menu/jewelry/jewelryExtraWidget/product.dart';
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
@@ -15,13 +17,10 @@ Widget search(searchController, {void Function()? filtertab}) {
         Expanded(flex: 9, child: searchBar(searchController)),
         GestureDetector(
           onTap: filtertab,
-          child: Expanded(
-            flex: 1,
-            child: Icon(
-              Icons.filter_alt_outlined,
-              color: AppColor.gray3,
-              size: 30,
-            ),
+          child: Icon(
+            Icons.filter_alt_outlined,
+            color: AppColor.gray3,
+            size: 30,
           ),
         ),
       ],

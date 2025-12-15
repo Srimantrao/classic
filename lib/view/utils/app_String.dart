@@ -16,6 +16,8 @@ class AppString {
   static const remove = 'Remove';
   static const submit = 'Submit';
   static const proceed = 'Procced To Checkout';
+  static const clear = 'Clear';
+  static const save = 'Save';
 
   //Drawer Screen
   static const myAccount = 'MY ACCOUNT';
@@ -146,6 +148,9 @@ class AppString {
       static const yellowwhite = 'Yellow & White Gold';
       static const roseWhitegold = 'Rose & White Gold';
       static const whiteRosegold = 'White & rose Gold';
+      static const stoneType = 'Stone Type';
+      static const storeBy = 'Store By';
+      static const stone = 'Stone Type';
 
   //DashBoard Scrren
   static const diamond = 'Diamonds';

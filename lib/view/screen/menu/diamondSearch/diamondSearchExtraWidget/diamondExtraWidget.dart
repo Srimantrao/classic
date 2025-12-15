@@ -1,5 +1,5 @@
 //Shape
-// ignore_for_file: collection_methods_unrelated_type, deprecated_member_use, file_names
+// ignore_for_file: collection_methods_unrelated_type, deprecated_member_use, file_names, strict_top_level_inference
 
 import 'package:classic/controller/user_Interface/menu/diamondSearch/diamondSearch_Controller.dart';
 import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';

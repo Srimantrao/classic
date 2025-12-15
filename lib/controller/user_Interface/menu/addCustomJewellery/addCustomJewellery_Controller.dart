@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_print
+// ignore_for_file: file_names, avoid_print, strict_top_level_inference
 
 import 'package:classic/modal/menu/addCustomJewellery/addCustomJewellery.dart';
 import 'package:classic/view/utils/app_Color.dart';

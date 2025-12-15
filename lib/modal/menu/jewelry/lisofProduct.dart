@@ -13,14 +13,36 @@ class ProductList {
   ];
 }
 
-class Lisofproduct {
-  List metalstame = [
-    '9k',
-    '14k',
-    '18k',
-    '22k',
-    '23k',
+class FilterCategory {
+  List stoneTypeList = [
+    'Prong',
+    'Bezel',
+    'Three Stone',
+    'Pave',
+    'Side Stone',
+    'Tension',
+    'Channel',
+    'Vintage',
+    'Halo',
+    'Solitaire',
+    'Classic',
+    'Eternity',
+    'Anniversary',
+    'Diamond',
+    'Stackble',
+    'Nick',
+    'Four Prong',
+    'Six Prong',
+    'Eight Prong',
+    'Five Prong',
+    'Three Prong',
+    'DRLL',
+    'HALF BEZEL',
   ];
+}
+
+class Lisofproduct {
+  List metalstame = ['9k', '14k', '18k', '22k', '23k'];
 
   List product = [
     {

@@ -1,3 +1,5 @@
+// ignore_for_file: strict_top_level_inference
+
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/widget/inputfield.dart';

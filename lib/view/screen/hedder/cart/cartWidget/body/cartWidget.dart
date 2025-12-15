@@ -1,6 +1,6 @@
 // ignore: file_names
 
-// ignore_for_file: file_names, duplicate_ignore, non_constant_identifier_names, avoid_unnecessary_containers
+// ignore_for_file: file_names, duplicate_ignore, non_constant_identifier_names, avoid_unnecessary_containers, strict_top_level_inference
 
 import 'package:classic/view/screen/hedder/cart/cartWidget/extraWidget/extraWidget.dart';
 import 'package:classic/view/utils/app_Borderradius.dart';

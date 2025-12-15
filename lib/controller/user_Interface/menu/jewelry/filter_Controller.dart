@@ -3,6 +3,7 @@
 import 'package:get/get.dart';
 
 class FilterUIController extends GetxController {
+  //Metal Type
   var whiteGold = false.obs;
   var roseGold = false.obs;
   var yellowGold = false.obs;
@@ -10,12 +11,50 @@ class FilterUIController extends GetxController {
   var yellowWhiteGold = false.obs;
   var whiteRoseGold = false.obs;
 
+  //Metal Stamp
   var selectedIndex = (-1).obs;
 
+  //Shape
+  var selectedShape = (-1).obs;
+
+  //Stone Type
+  var selectedStoneType = (-1).obs;
+
+  //Sort By
+  var lowToHigh = false.obs;
+  var highToLow = false.obs;
+
+  void sortLowToHigh() {
+    lowToHigh.value = true;
+    highToLow.value = false;
+    update();
+  }
+
+  void sortHighToLow() {
+    lowToHigh.value = false;
+    highToLow.value = true;
+    update();
+  }
+
+  //Metal Type
   void selectStamp(int index) {
     selectedIndex.value = index;
   }
 
+  //Stone Type
+  void selectStoneType(int index) {
+    selectedStoneType.value = index;
+    update();
+  }
+
+  //Shape
+  void selectShape(int index) {
+    selectedShape.value = index;
+    update();
+  }
+
+  //Metal Type
+  //White Gold
   void selectWhiteGold() {
     whiteGold.value = true;
     roseGold.value = false;
@@ -25,6 +64,7 @@ class FilterUIController extends GetxController {
     whiteRoseGold.value = false;
   }
 
+  //Rose Gold
   void selectRoseGold() {
     whiteGold.value = false;
     roseGold.value = true;
@@ -34,6 +74,7 @@ class FilterUIController extends GetxController {
     whiteRoseGold.value = false;
   }
 
+  //Yellow Gold
   void selectYellowGold() {
     whiteGold.value = false;
     roseGold.value = false;
@@ -43,6 +84,7 @@ class FilterUIController extends GetxController {
     whiteRoseGold.value = false;
   }
 
+  //Rose White Gold
   void selectRoseWhiteGold() {
     whiteGold.value = false;
     roseGold.value = false;
@@ -52,6 +94,7 @@ class FilterUIController extends GetxController {
     whiteRoseGold.value = false;
   }
 
+  //Yellow White Gold
   void selectYellowWhiteGold() {
     whiteGold.value = false;
     roseGold.value = false;
@@ -61,6 +104,7 @@ class FilterUIController extends GetxController {
     whiteRoseGold.value = false;
   }
 
+  //White Rose Gold
   void selectWhiteRoseGold() {
     whiteGold.value = false;
     roseGold.value = false;
@@ -70,6 +114,7 @@ class FilterUIController extends GetxController {
     whiteRoseGold.value = true;
   }
 
+  //Reset
   void reset() {
     whiteGold.value = false;
     roseGold.value = false;

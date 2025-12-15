@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_unnecessary_containers
+// ignore_for_file: avoid_unnecessary_containers, strict_top_level_inference
 
 import 'package:classic/view/screen/hedder/cart/cartScreen/cart.dart';
 import 'package:classic/view/utils/app_Color.dart';

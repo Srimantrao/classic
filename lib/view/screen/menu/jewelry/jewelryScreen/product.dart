@@ -1,5 +1,7 @@
 import 'package:classic/modal/menu/jewelry/lisofProduct.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/filter.dart';
+import 'package:classic/view/screen/menu/jewelry/jewelryScreen/productDetail.dart';
+import 'package:classic/view/screen/menu/jewelry/jewelryScreen/productImage.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/productbody.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
@@ -19,7 +21,17 @@ class Product extends StatelessWidget {
       child: Column(
         children: [
           search(searchController, filtertab: () => Get.to(() => Filter())),
-          productList(list: products.product),
+          productList(
+            list: products.product,
+            onTapImagePath: (image) {
+              Get.to(() => ProductImage(image: image));
+            },
+            onTapProductDetail: (image, name, price) {
+              Get.to(
+                () => ProductDetail(image: image, name: name, price: price),
+              );
+            },
+          ),
         ],
       ),
     );

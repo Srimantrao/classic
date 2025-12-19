@@ -30,6 +30,13 @@ Widget search(searchController, {void Function()? filtertab}) {
 
 Widget productList({
   required List list,
+  required void Function(String imagePath) onTapImagePath,
+  required void Function(
+    String imagePath,
+    String productNameText,
+    String priceText,
+  )
+  onTapProductDetail,
 }) {
   return Expanded(
     child: horizontalPadding(
@@ -43,6 +50,16 @@ Widget productList({
         ),
         itemBuilder: (context, index) {
           return productWidget(
+            onTapImagePath: () {
+              onTapImagePath(list[index]['image']);
+            },
+            onTapProductDetail: () {
+              onTapProductDetail(
+                list[index]['image'],
+                list[index]['name'],
+                list[index]['price'],
+              );
+            },
             productImagePath: list[index]['image'],
             productNameText: list[index]['name'],
             priceText: list[index]['price'],
@@ -57,6 +74,8 @@ Widget productWidget({
   required String productImagePath,
   required String productNameText,
   required String priceText,
+  void Function()? onTapImagePath,
+  void Function()? onTapProductDetail,
 }) {
   return Container(
     decoration: BoxDecoration(
@@ -64,27 +83,39 @@ Widget productWidget({
       border: Border.all(color: AppColor.gray),
     ),
     child: Padding(
-      padding:  EdgeInsets.all(8),
+      padding: EdgeInsets.all(8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          productImage(productImagePath),
-          productName(productNameText),
-          price(priceText),
-          SizedBox(height: Get.height * 0.01),
-          Row(
-            children: [
-              information('Metal'),
-              Expanded(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: caratInformation(),
-                ),
-              ),
-            ],
+          GestureDetector(
+            onTap: onTapImagePath,
+            child: productImage(productImagePath),
           ),
-          SizedBox(height: Get.height * 0.01),
-          Row(children: [information('Carat'), caratHowMany('1')]),
+          GestureDetector(
+            onTap: onTapProductDetail,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                productName(productNameText),
+                price(priceText),
+                SizedBox(height: Get.height * 0.01),
+                Row(
+                  children: [
+                    information('Metal'),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: caratInformation(),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: Get.height * 0.01),
+                Row(children: [information('Carat'), caratHowMany('1')]),
+              ],
+            ),
+          ),
         ],
       ),
     ),

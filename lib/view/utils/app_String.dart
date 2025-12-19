@@ -151,6 +151,9 @@ class AppString {
       static const stoneType = 'Stone Type';
       static const storeBy = 'Store By';
       static const stone = 'Stone Type';
+      //Product Detail
+      static const productDetail = 'Product Detail';
+
 
   //DashBoard Scrren
   static const diamond = 'Diamonds';
@@ -223,4 +226,5 @@ class AppString {
   static const size = 'Size';
   static const pieces = 'Pieces';
   static const weight = 'Weight';
+  static const enterRemark = 'Enter Remark';
 }

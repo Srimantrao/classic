@@ -5,9 +5,13 @@ import 'package:get/get.dart';
 
 class ProductdetailuiController extends GetxController {
   final remarkController = TextEditingController();
+  final engravingController = TextEditingController();
 
   //selected Bracele Size
   var selectedBraceletSize = RxnString();
+
+  //Shape
+  String? selectShape;
 
   //carat Button
   var isSelectcarat_10K = false.obs;
@@ -22,6 +26,19 @@ class ProductdetailuiController extends GetxController {
   //select carat
   var selectcarat_75 = false.obs;
   var selectcarat_1 = false.obs;
+
+  //Qty
+  var qtyValue = 1.obs;
+
+  //Metal Detail & Stone Detail
+  var metalDetail = false.obs;
+  var stoneDetail = false.obs;
+
+  //Shape
+  void selectDiamondShape(String shape) {
+    selectShape = shape;
+    update();
+  }
 
   //carat Button
   void selectcarat_10K() {
@@ -70,5 +87,27 @@ class ProductdetailuiController extends GetxController {
   void select_1() {
     selectcarat_75.value = false;
     selectcarat_1.value = true;
+  }
+
+  //Qty
+  void incrementQty() {
+    qtyValue.value++;
+  }
+
+  void decrementQty() {
+    if (qtyValue.value > 1) {
+      qtyValue.value--;
+    }
+  }
+
+  //Metal Detail & Stone Detail
+  void metalDetails() {
+    metalDetail.value =! metalDetail.value;
+    stoneDetail.value = false;
+  }
+
+  void stoneDetails() {
+    metalDetail.value = false;
+    stoneDetail.value =! stoneDetail.value;
   }
 }

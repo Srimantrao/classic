@@ -227,4 +227,5 @@ class AppString {
   static const pieces = 'Pieces';
   static const weight = 'Weight';
   static const enterRemark = 'Enter Remark';
+  static const enterEngraving = 'Enter Envolving';
 }

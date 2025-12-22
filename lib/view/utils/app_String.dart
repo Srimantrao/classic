@@ -162,6 +162,9 @@ class AppString {
   static const Hold = 'Hold';
   static const recentViwe = 'Recent Viwe';
   static const myCart = 'My Cart';
+      //Dimaond Ditails
+        static const diamondDetail = 'Diamond Detail';
+
 
   //Dimaond Search Screen
   static const whiteDiamond = 'White \n Diamond';
@@ -227,4 +230,5 @@ class AppString {
   static const pieces = 'Pieces';
   static const weight = 'Weight';
   static const enterRemark = 'Enter Remark';
+  static const enterEngraving = 'Enter Envolving';
 }

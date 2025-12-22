@@ -178,8 +178,8 @@ class Diamondsearch extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: Get.height * 0.75,
-              bottom: Get.height * 0.08,
+              top: Get.height * 0.73,
+              bottom: Get.height * 0.10,
               left: 0,
               right: 0,
               child: SizedBox(

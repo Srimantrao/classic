@@ -3,10 +3,14 @@
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
+import 'package:classic/view/utils/widget/cartcontainer.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_state_manager/src/simple/get_state.dart';
+import '../../../../../../controller/user_Interface/menu/jewelry/productDetailUI_Controller.dart';
+import '../../../../../../modal/menu/diamondSearch/diamondSearch.dart';
 import '../../../../../../modal/menu/jewelry/productDetail.dart';
 import '../../../../../utils/app_Borderradius.dart';
 import '../../../../../utils/widget/horizontalpaddind.dart';
@@ -84,6 +88,44 @@ Widget productDetailsPrice(name, price) {
               ),
             ),
           ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget productShape() {
+  final diamondList = DiamondList();
+  return horizontalPadding(
+    child: Column(
+      children: [
+        SizedBox(height: Get.height * 0.02),
+        SizedBox(
+          height: Get.height * 0.04,
+          child: Row(
+            children: [
+              productDetailsubHedding('Shape :- '),
+              GetBuilder<ProductdetailuiController>(
+                builder: (controller) {
+                  return Expanded(
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: diamondList.shapes.length,
+                      itemBuilder: (context, index) {
+                        final shape = diamondList.shapes[index];
+                        final isSelected = controller.selectShape == shape;
+                        return sahapeContainer(
+                          shape: shape,
+                          isSelected: isSelected,
+                          onTap: () => controller.selectDiamondShape(shape),
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ],
     ),
@@ -258,5 +300,205 @@ Widget braceletSize(productdetail) {
         ),
       ],
     ),
+  );
+}
+
+Widget engraving(productdetail, controller) {
+  return horizontalPadding(
+    child: Column(
+      children: [
+        SizedBox(height: Get.height * 0.02),
+        Row(
+          children: [
+            productDetailsubHedding('Engriving :- '),
+            Expanded(
+              child: Inputfield(
+                controller: controller,
+                color: AppColor.gray5,
+                height: Get.height * 0.05,
+                hinttext: AppString.enterRemark,
+                hintStyle: TextStyle(fontFamily: 'FuturaCyrillic'),
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+//Qty
+Widget quantity({
+  void Function()? onTapIncrimant,
+  void Function()? onTapDecrimant,
+  int? value,
+}) {
+  return horizontalPadding(
+    child: Column(
+      children: [
+        Row(
+          children: [
+            productDetailsubHedding('Qty:- '),
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: AppColor.gray5),
+                borderRadius: BorderRadius.circular(borderradius.buttonboder),
+              ),
+              child: Row(
+                children: [
+                  changvalue('-', onTap: onTapDecrimant),
+                  editValue(value.toString()),
+                  changvalue('+', onTap: onTapIncrimant),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget productmetalDetails({
+  String? productCodeValue,
+  String? metalValue,
+  String? heightValue,
+  String? widthValue,
+  String? productWeightValue,
+  String? color,
+  String? clarity,
+  String? shape,
+  String? wgt,
+  String? pieces,
+  void Function()? onTapMetal,
+  void Function()? onTapStone,
+  bool metalDetail = false,
+  bool stoneDetail = false,
+}) {
+  return horizontalPadding(
+    child: Column(
+      children: [
+        SizedBox(height: Get.height * 0.02),
+        cartConatiner(
+          child: Column(
+            children: [
+              GestureDetector(
+                onTap: onTapMetal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    metalHedding('Product And Metal Details'),
+                    (metalDetail) ? toggleIcon('-') : toggleIcon('+'),
+                  ],
+                ),
+              ),
+              Divider(color: AppColor.editColor),
+              SizedBox(height: Get.height * 0.01),
+              (metalDetail)
+                  ? Column(
+                      children: [
+                        metalDetailPadding(
+                          title: 'Product Code :- ',
+                          value: productCodeValue,
+                        ),
+                        metalDetailPadding(
+                          title: 'Metal :- ',
+                          value: metalValue,
+                        ),
+                        metalDetailPadding(
+                          title: 'Height :- ',
+                          value: heightValue,
+                        ),
+                        metalDetailPadding(
+                          title: 'Width :- ',
+                          value: widthValue,
+                        ),
+                        metalDetailPadding(
+                          title: 'Product Weight (Approximate) :- ',
+                          value: productWeightValue,
+                        ),
+                      ],
+                    )
+                  : SizedBox(),
+              GestureDetector(
+                onTap: onTapStone,
+                child: Column(
+                  children: [
+                    (metalDetail)
+                        ? SizedBox(height: Get.height * 0.02)
+                        : SizedBox(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        metalHedding('Ceter Stone Details'),
+                        (stoneDetail) ? toggleIcon('-') : toggleIcon('+'),
+                      ],
+                    ),
+                    Divider(color: AppColor.editColor),
+                    SizedBox(height: Get.height * 0.01),
+                    (stoneDetail)
+                        ? Column(
+                            children: [
+                              metalDetailPadding(
+                                title: 'Color :- ',
+                                value: color,
+                              ),
+                              metalDetailPadding(
+                                title: 'Clarity :- ',
+                                value: clarity,
+                              ),
+                              metalDetailPadding(
+                                title: 'Shape :- ',
+                                value: shape,
+                              ),
+                              metalDetailPadding(title: 'Wgt :- ', value: wgt),
+                              metalDetailPadding(
+                                title: 'Pieces :- ',
+                                value: pieces,
+                              ),
+                            ],
+                          )
+                        : SizedBox(),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+//Like
+Widget listLike({required List product}) {
+  return Column(
+    children: [
+      SizedBox(height: Get.height * 0.02),
+      Text(
+        'You May Also Like',
+        style: TextStyle(
+          fontSize: Get.width * 0.047,
+          fontWeight: FontWeight.w500,
+          color: AppColor.primary,
+        ),
+      ),
+      SizedBox(height: Get.height * 0.009),
+      SizedBox(
+        height: Get.height * 0.25,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: product.length,
+          padding: EdgeInsets.zero,
+          itemBuilder: (context, index) {
+            return like(
+              image: product[index]['image'],
+              name: product[index]['name'],
+              price: product[index]['price'],
+            );
+          },
+        ),
+      ),
+    ],
   );
 }

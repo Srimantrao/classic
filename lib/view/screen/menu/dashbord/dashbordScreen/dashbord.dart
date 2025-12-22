@@ -13,7 +13,7 @@ import 'package:classic/view/utils/app_icon.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../utils/widget/hadder/cartList.dart';
+import '../../../../utils/widget/cartList.dart';
 
 class Dashbord extends StatelessWidget {
   final dashboard_UI = Get.put(DashboardUIController());

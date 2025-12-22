@@ -8,7 +8,7 @@ import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_video.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:classic/view/utils/widget/inputfield.dart';
-import 'package:classic/view/utils/widget/video.dart';
+import 'package:classic/view/utils/widget/video/video.dart';
 import 'package:classic/view/utils/widget/widgetSize.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';

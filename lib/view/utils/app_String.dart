@@ -18,6 +18,10 @@ class AppString {
   static const proceed = 'Procced To Checkout';
   static const clear = 'Clear';
   static const save = 'Save';
+  static const addtoCart = 'Add To Cart';
+  static const details = 'Details';
+  static const measurements = 'Measurements';
+  static const inclusion = 'Inclusion';
 
   //Drawer Screen
   static const myAccount = 'MY ACCOUNT';
@@ -139,6 +143,7 @@ class AppString {
   //Jewellery Scrren
   static const product = 'Product';
   static const search = 'Search';
+
       //Filter
       static const filters = 'Filter';
       static const whithegold = 'White Gold';
@@ -151,9 +156,20 @@ class AppString {
       static const stoneType = 'Stone Type';
       static const storeBy = 'Store By';
       static const stone = 'Stone Type';
+
       //Product Detail
       static const productDetail = 'Product Detail';
-
+      static const remark = 'Remark';
+      static const braceletSize = 'Bracelet Size';
+      static const qty = 'Qty';
+      static const centerStoneDetails = 'Center Stone Details';
+      static const like = 'Like';
+      static const productAndMetalDetails = 'Product And Metal Details';
+      static const productCode = 'Product Code';
+      static const metal = 'Metal';
+      static const height = 'Height';
+      static const productWeight = 'Product Weight(Approximate)';
+      static const wgt = 'Weight';
 
   //DashBoard Scrren
   static const diamond = 'Diamonds';
@@ -162,9 +178,29 @@ class AppString {
   static const Hold = 'Hold';
   static const recentViwe = 'Recent View';
   static const myCart = 'My Cart';
+
       //Dimaond Ditails
         static const diamondDetail = 'Diamond Detail';
-
+        static const location = 'Location';
+        static const cut = 'Cut';
+        static const measure = 'Measure';
+        static const girdle = 'Girdle';
+        static const crheight = 'Cr Height';
+        static const crandwidth = 'Cr And';
+        static const pavAngle = 'Pav Angle';
+        static const pavDepth = 'Pav Depth';
+        static const brown = 'Brown';
+        static const blaclkT = 'BlackT';
+        static const blaclkS = 'BlackS';
+        static const tableInc = 'Table Inc';
+        static const DTLEligble = 'DTL Eligible';
+        static const culetSize = 'Culet Size';
+        static const openT = 'OpenT';
+        static const openc = 'OpenC';
+        static const openg = 'OpenG';
+        static const openp = 'OpenP';
+        static const laser = 'Laser';
+        static const hnA = 'HnA';
 
   //Dimaond Search Screen
   static const whiteDiamond = 'White Diamond';
@@ -187,7 +223,6 @@ class AppString {
   static const symmetry = 'Symmetry';
   static const fluorescence = 'Fluorescence';
   static const priceRange = 'Price Range';
-  static const measurements = 'Measurements';
   static const length = 'Length';
   static const width = 'Width';
   static const depth = 'Depth';

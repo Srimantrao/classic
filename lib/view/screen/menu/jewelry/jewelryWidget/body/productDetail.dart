@@ -104,7 +104,7 @@ Widget productShape() {
           height: Get.height * 0.04,
           child: Row(
             children: [
-              productDetailsubHedding('Shape :- '),
+              productDetailsubHedding(AppString.shape),
               GetBuilder<ProductdetailuiController>(
                 builder: (controller) {
                   return Expanded(
@@ -140,7 +140,7 @@ Widget productStamp(productdetail) {
         SizedBox(height: Get.height * 0.02),
         Row(
           children: [
-            productDetailsubHedding('Metal Stamp :- '),
+            productDetailsubHedding('${AppString.metalStamp} :- '),
             SizedBox(width: Get.width * 0.03),
             caratButton(
               '10 K',
@@ -172,7 +172,7 @@ Widget productmetalType(productdetail) {
         SizedBox(height: Get.height * 0.02),
         Row(
           children: [
-            productDetailsubHedding('Metal Type :- '),
+            productDetailsubHedding('${AppString.metalType} :- '),
             SizedBox(width: Get.width * 0.03),
             metaltypeselect(
               AppColor.gray3,
@@ -205,7 +205,7 @@ Widget selectCarat(productdetail) {
         SizedBox(height: Get.height * 0.02),
         Row(
           children: [
-            productDetailsubHedding('Carat :- '),
+            productDetailsubHedding('${AppString.carat} :- '),
             caratButton(
               '0.75',
               isSelectcarat: productdetail.selectcarat_75.value,
@@ -235,7 +235,7 @@ Widget productDetailsRemark(TextEditingController? controller) {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            productDetailsubHedding('Remark :- '),
+            productDetailsubHedding('${AppString.remark} :- '),
             Expanded(
               child: Inputfield(
                 controller: controller,
@@ -257,7 +257,7 @@ Widget braceletSize(productdetail) {
   return horizontalPadding(
     child: Row(
       children: [
-        productDetailsubHedding('Bracelet Size :- '),
+        productDetailsubHedding('${AppString.braceletSize} :- '),
         Container(
           decoration: BoxDecoration(border: Border.all(color: AppColor.gray3)),
           child: DropdownButtonHideUnderline(
@@ -280,7 +280,7 @@ Widget braceletSize(productdetail) {
                 ),
               ),
               hint: Text(
-                'Select Size',
+                AppString.select,
                 style: TextStyle(fontSize: Get.height * 0.015),
               ),
               value: productdetail.selectedBraceletSize.value,
@@ -310,7 +310,7 @@ Widget engraving(productdetail, controller) {
         SizedBox(height: Get.height * 0.02),
         Row(
           children: [
-            productDetailsubHedding('Engriving :- '),
+            productDetailsubHedding('${AppString.engraving} :- '),
             Expanded(
               child: Inputfield(
                 controller: controller,
@@ -338,7 +338,7 @@ Widget quantity({
       children: [
         Row(
           children: [
-            productDetailsubHedding('Qty:- '),
+            productDetailsubHedding('${AppString.qty}:- '),
             Container(
               decoration: BoxDecoration(
                 border: Border.all(color: AppColor.gray5),
@@ -387,7 +387,7 @@ Widget productmetalDetails({
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    metalHedding('Product And Metal Details'),
+                    metalHedding(AppString.productAndMetalDetails),
                     (metalDetail) ? toggleIcon('-') : toggleIcon('+'),
                   ],
                 ),
@@ -398,23 +398,23 @@ Widget productmetalDetails({
                   ? Column(
                       children: [
                         metalDetailPadding(
-                          title: 'Product Code :- ',
+                          title: '${AppString.productCode} :- ',
                           value: productCodeValue,
                         ),
                         metalDetailPadding(
-                          title: 'Metal :- ',
+                          title: '${AppString.metal} :- ',
                           value: metalValue,
                         ),
                         metalDetailPadding(
-                          title: 'Height :- ',
+                          title: '${AppString.height} :- ',
                           value: heightValue,
                         ),
                         metalDetailPadding(
-                          title: 'Width :- ',
+                          title: '${AppString.width} :- ',
                           value: widthValue,
                         ),
                         metalDetailPadding(
-                          title: 'Product Weight (Approximate) :- ',
+                          title: '${AppString.productWeight} :- ',
                           value: productWeightValue,
                         ),
                       ],
@@ -430,7 +430,7 @@ Widget productmetalDetails({
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        metalHedding('Ceter Stone Details'),
+                        metalHedding(AppString.centerStoneDetails),
                         (stoneDetail) ? toggleIcon('-') : toggleIcon('+'),
                       ],
                     ),
@@ -440,20 +440,23 @@ Widget productmetalDetails({
                         ? Column(
                             children: [
                               metalDetailPadding(
-                                title: 'Color :- ',
+                                title: '${AppString.color} :- ',
                                 value: color,
                               ),
                               metalDetailPadding(
-                                title: 'Clarity :- ',
+                                title: '${AppString.clarity} :- ',
                                 value: clarity,
                               ),
                               metalDetailPadding(
-                                title: 'Shape :- ',
+                                title: '${AppString.shape} :- ',
                                 value: shape,
                               ),
-                              metalDetailPadding(title: 'Wgt :- ', value: wgt),
                               metalDetailPadding(
-                                title: 'Pieces :- ',
+                                title: '${AppString.wgt} :- ',
+                                value: wgt,
+                              ),
+                              metalDetailPadding(
+                                title: '${AppString.pieces} :- ',
                                 value: pieces,
                               ),
                             ],

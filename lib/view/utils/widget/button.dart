@@ -2,7 +2,6 @@
 
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
-import 'package:classic/view/utils/app_TextSize.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,7 +29,7 @@ Widget button(
         child: Text(
           isLowercase ? capitalizeFirst(text) : text.toUpperCase(),
           style: TextStyle(
-            fontSize: Textsize.normal,
+            fontSize: Get.width * 0.035,
             color: textColor ?? AppColor.white,
             fontWeight: FontWeight.w600,
           ),

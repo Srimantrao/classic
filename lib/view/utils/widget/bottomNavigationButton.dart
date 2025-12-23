@@ -6,16 +6,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 Widget buttonNavigation({required Widget child}) {
-  return SizedBox(
-    height: Get.height * 0.11,
-    child: Container(
-      decoration: BoxDecoration(color: AppColor.white),
-      child: Column(
-        children: [
-          SizedBox(height: Get.height * 0.010),
-          horizontalPadding(child: child),
-          SizedBox(height: Get.height * 0.007),
-        ],
+  return Container(
+    color: AppColor.white,
+    child: SafeArea(
+      child: SizedBox(
+        height: Get.height * 0.07,
+        child: Container(
+          decoration: BoxDecoration(color: AppColor.white),
+          child: horizontalPadding(child: child),
+        ),
       ),
     ),
   );

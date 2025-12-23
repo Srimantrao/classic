@@ -229,24 +229,19 @@ Widget shortBY({
 }
 
 Widget filterButton({void Function()? onTapClear, void Function()? onTapSave}) {
-  return Column(
+  return Row(
     children: [
-      SizedBox(height: Get.height * 0.03),
-      Row(
-        children: [
-          Expanded(
-            child: button(
-              textColor: AppColor.primary,
-              backgroundColor: AppColor.white,
-              borderColor: AppColor.primary,
-              AppString.clear,
-              onTap: () {},
-            ),
-          ),
-          SizedBox(width: Get.width * 0.05),
-          Expanded(child: button(AppString.save, onTap: () {})),
-        ],
+      Expanded(
+        child: button(
+          textColor: AppColor.primary,
+          backgroundColor: AppColor.white,
+          borderColor: AppColor.primary,
+          AppString.clear,
+          onTap: () {},
+        ),
       ),
+      SizedBox(width: Get.width * 0.05),
+      Expanded(child: button(AppString.save, onTap: () {})),
     ],
   );
 }

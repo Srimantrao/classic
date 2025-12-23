@@ -75,6 +75,8 @@ class Filter extends StatelessWidget {
                 onTapHighToLow: filter.sortHighToLow,
                 onTapLowToHigh: filter.sortLowToHigh,
               ),
+
+              SizedBox(height: Get.height * 0.03),
             ],
           ),
         );

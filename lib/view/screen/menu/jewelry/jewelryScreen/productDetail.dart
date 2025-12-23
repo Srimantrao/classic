@@ -2,8 +2,6 @@
 
 import 'package:classic/modal/menu/jewelry/lisofProduct.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/productDetail.dart';
-import 'package:classic/view/utils/app_Borderradius.dart';
-import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/widget/button.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';

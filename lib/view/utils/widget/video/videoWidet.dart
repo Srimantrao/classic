@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, strict_top_level_inference, deprecated_member_use
+
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/widget/video/fullScreenvideo.dart';
 import 'package:flutter/material.dart';

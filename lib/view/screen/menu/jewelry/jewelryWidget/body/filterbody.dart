@@ -84,32 +84,34 @@ Widget metaltype({
 
 Widget metalstame(product) {
   final filter = Get.put(FilterUIController());
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      heddingFilter(AppString.metalStamp),
-      SizedBox(height: Get.height * 0.01),
-      SizedBox(
-        height: Get.height * 0.05,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          padding: EdgeInsets.zero,
-          itemCount: product.metalstame.length,
-          itemBuilder: (context, index) {
-            return Obx(() {
-              final isSelected = filter.selectedIndex.value == index;
-              return GestureDetector(
-                onTap: () => filter.selectStamp(index),
-                child: stampMetal(
-                  text: product.metalstame[index],
-                  isSelected: isSelected,
-                ),
-              );
-            });
-          },
+  return horizontalPadding(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        heddingFilter(AppString.metalStamp),
+        SizedBox(height: Get.height * 0.01),
+        SizedBox(
+          height: Get.height * 0.049,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            padding: EdgeInsets.zero,
+            itemCount: product.metalstame.length,
+            itemBuilder: (context, index) {
+              return Obx(() {
+                final isSelected = filter.selectedIndex.value == index;
+                return GestureDetector(
+                  onTap: () => filter.selectStamp(index),
+                  child: stampMetal(
+                    text: product.metalstame[index],
+                    isSelected: isSelected,
+                  ),
+                );
+              });
+            },
+          ),
         ),
-      ),
-    ],
+      ],
+    ),
   );
 }
 
@@ -129,9 +131,9 @@ Widget shapeSelected(dimaondlist) {
               itemCount: dimaondlist.shapes.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 5,
-                crossAxisSpacing: 5,
-                mainAxisExtent: 50,
-                mainAxisSpacing: 5,
+                crossAxisSpacing: Get.width * 0.02,
+                childAspectRatio: 2.0,
+                mainAxisSpacing: Get.width * 0.02,
               ),
               itemBuilder: (BuildContext context, int index) {
                 final isSelected = controller.selectedShape.value == index;
@@ -151,6 +153,7 @@ Widget shapeSelected(dimaondlist) {
   );
 }
 
+//Stone Type
 Widget stoneType(filterCategory) {
   return GetBuilder<FilterUIController>(
     builder: (FilterUIController controller) {
@@ -165,10 +168,10 @@ Widget stoneType(filterCategory) {
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                mainAxisExtent: 25,
+                crossAxisCount: 5,
+                crossAxisSpacing: Get.width * 0.02,
+                childAspectRatio: 2.0,
+                mainAxisSpacing: Get.width * 0.02,
               ),
               itemCount: filterCategory.stoneTypeList.length,
               itemBuilder: (context, index) {
@@ -225,30 +228,25 @@ Widget shortBY({
   );
 }
 
-Widget filterButton({
-  void Function()? onTapClear,
-  void Function()? onTapSave,
-}) {
-  return horizontalPadding(
-    child: Column(
-      children: [
-        SizedBox(height: Get.height * 0.03),
-        Row(
-          children: [
-            Expanded(
-              child: button(
-                textColor: AppColor.primary,
-                backgroundColor: AppColor.white,
-                borderColor: AppColor.primary,
-                AppString.clear,
-                onTap: () {},
-              ),
+Widget filterButton({void Function()? onTapClear, void Function()? onTapSave}) {
+  return Column(
+    children: [
+      SizedBox(height: Get.height * 0.03),
+      Row(
+        children: [
+          Expanded(
+            child: button(
+              textColor: AppColor.primary,
+              backgroundColor: AppColor.white,
+              borderColor: AppColor.primary,
+              AppString.clear,
+              onTap: () {},
             ),
-            SizedBox(width: Get.width * 0.05),
-            Expanded(child: button(AppString.save, onTap: () {})),
-          ],
-        ),
-      ],
-    ),
+          ),
+          SizedBox(width: Get.width * 0.05),
+          Expanded(child: button(AppString.save, onTap: () {})),
+        ],
+      ),
+    ],
   );
 }

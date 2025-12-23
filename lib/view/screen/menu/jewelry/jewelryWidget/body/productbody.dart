@@ -42,11 +42,11 @@ Widget productList({
     child: horizontalPadding(
       child: GridView.builder(
         itemCount: list.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          mainAxisExtent: 250,
+          crossAxisSpacing: Get.width * 0.04,
+          mainAxisSpacing: Get.width * 0.04,
+          mainAxisExtent: 300,
         ),
         itemBuilder: (context, index) {
           return productWidget(

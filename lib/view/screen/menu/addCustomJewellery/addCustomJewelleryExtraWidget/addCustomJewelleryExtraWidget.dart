@@ -443,13 +443,13 @@ Widget listofSaveSideStone(AddcustomjewelleryUIController stoneupdate) {
     shrinkWrap: true,
     physics: NeverScrollableScrollPhysics(),
     itemBuilder: (context, index) {
-      final data = stoneupdate.allSelectdata[index];
-      final shape = stoneupdate.allSelectdata[index]['shape'];
-      final clarity = stoneupdate.allSelectdata[index]['clarity'];
-      final pieces = stoneupdate.allSelectdata[index]['pieces'];
-      final color = stoneupdate.allSelectdata[index]['color'];
-      final size = stoneupdate.allSelectdata[index]['size'];
-      final weight = stoneupdate.allSelectdata[index]['weight'];
+      final data = stoneupdate.allSelectdata[index] ?? '';
+      final shape = stoneupdate.allSelectdata[index]['shape'] ?? '';
+      final clarity = stoneupdate.allSelectdata[index]['clarity'] ?? '';
+      final pieces = stoneupdate.allSelectdata[index]['pieces'] ?? '';
+      final color = stoneupdate.allSelectdata[index]['color'] ?? '';
+      final size = stoneupdate.allSelectdata[index]['size'] ?? '';
+      final weight = stoneupdate.allSelectdata[index]['weight'] ?? '';
       return Container(
         margin: EdgeInsets.symmetric(vertical: Get.height * 0.01),
         decoration: BoxDecoration(
@@ -595,7 +595,7 @@ Widget chekISGem({required bool value, void Function(bool?)? onChanged}) {
 
 Widget shapeViweDimondShape(diamondSearch, text) {
   return SizedBox(
-    height: Get.height / 4,
+    height: Get.height / 3.5,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -610,7 +610,7 @@ Widget shapeViweDimondShape(diamondSearch, text) {
 
 Widget shapeViweDimondColor(diamondSearch, text) {
   return SizedBox(
-    height: Get.height / 8,
+    height: Get.height / 7,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -625,7 +625,7 @@ Widget shapeViweDimondColor(diamondSearch, text) {
 
 Widget shapeViweClarity(diamondSearch, text) {
   return SizedBox(
-    height: Get.height / 7,
+    height: Get.height / 6,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

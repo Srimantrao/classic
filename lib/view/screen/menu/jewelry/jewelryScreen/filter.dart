@@ -2,6 +2,7 @@ import 'package:classic/controller/user_Interface/menu/jewelry/filter_Controller
 import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';
 import 'package:classic/modal/menu/jewelry/lisofProduct.dart';
 import 'package:classic/view/utils/app_Color.dart';
+import 'package:classic/view/utils/widget/bottomNavigationButton.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
@@ -22,6 +23,10 @@ class Filter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Fullscreen(
       appBar: allOtherScreen(AppString.filters, filter: true),
+      //Filter Button
+      bottomNavigationBar: buttonNavigation(
+        child: filterButton(onTapClear: () {}, onTapSave: () {}),
+      ),
       child: Obx(() {
         return SingleChildScrollView(
           child: Column(
@@ -47,7 +52,7 @@ class Filter extends StatelessWidget {
               Divider(color: AppColor.gray5, thickness: 2),
 
               //Metal Stamp
-              horizontalPadding(child: metalstame(product)),
+              metalstame(product),
               SizedBox(height: Get.height * 0.03),
               Divider(color: AppColor.gray5, thickness: 2),
 
@@ -70,9 +75,6 @@ class Filter extends StatelessWidget {
                 onTapHighToLow: filter.sortHighToLow,
                 onTapLowToHigh: filter.sortLowToHigh,
               ),
-
-              //Filter Button
-              filterButton(onTapClear: () {}, onTapSave: () {}),
             ],
           ),
         );

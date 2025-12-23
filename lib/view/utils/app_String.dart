@@ -160,15 +160,15 @@ class AppString {
   static const jewellwery = 'Jewellwery';
   static const Orders = 'Orders';
   static const Hold = 'Hold';
-  static const recentViwe = 'Recent Viwe';
+  static const recentViwe = 'Recent View';
   static const myCart = 'My Cart';
       //Dimaond Ditails
         static const diamondDetail = 'Diamond Detail';
 
 
   //Dimaond Search Screen
-  static const whiteDiamond = 'White \n Diamond';
-  static const coloredDiamond = 'Colored \n Diamond';
+  static const whiteDiamond = 'White Diamond';
+  static const coloredDiamond = 'Colored Diamond';
   static const shape = 'Shape';
   static const carat = 'Carat';
   static const clarity = 'Clarity';

@@ -9,9 +9,9 @@ Widget listOfItem({required List list, void Function()? onTap}) {
     child: GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        mainAxisExtent: Get.height * 0.22,
+        mainAxisExtent: Get.height * 0.25,
         mainAxisSpacing: Get.height * 0.03,
-        crossAxisSpacing: Get.width * 0.06,
+        crossAxisSpacing: Get.width * 0.04,
       ),
       shrinkWrap: true,
       itemCount: list.length,

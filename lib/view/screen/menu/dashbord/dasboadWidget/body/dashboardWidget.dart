@@ -6,6 +6,7 @@ import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:classic/view/utils/widget/indexButton.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 
 //Index Button
 Widget indexButtons({
@@ -18,19 +19,24 @@ Widget indexButtons({
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        indexButton(
-          onTap: onTapDiamond,
-          text: AppString.diamond,
-          color: (isSelectDiamond) ? AppColor.primary : AppColor.white,
-          textColor: (isSelectDiamond) ? AppColor.white : AppColor.black,
-          borderColor: (isSelectDiamond) ? AppColor.primary : AppColor.gray3,
+        Expanded(
+          child: indexButton(
+            onTap: onTapDiamond,
+            text: AppString.diamond,
+            color: (isSelectDiamond) ? AppColor.primary : AppColor.white,
+            textColor: (isSelectDiamond) ? AppColor.white : AppColor.black,
+            borderColor: (isSelectDiamond) ? AppColor.primary : AppColor.gray3,
+          ),
         ),
-        indexButton(
-          onTap: onTapJewellwery,
-          text: AppString.jewellwery,
-          color: (isSelectJewellwery) ? AppColor.primary : AppColor.white,
-          textColor: (isSelectJewellwery) ? AppColor.white : AppColor.black,
-          borderColor: (isSelectJewellwery) ? AppColor.primary : AppColor.gray3,
+        SizedBox(width: Get.width * 0.04),
+        Expanded(
+          child: indexButton(
+            onTap: onTapJewellwery,
+            text: AppString.jewellwery,
+            color: (isSelectJewellwery) ? AppColor.primary : AppColor.white,
+            textColor: (isSelectJewellwery) ? AppColor.white : AppColor.black,
+            borderColor: (isSelectJewellwery) ? AppColor.primary : AppColor.gray3,
+          ),
         ),
       ],
     ),

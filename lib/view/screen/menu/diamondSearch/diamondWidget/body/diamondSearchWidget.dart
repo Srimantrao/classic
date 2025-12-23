@@ -20,19 +20,24 @@ Widget indexButtons({
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        indexButton(
-          onTap: onTapDiamond,
-          text: AppString.whiteDiamond,
-          color: (isWhiteDimaond) ? AppColor.primary : AppColor.white,
-          textColor: (isWhiteDimaond) ? AppColor.white : AppColor.black,
-          borderColor: (isWhiteDimaond) ? AppColor.primary : AppColor.gray3,
+        Expanded(
+          child: indexButton(
+            onTap: onTapDiamond,
+            text: AppString.whiteDiamond,
+            color: (isWhiteDimaond) ? AppColor.primary : AppColor.white,
+            textColor: (isWhiteDimaond) ? AppColor.white : AppColor.black,
+            borderColor: (isWhiteDimaond) ? AppColor.primary : AppColor.gray3,
+          ),
         ),
-        indexButton(
-          onTap: onTapJewellwery,
-          text: AppString.coloredDiamond,
-          color: (isColoredDimaond) ? AppColor.primary : AppColor.white,
-          textColor: (isColoredDimaond) ? AppColor.white : AppColor.black,
-          borderColor: (isColoredDimaond) ? AppColor.primary : AppColor.gray3,
+        SizedBox(width: Get.width * 0.04),
+        Expanded(
+          child: indexButton(
+            onTap: onTapJewellwery,
+            text: AppString.coloredDiamond,
+            color: (isColoredDimaond) ? AppColor.primary : AppColor.white,
+            textColor: (isColoredDimaond) ? AppColor.white : AppColor.black,
+            borderColor: (isColoredDimaond) ? AppColor.primary : AppColor.gray3,
+          ),
         ),
       ],
     ),

@@ -37,6 +37,7 @@ class Jewelry extends StatelessWidget {
               list: product.list_product,
               onTap: () => Get.to(() => Product()),
             ),
+            SizedBox(height: Get.height * 0.10),
           ],
         ),
       ),

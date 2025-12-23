@@ -27,7 +27,7 @@ Widget selectmetalType({
     child: Container(
       padding: EdgeInsets.symmetric(
         horizontal: Get.width * 0.05,
-        vertical: Get.height * 0.006,
+        vertical: Get.height * 0.012,
       ),
       decoration: BoxDecoration(
         color: (isselect == true) ? AppColor.primary : AppColor.white,
@@ -47,8 +47,7 @@ Widget selectmetalType({
 Widget stampMetal({required String text, required bool isSelected}) {
   return Container(
     padding: EdgeInsets.symmetric(
-      horizontal: Get.width * 0.02,
-      vertical: Get.height * 0.006,
+      horizontal: Get.width * 0.06,
     ),
     margin: EdgeInsets.symmetric(horizontal: Get.width * 0.01),
     decoration: BoxDecoration(
@@ -105,9 +104,9 @@ Widget stoneTypeSelected({required String text, required bool isSelected}) {
 
 Widget sortContainer(text, {required bool isSelected}) {
   return Container(
-    padding: EdgeInsetsGeometry.symmetric(
-      horizontal: Get.width * 0.03,
-      vertical: Get.height * 0.005,
+    padding: EdgeInsets.symmetric(
+      horizontal: Get.width * 0.05,
+      vertical: Get.height * 0.012,
     ),
     decoration: BoxDecoration(
       color: isSelected ? AppColor.primary : AppColor.white,

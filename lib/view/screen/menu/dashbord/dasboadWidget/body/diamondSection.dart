@@ -77,59 +77,66 @@ Widget selectIndexText({
 //Jewellwery List
 Widget jewelryListViwe({required List jewelryList}) {
   return Expanded(
-    child: ListView.builder(
-      itemCount: jewelryList.length,
-      itemBuilder: (BuildContext context, int index) {
-        return horizontalPadding(
-          child: Container(
-            margin: EdgeInsets.symmetric(vertical: Get.height * 0.009),
-            decoration: BoxDecoration(
-              border: Border.all(color: AppColor.gray5),
-              borderRadius: BorderRadius.circular(borderradius.buttonboder),
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(Get.width * 0.03),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(AppImage.pandant1, scale: 25),
-                  SizedBox(width: Get.width * 0.03),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+    child: Column(
+      children: [
+        Expanded(
+          child: ListView.builder(
+            itemCount: jewelryList.length,
+            itemBuilder: (BuildContext context, int index) {
+              return horizontalPadding(
+                child: Container(
+                  margin: EdgeInsets.symmetric(vertical: Get.height * 0.009),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColor.gray5),
+                    borderRadius: BorderRadius.circular(borderradius.buttonboder),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(Get.width * 0.03),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(
-                          jewelryList[index]['product'],
-                          style: TextStyle(
-                            fontSize: Textsize.small,
-                            fontWeight: FontWeight.w800,
+                        Image.asset(AppImage.pandant1, scale: 25),
+                        SizedBox(width: Get.width * 0.03),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                jewelryList[index]['product'],
+                                style: TextStyle(
+                                  fontSize: Textsize.small,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
+                              Text(
+                                jewelryList[index]['price'],
+                                style: TextStyle(
+                                  fontSize: Get.width * 0.05,
+                                  color: AppColor.primary,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              valueShow('SKU: ', jewelryList[index]['SKU']),
+                              valueShow('Metal: ', jewelryList[index]['Metal']),
+                              valueShow('Weight(Apx): ', jewelryList[index]['Weight(Apx)']),
+                              valueShow('Engriving: ', jewelryList[index]['Engriving']),
+                              valueShow('Shape: ', jewelryList[index]['Shape']),
+                              valueShow('Color: ', jewelryList[index]['Color']),
+                              valueShow('Clarity: ', jewelryList[index]['Clarity']),
+                              valueShow('Total Weight: ', jewelryList[index]['TotalWeight']),
+                            ],
                           ),
                         ),
-                        Text(
-                          jewelryList[index]['price'],
-                          style: TextStyle(
-                            fontSize: Get.width * 0.05,
-                            color: AppColor.primary,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        valueShow('SKU: ', jewelryList[index]['SKU']),
-                        valueShow('Metal: ', jewelryList[index]['Metal']),
-                        valueShow('Weight(Apx): ', jewelryList[index]['Weight(Apx)']),
-                        valueShow('Engriving: ', jewelryList[index]['Engriving']),
-                        valueShow('Shape: ', jewelryList[index]['Shape']),
-                        valueShow('Color: ', jewelryList[index]['Color']),
-                        valueShow('Clarity: ', jewelryList[index]['Clarity']),
-                        valueShow('Total Weight: ', jewelryList[index]['TotalWeight']),
                       ],
                     ),
                   ),
-                ],
-              ),
-            ),
+                ),
+              );
+            },
           ),
-        );
-      },
+        ),
+        SizedBox(height: Get.height* 0.09),
+      ],
     ),
   );
 }

@@ -27,9 +27,23 @@ PreferredSizeWidget comanAppBar({
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                GestureDetector(onTap: prefixOnTap, child: icon(prefix)),
+                GestureDetector(
+                  onTap: () {
+                    if (prefixOnTap != null) {
+                      prefixOnTap();
+                    }
+                  },
+                  child: icon(prefix),
+                ),
                 appbarheddingText(hedding),
-                GestureDetector(onTap: suffixOnTap, child: icon(suffix)),
+                GestureDetector(
+                  onTap: () {
+                    if (suffixOnTap != null) {
+                      suffixOnTap();
+                    }
+                  },
+                  child: icon(suffix),
+                ),
               ],
             ),
           ),
@@ -44,7 +58,7 @@ PreferredSizeWidget allOtherScreen(
   bool? cart = false,
   bool? filter = false,
 }) {
-  final double iconsize = 23;
+  final double iconsize = 30;
   return PreferredSize(
     preferredSize: Size.fromHeight(kToolbarHeight + 0.15),
     child: Container(
@@ -59,7 +73,7 @@ PreferredSizeWidget allOtherScreen(
                 (filter == true)
                     ? GestureDetector(
                         child: Icon(
-                          Icons.turn_left_outlined,
+                          Icons.chevron_left,
                           color: AppColor.secondary,
                           size: iconsize,
                         ),
@@ -67,7 +81,7 @@ PreferredSizeWidget allOtherScreen(
                     : GestureDetector(
                         onTap: () => Get.back(),
                         child: Icon(
-                          Icons.turn_left_outlined,
+                          Icons.chevron_left,
                           color: AppColor.primary,
                           size: iconsize,
                         ),
@@ -100,7 +114,7 @@ PreferredSizeWidget allOtherScreen(
                       )
                     : GestureDetector(
                         child: Icon(
-                          Icons.turn_left_outlined,
+                          Icons.chevron_left,
                           color: AppColor.secondary,
                           size: iconsize,
                         ),

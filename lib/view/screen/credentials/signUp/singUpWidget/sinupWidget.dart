@@ -14,8 +14,8 @@ Widget singUpContainer({
   required TextEditingController fristnameController,
   required TextEditingController lastnameController,
   required TextEditingController emailIdController,
-  required TextEditingController passwordController,
-  required TextEditingController confirmPasswordController,
+  TextEditingController? passwordController,
+  TextEditingController? confirmPasswordController,
   required TextEditingController mobileController,
   required String valueIAM,
   required List<DropdownMenuItem<String>> listIAm,
@@ -97,8 +97,8 @@ Widget inputtype({
   required TextEditingController fristnameController,
   required TextEditingController lastnameController,
   required TextEditingController emailIdController,
-  required TextEditingController passwordController,
-  required TextEditingController confirmPasswordController,
+  TextEditingController? passwordController,
+  TextEditingController? confirmPasswordController,
   required TextEditingController mobileController,
   required String valueIAM,
   required List<DropdownMenuItem<String>> listIAm,
@@ -149,22 +149,22 @@ Widget inputtype({
         color: emailIdColor,
         onChanged: onChanged_emailId,
       ),
-      inputTyaping(
+      (passwordController != null && confirmPasswordController != null) ? inputTyaping(
         text: AppString.password,
         controller: passwordController,
         hinttext: AppString.password_hint,
         obscureText: true,
         color: passwordColor,
         onChanged: onChanged_password,
-      ),
-      inputTyaping(
+      ) : SizedBox(),
+      (passwordController != null && confirmPasswordController != null) ? inputTyaping(
         text: AppString.confirmPassword,
         controller: confirmPasswordController,
         hinttext: AppString.confirmpassword_hint,
         obscureText: true,
         color: confirmPasswordColor,
         onChanged: onChanged_confirmPassword,
-      ),
+      ) : SizedBox(),
       Row(
         children: [
           Flexible(

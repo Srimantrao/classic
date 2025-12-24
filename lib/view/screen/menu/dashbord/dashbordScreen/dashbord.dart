@@ -3,10 +3,11 @@
 import 'package:classic/controller/user_Interface/menu/dashboard/dashboard_Controller.dart';
 import 'package:classic/modal/menu/dashbord/listViwe.dart';
 import 'package:classic/view/screen/hedder/cart/cartScreen/cart.dart';
-import 'package:classic/view/screen/hedder/drawer/drawerScreen/drawer.dart';
+import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/drawer.dart';
 import 'package:classic/view/screen/menu/dashbord/dasboadWidget/body/dashboardWidget.dart';
 import 'package:classic/view/screen/menu/dashbord/dasboadWidget/body/diamondSection.dart';
 import 'package:classic/view/screen/menu/dashbord/dasboadWidget/header/appbar.dart';
+import 'package:classic/view/screen/menu/dashbord/dashbordExtraWidget/dashbordExtraWidget.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_icon.dart';
@@ -72,10 +73,27 @@ class Dashbord extends StatelessWidget {
 
               // Sub-Tab Content (Recent / My Cart)
               if (dashboard_UI.selectedTab.value == 0)
-                valueList(valueList: value.valueList)
+                dashbordValueList(
+                  list: valueList(
+                    valueList: value.valueList,
+                    video: true,
+                    camara: true,
+                    isCart: true,
+                    isWishlist: true,
+                  ),
+                )
               else if (dashboard_UI.selectedTab.value == 1)
-                valueList(valueList: value.mycartList),
+                dashbordValueList(
+                    list: valueList(
+                      valueList: value.mycartList,
+                      video: true,
+                      camara: true,
+                      isCart: true,
+                      isWishlist: true,
+                    ),
+                ),
             ]
+
             // Jewelry Section
             else if (dashboard_UI.selectedIndex.value == 1) ...[
               Column(
@@ -97,11 +115,20 @@ class Dashbord extends StatelessWidget {
                   ),
                 ],
               ),
+
               // Sub-Tab Content (Recent / My Cart)
               if (dashboard_UI.selectedTab.value == 0)
-                jewelryListViwe(jewelryList: value.jewellweryListProduct)
+                dashbordValueList(
+                  list: jewelryListViwe(
+                    jewelryList: value.jewellweryListProduct,
+                  ),
+                )
               else if (dashboard_UI.selectedTab.value == 1)
-                jewelryListViwe(jewelryList: value.jewellweryListMyCartProduct),
+                dashbordValueList(
+                  list: jewelryListViwe(
+                    jewelryList: value.jewellweryListMyCartProduct,
+                  ),
+                ),
             ],
           ],
         );

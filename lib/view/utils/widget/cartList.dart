@@ -11,105 +11,116 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 
 //Recent Viwe List Start
-Widget valueList({required List valueList}) {
+Widget valueList({
+  required List valueList,
+  bool isWishlist = false,
+  bool isCart = false,
+  bool camara = false,
+  bool video = false,
+}) {
   return Expanded(
-    child: Column(
-      children: [
-        Expanded(
-          child: ListView.builder(
-            itemCount: valueList.length,
-            itemBuilder: (BuildContext context, int index) {
-              return horizontalPadding(
-                child: GestureDetector(
-                  onTap: () {
-                    Get.to(
-                      () => Diamonddetail(
-                        shape: valueList[index]['shape'],
-                        careat: valueList[index]['careat'],
-                        lab: valueList[index]['lab'],
-                        colorcode: valueList[index]['colorcode'],
-                        clarity: valueList[index]['clarity'],
-                        cartifactNo: valueList[index]['cartifactNo'],
-                      ),
-                    );
-                  },
-                  child: Container(
-                    margin: EdgeInsetsGeometry.symmetric(
-                      vertical: Get.height * 0.009,
+    child: ListView.builder(
+      itemCount: valueList.length,
+      itemBuilder: (BuildContext context, int index) {
+        return horizontalPadding(
+          child: GestureDetector(
+            onTap: () {
+              Get.to(
+                () => Diamonddetail(
+                  shape: valueList[index]['shape'],
+                  careat: valueList[index]['careat'],
+                  lab: valueList[index]['lab'],
+                  colorcode: valueList[index]['colorcode'],
+                  clarity: valueList[index]['clarity'],
+                  cartifactNo: valueList[index]['cartifactNo'],
+                ),
+              );
+            },
+            child: Container(
+              margin: EdgeInsetsGeometry.symmetric(
+                vertical: Get.height * 0.009,
+              ),
+              decoration: BoxDecoration(
+                boxShadow: kElevationToShadow[2],
+                color: AppColor.white,
+                borderRadius: BorderRadius.circular(borderradius.boder),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(Get.width * 0.03),
+                child: Column(
+                  children: [
+                    listHeddind(
+                      shape: valueList[index]['shape'],
+                      careat: valueList[index]['careat'],
+                      lab: valueList[index]['lab'],
+                      colorcode: valueList[index]['colorcode'],
+                      clarity: valueList[index]['clarity'],
+                      cartifactNo: valueList[index]['cartifactNo'],
                     ),
-                    decoration: BoxDecoration(
-                      boxShadow: kElevationToShadow[2],
-                      color: AppColor.white,
-                      borderRadius: BorderRadius.circular(borderradius.boder),
+                    Divider(color: AppColor.gray3),
+                    Row(
+                      children: [
+                        fristrow(
+                          cps: valueList[index]['cps'],
+                          meas: valueList[index]['meas'],
+                          refNo: valueList[index]['refNo'],
+                        ),
+                        secondrow(
+                          T: valueList[index]['T'],
+                          D: valueList[index]['D'],
+                          loc: valueList[index]['loc'],
+                        ),
+                        SizedBox(width: Get.width * 0.01),
+                        SizedBox(
+                          height: Get.height * 0.06,
+                          child: VerticalDivider(
+                            color: AppColor.gray3,
+                            thickness: Get.width * 0.002,
+                            width: Get.width * 0.01,
+                          ),
+                        ),
+                        SizedBox(width: Get.width * 0.01),
+                        thardrow(
+                          ct: valueList[index]['ct'],
+                          total: valueList[index]['total'],
+                        ),
+                      ],
                     ),
-                    child: Padding(
-                      padding: EdgeInsets.all(Get.width * 0.03),
-                      child: Column(
-                        children: [
-                          listHeddind(
-                            shape: valueList[index]['shape'],
-                            careat: valueList[index]['careat'],
-                            lab: valueList[index]['lab'],
-                            colorcode: valueList[index]['colorcode'],
-                            clarity: valueList[index]['clarity'],
-                            cartifactNo: valueList[index]['cartifactNo'],
-                          ),
-                          Divider(color: AppColor.gray3),
-                          Row(
-                            children: [
-                              fristrow(
-                                cps: valueList[index]['cps'],
-                                meas: valueList[index]['meas'],
-                                refNo: valueList[index]['refNo'],
-                              ),
-                              secondrow(
-                                T: valueList[index]['T'],
-                                D: valueList[index]['D'],
-                                loc: valueList[index]['loc'],
-                              ),
-                              SizedBox(width: Get.width * 0.01),
-                              SizedBox(
-                                height: Get.height * 0.06,
-                                child: VerticalDivider(
-                                  color: AppColor.gray3,
-                                  thickness: Get.width * 0.002,
-                                  width: Get.width * 0.01,
-                                ),
-                              ),
-                              SizedBox(width: Get.width * 0.01),
-                              thardrow(
-                                ct: valueList[index]['ct'],
-                                total: valueList[index]['total'],
-                              ),
-                            ],
-                          ),
-                          Divider(color: AppColor.gray3),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              GestureDetector(child: listImage(AppIcon.wishlist)),
-                              GestureDetector(child: listImage(AppIcon.newcart)),
-                              GestureDetector(
+                    Divider(color: AppColor.gray3),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ?
+                        (isWishlist == true)
+                            ? GestureDetector(child: listImage(AppIcon.wishlist))
+                            : null,
+                        ?
+                        (isCart == true)
+                            ? GestureDetector(child: listImage(AppIcon.newcart))
+                            : null,
+                        ?
+                        (camara == true)
+                            ? GestureDetector(
                                 child: Image.asset(
                                   AppIcon.camera,
                                   scale: 28,
                                   color: AppColor.primary,
                                 ),
-                              ),
-                              GestureDetector(child: listImage(AppIcon.video)),
-                            ],
-                          ),
-                        ],
-                      ),
+                              )
+                            : null,
+                        ?
+                        (video == true)
+                            ? GestureDetector(child: listImage(AppIcon.video))
+                            : null,
+                      ],
                     ),
-                  ),
+                  ],
                 ),
-              );
-            },
+              ),
+            ),
           ),
-        ),
-        SizedBox(height: Get.height* 0.09),
-      ],
+        );
+      },
     ),
   );
 }

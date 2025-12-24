@@ -7,6 +7,12 @@ class AppIcon{
   static const findstore1 = 'assets/icons/findstore1.png';
   static const logout = 'assets/icons/logout.png';
   static const weddingRing = 'assets/icons/WeddingRing.png';
+      //My Accont Screen Icon
+        static const edit = 'assets/icons/edit.png';
+        static const documant = 'assets/icons/documant.png';
+        static const passwordKey = 'assets/icons/passwordKey.png';
+        static const helpCenter = 'assets/icons/helpCenter.png';
+        static const insurance = 'assets/icons/insurance.png';
 
   //Home Screen Icon
   static const search = 'assets/icons/search.png';

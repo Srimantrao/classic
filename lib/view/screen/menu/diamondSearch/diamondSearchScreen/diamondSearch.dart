@@ -2,7 +2,7 @@
 
 import 'package:classic/controller/user_Interface/menu/diamondSearch/diamondSearch_Controller.dart';
 import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';
-import 'package:classic/view/screen/hedder/drawer/drawerScreen/drawer.dart';
+import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/drawer.dart';
 import 'package:classic/view/screen/menu/diamondSearch/diamondSearchExtraWidget/diamondExtraWidget.dart';
 import 'package:classic/view/screen/menu/diamondSearch/diamondWidget/header/appbar.dart';
 import 'package:classic/view/utils/app_String.dart';

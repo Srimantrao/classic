@@ -2,8 +2,9 @@
 
 import 'package:classic/modal/menu/jewelry/lisofProduct.dart';
 import 'package:classic/view/screen/hedder/cart/cartScreen/cart.dart';
-import 'package:classic/view/screen/hedder/drawer/drawerScreen/drawer.dart';
+import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/drawer.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/product.dart';
+import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/jewelryBody.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/header/appbar.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_icon.dart';
@@ -11,7 +12,6 @@ import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../jewelryWidget/body/jewelryBody.dart';
 
 class Jewelry extends StatelessWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();

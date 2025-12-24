@@ -33,13 +33,24 @@ class AppString {
   static const show = 'SHOW';
   static const findstore = 'FIND STORE';
   static const logout = 'LOGOUT';
+      //My Account
+      static const editProfile = 'Edit Profile';
+      static const orderHistory = 'Order History';
+      static const wishlist = 'Wishlist';
+      static const holdDiamond = 'Hold Diamond';
+      static const changePassword = 'Change Password';
+      static const helpCenter = 'Help Center';
+      static const termsAndConditions = 'Terms & Conditions';
+      static const logout1 = 'Logout';
+            //Order History
+
+
 
   //cart Screen
   static const total = 'Total';
 
   //login Screen
-  static const loginsubhedding =
-      'IF You Have A Classic Grown Diamonds Customer Account, Please Sign In';
+  static const loginsubhedding = 'IF You Have A Classic Grown Diamonds Customer Account, Please Sign In';
   static const username_hint = 'Enter username';
   static const password_hint = 'Enter password';
   static const forgotpassword = 'Forgot Password?';
@@ -82,30 +93,22 @@ class AppString {
   static const address = 'Address';
   static const terms = 'Terms And Documentation';
   static const readAndAgree = 'I Have Read And Agree To The Terms & Conditions';
-  static const stockupdate =
-      'News Letter / Promotional Letter / Stock Update Required.';
+  static const stockupdate = 'News Letter / Promotional Letter / Stock Update Required.';
   static const downloadKYCformant = 'Download KYC Format';
   static const robot = "I'M Not A Robot";
   static const haveanAccount = 'Have An Account?';
 
   //home Screen
-  static const homeadd =
-      '5% off On Registration & 1 Carat IGI Certified Starting At ₹450 /Ct';
+  static const homeadd = '5% off On Registration & 1 Carat IGI Certified Starting At ₹450 /Ct';
   static const ouerCollection = 'Our Collection';
-  static const chekout =
-      'Chek Out The Elegant And Finest Of Jewelry Designs That We Offer';
-  static const aPeekIntowhatClassic =
-      'A Peek Into What Classic Grown Jewelry Is About';
-  static const classicGrownJewelry =
-      'Classic Grown Jewelry, One The Finest Online Jewelry Retailers To Add Perfection To Your Style';
+  static const chekout = 'Chek Out The Elegant And Finest Of Jewelry Designs That We Offer';
+  static const aPeekIntowhatClassic = 'A Peek Into What Classic Grown Jewelry Is About';
+  static const classicGrownJewelry = 'Classic Grown Jewelry, One The Finest Online Jewelry Retailers To Add Perfection To Your Style';
   static const joinOur = 'Join Our Newsletter And Stay In Toch';
-  static const become =
-      'Become A Part Of The Classic Grwon Jewelry Network And Get Our Latest Updates Directy In Your Inbox! Subscribe For Ournewsletter Today!';
+  static const become = 'Become A Part Of The Classic Grwon Jewelry Network And Get Our Latest Updates Directy In Your Inbox! Subscribe For Ournewsletter Today!';
   static const companyProfile = 'Company Profile';
-  static const shasvatprofile =
-      'SHASVAT DIAMOND INC.a.b.a CLASSIC GROWN DIAMONDS';
-  static const companyaddrtes =
-      'Address: 22W 48th Street Suite #300 New York,NY 100036 USA';
+  static const shasvatprofile = 'SHASVAT DIAMOND INC.a.b.a CLASSIC GROWN DIAMONDS';
+  static const companyaddrtes = 'Address: 22W 48th Street Suite #300 New York,NY 100036 USA';
   static const comapntEmailId = 'Email Id: Sales@ClassicGrowndiamonds.com';
   static const comapntPhone = 'Phone: +1_212_221_3667';
   static const ourServices = 'Our Services';
@@ -127,23 +130,18 @@ class AppString {
   static const necklace = 'Necklace';
   static const bracelet = 'Bracelet';
   static const earrings = 'Earrings';
-  static const ringsThatPerfectly =
-      'Rings That Perfectly reflect \n your style and taste';
-  static const chooseFromOurSignature =
-      'Choose From Our Signature Class Grown Diamonds Collection \n Or Enquire with Our Diamonds Concierge To Have Your Own \n Personalized And Unique Piece Of Diamond And Jewelry Curated For You you....';
+  static const ringsThatPerfectly = 'Rings That Perfectly reflect \n your style and taste';
+  static const chooseFromOurSignature = 'Choose From Our Signature Class Grown Diamonds Collection \n Or Enquire with Our Diamonds Concierge To Have Your Own \n Personalized And Unique Piece Of Diamond And Jewelry Curated For You you....';
   static const scheduleaCAll = 'Schedule A Call';
   static const customizeYourOwnJewelry = 'Customize Your Own Jewelry';
-  static const doYouHaveAnyIdea =
-      'Do You Have Any Idea That You Wish To See In Your Jewelry?';
-  static const letUsKnowWhat =
-      'Let Us Know What You Are Looking For And We Shall Desin \n It For Your With Utmost Perfection. Celebrate With The Finest \n Jewelry, You Deserve It....';
+  static const doYouHaveAnyIdea = 'Do You Have Any Idea That You Wish To See In Your Jewelry?';
+  static const letUsKnowWhat = 'Let Us Know What You Are Looking For And We Shall Desin \n It For Your With Utmost Perfection. Celebrate With The Finest \n Jewelry, You Deserve It....';
   static const customProduct = 'Custom Product';
   static const followUsOn = 'Follow Us On: ';
 
   //Jewellery Scrren
   static const product = 'Product';
   static const search = 'Search';
-
       //Filter
       static const filters = 'Filter';
       static const whithegold = 'White Gold';
@@ -156,7 +154,6 @@ class AppString {
       static const stoneType = 'Stone Type';
       static const storeBy = 'Store By';
       static const stone = 'Stone Type';
-
       //Product Detail
       static const productDetail = 'Product Detail';
       static const remark = 'Remark';
@@ -178,7 +175,6 @@ class AppString {
   static const Hold = 'Hold';
   static const recentViwe = 'Recent View';
   static const myCart = 'My Cart';
-
       //Dimaond Ditails
         static const diamondDetail = 'Diamond Detail';
         static const location = 'Location';
@@ -239,8 +235,7 @@ class AppString {
   static const metalType = 'Metal Type';
   static const metalStamp = 'Metal Stamp';
   static const uploadYourImage = 'Upload Your Image';
-  static const youmay =
-      'You May Upload Image, Video And URL Of The Product That You Want Us To Design,For You.';
+  static const youmay = 'You May Upload Image, Video And URL Of The Product That You Want Us To Design,For You.';
   static const image = ' Image';
   static const video = ' Video';
   static const url = ' URL';

@@ -1,7 +1,7 @@
 // ignore_for_file: deprecated_member_use, file_names, unnecessary_import
 
 import 'package:classic/controller/user_Interface/widget/bottaomBar/bottombar_Controller.dart';
-import 'package:classic/view/screen/hedder/drawer/drawerScreen/drawer.dart';
+import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/drawer.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/widget/bottom/bottomWidget/bottomWidget.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';

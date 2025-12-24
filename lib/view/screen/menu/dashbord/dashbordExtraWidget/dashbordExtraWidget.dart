@@ -117,3 +117,15 @@ Widget selectIndexViwe({
     ),
   );
 }
+
+Widget dashbordValueList({required Widget list}) {
+  return Expanded(
+    child: Column(
+      children: [
+        list,
+        SizedBox(height: Get.height * 0.09),
+      ],
+    ),
+  );
+}
+

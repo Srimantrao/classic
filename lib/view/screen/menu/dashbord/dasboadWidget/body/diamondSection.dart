@@ -163,7 +163,7 @@ Widget subValue(text) {
   return Row(
     children: [
       Text(
-        text,
+        text.toString(),
         style: TextStyle(
           fontSize: Textsize.small,
           fontWeight: FontWeight.w500,

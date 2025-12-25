@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:classic/view/screen/hedder/drawer/myAccount/editProfile/editProfileScreen/editProfile.dart';
+import 'package:classic/view/screen/hedder/drawer/myAccount/holdDiamods/holdDiamondsScreen/holdDimaond.dart';
 import 'package:classic/view/screen/hedder/drawer/myAccount/myAccount/myAccountWidget/body/myAccontWidget.dart';
 import 'package:classic/view/screen/hedder/drawer/myAccount/orderHistory/orderHistoryScreen/orderHistory.dart';
 import 'package:classic/view/screen/hedder/drawer/myAccount/wishlist/wishlistScreen/wishlistScreen.dart';
@@ -19,7 +20,6 @@ class Myaccount extends StatelessWidget {
       appBar: allOtherScreen(AppString.myAccount),
       child: Column(
         children: [
-
           //Edit Profile
           editNameEmail(
             name: 'Khushraaj Soni',
@@ -31,6 +31,7 @@ class Myaccount extends StatelessWidget {
           showActivity(
             orderhistory: () => Get.to(() => Orderhistory()),
             wishlist: () => Get.to(() => Wishlist()),
+            holdDiamond: () => Get.to(() => Holddimaond()),
           ),
         ],
       ),

@@ -39,8 +39,9 @@ dependencies:
   dotted_border: ^2.0.0
   webview_flutter:
   floating_bottom_navigation_bar:
-  video_player: ^2.10.1
-  image_picker: ^1.1.1
+  video_player:
+  image_picker:
+  floating_action_bubble:
 
 
 dev_dependencies:

@@ -488,7 +488,7 @@ Widget listLike({required List product}) {
       ),
       SizedBox(height: Get.height * 0.009),
       SizedBox(
-        height: Get.height * 0.2,
+        height: Get.height * 0.3,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: product.length,

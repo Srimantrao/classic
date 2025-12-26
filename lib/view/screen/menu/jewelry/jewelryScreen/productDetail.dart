@@ -27,7 +27,13 @@ class ProductDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Fullscreen(
       appBar: allOtherScreen(AppString.productDetail, cart: true),
-      bottomNavigationBar: buttonNavigation(child: button('Add To Cart')),
+      bottomNavigationBar: buttonNavigation(
+        child: button(
+          AppString.addtoCart,
+          isLowercase: true,
+          bottomBottonFontSize: true,
+        ),
+      ),
       child: SingleChildScrollView(
         child: Obx(() {
           return Column(
@@ -87,7 +93,7 @@ class ProductDetail extends StatelessWidget {
               ),
 
               //Like
-              listLike(product: products.product)
+              listLike(product: products.product),
             ],
           );
         }),

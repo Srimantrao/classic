@@ -14,6 +14,8 @@ Widget button(
   Color? backgroundColor,
   Color? textColor,
   bool isLowercase = false,
+  bool bottomBottonFontSize = false,
+  double? fontSize,
 }) {
   return GestureDetector(
     onTap: onTap,
@@ -29,7 +31,9 @@ Widget button(
         child: Text(
           isLowercase ? capitalizeFirst(text) : text.toUpperCase(),
           style: TextStyle(
-            fontSize: Get.width * 0.035,
+            fontSize: (bottomBottonFontSize)
+                ? Get.width * 0.038
+                : fontSize ?? Get.width * 0.028,
             color: textColor ?? AppColor.white,
             fontWeight: FontWeight.w600,
           ),

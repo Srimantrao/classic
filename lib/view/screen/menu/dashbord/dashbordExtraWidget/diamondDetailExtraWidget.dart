@@ -103,7 +103,7 @@ Widget paramitaer(label, values) {
     children: [
       lableValue(label),
       SizedBox(width: Get.width * 0.02),
-      SizedBox(width: Get.width * 0.18, child: value(values)),
+      SizedBox(width: Get.width * 0.15, child: value(values)),
     ],
   );
 }

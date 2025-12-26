@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 
-import 'package:classic/controller/user_Interface/hedder/editProfile/editProfile_Controller.dart';
+import 'package:classic/controller/user_Interface/hedder/myAccount/editProfile/editProfile_Controller.dart';
 import 'package:classic/view/screen/credentials/businessInformation/businessInformationWidget/businessInformationWidget.dart';
 import 'package:classic/view/screen/credentials/signUp/singUpWidget/sinupWidget.dart';
 import 'package:classic/view/utils/app_Color.dart';

@@ -32,6 +32,7 @@ Widget Inputfield({
   InputBorder? focusedBorder,
   InputBorder? enabledBorder,
   InputBorder? disabledBorder,
+  bool adjustHeight = false,
 }) {
   return StatefulBuilder(
     builder: (BuildContext context, void Function(void Function()) setState) {
@@ -120,7 +121,9 @@ Widget Inputfield({
                           ),
                         ),
                       ),
-                      SizedBox(height: Get.height * 0.02),
+                      (adjustHeight == true)
+                          ? SizedBox(height: Get.height * 0.01)
+                          : SizedBox(height: Get.height * 0.02),
                     ],
                   );
                 },

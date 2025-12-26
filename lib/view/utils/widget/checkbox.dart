@@ -4,7 +4,7 @@ import 'package:classic/view/utils/app_Color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-Widget checkBox(value, onChanged) {
+Widget checkBox(value, onChanged, {Color? boderColor}) {
   return Transform.scale(
     scale: 1.2,
     child: Checkbox(
@@ -15,7 +15,7 @@ Widget checkBox(value, onChanged) {
       focusColor: Colors.transparent,
       checkColor: AppColor.white,
       activeColor: AppColor.primary,
-      side: BorderSide(width: 1, color: AppColor.gray),
+      side: BorderSide(width: 1, color: boderColor ?? AppColor.gray),
       fillColor: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.selected)) {
           return AppColor.primary;

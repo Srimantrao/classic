@@ -1,7 +1,6 @@
 // ignore_for_file: file_names, invalid_use_of_protected_member
 
-import 'package:classic/controller/user_Interface/hedder/holdDiamonds/holdDiamodUI_Controller.dart';
-import 'package:classic/modal/headder/holdDiamonds/holdDiamonds.dart';
+import 'package:classic/modal/headder/myAccount/holdDiamonds.dart';
 import 'package:classic/view/screen/hedder/drawer/myAccount/holdDiamods/holdDiamondWidget/body/holdDiamondWidget.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
@@ -9,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+
+import '../../../../../../../controller/user_Interface/hedder/myAccount/holdDiamonds/holdDiamodUI_Controller.dart';
 
 class Holddimaond extends StatelessWidget {
   final value = HolddiamondsListViwe();

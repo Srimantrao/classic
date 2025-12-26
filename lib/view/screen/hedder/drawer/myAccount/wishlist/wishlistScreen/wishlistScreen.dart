@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
-import 'package:classic/controller/user_Interface/hedder/wishlist/wishlist_Controller.dart';
-import 'package:classic/modal/headder/wishlist/wishlist.dart';
+import 'package:classic/controller/user_Interface/hedder/myAccount/wishlist/wishlist_Controller.dart';
+import 'package:classic/modal/headder/myAccount/wishlist.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/widget/cartList.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';

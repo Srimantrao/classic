@@ -1,4 +1,3 @@
-
 // ignore_for_file: file_names
 
 import 'package:classic/view/utils/app_Color.dart';
@@ -12,7 +11,7 @@ Widget signupButton({
   void Function()? onTapNext,
   required String text,
   String? text2,
-}){
+}) {
   return Column(
     children: [
       SizedBox(height: Get.height * 0.02),
@@ -26,15 +25,13 @@ Widget signupButton({
               backgroundColor: AppColor.white,
               borderColor: AppColor.primary,
               textColor: AppColor.primary,
+              bottomBottonFontSize: true,
             ),
           ),
           Spacer(),
           Flexible(
             flex: 6,
-            child: button(
-              onTap: onTapNext,
-              text,
-            ),
+            child: button(onTap: onTapNext, text, bottomBottonFontSize: true),
           ),
         ],
       ),

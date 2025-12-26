@@ -63,7 +63,7 @@ Widget iconDrawer({
                   ),
                   SizedBox(width: Get.width * 0.05),
                   Text(
-                    text,
+                    text.toUpperCase(),
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: Textsize.normal,

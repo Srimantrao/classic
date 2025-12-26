@@ -12,6 +12,7 @@ class AppString {
   static const back = 'Back';
   static const next = 'Next';
   static const reset = 'Reset';
+  static const cancel = 'Cancel';
   static const edit = 'Edit';
   static const remove = 'Remove';
   static const submit = 'Submit';
@@ -31,19 +32,36 @@ class AppString {
   static const Diamond = 'DIAMONDS';
   static const shopebymetal = 'SHOPE BY METAL';
   static const show = 'SHOW';
-  static const findstore = 'FIND STORE';
+  static const findstore = 'Find Store';
   static const logout = 'LOGOUT';
-      //My Account
-      static const editProfile = 'Edit Profile';
-      static const orderHistory = 'Order History';
-      static const wishlist = 'Wishlist';
-      static const holdDiamond = 'Hold Diamond';
-      static const changePassword = 'Change Password';
-      static const helpCenter = 'Help Center';
-      static const termsAndConditions = 'Terms & Conditions';
-      static const logout1 = 'Logout';
-            //Order History
-
+    //FindStore Screen
+    static const check = 'Check';
+    static const findSotre = 'Find Store';
+    static const enterCityPinCode = 'Enter city, pin code';
+    static const getDirections = 'Get Directions';
+        //My Account Screen
+        static const editProfile = 'Edit Profile';
+        static const orderHistory = 'Order History';
+        static const wishlist = 'Wishlist';
+        static const holdDiamond = 'Hold Diamond';
+        static const changePassword = 'Change Password';
+        static const helpCenter = 'Help Center';
+        static const termsAndConditions = 'Terms & Conditions';
+        static const logout1 = 'Logout';
+        static const oldpassword = 'Old Password';
+        static const newpassword = 'New Password';
+        static const confirmpassword = 'Confirm Password';
+        //HoldDimaond Screen
+        static const holdDimaond = 'Hold Dimaond';
+        static const removetohold = 'Remove To Hold';
+        static const addnewAddress = 'Add new Address';
+        //Adress Screen
+        static const addAddress = 'Add Address';
+        static const addNewAddress = 'Add New Address';
+        static const editAddress = 'Edit Address';
+        static const removeAddress = 'Remove Address';
+        static const changeBillingAddress = 'Change Billing Address';
+        static const setasDefault = 'Set as Default Address';
 
 
   //cart Screen

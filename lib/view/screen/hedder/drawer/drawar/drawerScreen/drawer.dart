@@ -1,5 +1,6 @@
 
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerWidget/body/drawarBody.dart';
+import 'package:classic/view/screen/hedder/drawer/findStore/findStoreScreen/findStore.dart';
 import 'package:classic/view/screen/hedder/drawer/myAccount/myAccount/myAccountScreen/myAccount.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
@@ -58,7 +59,7 @@ class Drawers extends StatelessWidget {
             iconDrawer(
               text: AppString.findstore,
               icon: AppIcon.findstore1,
-              dot: true,
+              onTap: () => Get.to(() => Findstore()),
             ),
             iconDrawer(
               text: AppString.logout,

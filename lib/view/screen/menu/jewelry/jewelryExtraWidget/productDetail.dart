@@ -177,40 +177,40 @@ Widget like({
   required String name,
   required String price,
 }) {
-  return Padding(
-    padding: EdgeInsets.only(left: Get.width * 0.04, right: Get.width * 0.01),
-    child: SizedBox(
-      width: Get.width * 0.25,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            height: Get.width * 0.25,
-            width: Get.width * 0.25,
-            decoration: BoxDecoration(
-              border: Border.all(color: AppColor.gray5),
-              borderRadius: BorderRadius.circular(borderradius.buttonboder),
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: AssetImage(image),
-              ),
-            ),
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Container(
+        padding: EdgeInsets.all(Get.width * 0.18),
+        margin: EdgeInsets.only(left: Get.width * 0.03,right: Get.width * 0.02),
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColor.gray5),
+          borderRadius: BorderRadius.circular(borderradius.buttonboder),
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: AssetImage(image),
           ),
-          SizedBox(height: Get.height * 0.005),
-          Text(
-            name,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-          ),
-          Text(
-            price,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-          ),
-        ],
+        ),
       ),
-    ),
+      SizedBox(height: Get.height * 0.005),
+      SizedBox(
+        width: Get.width * 0.35,
+        child: Text(
+          name,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
+        ),
+      ),
+      SizedBox(
+        width: Get.width * 0.35,
+        child: Text(
+          price,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
+        ),
+      ),
+    ],
   );
 }

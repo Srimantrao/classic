@@ -1,18 +1,19 @@
 // ignore_for_file: file_names, avoid_unnecessary_containers, avoid_print
 
+import 'package:classic/controller/user_Interface/hedder/myAccount/holdDiamonds/holdDiamodUI_Controller.dart';
 import 'package:classic/view/screen/hedder/drawer/myAccount/holdDiamods/holdDiamodsExtraWidget/holdDiamodsExtraWidget.dart';
 import 'package:classic/view/screen/menu/dashbord/dasboadWidget/body/diamondSection.dart';
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_Image.dart';
+import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
 import 'package:classic/view/utils/widget/checkbox.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../../../../../controller/user_Interface/hedder/holdDiamonds/holdDiamodUI_Controller.dart';
-import '../../../../../../../../modal/headder/holdDiamonds/holdDiamonds.dart';
+import '../../../../../../../../modal/headder/myAccount/holdDiamonds.dart';
 
 Widget chekhValueeadder({
   required HolddiamondsListViwe value,
@@ -74,6 +75,7 @@ Widget holdDiamondListViwe({
       itemCount: jewelryList.length,
       itemBuilder: (BuildContext context, int index) {
         final bool isSelected = selectedIndices.contains(index);
+        final jewelry = jewelryList[index];
         return horizontalPadding(
           child: Container(
             margin: EdgeInsets.symmetric(vertical: Get.height * 0.009),
@@ -107,31 +109,25 @@ Widget holdDiamondListViwe({
                             }),
                           ],
                         ),
-                        valueShow('Shape: ', jewelryList[index]['shape']),
+                        valueShow('Shape: ', jewelry['shape']),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            valueShow('color: ', jewelryList[index]['color']),
-                            valueShow(
-                              'clarity: ',
-                              jewelryList[index]['clarity'],
-                            ),
-                            valueShow('Carat: ', jewelryList[index]['Carat']),
-                            valueShow('cut: ', jewelryList[index]['cut']),
-                            valueShow('Lab: ', jewelryList[index]['Lab']),
+                            valueShow('color: ', jewelry['color']),
+                            valueShow('clarity: ', jewelry['clarity']),
+                            valueShow('Carat: ', jewelry['Carat']),
+                            valueShow('cut: ', jewelry['cut']),
                           ],
                         ),
+                        valueShow('Lab: ', jewelry['Lab']),
                         Row(
                           children: [
-                            valueShow(
-                              'Rap Price: ',
-                              jewelryList[index]['Rap Price'],
-                            ),
+                            valueShow('Rap Price: ', jewelry['Rap Price']),
                             SizedBox(width: Get.width * 0.02),
-                            valueShow('Desc: ', jewelryList[index]['Desc']),
+                            valueShow('Desc: ', jewelry['Desc']),
                           ],
                         ),
-                        valueShow('Amount: ', jewelryList[index]['price']),
+                        valueShow('Amount: ', jewelry['price']),
                       ],
                     ),
                   ),
@@ -156,45 +152,65 @@ Widget floatingActionButton() {
         iconColor: AppColor.white,
         backGroundColor: AppColor.primary,
         items: [
+
+          //Download
           Bubble(
-            title: "Download",
+            title: AppString.diamond,
             iconColor: Colors.white,
             bubbleColor: AppColor.primary,
             icon: Icons.add,
-            titleStyle: TextStyle(fontSize: Get.height * 0.02, color: Colors.white),
+            titleStyle: TextStyle(
+              fontSize: Get.width * 0.028,
+              color: Colors.white,
+            ),
             onPress: () {
               print("Add pressed");
               c.toggle();
             },
           ),
+
+          //Add to Cart
           Bubble(
-            title: "Add to Cart",
+            title: AppString.addtoCart,
             iconColor: Colors.white,
             bubbleColor: AppColor.primary,
-            icon: Icons.edit,
-            titleStyle: const TextStyle(fontSize: 16, color: Colors.white),
+            icon: Icons.car_crash,
+            titleStyle: TextStyle(
+              fontSize: Get.width * 0.028,
+              color: Colors.white,
+            ),
             onPress: () {
               print("Edit pressed");
               c.toggle();
             },
           ),
+
+          //Remove to Hold
           Bubble(
-            title: "Remove to Hold",
+            title: AppString.removetohold,
             iconColor: Colors.white,
             bubbleColor: AppColor.primary,
-            icon: Icons.edit,
-            titleStyle: const TextStyle(fontSize: 16, color: Colors.white),
+            icon: Icons.card_travel_rounded,
+            titleStyle: TextStyle(
+              fontSize: Get.width * 0.028,
+              color: Colors.white,
+            ),
             onPress: () {
               print("Edit pressed");
               c.toggle();
             },
           ),
+
+          //Add to Whishlist
           Bubble(
             title: "Add to Whishlist",
             iconColor: Colors.white,
             bubbleColor: AppColor.primary,
-            icon: Icons.edit,
-            titleStyle: const TextStyle(fontSize: 16, color: Colors.white),
+            icon: Icons.waterfall_chart,
+            titleStyle: TextStyle(
+              fontSize: Get.width * 0.028,
+              color: Colors.white,
+            ),
             onPress: () {
               print("Edit pressed");
               c.toggle();

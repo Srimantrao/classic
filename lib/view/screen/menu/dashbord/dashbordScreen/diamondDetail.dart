@@ -37,7 +37,11 @@ class Diamonddetail extends StatelessWidget {
     return Fullscreen(
       appBar: allOtherScreen(AppString.diamondDetail, cart: true),
       bottomNavigationBar: buttonNavigation(
-        child: button(AppString.addtoCart, isLowercase: true),
+        child: button(
+          AppString.addtoCart,
+          isLowercase: true,
+          bottomBottonFontSize: true,
+        ),
       ),
       child: Obx(() {
         return Column(

@@ -119,7 +119,7 @@ Widget signinbutton({
   required TextEditingController passwordController,
   void Function()? onTap,
 }) {
-  return button(onTap: onTap, AppString.signIn);
+  return button(onTap: onTap, AppString.signIn,bottomBottonFontSize: true);
 }
 
 Widget donthave() {

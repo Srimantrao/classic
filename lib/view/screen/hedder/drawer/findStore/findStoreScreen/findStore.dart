@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:classic/modal/headder/drawar/findStore.dart';
 import 'package:classic/view/screen/hedder/drawer/findStore/findStoreWidget/body/findStoreWidget.dart';
 import 'package:classic/view/utils/app_String.dart';

@@ -1,3 +1,5 @@
+// ignore_for_file: strict_top_level_inference, file_names
+
 import 'package:classic/view/screen/hedder/drawer/myAccount/address/addressExtraWidget/addressExtraWidget.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';

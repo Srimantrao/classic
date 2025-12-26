@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:classic/view/screen/hedder/drawer/findStore/findStoreExtraWidget/findStoreExtraStore.dart';
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';

@@ -1,3 +1,6 @@
+// ignore: file_names
+// ignore_for_file: unnecessary_null_comparison, file_names, duplicate_ignore, avoid_print
+
 import 'package:classic/modal/credentials/signUp.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:flutter/material.dart';

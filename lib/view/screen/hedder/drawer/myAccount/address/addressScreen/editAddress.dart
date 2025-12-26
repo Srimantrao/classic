@@ -1,15 +1,12 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, unnecessary_import
 
 import 'package:classic/controller/user_Interface/hedder/myAccount/address/editAddress.dart';
 import 'package:classic/view/screen/hedder/drawer/myAccount/address/addressWidget/body/editAddressWidget.dart';
-import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/widget/bottomNavigationButton.dart';
 import 'package:classic/view/utils/widget/button.dart';
-import 'package:classic/view/utils/widget/checkbox.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
-import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';

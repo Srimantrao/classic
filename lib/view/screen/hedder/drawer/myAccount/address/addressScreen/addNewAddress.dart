@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, non_constant_identifier_names
+
 import 'package:classic/controller/user_Interface/hedder/myAccount/address/addNewAddress.dart';
 import 'package:classic/view/screen/hedder/drawer/myAccount/address/addressWidget/body/editAddressWidget.dart';
 import 'package:classic/view/utils/app_String.dart';

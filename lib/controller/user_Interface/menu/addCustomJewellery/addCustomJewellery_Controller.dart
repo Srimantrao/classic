@@ -396,4 +396,24 @@ class AddcustomjewelleryUIController extends GetxController {
     selectWhiteColor.clear();
     update();
   }
+
+  @override
+  void onClose() {
+    // Dispose all TextEditingControllers to avoid notifying listeners after dispose
+    yourCommentsController.dispose();
+    addURlTextController.dispose();
+    appxMetalWeightController.dispose();
+    budgetController.dispose();
+    engravingController.dispose();
+    piecessController.dispose();
+    weightController.dispose();
+
+    fristNameController.dispose();
+    lastNameController.dispose();
+    emailController.dispose();
+    mobileController.dispose();
+    referredController.dispose();
+
+    super.onClose();
+  }
 }

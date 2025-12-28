@@ -68,12 +68,3 @@ Widget total(text) {
     ),
   );
 }
-
-Widget proceedButton(text) {
-  return Column(
-    children: [
-      SizedBox(height: Get.height * 0.020),
-      button(text),
-    ],
-  );
-}

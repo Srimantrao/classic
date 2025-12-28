@@ -4,6 +4,7 @@ import 'package:classic/controller/user_Interface/hedder/myAccount/editProfile/e
 import 'package:classic/view/screen/credentials/businessInformation/businessInformationWidget/businessInformationWidget.dart';
 import 'package:classic/view/screen/credentials/signUp/singUpWidget/sinupWidget.dart';
 import 'package:classic/view/utils/app_Color.dart';
+import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/widget/bottomNavigationButton.dart';
 import 'package:classic/view/utils/widget/button.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
@@ -18,8 +19,14 @@ class Editprofile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
-      appBar: allOtherScreen('Edit Profile'),
-      bottomNavigationBar: buttonNavigation(child: button('Save Changes')),
+      appBar: allOtherScreen(AppString.editProfile),
+      bottomNavigationBar: buttonNavigation(
+        child: button(
+          AppString.saveAddress,
+          isLowercase: true,
+          bottomBottonFontSize: true,
+        ),
+      ),
       child: SingleChildScrollView(
         child: horizontalPadding(
           child: Obx(() {
@@ -36,15 +43,18 @@ class Editprofile extends StatelessWidget {
                   valueIAM: editProfileUI.selectedValueIAM.value,
                   listIAm: editProfileUI.getDropdownItems(),
                   onChangedIAM: editProfileUI.iamvalueChange,
-                  valuehowdidyouhear: editProfileUI.selectedValueHowdidyourhear.value,
+                  valuehowdidyouhear:
+                      editProfileUI.selectedValueHowdidyourhear.value,
                   listhowdidyouhear: editProfileUI.getDropdownItems2(),
-                  onChangedhowdidyouhear: editProfileUI.howdidyourhearvalueChange,
+                  onChangedhowdidyouhear:
+                      editProfileUI.howdidyourhearvalueChange,
                   valuememberof: editProfileUI.selectedValueMemberof.value,
                   listmemberof: editProfileUI.getDropdownItems3(),
                   onChangedmemberof: editProfileUI.memberoflueChange,
                   country: editProfileUI.country_PersonalInformation.value,
                   listcountry: editProfileUI.getDropdownCountry(),
-                  onChangedcountry: editProfileUI.countryValueChangePersonalInformation,
+                  onChangedcountry:
+                      editProfileUI.countryValueChangePersonalInformation,
                   fristnameColor: editProfileUI.fristnameColor.value
                       ? AppColor.red
                       : AppColor.white,

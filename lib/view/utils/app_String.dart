@@ -39,6 +39,9 @@ class AppString {
     static const findSotre = 'Find Store';
     static const enterCityPinCode = 'Enter city, pin code';
     static const getDirections = 'Get Directions';
+        //Save Address Screen
+        static const saveAddress = 'Save Address';
+
         //My Account Screen
         static const editProfile = 'Edit Profile';
         static const orderHistory = 'Order History';

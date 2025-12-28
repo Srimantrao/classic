@@ -336,7 +336,10 @@ Widget submitButton(text, {void Function()? onTab}) {
   return Column(
     children: [
       SizedBox(height: Get.height * 0.05),
-      GestureDetector(onTap: onTab, child: button(text)),
+      GestureDetector(
+        onTap: onTab,
+        child: button(text, bottomBottonFontSize: true),
+      ),
       SizedBox(height: Get.height * 0.09),
     ],
   );

@@ -3,6 +3,8 @@
 import 'package:classic/view/screen/hedder/cart/cartWidget/body/cartWidget.dart';
 import 'package:classic/view/utils/app_Image.dart';
 import 'package:classic/view/utils/app_String.dart';
+import 'package:classic/view/utils/widget/bottomNavigationButton.dart';
+import 'package:classic/view/utils/widget/button.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
@@ -14,6 +16,13 @@ class Cart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Fullscreen(
       appBar: allOtherScreen(AppString.myCart),
+      bottomNavigationBar: buttonNavigation(
+        child: button(
+          AppString.proceed,
+          bottomBottonFontSize: true,
+          isLowercase: true,
+        ),
+      ),
       child: horizontalPadding(
         child: Column(
           children: [
@@ -44,9 +53,6 @@ class Cart extends StatelessWidget {
 
             //Price
             total('116.72'),
-
-            //Button
-            proceedButton(AppString.proceed),
           ],
         ),
       ),

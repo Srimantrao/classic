@@ -1,7 +1,6 @@
-// ignore_for_file: avoid_print, file_names, invalid_use_of_protected_member
+// ignore_for_file: avoid_print, file_names, invalid_use_of_protected_member, unused_import
 
 import 'package:classic/controller/application_Programing_interface/apiController/credentials/loginAPI_Controller.dart';
-import 'package:classic/view/utils/api_Message.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -44,6 +43,7 @@ class LoginuiController extends GetxController {
   }
 
   void allDoneGotonextPage(Widget page) {
+    final String loggedsuccessfully = 'You have logged in successfully!';
     onTap().then((value) {
       final usernameError = usernameHasError.value;
       final passwordError = passwordHasError.value;
@@ -51,7 +51,7 @@ class LoginuiController extends GetxController {
         loginAPI
             .loginUser(usernameController.text, passwordController.text)
             .then((val) {
-              if (loginAPI.loginData.value['success'] == true) {
+              if (loginAPI.loginData.value['message'] == loggedsuccessfully) {
                 Get.offAll(() => page);
               }
             });

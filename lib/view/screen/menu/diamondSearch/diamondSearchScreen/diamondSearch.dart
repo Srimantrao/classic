@@ -1,10 +1,11 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, avoid_unnecessary_containers
 
 import 'package:classic/controller/user_Interface/menu/diamondSearch/diamondSearch_Controller.dart';
 import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/drawer.dart';
 import 'package:classic/view/screen/menu/diamondSearch/diamondSearchExtraWidget/diamondExtraWidget.dart';
 import 'package:classic/view/screen/menu/diamondSearch/diamondWidget/header/appbar.dart';
+import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_icon.dart';
 import 'package:classic/view/utils/widget/button.dart';
@@ -18,15 +19,14 @@ class Diamondsearch extends StatelessWidget {
   final diamondSearch = Get.put(DiamondSearchUIController());
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final diamondList = DiamondList();
-
   Diamondsearch({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
       scaffoldKey: scaffoldKey,
       endDrawer: Drawers(),
-      bottomNavigationBar: SizedBox(
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(color: AppColor.white),
         height: Get.height * 0.22,
         child: horizontalPadding(
           child: Column(

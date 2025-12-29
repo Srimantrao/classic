@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, implementation_imports
+
 import 'package:classic/view/utils/app_URL.dart';
 import 'package:classic/view/utils/widget/apiService.dart';
 import 'package:dio/src/response.dart';

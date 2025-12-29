@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:classic/controller/application_Programing_interface/credentials/loginAPI_Controller.dart';
 import 'package:classic/controller/user_Interface/credentials/loginUI_Controller.dart';
 import 'package:classic/view/screen/credentials/login/loginWidget/loginWidget.dart';
 import 'package:classic/view/utils/app_Color.dart';
@@ -13,7 +14,10 @@ import 'package:get/get.dart';
 
 class Login extends StatelessWidget {
   final loginUI = Get.put(LoginuiController());
+  final loginAPI = Get.put(LoginAPIController());
+
   Login({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
@@ -33,7 +37,13 @@ class Login extends StatelessWidget {
                   colorpassword: passwordError ? AppColor.red : AppColor.white,
                   onChangedusername: (value) => loginUI.onChanged1(),
                   onChangedpassword: (value) => loginUI.onChanged2(),
-                  onTap: () => loginUI.allDoneGotonextPage(Bottombar()),
+                  // onTap: () => loginUI.allDoneGotonextPage(Bottombar()),
+                  onTap: () {
+                    loginAPI.loginUser(
+                      loginUI.usernameController.text,
+                      loginUI.passwordController.text,
+                    );
+                  },
                 );
               }),
             ],

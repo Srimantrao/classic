@@ -4,12 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginuiController extends GetxController {
-  final usernameController = TextEditingController(
-    text: 'Khushraaj Bhavan Cha Vijay Haso',
-  );
-  final passwordController = TextEditingController(
-    text: 'Jay Bhavani Jay Shivaji',
-  );
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
   var usernameHasError = false.obs;
   var passwordHasError = false.obs;
 

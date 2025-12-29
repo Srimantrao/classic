@@ -8,4 +8,5 @@ class AppUrl {
 
   //credentials
   static const String login = "${application}login";
+  static const String signup = "${application}signup";
 }

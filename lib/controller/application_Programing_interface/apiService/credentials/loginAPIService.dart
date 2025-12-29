@@ -5,7 +5,7 @@ import 'package:classic/view/utils/widget/apiService.dart';
 import 'package:dio/src/response.dart';
 
 class LoginApiService {
-  Future<Response> loginService({
+  Future<Response<dynamic>> loginService({
     required String email,
     required String password,
   }) async {

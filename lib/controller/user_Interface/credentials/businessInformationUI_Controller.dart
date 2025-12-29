@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print, file_names, unused_field
 
+import 'package:classic/controller/application_Programing_interface/apiController/credentials/singUpAPI_Controller.dart';
 import 'package:classic/controller/user_Interface/credentials/loginUI_Controller.dart';
 import 'package:classic/controller/user_Interface/credentials/signupUI_Contoller.dart';
 import 'package:classic/modal/credentials/signUp.dart';
@@ -9,6 +10,9 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class BusinessinformationuiController extends GetxController {
+  final signUpAIP = Get.put(SingUpApiController());
+  final signUpUI = Get.put(SignupuiContoller());
+
   final countryDropdown = Get.put(CountryDropdownContoller());
   final signUpDropdown = Get.put(SignupDropdownContoller());
   final signupUi = Get.put(SignupuiContoller());
@@ -121,7 +125,50 @@ class BusinessinformationuiController extends GetxController {
           companyController.text.isNotEmpty &&
           stateController.text.isNotEmpty &&
           cityController.text.isNotEmpty) {
+        signUpAIP.singUpuser(
+          firstName: signupUi.firstNameController.text,
+          lastName: signupUi.lastNameController.text,
+          email: signupUi.emailIdController.text,
+          password: signupUi.passwordController.text,
+          confirmPassword: signupUi.confirmPasswordController.text,
+          mobileNo: signupUi.mobileController.text,
+          businessType: signUpDropdown.dropdownOptions[signupUi.selectedValueIAM.value],
+          howDidYouHearAboutUs: signUpDropdown.dropdownOptions2[signupUi.selectedValueHowdidyourhear.value],
+          memberOf: signUpDropdown.dropdownOptions3[signupUi.selectedValueMemberof.value],
+          companyName: companyController.text,
+          countryId: country.value,
+          state: stateController.text,
+          city: cityController.text,
+          code: zipController.text,
+          zipCode: zipController.text,
+          termCondition: readandAgree.value.toString(),
+          address: addressController.text,
+          subscribing: stock.value.toString(),
+          recaptcha: tokanRecaptcha,
+        );
         print('success');
+        print({
+          'firstName': signupUi.firstNameController.text,
+          'lastName': signupUi.lastNameController.text,
+          'email': signupUi.emailIdController.text,
+          'password': signupUi.passwordController.text,
+          'confirmPassword': signupUi.confirmPasswordController.text,
+          'mobileNo': signupUi.mobileController.text,
+          'businessType': signUpDropdown.dropdownOptions[signupUi.selectedValueIAM.value],
+          'howDidYouHearAboutUs': signUpDropdown.dropdownOptions2[signupUi.selectedValueHowdidyourhear.value],
+          'memberOf': signUpDropdown.dropdownOptions3[signupUi.selectedValueMemberof.value],
+          'companyName': companyController.text,
+          'countryId': country.value,
+          'state': stateController.text,
+          'city': cityController.text,
+          'code': zipController.text,
+          'zipCode': zipController.text,
+          'termCondition': readandAgree.value.toString(),
+          'address': addressController.text,
+          'subscribing': stock.value.toString(),
+          'recaptcha': tokanRecaptcha,
+          'message': signUpAIP.sinupData.value['message'],
+        });
         page;
       } else {
         print('error found');

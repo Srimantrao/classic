@@ -106,7 +106,7 @@ class SignupuiContoller extends GetxController {
     }
   }
 
-  void onChanged_lastname(String value){
+  void onChanged_lastname(String value) {
     if (value.isEmpty) {
       lastnameColor.value = true;
     } else {
@@ -114,7 +114,7 @@ class SignupuiContoller extends GetxController {
     }
   }
 
-  void onChanged_emailId(String value){
+  void onChanged_emailId(String value) {
     if (value.isEmpty) {
       emailIdColor.value = true;
     } else {
@@ -122,7 +122,7 @@ class SignupuiContoller extends GetxController {
     }
   }
 
-  void onChanged_password(String value){
+  void onChanged_password(String value) {
     if (value.isEmpty) {
       passwordColor.value = true;
     } else {
@@ -130,7 +130,7 @@ class SignupuiContoller extends GetxController {
     }
   }
 
-  void onChanged_confirmPassword(String value){
+  void onChanged_confirmPassword(String value) {
     if (value.isEmpty) {
       confirmPasswordColor.value = true;
     } else {
@@ -138,14 +138,13 @@ class SignupuiContoller extends GetxController {
     }
   }
 
-  void onChanged_mobile(String value){
+  void onChanged_mobile(String value) {
     if (value.isEmpty) {
       mobileNoColor.value = true;
-    }else{
+    } else {
       mobileNoColor.value = false;
     }
   }
-
 
   Future<void> signUpNext() async {
     if (firstNameController.text.isEmpty ||
@@ -194,15 +193,20 @@ class SignupuiContoller extends GetxController {
     }
   }
 
-  void allDoneGotonextPage(Widget page){
-    signUpNext().then((value){
-      if(firstNameController.text.isNotEmpty &&
+  void allDoneGotonextPage(Widget page) {
+    signUpNext().then((value) {
+      if (firstNameController.text.isNotEmpty &&
           lastNameController.text.isNotEmpty &&
           emailIdController.text.isNotEmpty &&
           passwordController.text.isNotEmpty &&
           confirmPasswordController.text.isNotEmpty &&
-          mobileController.text.isNotEmpty){
-        Get.to(() => page);
+          mobileController.text.isNotEmpty) {
+        if (passwordController.text == confirmPasswordController.text) {
+          Get.to(() => page);
+        } else {
+          print('password not match');
+          Get.snackbar('Password', 'Password not match');
+        }
       }
     });
   }

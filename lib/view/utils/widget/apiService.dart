@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:classic/view/utils/app_URL.dart';
 import 'package:dio/dio.dart';
 
@@ -11,7 +13,10 @@ class ApiService {
     ),
   );
 
-  static Future<Response> post(String url, {Map<String, dynamic>? data}) async {
+  static Future<Response> post({
+    required String url,
+    Map<String, dynamic>? data,
+  }) async {
     return await dio.post(url, data: data);
   }
 

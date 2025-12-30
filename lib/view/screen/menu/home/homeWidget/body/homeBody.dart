@@ -14,14 +14,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 
-Widget sliderImages() {
+Widget sliderImages(image) {
   return AspectRatio(
     aspectRatio: 10 / 9, // Adjust as you want (4/3, 2/1, etc.)
     child: Container(
       width: double.infinity,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(AppImage.sliderImage3),
+          image: NetworkImage(image),
           fit: BoxFit.cover,
         ),
       ),

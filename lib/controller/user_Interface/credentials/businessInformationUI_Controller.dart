@@ -1,4 +1,5 @@
-// ignore_for_file: avoid_print, file_names, unused_field, invalid_use_of_protected_member
+// ignore_for_file: avoid_print, file_names, unused_field, invalid_use_of_protected_member, unused_local_variable, non_constant_identifier_names
+
 
 import 'package:classic/controller/application_Programing_interface/apiController/credentials/singUpAPI_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/other/country_Controller.dart';
@@ -142,7 +143,7 @@ class BusinessinformationuiController extends GetxController {
         throw Exception('Please fill all required fields and accept terms');
       }
 
-      // Call API
+      // Call application_Programing_interface
       final response = await signUpAIP.singUpuser(
         firstName: signupUi.firstNameController.text,
         lastName: signupUi.lastNameController.text,

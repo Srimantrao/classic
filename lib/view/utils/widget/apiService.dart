@@ -3,6 +3,8 @@
 import 'package:classic/view/utils/app_URL.dart';
 import 'package:dio/dio.dart';
 
+import '../app_Constants.dart';
+
 class ApiService {
   static final Dio dio = Dio(
     BaseOptions(
@@ -21,6 +23,8 @@ class ApiService {
   }
 
   static Future<Response> get(String url) async {
-    return await dio.get(url);
+    return await dio.get(url,options: Options(headers: {
+      'Authorization': 'Bearer $tokan',
+    }));
   }
 }

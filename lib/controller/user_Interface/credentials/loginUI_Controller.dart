@@ -4,6 +4,8 @@ import 'package:classic/controller/application_Programing_interface/apiControlle
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../view/utils/app_Constants.dart';
+
 class LoginuiController extends GetxController {
   final loginAPI = Get.put(LoginAPIController());
 
@@ -53,6 +55,8 @@ class LoginuiController extends GetxController {
             .then((val) {
               if (loginAPI.loginData.value['message'] == loggedsuccessfully) {
                 Get.offAll(() => page);
+                tokan = loginAPI.loginData.value['token'];
+                print("token :- ${loginAPI.loginData.value['token']}");
               }
             });
       } else {

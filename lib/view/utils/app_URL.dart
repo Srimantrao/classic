@@ -12,4 +12,9 @@ class AppUrl {
   //credentials
   static const String login = "${application}login";
   static const String signup = "${application}signup";
+
+  //Menu
+    //home
+      static const String filterSlider = "${baseUrl}App/slider/filterSlider/1";
+      static const String homeCollection = "${baseUrl}App/homecollection/getCategoryHomeCollection";
 }

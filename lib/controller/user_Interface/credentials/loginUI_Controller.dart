@@ -7,8 +7,8 @@ import 'package:get/get.dart';
 class LoginuiController extends GetxController {
   final loginAPI = Get.put(LoginAPIController());
 
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
+  final usernameController = TextEditingController(text: 'Khageshsoni98@gmail.com');
+  final passwordController = TextEditingController(text: 'Ilove@2015');
   var usernameHasError = false.obs;
   var passwordHasError = false.obs;
 

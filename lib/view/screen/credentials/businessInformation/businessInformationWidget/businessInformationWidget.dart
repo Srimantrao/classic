@@ -11,6 +11,7 @@ import 'package:classic/view/utils/widget/heddingText.dart';
 import 'package:classic/view/utils/widget/inputTyping.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 Widget hedings(text) {
@@ -74,6 +75,9 @@ Widget businessContainerOne({
           text: AppString.zipCode,
           hinttext: AppString.zipCode_hint,
           controller: zipController,
+          keyboardType: TextInputType.number,
+          maxLength: 6,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         ),
         inputTyaping(
           height: Get.height * 0.15,

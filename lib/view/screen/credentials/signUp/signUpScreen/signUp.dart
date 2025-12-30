@@ -44,9 +44,13 @@ class Signup extends StatelessWidget {
                       valuememberof: signupUi.selectedValueMemberof.value,
                       listmemberof: signupUi.getDropdownItems3(),
                       onChangedmemberof: signupUi.memberoflueChange,
+
+                      //Country start
                       country: signupUi.country.value,
                       listcountry: signupUi.getDropdownCountry(),
                       onChangedcountry: signupUi.countryValueChange,
+                      //Country end
+
                       fristnameColor: signupUi.fristnameColor.value
                           ? AppColor.red
                           : AppColor.white,

@@ -21,6 +21,7 @@ Widget singInContainer({
   void Function(String)? onChangedpassword,
   Color? colorusername,
   Color? colorpassword,
+  Widget? loadingWait
 }) {
   return cartConatiner(
     child: Column(
@@ -36,6 +37,7 @@ Widget singInContainer({
         ),
         passwordingetInput(),
         signinbutton(
+          loadingWait: loadingWait,
           usernameController: usernameController,
           passwordController: passwordController,
           onTap: onTap,
@@ -118,8 +120,13 @@ Widget signinbutton({
   required TextEditingController usernameController,
   required TextEditingController passwordController,
   void Function()? onTap,
+  Widget? loadingWait
 }) {
-  return button(onTap: onTap, AppString.signIn,bottomBottonFontSize: true);
+  return button(
+    loadingWait: loadingWait,
+    onTap: onTap,
+    AppString.signIn,bottomBottonFontSize: true,
+  );
 }
 
 Widget donthave() {

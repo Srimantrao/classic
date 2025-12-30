@@ -1,11 +1,14 @@
 // ignore_for_file: unnecessary_null_comparison, file_names, avoid_print, non_constant_identifier_names
 
+import 'package:classic/controller/application_Programing_interface/apiController/other/country_Controller.dart';
 import 'package:classic/modal/credentials/signUp.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SignupuiContoller extends GetxController {
+  final Country = Get.put(CountryController());
+
   //TextController
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
@@ -33,10 +36,15 @@ class SignupuiContoller extends GetxController {
 
   //List
   List<DropdownMenuItem<String>> getDropdownCountry() {
-    return countryDropdown.dropdownCountry.entries.map((entry) {
+    final data = Country.countryData['data'];
+    if (data == null || data is! List) return [];
+    return data.map<DropdownMenuItem<String>>((item) {
       return DropdownMenuItem<String>(
-        value: entry.key,
-        child: Text(entry.value, style: TextStyle(color: AppColor.black)),
+        value: item['_id']?.toString() ?? '',
+        child: Text(
+          item['name']?.toString() ?? '',
+          style: TextStyle(color: AppColor.black),
+        ),
       );
     }).toList();
   }
@@ -70,10 +78,17 @@ class SignupuiContoller extends GetxController {
 
   //onChnage Value of Dropdown
   void countryValueChange(String? newValue) {
-    country.value = newValue!;
-    if (newValue != null) {
-      print('Selected value: ${signUpDropdown.dropdownOptions[newValue]}');
-    }
+    if (newValue == null) return;
+    final data = Country.countryData['data'];
+    if (data == null || data is! List) return;
+    final selectedCountry = data.firstWhere(
+          (item) => item['_id'] == newValue,
+      orElse: () => null,
+    );
+    if (selectedCountry == null) return;
+    country.value = newValue;
+    print("Selected country ID: ${country.value}");
+    print("Selected country Name: ${selectedCountry['name']}");
   }
 
   void iamvalueChange(String? newValue) {

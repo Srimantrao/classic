@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, avoid_print
 
 import 'package:classic/view/utils/app_URL.dart';
 import 'package:classic/view/utils/widget/apiService.dart';
@@ -49,6 +49,7 @@ class SingUpApiService {
         "recaptcha": recaptcha,
       },
     );
+    print(AppUrl.signup);
     return response;
   }
 }

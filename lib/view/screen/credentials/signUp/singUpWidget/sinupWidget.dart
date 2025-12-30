@@ -167,6 +167,8 @@ Widget inputtype({
       ) : SizedBox(),
       Row(
         children: [
+
+          //Country Code
           Flexible(
             flex: 2,
             child: dropdowns(
@@ -178,6 +180,8 @@ Widget inputtype({
             ),
           ),
           SizedBox(width: Get.width * 0.02),
+
+          //Mobile Number
           Flexible(
             flex: 3,
             child: inputTyaping(

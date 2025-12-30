@@ -11,6 +11,7 @@ Widget button(
   String text, {
   void Function()? onTap,
   Color? borderColor,
+  Widget? loadingWait,
   Color? backgroundColor,
   Color? textColor,
   bool isLowercase = false,
@@ -28,7 +29,7 @@ Widget button(
         color: backgroundColor ?? AppColor.primary,
       ),
       child: Center(
-        child: Text(
+        child: loadingWait ?? Text(
           isLowercase ? capitalizeFirst(text) : text.toUpperCase(),
           style: TextStyle(
             fontSize: (bottomBottonFontSize)

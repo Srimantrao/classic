@@ -6,6 +6,9 @@ class AppUrl {
   static const String baseUrl = "https://node.weingenious.in/classic/api/v1/";
   static const String application = "${baseUrl}App/auth/";
 
+  //Other
+  static const String country = "${baseUrl}admin/address/getCountry";
+
   //credentials
   static const String login = "${application}login";
   static const String signup = "${application}signup";

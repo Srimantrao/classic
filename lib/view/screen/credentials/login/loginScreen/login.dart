@@ -33,6 +33,16 @@ class Login extends StatelessWidget {
                   colorpassword: passwordError ? AppColor.red : AppColor.white,
                   onChangedusername: (value) => loginUI.onChanged1(),
                   onChangedpassword: (value) => loginUI.onChanged2(),
+                  loadingWait: loginUI.loginAPI.isLoading.value
+                      ? SizedBox(
+                    height: Get.width * 0.06,
+                    width: Get.width * 0.06,
+                    child: CircularProgressIndicator(
+                      color: AppColor.white,
+                      strokeWidth: 2.5,
+                    ),
+                  )
+                      : null,
                   onTap: () => loginUI.allDoneGotonextPage(Bottombar()),
                 );
               }),

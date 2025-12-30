@@ -1,6 +1,7 @@
-// ignore_for_file: avoid_print, file_names, unused_field
+// ignore_for_file: avoid_print, file_names, unused_field, invalid_use_of_protected_member
 
 import 'package:classic/controller/application_Programing_interface/apiController/credentials/singUpAPI_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/other/country_Controller.dart';
 import 'package:classic/controller/user_Interface/credentials/loginUI_Controller.dart';
 import 'package:classic/controller/user_Interface/credentials/signupUI_Contoller.dart';
 import 'package:classic/modal/credentials/signUp.dart';
@@ -10,6 +11,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class BusinessinformationuiController extends GetxController {
+  final Country = Get.put(CountryController());
+
   final signUpAIP = Get.put(SingUpApiController());
   final signUpUI = Get.put(SignupuiContoller());
 
@@ -39,17 +42,31 @@ class BusinessinformationuiController extends GetxController {
 
   //onChnage Value of Dropdown
   List<DropdownMenuItem<String>> getDropdownCountry() {
-    return countryDropdown.dropdownCountry.entries.map((entry) {
+    final data = Country.countryData['data'];
+    if (data == null || data is! List) return [];
+    return data.map<DropdownMenuItem<String>>((item) {
       return DropdownMenuItem<String>(
-        value: entry.key,
-        child: Text(entry.value, style: TextStyle(color: AppColor.black)),
+        value: item['_id']?.toString() ?? '',
+        child: Text(
+          item['name']?.toString() ?? '',
+          style: TextStyle(color: AppColor.black),
+        ),
       );
     }).toList();
   }
 
   void countryValueChange(String? newValue) {
-    country.value = newValue!;
-    print('Selected value: ${signUpDropdown.dropdownOptions[newValue]}');
+    if (newValue == null) return;
+    final data = Country.countryData['data'];
+    if (data == null || data is! List) return;
+    final selectedCountry = data.firstWhere(
+          (item) => item['_id'] == newValue,
+      orElse: () => null,
+    );
+    if (selectedCountry == null) return;
+    country.value = newValue;
+    print("Selected country ID: ${country.value}");
+    print("Selected country Name: ${selectedCountry['name']}");
   }
 
   void readandAgreeValueChange(bool? newValue) {
@@ -93,87 +110,80 @@ class BusinessinformationuiController extends GetxController {
     }
   }
 
-  Future<void> signUp() async {
-    if (companyController.text.isEmpty ||
+  Future<void> signUp(Widget page) async {
+    // Validate required fields
+    final hasEmptyFields = companyController.text.isEmpty ||
         stateController.text.isEmpty ||
-        cityController.text.isEmpty) {
-      if (companyController.text.isEmpty) {
-        companyColor.value = true;
-      } else {
-        companyColor.value = false;
-      }
-      if (stateController.text.isEmpty) {
-        stateColor.value = true;
-      } else {
-        stateColor.value = false;
-      }
-      if (cityController.text.isEmpty) {
-        cityColor.value = true;
-      } else {
-        cityColor.value = false;
-      }
-    } else {
-      companyColor.value = false;
-      stateColor.value = false;
-      cityColor.value = false;
+        cityController.text.isEmpty;
+
+    // Update color states
+    companyColor.value = companyController.text.isEmpty;
+    stateColor.value = stateController.text.isEmpty;
+    cityColor.value = cityController.text.isEmpty;
+
+    // If validation fails, return early
+    if (hasEmptyFields) {
+      return;
     }
+
+    // Proceed with signup
+    await okLetsGetSignUP(page);
   }
 
-  void okLetsGetSignUP(Widget page) {
-    signUp().then((value) {
-      if (isCheck.value == true &&
+  Future<void> okLetsGetSignUP(Widget page) async {
+    try {
+      // Validate all conditions
+      final isValid = isCheck.value == true &&
           companyController.text.isNotEmpty &&
           stateController.text.isNotEmpty &&
-          cityController.text.isNotEmpty) {
-        signUpAIP.singUpuser(
-          firstName: signupUi.firstNameController.text,
-          lastName: signupUi.lastNameController.text,
-          email: signupUi.emailIdController.text,
-          password: signupUi.passwordController.text,
-          confirmPassword: signupUi.confirmPasswordController.text,
-          mobileNo: signupUi.mobileController.text,
-          businessType: signUpDropdown.dropdownOptions[signupUi.selectedValueIAM.value],
-          howDidYouHearAboutUs: signUpDropdown.dropdownOptions2[signupUi.selectedValueHowdidyourhear.value],
-          memberOf: signUpDropdown.dropdownOptions3[signupUi.selectedValueMemberof.value],
-          companyName: companyController.text,
-          countryId: country.value,
-          state: stateController.text,
-          city: cityController.text,
-          code: zipController.text,
-          zipCode: zipController.text,
-          termCondition: readandAgree.value.toString(),
-          address: addressController.text,
-          subscribing: stock.value.toString(),
-          recaptcha: tokanRecaptcha,
-        );
-        print('success');
-        print({
-          'firstName': signupUi.firstNameController.text,
-          'lastName': signupUi.lastNameController.text,
-          'email': signupUi.emailIdController.text,
-          'password': signupUi.passwordController.text,
-          'confirmPassword': signupUi.confirmPasswordController.text,
-          'mobileNo': signupUi.mobileController.text,
-          'businessType': signUpDropdown.dropdownOptions[signupUi.selectedValueIAM.value],
-          'howDidYouHearAboutUs': signUpDropdown.dropdownOptions2[signupUi.selectedValueHowdidyourhear.value],
-          'memberOf': signUpDropdown.dropdownOptions3[signupUi.selectedValueMemberof.value],
-          'companyName': companyController.text,
-          'countryId': country.value,
-          'state': stateController.text,
-          'city': cityController.text,
-          'code': zipController.text,
-          'zipCode': zipController.text,
-          'termCondition': readandAgree.value.toString(),
-          'address': addressController.text,
-          'subscribing': stock.value.toString(),
-          'recaptcha': tokanRecaptcha,
-          'message': signUpAIP.sinupData.value['message'],
-        });
-        page;
-      } else {
-        print('error found');
+          cityController.text.isNotEmpty;
+
+      if (!isValid) {
+        throw Exception('Please fill all required fields and accept terms');
       }
-    });
+
+      // Call API
+      final response = await signUpAIP.singUpuser(
+        firstName: signupUi.firstNameController.text,
+        lastName: signupUi.lastNameController.text,
+        email: signupUi.emailIdController.text,
+        password: signupUi.passwordController.text,
+        confirmPassword: signupUi.confirmPasswordController.text,
+        mobileNo: signupUi.mobileController.text,
+        businessType: signUpDropdown.dropdownOptions[signupUi.selectedValueIAM.value],
+        howDidYouHearAboutUs: signUpDropdown.dropdownOptions2[signupUi.selectedValueHowdidyourhear.value],
+        memberOf: signUpDropdown.dropdownOptions3[signupUi.selectedValueMemberof.value],
+        companyName: companyController.text,
+        countryId: country.value,
+        state: stateController.text,
+        city: cityController.text,
+        code: zipController.text,
+        zipCode: zipController.text,
+        termCondition: readandAgree.value.toString(),
+        address: addressController.text,
+        subscribing: stock.value.toString(),
+        recaptcha: tokanRecaptcha,
+      );
+
+      // Check if response is successful
+      final responseData = signUpAIP.sinupData.value;
+      final message = responseData['message']?.toString();
+      final String signed = 'You have signed up successfully!';
+
+      if (message == signed) {
+        // Alternative success check - navigate anyway
+        Get.offAll(() => page);
+      }
+
+    } catch (error) {
+      // Handle errors
+      print('Sign up error: $error');
+      Get.snackbar(
+        'Error',
+        error.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
   }
 
   // I.M Robot

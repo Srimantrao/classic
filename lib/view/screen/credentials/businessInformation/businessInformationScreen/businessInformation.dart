@@ -76,7 +76,9 @@ class Businessinformation extends StatelessWidget {
                             Get.off(() => Login());
                           });
                         },
-                        onTapNext: () => businessinUI.okLetsGetSignUP(Text('Ok Get Login')),
+                        onTapNext: () => (businessinUI.signUpAIP.isLoading.value)
+                            ? CircularProgressIndicator()
+                            : businessinUI.signUp(Login()),
                       ),
                       have(
                         have: AppString.haveanAccount,

@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, implementation_imports
+// ignore_for_file: file_names, implementation_imports, avoid_print
 
 import 'package:classic/view/utils/app_URL.dart';
 import 'package:classic/view/utils/widget/apiService.dart';
@@ -13,6 +13,7 @@ class LoginApiService {
       url: AppUrl.login,
       data: {"email": email, "password": password},
     );
+    print(AppUrl.login);
     return response;
   }
 }

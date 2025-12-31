@@ -9,22 +9,18 @@ class HomeCollctionapiController extends GetxController {
   final homeCollctionApiService = Get.put(Homecollctionapiservice());
   var isLoading = false.obs;
   var homeCollectionData = {}.obs;
-
-  @override
-  void onInit() {
-    homeCollectionApi();
-    super.onInit();
-  }
-
+  
   Future<void> homeCollectionApi() async {
     isLoading.value = true;
     try {
       final response = await homeCollctionApiService.homecollctionApiService();
-      successMesssess(
-        response: response,
-        data: homeCollectionData,
-        callAPI: 'HomeCollection',
-      );
+      if (response.statusCode == 200) {
+        successMesssess(
+          response: response,
+          data: homeCollectionData,
+          callAPI: 'HomeCollection',
+        );
+      }
     } on DioException catch (e) {
       errorMesssess(e: e, callAPI: 'FilterSlider');
     } finally {

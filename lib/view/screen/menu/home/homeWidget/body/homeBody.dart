@@ -66,7 +66,6 @@ Widget ourCollection(collections,selectedIndex,data,homeUI){
         child: Row(
           children: List.generate(collections.length, (index) {
             final item = collections[index];
-
             return overCollectionItems(item);
           }),
         ),

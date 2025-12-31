@@ -9,8 +9,8 @@ class ApiService {
   static final Dio dio = Dio(
     BaseOptions(
       baseUrl: AppUrl.baseUrl,
-      connectTimeout: const Duration(seconds: 30),
-      receiveTimeout: const Duration(seconds: 30),
+      connectTimeout: Duration(seconds: 30),
+      receiveTimeout: Duration(seconds: 30),
       headers: {'Content-Type': 'application/json'},
     ),
   );
@@ -19,12 +19,20 @@ class ApiService {
     required String url,
     Map<String, dynamic>? data,
   }) async {
-    return await dio.post(url, data: data);
+    return await dio.post(
+      url,
+      data: data,
+    );
   }
 
   static Future<Response> get(String url) async {
-    return await dio.get(url,options: Options(headers: {
-      'Authorization': 'Bearer $token',
-    }));
+    return await dio.get(
+      url,
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      ),
+    );
   }
 }

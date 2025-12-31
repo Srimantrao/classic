@@ -10,21 +10,17 @@ class FilterSliderController extends GetxController {
   var isLoading = false.obs;
   var filterSliderData = {}.obs;
 
-  @override
-  void onInit() {
-    filterSlider();
-    super.onInit();
-  }
-
   Future<void> filterSlider() async {
     isLoading.value = true;
     try {
       final response = await filterSliderService.filtersilder();
-      successMesssess(
-        response: response,
-        data: filterSliderData,
-        callAPI: 'FilterSlider',
-      );
+      if (response.statusCode == 200){
+        successMesssess(
+          response: response,
+          data: filterSliderData,
+          callAPI: 'FilterSlider',
+        );
+      }
     } on DioException catch (e) {
       errorMesssess(e: e, callAPI: 'FilterSlider');
     } finally {

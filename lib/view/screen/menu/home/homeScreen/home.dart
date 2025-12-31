@@ -2,6 +2,7 @@
 
 import 'package:classic/controller/application_Programing_interface/apiController/menu/home/filterSlider_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/home/homeCollctionAPIController.dart';
+import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
 import 'package:classic/controller/user_Interface/menu/home/home_Controller.dart';
 import 'package:classic/modal/menu/home/our_collection.dart';
 import 'package:classic/view/screen/hedder/cart/cartScreen/cart.dart';
@@ -26,8 +27,7 @@ import '../homeExtraWidget/homeconnectingWideget.dart';
 class Home extends StatelessWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final homeUI = Get.put(HomeUIController());
-  final filterSilderAPI = Get.put(FilterSliderController());
-  final homeCollectionAPI = Get.put(HomeCollctionapiController());
+  final homeAPI = Get.put(HomeAPICall());
   Home({super.key});
   @override
   Widget build(BuildContext context) {
@@ -40,30 +40,24 @@ class Home extends StatelessWidget {
       ),
       child: CustomScrollView(
         slivers: [
-          /// Slider
           SliverToBoxAdapter(
             child: Obx(() {
-              final data = filterSilderAPI.filterSliderData['data'];
+              final data = homeAPI.filterSilderAPI.filterSliderData['data'];
               if (data == null || data.isEmpty) return const SizedBox();
               final image = data[0]['mobileImage'];
               return (image != null && image.isNotEmpty)
                   ? sliderImages(image)
-                  : const SizedBox();
+                  : SizedBox();
             }),
           ),
 
           SliverToBoxAdapter(
             child: Obx(() {
-              final data = homeCollectionAPI.homeCollectionData['data'];
-
-              if (data == null || data.isEmpty) {
-                return const SizedBox();
-              }
-
+              final data = homeAPI.homeCollectionAPI.homeCollectionData['data'];
+              if (data == null || data.isEmpty) SizedBox();
               final selectedIndex = homeUI.index.value;
               final selectedCategory = data[selectedIndex];
               final collections = selectedCategory['collection'] as List;
-
               return ourCollection(collections,selectedIndex,data,homeUI);
             }),
           ),

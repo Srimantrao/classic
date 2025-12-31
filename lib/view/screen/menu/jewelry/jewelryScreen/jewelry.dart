@@ -1,5 +1,6 @@
 // ignore_for_file: overridden_fields, annotate_overrides
 
+import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
 import 'package:classic/modal/menu/jewelry/lisofProduct.dart';
 import 'package:classic/view/screen/hedder/cart/cartScreen/cart.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/drawer.dart';
@@ -16,6 +17,7 @@ import 'package:get/get.dart';
 class Jewelry extends StatelessWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final product = ProductList();
+  final jewellry = Get.put(JewelleryAPICall());
   Jewelry({super.key});
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class Jewelry extends StatelessWidget {
           children: [
             SizedBox(height: Get.height / 40),
             listOfItem(
-              list: product.list_product,
+              list: jewellry.categoryAPI.catagoryData['data'],
               onTap: () => Get.to(() => Product()),
             ),
             SizedBox(height: Get.height * 0.10),

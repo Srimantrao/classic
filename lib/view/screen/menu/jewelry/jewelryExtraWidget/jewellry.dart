@@ -1,12 +1,16 @@
 import 'package:classic/view/utils/app_Color.dart';
+import 'package:classic/view/utils/app_TextSize.dart';
+import 'package:classic/view/utils/app_URL.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 Widget product({
   required String text,
-  required String image,
+  required String? image,
   void Function()? onTap,
 }) {
+  final bool hasImage = image != null && image.isNotEmpty;
+
   return GestureDetector(
     onTap: onTap,
     child: Container(
@@ -14,23 +18,32 @@ Widget product({
         color: AppColor.white,
         border: Border.all(color: AppColor.gray3),
       ),
-      padding: EdgeInsets.all(5),
+      padding:  EdgeInsets.all(5),
       child: Column(
         children: [
-          Image(
-            image: AssetImage(image),
-            width: Get.width * 0.3,
-            height: Get.width * 0.3,
-          ),
+          hasImage
+              ? Image.network(
+            AppUrl.imagebaseUrl + image,
+            width: Get.width * 0.40,
+            height: Get.width * 0.43,
+            fit: BoxFit.cover,
+          )
+              : SizedBox(),
+
+          SizedBox(height: Get.height * 0.01),
+
           Text(
             text,
             style: TextStyle(
+              fontSize: Textsize.normal,
               fontWeight: FontWeight.w500,
               fontFamily: 'FuturaCyrillic',
             ),
+            textAlign: TextAlign.center,
           ),
         ],
       ),
     ),
   );
 }
+

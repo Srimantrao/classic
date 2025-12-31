@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print, file_names
 
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -26,6 +28,7 @@ void successMesssess({
   (showSnackbarSuccess)
       ? Get.snackbar("Success", response.data["message"])
       : SizedBox();
+  print(response.data);
   return;
 }
 

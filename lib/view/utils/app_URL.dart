@@ -4,6 +4,7 @@ class AppUrl {
 
   //base url
   static const String baseUrl = "https://node.weingenious.in/classic/api/v1/";
+  static const String imagebaseUrl = "https://node.weingenious.in/classic/uploads/photos/";
   static const String application = "${baseUrl}App/auth/";
 
   //Other
@@ -17,4 +18,5 @@ class AppUrl {
     //home
       static const String filterSlider = "${baseUrl}App/slider/filterSlider/1";
       static const String homeCollection = "${baseUrl}App/homecollection/getCategoryHomeCollection";
+      static const String category = "${baseUrl}App/category/getCategory";
 }

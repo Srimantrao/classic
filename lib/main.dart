@@ -20,10 +20,12 @@ Future<void> main() async {
   isLogin = pref!.getBool('isLogin') ?? false;
   userName = pref!.getString('username') ?? '';
   password = pref!.getString('password') ?? '';
+  token = pref!.getString('token') ?? '';
 
   print('isLogin $isLogin');
   print('userName $userName');
   print('password $password');
+  print('token $token');
 
   //Sinup
   firstName = pref!.getString('FristName') ?? '';

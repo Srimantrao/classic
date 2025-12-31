@@ -1,7 +1,31 @@
 // ignore_for_file: file_names
 
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final dio = Dio();
 
-String tokan ='';
+SharedPreferences? pref;
+
+String userName = '';
+String password = '';
+String firstName = '';
+String lastName = '';
+String email = '';
+String countryDrop = '';
+String countryUser = '';
+String mobileNo = '';
+String iAM = '';
+String howDidHear = '';
+String company = '';
+String companyUser = '';
+String state = '';
+String zipCode = '';
+String address = '';
+String city = '';
+String ReadandAgree = '';
+String Stock = '';
+String TokanRecaptcha = '';
+
+String token ='';
+bool isLogin = false;

@@ -9,7 +9,6 @@ import '../../utils/widget/fullScreen.dart';
 
 class Logo extends StatelessWidget {
   const Logo({super.key});
-
   @override
   Widget build(BuildContext context) {
     Get.put(LogoController());

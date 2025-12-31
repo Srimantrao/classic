@@ -42,7 +42,8 @@ dependencies:
   video_player:
   image_picker:
   floating_action_bubble:
-  dio: ^5.9.0
+  dio:
+  shared_preferences:
 
 
 dev_dependencies:

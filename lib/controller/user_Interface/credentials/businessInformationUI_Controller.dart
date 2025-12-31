@@ -7,6 +7,7 @@ import 'package:classic/controller/user_Interface/credentials/loginUI_Controller
 import 'package:classic/controller/user_Interface/credentials/signupUI_Contoller.dart';
 import 'package:classic/modal/credentials/signUp.dart';
 import 'package:classic/view/utils/app_Color.dart';
+import 'package:classic/view/utils/app_Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -172,7 +173,46 @@ class BusinessinformationuiController extends GetxController {
       final String signed = 'You have signed up successfully!';
 
       if (message == signed) {
-        // Alternative success check - navigate anyway
+
+        //Set SharedPreferences
+        pref!.setString('FristName', signupUi.firstNameController.text);
+        pref!.setString('LastName', signupUi.lastNameController.text);
+        pref!.setString('Email', signupUi.emailIdController.text);
+        pref!.setString('Password', signupUi.passwordController.text);
+        pref!.setString('Coundtry', signupUi.country.value);
+        pref!.setString('MobileNo', signupUi.mobileController.text);
+        pref!.setString('IAM', signupUi.selectedValueIAM.value);
+        pref!.setString('HowDidHear', signupUi.selectedValueHowdidyourhear.value);
+        pref!.setString('Company', companyController.text);
+        pref!.setString('CompanyUser', country.value);
+        pref!.setString('State', stateController.text);
+        pref!.setString('ZipCode', zipController.text);
+        pref!.setString('Address', zipController.text);
+        pref!.setString('City', cityController.text);
+        pref!.setString('ReadandAgree', readandAgree.value.toString());
+        pref!.setString('Stock', stock.toString());
+        pref!.setString('TokanRecaptcha', tokanRecaptcha);
+
+
+        //Get Value in Loacl Store
+        firstName = pref!.getString('FristName')!;
+        lastName = pref!.getString('LastName')!;
+        email = pref!.getString('Email')!;
+        password = pref!.getString('Password')!;
+        countryDrop = pref!.getString('Coundtry')!;
+        mobileNo = pref!.getString('MobileNo')!;
+        iAM =  pref!.getString('IAM')!;
+        howDidHear = pref!.getString('HowDidHear')!;
+        company = pref!.getString('Company')!;
+        companyUser = pref!.getString('CompanyUser')!;
+        state = pref!.getString('State')!;
+        zipCode = pref!.getString('ZipCode')!;
+        address = pref!.getString('Address')!;
+        city = pref!.getString('City')!;
+        ReadandAgree = pref!.getString('ReadandAgree')!;
+        Stock = pref!.getString('Stock')!;
+        TokanRecaptcha = pref!.getString('TokanRecaptcha')!;
+
         Get.offAll(() => page);
       }
 

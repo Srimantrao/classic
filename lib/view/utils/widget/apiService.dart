@@ -24,7 +24,7 @@ class ApiService {
 
   static Future<Response> get(String url) async {
     return await dio.get(url,options: Options(headers: {
-      'Authorization': 'Bearer $tokan',
+      'Authorization': 'Bearer $token',
     }));
   }
 }

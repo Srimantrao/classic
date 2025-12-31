@@ -54,9 +54,19 @@ class LoginuiController extends GetxController {
             .loginUser(usernameController.text, passwordController.text)
             .then((val) {
               if (loginAPI.loginData.value['message'] == loggedsuccessfully) {
+                pref!.setString('username', usernameController.text);
+                pref!.setString('password', passwordController.text);
+                pref!.setString('token', loginAPI.loginData.value['token']);
+
+                pref!.setBool('isLogin', true);
+                isLogin = pref!.getBool('isLogin')!;
+
+                userName = pref!.getString('username')!;
+                password = pref!.getString('password')!;
+                token = pref!.getString('token')!;
+
                 Get.offAll(() => page);
-                tokan = loginAPI.loginData.value['token'];
-                print("token :- ${loginAPI.loginData.value['token']}");
+                print("token :- $token");
               }
             });
       } else {

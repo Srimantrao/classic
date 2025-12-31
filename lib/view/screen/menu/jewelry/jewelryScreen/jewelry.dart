@@ -4,7 +4,6 @@ import 'package:classic/controller/application_Programing_interface/callApi/call
 import 'package:classic/modal/menu/jewelry/lisofProduct.dart';
 import 'package:classic/view/screen/hedder/cart/cartScreen/cart.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/drawer.dart';
-import 'package:classic/view/screen/menu/jewelry/jewelryScreen/product.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/jewelryBody.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/header/appbar.dart';
 import 'package:classic/view/utils/app_String.dart';
@@ -21,6 +20,7 @@ class Jewelry extends StatelessWidget {
   Jewelry({super.key});
   @override
   Widget build(BuildContext context) {
+    final listItem = jewellry.categoryAPI.catagoryData['data'];
     return Fullscreen(
       scaffoldKey: scaffoldKey,
       endDrawer: Drawers(),
@@ -35,10 +35,7 @@ class Jewelry extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: Get.height / 40),
-            listOfItem(
-              list: jewellry.categoryAPI.catagoryData['data'],
-              onTap: () => Get.to(() => Product()),
-            ),
+            listOfItem(list: listItem),
             SizedBox(height: Get.height * 0.10),
           ],
         ),

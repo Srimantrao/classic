@@ -11,17 +11,22 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 
 Widget search(searchController, {void Function()? filtertab}) {
   return Padding(
-    padding: EdgeInsetsGeometry.symmetric(horizontal: Get.width * 0.02),
+    padding: EdgeInsets.symmetric(horizontal: Get.width * 0.018),
     child: Row(
       children: [
         Expanded(flex: 9, child: searchBar(searchController)),
-        GestureDetector(
-          onTap: filtertab,
-          child: Icon(
-            Icons.filter_alt_outlined,
-            color: AppColor.gray3,
-            size: 30,
-          ),
+        Column(
+          children: [
+            GestureDetector(
+              onTap: filtertab,
+              child: Icon(
+                Icons.filter_alt_outlined,
+                color: AppColor.gray3,
+                size: 30,
+              ),
+            ),
+            SizedBox(height: Get.height * 0.02),
+          ],
         ),
       ],
     ),
@@ -32,11 +37,10 @@ Widget productList({
   required List list,
   required void Function(String imagePath) onTapImagePath,
   required void Function(
-    String imagePath,
-    String productNameText,
-    String priceText,
-  )
-  onTapProductDetail,
+      String imagePath,
+      String productNameText,
+      String priceText,
+      ) onTapProductDetail,
 }) {
   return Expanded(
     child: horizontalPadding(
@@ -49,20 +53,22 @@ Widget productList({
           mainAxisExtent: 300,
         ),
         itemBuilder: (context, index) {
+          final item = list[index];
+
           return productWidget(
             onTapImagePath: () {
-              onTapImagePath(list[index]['image']);
+              onTapImagePath(item['image'] ?? '');
             },
             onTapProductDetail: () {
               onTapProductDetail(
-                list[index]['image'],
-                list[index]['name'],
-                list[index]['price'],
+                item['image'] ?? '',
+                item['categoryName'] ?? '',
+                '₹ --', // price not in API
               );
             },
-            productImagePath: list[index]['image'],
-            productNameText: list[index]['name'],
-            priceText: list[index]['price'],
+            productImagePath: item['image'] ?? '',
+            productNameText: item['categoryName'] ?? '',
+            priceText: '₹ --',
           );
         },
       ),

@@ -2,6 +2,7 @@
 
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
+import 'package:classic/view/utils/app_URL.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
@@ -47,7 +48,7 @@ Widget productImage(image) {
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      Image(image: AssetImage(image), width: imageSize, height: imageSize),
+      Image(image: NetworkImage(AppUrl.imagebaseUrl + image), width: imageSize, height: imageSize),
     ],
   );
 }

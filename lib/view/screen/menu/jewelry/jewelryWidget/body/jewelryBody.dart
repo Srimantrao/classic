@@ -4,9 +4,14 @@ import 'package:classic/view/screen/menu/jewelry/jewelryExtraWidget/jewellry.dar
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-Widget listOfItem({required List list, void Function()? onTap}) {
-var newList = list.where((item) =>
-  item['subCategory'] != null && item['subCategory'].isNotEmpty).toList();
+import '../../jewelryScreen/product.dart';
+
+Widget listOfItem({required List list}) {
+  var newList = list
+      .where(
+        (item) => item['subCategory'] != null && item['subCategory'].isNotEmpty,
+      )
+      .toList();
   return Expanded(
     child: GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -18,11 +23,21 @@ var newList = list.where((item) =>
       shrinkWrap: true,
       itemCount: newList.length,
       itemBuilder: (BuildContext context, int index) {
-          return product(
-            onTap: onTap,
-            text: newList[index]['categoryName'],
-            image: newList[index]['image'],
-          );
+        return product(
+          onTap: () {
+            final subData = newList[index]['subCategory'];
+            if (subData is List) {
+              Get.to(() => Product(
+                subCategories:
+                List<Map<String, dynamic>>.from(subData),
+              ));
+              print(newList[index]['_id']);
+              print(newList[index]['categoryName']);
+            }
+          },
+          text: newList[index]['categoryName'],
+          image: newList[index]['image'],
+        );
       },
     ),
   );

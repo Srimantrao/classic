@@ -31,16 +31,48 @@ Widget sliderImages(image) {
 //Slider Section End
 
 //Over Collection Start
-Widget ourCollection(homeUI) {
-  return SizedBox(
-    child: Column(
-      children: [
-        SizedBox(height: Get.height * 0.01),
-        homeScreenHeddingText(AppString.ouerCollection),
-        homeScreenSubheddingText(AppString.chekout),
-        showIndexofCollection(homeUI),
-      ],
-    ),
+Widget ourCollection(collections,selectedIndex,data,homeUI){
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      SizedBox(height: Get.height * 0.01),
+
+      /// HEADING
+      homeScreenHeddingText(AppString.ouerCollection),
+      homeScreenSubheddingText(AppString.chekout),
+      SizedBox(height: Get.height * 0.01),
+
+      /// CATEGORY TABS
+      SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: List.generate(data.length, (index) {
+            final isSelected = selectedIndex == index;
+            return GestureDetector(
+              onTap: () {
+                homeUI.index.value = index;
+              },
+              child: ouerCollectionTitle(isSelected,data,index),
+            );
+          }),
+        ),
+      ),
+
+      SizedBox(height: Get.height * 0.02),
+
+      /// SELECTED CATEGORY COLLECTION
+      SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: List.generate(collections.length, (index) {
+            final item = collections[index];
+
+            return overCollectionItems(item);
+          }),
+        ),
+      ),
+      SizedBox(height: Get.height * 0.01),
+    ],
   );
 }
 //Over Collection End

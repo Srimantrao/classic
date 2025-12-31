@@ -1,5 +1,5 @@
 // ignore: file_names
-// ignore_for_file: file_names, duplicate_ignore
+// ignore_for_file: file_names, duplicate_ignore, avoid_single_cascade_in_expression_statements
 
 import 'dart:async';
 
@@ -21,8 +21,9 @@ class VideoController extends GetxController {
     await videoPlayerController!.initialize();
 
     videoPlayerController!
-      ..setLooping(true)
-      ..play();
+      ..pause();
+      // ..setLooping(true)
+      // ..play();
 
     update();
   }

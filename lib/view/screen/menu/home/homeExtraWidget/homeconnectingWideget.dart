@@ -1,9 +1,7 @@
 // ignore_for_file: file_names, strict_top_level_inference
 
-import 'package:classic/modal/menu/home/our_collection.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_Image.dart';
-import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -167,7 +165,7 @@ Widget homeScreenSubheddingText(text, {Color? color, double? fontSize}) {
     textAlign: TextAlign.center,
     text,
     style: TextStyle(
-      fontSize: fontSize ?? Get.width * 0.040,
+      fontSize: fontSize ?? Get.width * 0.035,
       fontWeight: FontWeight.w500,
       fontFamily: 'FuturaCyrillic',
       color: color ?? AppColor.gray5,
@@ -175,108 +173,54 @@ Widget homeScreenSubheddingText(text, {Color? color, double? fontSize}) {
   );
 }
 
-Widget showIndexofCollection(homeUI) {
-  return Column(
-    children: [
-      SizedBox(height: Get.height * 0.01),
-      tabCollectText(homeUI),
-      SizedBox(height: Get.height * 0.01),
-
-      /// Dynamic section
-      showSection(homeUI.index.value),
-    ],
-  );
-}
-
-/// SECTION CONTENTS BASED ON SELECTED TAB
-Widget showSection(int index) {
-  final collection = OurCollection();
-  switch (index) {
-    case 0:
-      //Pandant Section
-      return collectionList(collection.pandant);
-
-    case 1:
-      //Necklace Section
-      return collectionList(collection.necklace);
-
-    case 2:
-      //Bracelet Section
-      return collectionList(collection.bracelet);
-
-    case 3:
-      //Earrings Section
-      return collectionList(collection.earrings);
-    default:
-      return SizedBox.shrink();
-  }
-}
-
-Widget tabCollectText(homeUI) {
-  return SizedBox(
-    width: Get.width * 0.9,
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        tabItem(AppString.pandant, 0, homeUI),
-        varticalDivider(),
-        tabItem(AppString.necklace, 1, homeUI),
-        varticalDivider(),
-        tabItem(AppString.bracelet, 2, homeUI),
-        varticalDivider(),
-        tabItem(AppString.earrings, 3, homeUI),
-      ],
-    ),
-  );
-}
-
-Widget varticalDivider() {
-  return SizedBox(height: Get.width * 0.08, child: VerticalDivider());
-}
-
-Widget tabItem(String text, int index, homeUI) {
-  return GestureDetector(
-    onTap: () {
-      homeUI.index.value = index;
-    },
-    child: Text(
-      text,
-      style: TextStyle(
-        fontSize: Textsize.normal,
-        fontWeight: FontWeight.w500,
-        fontFamily: 'FuturaCyrillic',
-        color: homeUI.index.value == index ? AppColor.primary : AppColor.gray5,
+Widget ouerCollectionTitle(isSelected, data, index){
+  return Center(
+    child: Padding(
+      padding: EdgeInsets.symmetric(horizontal: Get.width * 0.01),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            data[index]['categoryName'],
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: Textsize.normal,
+              fontFamily: 'FuturaCyrillic',
+              color: isSelected
+                  ? AppColor.primary
+                  : AppColor.gray5,
+            ),
+          ),
+          if (index != data.length - 1) ...[
+            SizedBox(width: Get.width * 0.02),
+            Text('|',style: TextStyle(color: AppColor.gray5)),
+          ],
+        ],
       ),
     ),
   );
 }
 
-//OuerCollection
-Widget collectionList(List list) {
-  return SizedBox(
-    height: Get.height * 0.24,
-    child: ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: list.length,
-      itemBuilder: (context, index) {
-        return Container(
-          margin: EdgeInsets.all(Get.width * 0.01),
-          child: Column(
-            children: [
-              Image.asset(list[index]['Image'], height: 100, width: 100),
-              Center(
-                child: Text(
-                  list[index]['name'],
-                  style: TextStyle(
-                    fontSize: Textsize.small,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-            ],
+Widget overCollectionItems(item){
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: Get.width * 0.03),
+    child: Column(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: Image.network(
+            item['image'],
+            width: Get.width * 0.35,
+            fit: BoxFit.cover,
           ),
-        );
-      },
+        ),
+        const SizedBox(height: 6),
+        Text(
+          item['title'],
+          style: const TextStyle(fontSize: 12),
+        ),
+      ],
     ),
   );
 }

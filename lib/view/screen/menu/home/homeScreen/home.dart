@@ -28,9 +28,7 @@ class Home extends StatelessWidget {
   final homeUI = Get.put(HomeUIController());
   final filterSilderAPI = Get.put(FilterSliderController());
   final homeCollectionAPI = Get.put(HomeCollctionapiController());
-
   Home({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
@@ -42,7 +40,6 @@ class Home extends StatelessWidget {
       ),
       child: CustomScrollView(
         slivers: [
-
           /// Slider
           SliverToBoxAdapter(
             child: Obx(() {
@@ -55,46 +52,22 @@ class Home extends StatelessWidget {
             }),
           ),
 
-
-          SliverToBoxAdapter(child: SizedBox(height: Get.height * 0.03)),
-          /// Horizontal Collection (NO fixed height, NO Expanded)
           SliverToBoxAdapter(
             child: Obx(() {
               final data = homeCollectionAPI.homeCollectionData['data'];
-              if (data == null || data.isEmpty) return const SizedBox();
 
-              return Column(
-                children: [
-                  homeScreenHeddingText(AppString.ouerCollection),
-                  homeScreenSubheddingText(AppString.chekout),
-                  SizedBox(height: Get.height * 0.01),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Column(
-                      children: [
-                        Row(
-                          children: List.generate(data.length, (index) {
-                            return Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: Get.width * 0.050,
-                              ),
-                              child: Text(
-                                data[index]['categoryName'],
-                              ),
-                            );
-                          }),
-                        ),
-                        Text('222'),
-                      ],
-                    ),
-                  ),
-                ],
-              );
+              if (data == null || data.isEmpty) {
+                return const SizedBox();
+              }
+
+              final selectedIndex = homeUI.index.value;
+              final selectedCategory = data[selectedIndex];
+              final collections = selectedCategory['collection'] as List;
+
+              return ourCollection(collections,selectedIndex,data,homeUI);
             }),
           ),
 
-          /// Rest widgets
-          SliverToBoxAdapter(child: SizedBox(height: Get.height * 0.03)),
           SliverToBoxAdapter(child: adVideo()),
           SliverToBoxAdapter(child: adImage()),
           SliverToBoxAdapter(child: whatClassic()),

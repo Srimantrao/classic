@@ -470,63 +470,6 @@ class _MetalComboWidget extends StatelessWidget {
   }
 }
 
-class StoneDetailsWidget extends StatelessWidget {
-  final List stoneDetails;
-
-  const StoneDetailsWidget({super.key, required this.stoneDetails});
-
-  @override
-  Widget build(BuildContext context) {
-    if (stoneDetails.isEmpty) return const SizedBox();
-
-    /// 🔥 Group stones by shape
-    final Map<String, Map<String, dynamic>> grouped = {};
-
-    for (var stone in stoneDetails) {
-      final shape = stone['shape']?['paraMtrName'] ?? 'Unknown';
-      final wgt = (stone['wgt'] ?? 0).toDouble();
-
-      if (!grouped.containsKey(shape)) {
-        grouped[shape] = {
-          'count': 1,
-          'weight': wgt,
-        };
-      } else {
-        grouped[shape]!['count'] += 1;
-        grouped[shape]!['weight'] += wgt;
-      }
-    }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Stone Details',
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        const SizedBox(height: 4),
-
-        ...grouped.entries.map((entry) {
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 2),
-            child: Text(
-              '${entry.key} (${entry.value['count']} pcs) – '
-                  '${entry.value['weight'].toStringAsFixed(2)} ct',
-              style: const TextStyle(
-                fontSize: 11,
-                color: Colors.black87,
-              ),
-            ),
-          );
-        }).toList(),
-      ],
-    );
-  }
-}
-
 class ProductVariantController extends GetxController {
   final RxString selectedCombo = ''.obs;
   final Rxn<Map<String, dynamic>> selectedVariant = Rxn();

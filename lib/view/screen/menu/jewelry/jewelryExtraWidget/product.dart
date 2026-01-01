@@ -71,8 +71,8 @@ Widget price(text) {
   return Text(
     '₹ $text',
     style: TextStyle(
-      fontSize: Textsize.small,
-      fontWeight: FontWeight.w700,
+      fontSize: Textsize.normal,
+      fontWeight: FontWeight.w600,
       color: AppColor.primary,
     ),
   );

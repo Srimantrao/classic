@@ -18,5 +18,8 @@ class AppUrl {
     //home
       static const String filterSlider = "${baseUrl}App/slider/filterSlider/1";
       static const String homeCollection = "${baseUrl}App/homecollection/getCategoryHomeCollection";
+
+    //jewelry
       static const String category = "${baseUrl}App/category/getCategory";
+      static const String productList = "${baseUrl}App/product/getProductList";
 }

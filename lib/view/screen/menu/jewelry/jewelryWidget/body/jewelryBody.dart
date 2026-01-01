@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, avoid_print
 
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productList_Controller.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryExtraWidget/jewellry.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -25,15 +26,13 @@ Widget listOfItem({required List list}) {
       itemBuilder: (BuildContext context, int index) {
         return product(
           onTap: () {
-            final subData = newList[index]['subCategory'];
-            if (subData is List) {
-              Get.to(() => Product(
-                subCategories:
-                List<Map<String, dynamic>>.from(subData),
-              ));
-              print(newList[index]['_id']);
-              print(newList[index]['categoryName']);
-            }
+            final categoryId = newList[index]['_id'];
+            final categoryName = newList[index]['categoryName'];
+            Get.to(
+              () => Product(categoryId: categoryId, categoryName: categoryName),
+            );
+            print("categoryId :- $categoryId");
+            print("categoryId :- $categoryName");
           },
           text: newList[index]['categoryName'],
           image: newList[index]['image'],

@@ -58,13 +58,14 @@ PreferredSizeWidget allOtherScreen(
   bool? cart = false,
   bool? filter = false,
 }) {
-  final double iconsize = 30;
+  final double iconsize = 22;
   return PreferredSize(
     preferredSize: Size.fromHeight(kToolbarHeight + 0.15),
     child: Container(
       decoration: BoxDecoration(color: AppColor.secondary),
       child: SafeArea(
         child: horizontalPadding(
+          padding: Get.width * 0.03,
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: Get.height * 0.015),
             child: Row(

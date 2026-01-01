@@ -8,7 +8,8 @@ Widget product({
   required String text,
   required String? image,
   void Function()? onTap,
-}) {
+})
+{
   final bool hasImage = image != null && image.isNotEmpty;
 
   return GestureDetector(
@@ -18,20 +19,13 @@ Widget product({
         color: AppColor.white,
         border: Border.all(color: AppColor.gray3),
       ),
-      padding:  EdgeInsets.all(5),
+      padding: EdgeInsets.all(5),
       child: Column(
         children: [
           hasImage
-              ? Image.network(
-            AppUrl.imagebaseUrl + image,
-            width: Get.width * 0.40,
-            height: Get.width * 0.43,
-            fit: BoxFit.cover,
-          )
+              ? Image.network(AppUrl.imagebaseUrl + image, fit: BoxFit.cover)
               : SizedBox(),
-
           SizedBox(height: Get.height * 0.01),
-
           Text(
             text,
             style: TextStyle(
@@ -46,4 +40,3 @@ Widget product({
     ),
   );
 }
-

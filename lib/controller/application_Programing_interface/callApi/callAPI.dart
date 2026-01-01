@@ -3,6 +3,7 @@
 import 'package:classic/controller/application_Programing_interface/apiController/menu/home/filterSlider_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/home/homeCollctionAPIController.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/category_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productList_Controller.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';

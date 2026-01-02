@@ -43,7 +43,11 @@ class Home extends StatelessWidget {
           SliverToBoxAdapter(
             child: Obx(() {
               final data = homeAPI.filterSilderAPI.filterSliderData['data'];
-              if (data == null || data.isEmpty) return const SizedBox();
+
+              if (data == null || data.isEmpty){
+                return const SizedBox();
+              }
+
               final image = data[0]['mobileImage'];
               return (image != null && image.isNotEmpty)
                   ? sliderImages(image)
@@ -53,12 +57,32 @@ class Home extends StatelessWidget {
 
           SliverToBoxAdapter(
             child: Obx(() {
-              final data = homeAPI.homeCollectionAPI.homeCollectionData['data'];
-              if (data == null || data.isEmpty) SizedBox();
+              final response = homeAPI.homeCollectionAPI.homeCollectionData;
+              final data = response?['data'];
+
+              if (data == null || data.isEmpty) {
+                return const SizedBox.shrink();
+              }
+
               final selectedIndex = homeUI.index.value;
+
+              if (selectedIndex < 0 || selectedIndex >= data.length) {
+                return const SizedBox.shrink();
+              }
+
               final selectedCategory = data[selectedIndex];
-              final collections = selectedCategory['collection'] as List;
-              return ourCollection(collections,selectedIndex,data,homeUI);
+
+              final collections = selectedCategory['collection'];
+              if (collections == null || collections.isEmpty) {
+                return const SizedBox.shrink();
+              }
+
+              return ourCollection(
+                collections,
+                selectedIndex,
+                data,
+                homeUI,
+              );
             }),
           ),
 

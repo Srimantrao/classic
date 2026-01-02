@@ -2,6 +2,7 @@ import 'package:classic/controller/application_Programing_interface/apiControlle
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/filter.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/productbody.dart';
 import 'package:classic/view/utils/app_Color.dart';
+import 'package:classic/view/utils/app_TextSize.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
 import 'package:flutter/material.dart';
@@ -279,14 +280,16 @@ class Product extends StatelessWidget {
 
           /// PRODUCT LIST
           Obx(() {
-            if (productListAPI.isLoading.value) {
+
+            final loading = productListAPI.isLoading.value;
+            final product = productListAPI.productListData;
+            final productList = product['data'] ?? [];
+
+            if (loading) {
               return const Expanded(
                 child: Center(child: CircularProgressIndicator()),
               );
             }
-
-            final product = productListAPI.productListData;
-            final productList = product['data'] ?? [];
 
             if (productList.isEmpty) {
               return const Expanded(
@@ -298,17 +301,15 @@ class Product extends StatelessWidget {
               child: horizontalPadding(
                 child: GridView.builder(
                   itemCount: productList.length,
-                  gridDelegate:
-                  const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 12,
                     crossAxisSpacing: 12,
-                    mainAxisExtent: 340,
+                    mainAxisExtent: 300, // Increased from 600 to 650
                   ),
                   itemBuilder: (_, index) {
                     final product = productList[index];
-                    final List childProducts =
-                        product['childProduct'] ?? [];
+                    final List childProducts = product['childProduct'] ?? [];
 
                     if (childProducts.isEmpty) {
                       return const SizedBox();
@@ -329,62 +330,111 @@ class Product extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(10),
                         child: Obx(() {
-                          final item =
-                              variantController.selectedVariant.value;
+                          final item = variantController.selectedVariant.value;
                           final images = item?['images'] ?? [];
 
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              /// IMAGE
-                              Image.network(
-                                images.isNotEmpty
-                                    ? images.first['zoom']
-                                    : '',
-                                height: 120,
-                                fit: BoxFit.cover,
-                                errorBuilder: (_, __, ___) =>
-                                const SizedBox(
-                                  height: 120,
-                                  child: Center(
-                                      child: Text('No Image')),
+                          return SingleChildScrollView( // Wrap with SingleChildScrollView
+                            physics: const NeverScrollableScrollPhysics(), // Disable nested scrolling
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min, // Use min size
+                              children: [
+                                /// IMAGE - Fixed height container
+                                Image.network(
+                                  images.isNotEmpty ? images.first['zoom'] : '',
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (_, __, ___) => Container(
+                                    width: double.infinity,
+                                    color: AppColor.gray5,
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.image_not_supported,
+                                        size: 40,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
 
-                              const SizedBox(height: 6),
+                                const SizedBox(height: 8),
 
-                              /// TITLE
-                              productName(
-                                item?['productTitle'] ?? '',
-                              ),
+                                /// TITLE - Limit to 2 lines
+                                Text(
+                                  item?['productTitle'] ?? '',
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.2,
+                                  ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
 
-                              /// PRICE
-                              price(
-                                (double.tryParse(
-                                    '${item?['finalPrice']}') ??
-                                    0)
-                                    .toStringAsFixed(2),
-                              ),
+                                SizedBox(height: Get.height * 0.01),
 
-                              const SizedBox(height: 8),
+                                /// PRICE
+                                Text(
+                                  '\$${(double.tryParse('${item?['finalPrice']}') ?? 0).toStringAsFixed(2)}',
+                                  style:  TextStyle(
+                                    fontSize: Textsize.normal,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColor.primary,
+                                  ),
+                                ),
 
-                              /// 🔥 METAL COMBINATIONS
-                              _MetalComboWidget(
-                                variants: childProducts,
-                                controller: variantController,
-                              ),
+                                SizedBox(height: Get.height * 0.01),
 
-                              const SizedBox(height: 8),
+                                // Shape Selection - Fixed height container
+                                if (childProducts.isNotEmpty && childProducts.any((v) => (v['stoneDetails'] as List).isNotEmpty))
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      information('Shape'),
+                                      SizedBox(width: Get.width * 0.01),
+                                      Expanded(
+                                        child: _CompactShapeWidget(
+                                          variants: childProducts,
+                                          controller: variantController,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
 
-                              /// CARAT
-                              Row(
-                                children: [
-                                  information('Carat'),
-                                  caratHowMany(
-                                      '${item?['totalWgt'] ?? 0}'),
-                                ],
-                              ),
-                            ],
+                                const SizedBox(height: 8),
+
+                                /// 🔥 METAL COMBINATIONS - Fixed height container
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    information('Metal'),
+                                    SizedBox(width: Get.width * 0.01),
+                                    Expanded(
+                                      child: _CompactMetalComboWidget(
+                                        variants: childProducts,
+                                        controller: variantController,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+
+                                const SizedBox(height: 8),
+
+                                /// CARAT
+                                Row(
+                                  children: [
+                                    information('Carat'),
+                                    Text(
+                                      '${item?['totalWgt'] ?? 0}',
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           );
                         }),
                       ),
@@ -400,11 +450,84 @@ class Product extends StatelessWidget {
   }
 }
 
-class _MetalComboWidget extends StatelessWidget {
+class _CompactShapeWidget extends StatelessWidget {
   final List variants;
   final ProductVariantController controller;
 
-  const _MetalComboWidget({
+  const _CompactShapeWidget({
+    required this.variants,
+    required this.controller,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // Get unique shapes
+    final shapes = <String>{};
+    for (final variant in variants) {
+      final stoneDetailsList = variant['stoneDetails'] as List?;
+      if (stoneDetailsList != null) {
+        for (final stoneDetail in stoneDetailsList) {
+          final shapeData = stoneDetail['shape'] as Map<String, dynamic>?;
+          if (shapeData != null) {
+            final shapeName = shapeData['paraMtrName']?.toString();
+            if (shapeName != null && shapeName.isNotEmpty) {
+              shapes.add(shapeName);
+            }
+          }
+        }
+      }
+    }
+
+    final shapeList = shapes.toList();
+    if (shapeList.isEmpty) return const SizedBox();
+
+    return Obx(() {
+      return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: shapeList.map((shape) {
+            final isSelected = controller.selectedShape.value == shape;
+
+            return Padding(
+              padding: const EdgeInsets.only(right: 6),
+              child: GestureDetector(
+                onTap: () => controller.selectShape(shape),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: isSelected ? AppColor.primary : AppColor.gray,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(4),
+                    color: isSelected ? AppColor.primary.withOpacity(0.1) : Colors.transparent,
+                  ),
+                  child: Text(
+                    shape,
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w500,
+                      color: isSelected ? AppColor.primary : AppColor.black,
+                    ),
+                  ),
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+      );
+    });
+  }
+}
+
+class _CompactMetalComboWidget extends StatelessWidget {
+  final List variants;
+  final ProductVariantController controller;
+
+  const _CompactMetalComboWidget({
     required this.variants,
     required this.controller,
   });
@@ -418,47 +541,58 @@ class _MetalComboWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final combos = variants
-        .map((v) => _comboText(
-      v['metalStamp'][0]['paraMtrName'],
-      v['metalType'][0]['metal'],
-    ))
-        .toSet()
-        .toList();
+    final combos = <String>{};
+
+    for (final variant in variants) {
+      final metalStampList = variant['metalStamp'] as List?;
+      final metalTypeList = variant['metalType'] as List?;
+
+      if (metalStampList != null &&
+          metalStampList.isNotEmpty &&
+          metalTypeList != null &&
+          metalTypeList.isNotEmpty) {
+
+        final stamp = metalStampList[0]['paraMtrName']?.toString() ?? '';
+        final metal = metalTypeList[0]['metal']?.toString() ?? '';
+
+        if (stamp.isNotEmpty && metal.isNotEmpty) {
+          combos.add(_comboText(stamp, metal));
+        }
+      }
+    }
+
+    final comboList = combos.toList();
+    if (comboList.isEmpty) return const SizedBox();
 
     return Obx(() {
       return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        child: Wrap(
-          spacing: 6,
-          children: combos.map((combo) {
-            final isSelected =
-                controller.selectedCombo.value == combo;
+        child: Row(
+          children: comboList.map((combo) {
+            final isSelected = controller.selectedCombo.value == combo;
 
-            return GestureDetector(
-              onTap: () =>
-                  controller.selectCombo(variants, combo),
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 6,
-                ),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: isSelected
-                        ? AppColor.primary
-                        : AppColor.gray,
+            return Padding(
+              padding: const EdgeInsets.only(right: 6),
+              child: GestureDetector(
+                onTap: () => controller.selectCombo(variants, combo),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
                   ),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Text(
-                  combo,
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w500,
-                    color: isSelected
-                        ? AppColor.primary
-                        : AppColor.black,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: isSelected ? AppColor.primary : AppColor.gray,
+                    ),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Text(
+                    combo,
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w500,
+                      color: isSelected ? AppColor.primary : AppColor.black,
+                    ),
                   ),
                 ),
               ),
@@ -472,7 +606,13 @@ class _MetalComboWidget extends StatelessWidget {
 
 class ProductVariantController extends GetxController {
   final RxString selectedCombo = ''.obs;
+  final RxString selectedShape = ''.obs;
   final Rxn<Map<String, dynamic>> selectedVariant = Rxn();
+
+  // Store all available shapes across all variants
+  final RxList<String> allShapes = RxList<String>();
+  // Store filtered stone details for selected shape
+  final RxList<Map<String, dynamic>> filteredStoneDetails = RxList<Map<String, dynamic>>();
 
   void initDefault(List variants) {
     if (variants.isEmpty) return;
@@ -480,30 +620,153 @@ class ProductVariantController extends GetxController {
     final first = variants.first;
     selectedVariant.value = first;
 
-    final stamp = first['metalStamp'][0]['paraMtrName'];
-    final metal = first['metalType'][0]['metal'];
+    // Safely get metal stamp
+    final metalStampList = first['metalStamp'] as List?;
+    final metalTypeList = first['metalType'] as List?;
+    final stoneDetailsList = first['stoneDetails'] as List?;
 
-    selectedCombo.value = _comboText(stamp, metal);
+    String stamp = '';
+    String metal = '';
+
+    if (metalStampList != null && metalStampList.isNotEmpty) {
+      stamp = metalStampList[0]['paraMtrName']?.toString() ?? '';
+    }
+
+    if (metalTypeList != null && metalTypeList.isNotEmpty) {
+      metal = metalTypeList[0]['metal']?.toString() ?? '';
+    }
+
+    // Set combo if we have both stamp and metal
+    if (stamp.isNotEmpty && metal.isNotEmpty) {
+      selectedCombo.value = _comboText(stamp, metal);
+    }
+
+    // Extract all unique shapes from all variants
+    _extractAllShapes(variants);
+
+    // Set first shape as default if available
+    if (allShapes.isNotEmpty) {
+      selectedShape.value = allShapes.first;
+      _filterByShape(variants, allShapes.first);
+    }
+
+    // Also filter stones for current variant
+    if (stoneDetailsList != null && stoneDetailsList.isNotEmpty) {
+      filteredStoneDetails.value = List.from(stoneDetailsList);
+    }
+  }
+
+  void _extractAllShapes(List variants) {
+    final shapes = <String>{};
+
+    for (final variant in variants) {
+      final stoneDetailsList = variant['stoneDetails'] as List?;
+      if (stoneDetailsList != null) {
+        for (final stoneDetail in stoneDetailsList) {
+          final shapeData = stoneDetail['shape'] as Map<String, dynamic>?;
+          if (shapeData != null) {
+            final shapeName = shapeData['paraMtrName']?.toString();
+            if (shapeName != null && shapeName.isNotEmpty) {
+              shapes.add(shapeName);
+            }
+          }
+        }
+      }
+    }
+
+    allShapes.value = shapes.toList();
+  }
+
+  void _filterByShape(List variants, String shape) {
+    // Filter stone details from selected variant for the specific shape
+    final currentVariant = selectedVariant.value;
+    if (currentVariant != null) {
+      final stoneDetailsList = currentVariant['stoneDetails'] as List?;
+      if (stoneDetailsList != null) {
+        final filtered = stoneDetailsList.where((stoneDetail) {
+          final shapeData = stoneDetail['shape'] as Map<String, dynamic>?;
+          if (shapeData == null) return false;
+          final shapeName = shapeData['paraMtrName']?.toString();
+          return shapeName == shape;
+        }).toList();
+
+        filteredStoneDetails.value = filtered.cast<Map<String, dynamic>>();
+      }
+    }
   }
 
   void selectCombo(List variants, String combo) {
     selectedCombo.value = combo;
 
-    selectedVariant.value = variants.firstWhere(
-          (v) => _comboText(
-        v['metalStamp'][0]['paraMtrName'],
-        v['metalType'][0]['metal'],
-      ) ==
-          combo,
-      orElse: () => selectedVariant.value ?? variants.first,
-    );
+    try {
+      final selected = variants.firstWhere(
+            (v) {
+          final metalStampList = v['metalStamp'] as List?;
+          final metalTypeList = v['metalType'] as List?;
+
+          if (metalStampList == null ||
+              metalStampList.isEmpty ||
+              metalTypeList == null ||
+              metalTypeList.isEmpty) {
+            return false;
+          }
+
+          final stamp = metalStampList[0]['paraMtrName']?.toString() ?? '';
+          final metal = metalTypeList[0]['metal']?.toString() ?? '';
+
+          return _comboText(stamp, metal) == combo;
+        },
+      );
+
+      selectedVariant.value = selected;
+
+      // Re-filter stones for current shape when variant changes
+      if (selectedShape.value.isNotEmpty) {
+        _filterByShape([selected], selectedShape.value);
+      }
+    } catch (e) {
+      selectedVariant.value = selectedVariant.value ??
+          (variants.isNotEmpty ? variants.first : null);
+    }
+  }
+
+  void selectShape(String shape) {
+    selectedShape.value = shape;
+    _filterByShape(selectedVariant.value != null ? [selectedVariant.value!] : [], shape);
+  }
+
+  // Calculate price based on selected shape's weight
+  double getPriceForSelectedShape() {
+    if (filteredStoneDetails.isEmpty) return 0;
+
+    double totalPrice = 0;
+    for (final stone in filteredStoneDetails) {
+      final weight = stone['wgt'] as double? ?? 0;
+      final pricePerCarat = selectedVariant.value?['pricePerCarat'] as double? ?? 0;
+      totalPrice += weight * pricePerCarat;
+    }
+
+    // Add metal price if available
+    final metalPrice = selectedVariant.value?['metalPrice'] as double? ?? 0;
+    return totalPrice + metalPrice;
+  }
+
+  // Get total weight for selected shape
+  double getTotalWeightForSelectedShape() {
+    if (filteredStoneDetails.isEmpty) return 0;
+
+    double totalWeight = 0;
+    for (final stone in filteredStoneDetails) {
+      totalWeight += stone['wgt'] as double? ?? 0;
+    }
+    return totalWeight;
   }
 
   String _comboText(String stamp, String metal) {
     if (metal.contains('White')) return '$stamp WG';
     if (metal.contains('Rose')) return '$stamp RG';
     if (metal.contains('Yellow')) return '$stamp YG';
-    return stamp;
+    return stamp.isNotEmpty ? '$stamp ${metal.isNotEmpty ? metal : ''}' : '';
   }
 }
 

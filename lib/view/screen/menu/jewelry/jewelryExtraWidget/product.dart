@@ -48,7 +48,11 @@ Widget productImage(image) {
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      Image(image: NetworkImage(AppUrl.imagebaseUrl + image), width: imageSize, height: imageSize),
+      Image(
+        image: NetworkImage(AppUrl.imagebaseUrl + image),
+        width: imageSize,
+        height: imageSize,
+      ),
     ],
   );
 }
@@ -68,12 +72,15 @@ Widget caratHowMany(text) {
 }
 
 Widget price(text) {
-  return Text(
-    '₹ $text',
-    style: TextStyle(
-      fontSize: Textsize.normal,
-      fontWeight: FontWeight.w600,
-      color: AppColor.primary,
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: Get.height * 0.0035),
+    child: Text(
+      '₹ $text',
+      style: TextStyle(
+        fontSize: Textsize.samiHedding,
+        fontWeight: FontWeight.w600,
+        color: AppColor.primary,
+      ),
     ),
   );
 }
@@ -89,8 +96,13 @@ Widget information(text) {
 }
 
 Widget productName(text) {
-  return Text(
-    text,
-    style: TextStyle(fontSize: Textsize.small, fontWeight: FontWeight.w500),
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: Get.height * 0.0035),
+    child: Text(
+      text,
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(fontSize: Textsize.small, fontWeight: FontWeight.w500),
+    ),
   );
 }

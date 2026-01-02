@@ -27,7 +27,7 @@ void successMesssess({
   (showSnackbarSuccess)
       ? Get.snackbar("Success", response.data["message"])
       : SizedBox();
-  print(response.data);
+  // print(response.data);
   return;
 }
 

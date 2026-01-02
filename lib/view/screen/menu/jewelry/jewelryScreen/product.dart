@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productList_Controller.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/filter.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/productbody.dart';
@@ -11,280 +13,62 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-import '../../../../utils/app_String.dart';
-import '../../../../utils/app_URL.dart';
+
 import '../../../../utils/widget/horizontalpaddind.dart';
 import '../jewelryExtraWidget/product.dart';
-import '../jewelryWidget/body/productbody.dart';
 
-// class Product extends StatelessWidget {
-//   final productListAPI = Get.put(ProductlistController());
-//   final String categoryId;
-//   final String categoryName;
-//   final String? subCategoryId;
-//   final String? metalType;
-//   final String? metalStamp;
-//   final String? shape;
-//   final String? settingType;
-//   final String? minPrice;
-//   final String? priceShort;
-//
-//   Product({
-//     super.key,
-//     required this.categoryId,
-//     required this.categoryName,
-//     this.subCategoryId,
-//     this.metalType,
-//     this.metalStamp,
-//     this.shape,
-//     this.settingType,
-//     this.minPrice,
-//     this.priceShort,
-//   });
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     productListAPI.productList(categoryId: categoryId);
-//     final searchController = TextEditingController();
-//     return Fullscreen(
-//       appBar: allOtherScreen(categoryName.toUpperCase(), cart: true),
-//       child: Column(
-//         children: [
-//           search(searchController, filtertab: () => Get.to(() => Filter())),
-//           Obx(() {
-//             final loading = productListAPI.isLoading.value;
-//             final product = productListAPI.productListData;
-//             final prdoductList = product['data'];
-//             // 1️⃣ Loading state
-//             if (loading) {
-//               return const Center(child: CircularProgressIndicator());
-//             }
-//
-//             // 2️⃣ Empty data state
-//             if (product.isEmpty ||
-//                 prdoductList == null ||
-//                 prdoductList.isEmpty) {
-//               return const Center(child: Text('No products found'));
-//             }
-//
-//             // 3️⃣ Success state
-//             return Expanded(
-//               child: horizontalPadding(
-//                 child: GridView.builder(
-//                   itemCount: prdoductList.length,
-//                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//                     crossAxisCount: 2,
-//                     crossAxisSpacing: Get.width * 0.04,
-//                     mainAxisSpacing: Get.width * 0.04,
-//                     mainAxisExtent: 340,
-//                   ),
-//                   itemBuilder: (_, index) {
-//                     final product = prdoductList[index];
-//                     final List childProducts = product['childProduct'] ?? [];
-//
-//                     if (childProducts.isEmpty) {
-//                       return const SizedBox();
-//                     }
-//
-//                     // 🔑 Per-product controller (VERY IMPORTANT)
-//                     final variantController = Get.put(
-//                       ProductVariantController(),
-//                       tag: product['_id'],
-//                     );
-//
-//                     variantController.initDefault(childProducts);
-//
-//                     return Container(
-//                       decoration: BoxDecoration(
-//                         border: Border.all(color: AppColor.gray),
-//                       ),
-//                       child: Padding(
-//                         padding: const EdgeInsets.all(10),
-//                         child: Obx(() {
-//                           final item = variantController.selectedVariant.value;
-//                           final images = item?['images'] ?? [];
-//
-//                           return Column(
-//                             crossAxisAlignment: CrossAxisAlignment.start,
-//                             children: [
-//                               /// IMAGE
-//                               Image.network(
-//                                 images.isNotEmpty ? images.first['zoom'] : '',
-//                                 height: 120,
-//                                 fit: BoxFit.cover,
-//                                 errorBuilder: (_, __, ___) => const SizedBox(
-//                                   height: 120,
-//                                   child: Center(child: Text('No Image')),
-//                                 ),
-//                               ),
-//
-//                               const SizedBox(height: 6),
-//
-//                               /// TITLE
-//                               productName(
-//                                 item?['productTitle']?.toString().substring(
-//                                       0,
-//                                       item['productTitle'].length > 35
-//                                           ? 35
-//                                           : item['productTitle'].length,
-//                                     ) ??
-//                                     '',
-//                               ),
-//
-//                               /// PRICE
-//                               price(
-//                                 (double.tryParse('${item?['finalPrice']}') ?? 0)
-//                                     .toStringAsFixed(2),
-//                               ),
-//
-//                               const SizedBox(height: 6),
-//
-//
-//
-//                               // /// METAL STAMP (10k / 14k / 18k)
-//                               // Wrap(
-//                               //   spacing: 6,
-//                               //   children: childProducts
-//                               //       .map(
-//                               //         (e) => e['metalStamp'][0]['paraMtrName'],
-//                               //       )
-//                               //       .toSet()
-//                               //       .map((stamp) {
-//                               //         final isSelected =
-//                               //             variantController
-//                               //                 .selectedStamp
-//                               //                 .value ==
-//                               //             stamp;
-//                               //
-//                               //         return GestureDetector(
-//                               //           onTap: () => variantController
-//                               //               .selectStamp(childProducts, stamp),
-//                               //           child: Container(
-//                               //             padding: const EdgeInsets.symmetric(
-//                               //               horizontal: 8,
-//                               //               vertical: 4,
-//                               //             ),
-//                               //             decoration: BoxDecoration(
-//                               //               border: Border.all(
-//                               //                 color: isSelected
-//                               //                     ? AppColor.primary
-//                               //                     : AppColor.gray,
-//                               //               ),
-//                               //               borderRadius: BorderRadius.circular(
-//                               //                 4,
-//                               //               ),
-//                               //             ),
-//                               //             child: Text(
-//                               //               stamp,
-//                               //               style: const TextStyle(
-//                               //                 fontSize: 11,
-//                               //               ),
-//                               //             ),
-//                               //           ),
-//                               //         );
-//                               //       })
-//                               //       .toList(),
-//                               // ),
-//                               //
-//                               // const SizedBox(height: 6),
-//                               //
-//                               // /// METAL COLOR (WG / RG / YG)
-//                               // Wrap(
-//                               //   spacing: 6,
-//                               //   children: childProducts
-//                               //       .map((e) => e['metalType'][0]['metal'])
-//                               //       .toSet()
-//                               //       .map((metal) {
-//                               //         final isSelected =
-//                               //             variantController
-//                               //                 .selectedMetal
-//                               //                 .value ==
-//                               //             metal;
-//                               //
-//                               //         return GestureDetector(
-//                               //           onTap: () => variantController
-//                               //               .selectMetal(childProducts, metal),
-//                               //           child: Container(
-//                               //             padding: const EdgeInsets.symmetric(
-//                               //               horizontal: 8,
-//                               //               vertical: 4,
-//                               //             ),
-//                               //             decoration: BoxDecoration(
-//                               //               border: Border.all(
-//                               //                 color: isSelected
-//                               //                     ? AppColor.primary
-//                               //                     : AppColor.gray,
-//                               //               ),
-//                               //               borderRadius: BorderRadius.circular(
-//                               //                 4,
-//                               //               ),
-//                               //             ),
-//                               //             child: Text(
-//                               //               metal.replaceAll(' Gold', ''),
-//                               //               style: const TextStyle(
-//                               //                 fontSize: 11,
-//                               //               ),
-//                               //             ),
-//                               //           ),
-//                               //         );
-//                               //       })
-//                               //       .toList(),
-//                               // ),
-//
-//                               const SizedBox(height: 6),
-//
-//                               /// CARAT
-//                               Row(
-//                                 children: [
-//                                   information('Carat'),
-//                                   caratHowMany('${item?['totalWgt'] ?? 0}'),
-//                                 ],
-//                               ),
-//                             ],
-//                           );
-//                         }),
-//                       ),
-//                     );
-//                   },
-//                 ),
-//               ),
-//             );
-//           }),
-//         ],
-//       ),
-//     );
-//   }
-// }
 
-class Product extends StatelessWidget {
-  final productListAPI = Get.put(ProductlistController());
-
+class Product extends StatefulWidget {
   final String categoryId;
   final String categoryName;
+  final String? subCategoryId;
+  final String? metalType;
+  final String? metalStamp;
+  final String? shape;
+  final String? settingType;
+  final String? minPrice;
+  final String? priceShort;
 
-  Product({
+  const Product({
     super.key,
     required this.categoryId,
     required this.categoryName,
+    this.subCategoryId,
+    this.metalType,
+    this.metalStamp,
+    this.shape,
+    this.settingType,
+    this.minPrice,
+    this.priceShort,
   });
 
   @override
-  Widget build(BuildContext context) {
-    productListAPI.productList(categoryId: categoryId);
-    final searchController = TextEditingController();
+  State<Product> createState() => _ProductState();
+}
 
+class _ProductState extends State<Product> {
+  final productListAPI = Get.put(ProductlistController());
+  final searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    productListAPI.productList(categoryId: widget.categoryId);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Fullscreen(
-      appBar: allOtherScreen(categoryName.toUpperCase(), cart: true),
+      appBar: allOtherScreen(widget.categoryName.toUpperCase(), cart: true),
       child: Column(
         children: [
           search(searchController, filtertab: () => Get.to(() => Filter())),
 
-          /// PRODUCT LIST
           Obx(() {
-
-            final loading = productListAPI.isLoading.value;
-            final product = productListAPI.productListData;
-            final productList = product['data'] ?? [];
+            final api = productListAPI;
+            final loading = api.isLoading.value;
+            final product = api.productListData;
+            final List productList = product['data'] ?? [];
 
             if (loading) {
               return const Expanded(
@@ -292,7 +76,7 @@ class Product extends StatelessWidget {
               );
             }
 
-            if (productList.isEmpty) {
+            if (product.isEmpty || productList.isEmpty) {
               return const Expanded(
                 child: Center(child: Text('No products found')),
               );
@@ -302,155 +86,123 @@ class Product extends StatelessWidget {
               child: horizontalPadding(
                 child: GridView.builder(
                   itemCount: productList.length,
-                  gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 12,
                     crossAxisSpacing: 12,
-                    mainAxisExtent: 330, // Increased from 600 to 650
+                    mainAxisExtent: 340,
                   ),
-                  itemBuilder: (_, index) {
+                  itemBuilder: (context, index) {
                     final product = productList[index];
                     final List childProducts = product['childProduct'] ?? [];
-
+                    var activeVariant = childProducts
+                        .where((item) => item?['slug'] == product?['slug'])
+                        .toList();
                     if (childProducts.isEmpty) {
                       return const SizedBox();
                     }
+                    final List images = activeVariant[0]['images'] ?? [];
+                    final String productTitle = activeVariant[0]['productTitle'] ?? '';
+                    final double finalPrice = activeVariant[0]['finalPrice'];
+                    final List metalStamp = activeVariant[0]['metalStamp'] ?? [];
+                    final List<dynamic>combinedMetal = product['childProduct'].cast<Map>().expand((item) {
+                      final metalStamps = (item['metalStamp'] as List? ?? []).cast<Map>();
+                      final metalTypes = (item['metalType'] as List? ?? []).cast<Map>();
+                      return [
+                        for (var stamp in metalStamps)
+                          for (var metal in metalTypes)
+                            {
+                              'metalStampId': stamp['_id'] ?? '',
+                              'metalTypeId': metal['_id'] ?? '',
+                              'combinedMetalName':
+                                  '${stamp['paraMtrName'] ?? ''}${(stamp['paraMtrName'] != null && metal['metal'] != null) ? ' ' : ''}${metal['metal'] ?? ''}',
+                              'param': stamp['paraMtrName'],
+                            },
+                      ];
+                    }).toList();
 
-                    /// 🔑 Per-product controller
-                    final variantController = Get.put(
-                      ProductVariantController(),
-                      tag: product['_id'],
-                    );
+                    final double priceValue = (finalPrice as num?)?.toDouble() ?? 0.0;
+                    final String priceText = priceValue.toStringAsFixed(2);
 
-                    variantController.initDefault(childProducts);
+                    Widget buildMetalStamps() => SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: combinedMetal.map((stamp) {
+                          final name = (stamp['param'] ?? '').toString();
 
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(borderradius.buttonboder),
-                        border: Border.all(color: AppColor.gray),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Obx(() {
-                          final item = variantController.selectedVariant.value;
-                          final images = item?['images'] ?? [];
+                          // Conditional background color
+                          Color bgColor;
+                          if (stamp['combinedMetalName'].contains('White')) {
+                            bgColor = Colors.grey.shade300; // grey for White
+                          } else if (stamp['combinedMetalName'].contains(
+                            'Rose',
+                          )) {
+                            bgColor = Colors.pink.shade200; // rose color
+                          } else if (stamp['combinedMetalName'].contains(
+                            'Yellow',
+                          )) {
+                            bgColor = Colors.yellow.shade200; // rose color
+                          } else {
+                            bgColor = Colors.white; // default
+                          }
 
-                          return SingleChildScrollView( // Wrap with SingleChildScrollView
-                            physics: const NeverScrollableScrollPhysics(), // Disable nested scrolling
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min, // Use min size
-                              children: [
-                                /// IMAGE - Fixed height container
-                                Image.network(
-                                  images.isNotEmpty ? images.first['zoom'] : '',
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (_, __, ___) => Container(
-                                    width: double.infinity,
-                                    color: AppColor.gray5,
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.image_not_supported,
-                                        size: 40,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-
-                                const SizedBox(height: 8),
-
-                                /// TITLE - Limit to 2 lines
-                                Text(
-                                  item?['productTitle'] ?? '',
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.2,
-                                  ),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-
-                                SizedBox(height: Get.height * 0.01),
-
-                                /// PRICE
-                                Text(
-                                  '\$${(double.tryParse('${item?['finalPrice']}') ?? 0).toStringAsFixed(2)}',
-                                  style:  TextStyle(
-                                    fontSize: Textsize.normal,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColor.primary,
-                                  ),
-                                ),
-
-                                SizedBox(height: Get.height * 0.01),
-
-                                // Shape Selection - Fixed height container
-                                if (childProducts.isNotEmpty && childProducts.any((v) => (v['stoneDetails'] as List).isNotEmpty))
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      information('Shape'),
-                                      SizedBox(width: Get.width * 0.01),
-                                      Expanded(
-                                        child: _CompactShapeWidget(
-                                          variants: childProducts,
-                                          controller: variantController,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-
-                                const SizedBox(height: 8),
-
-                                /// 🔥 METAL COMBINATIONS - Fixed height container
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    information('Metal'),
-                                    SizedBox(width: Get.width * 0.01),
-                                    Expanded(
-                                      child: _CompactMetalComboWidget(
-                                        variants: childProducts,
-                                        controller: variantController,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-
-                                const SizedBox(height: 8),
-
-                                /// CARAT
-                                Row(
-                                  children: [
-                                    information('Carat'),
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 8,
-                                        vertical: 4,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: AppColor.gray5,
-                                        ),
-                                        borderRadius: BorderRadius.circular(borderradius.buttonboder),
-                                      ),
-                                      child: Text(
-                                        '${item?['totalWgt'] ?? 0}',
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                          return Container(
+                            margin: const EdgeInsets.only(right: 8),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: bgColor,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Text(
+                              name,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           );
-                        }),
+                        }).toList(),
+                      ),
+                    );
+
+                    return Container(
+                      padding:  EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: AppColor.gray),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          (images.isNotEmpty)
+                              ? Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: Image.network(
+                                    (images.first['zoom'] ?? ''),
+                                    fit: BoxFit.cover,
+                                  ),
+                                )
+                              : SizedBox(),
+
+                          (productTitle.isNotEmpty)
+                              ? productName(productTitle)
+                              : SizedBox(),
+
+                          (priceText.isNotEmpty)
+                              ? price(priceText)
+                              : SizedBox(),
+
+                          (metalStamp.isNotEmpty)
+                              ? Row(
+                                  children: [
+                                    information('Metal'),
+                                    Expanded(child: buildMetalStamps()),
+                                  ],
+                                )
+                              : SizedBox(),
+                        ],
                       ),
                     );
                   },
@@ -463,407 +215,3 @@ class Product extends StatelessWidget {
     );
   }
 }
-
-class _CompactShapeWidget extends StatelessWidget {
-  final List variants;
-  final ProductVariantController controller;
-
-  const _CompactShapeWidget({
-    required this.variants,
-    required this.controller,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    // Get unique shapes
-    final shapes = <String>{};
-    for (final variant in variants) {
-      final stoneDetailsList = variant['stoneDetails'] as List?;
-      if (stoneDetailsList != null) {
-        for (final stoneDetail in stoneDetailsList) {
-          final shapeData = stoneDetail['shape'] as Map<String, dynamic>?;
-          if (shapeData != null) {
-            final shapeName = shapeData['paraMtrName']?.toString();
-            if (shapeName != null && shapeName.isNotEmpty) {
-              shapes.add(shapeName);
-            }
-          }
-        }
-      }
-    }
-
-    final shapeList = shapes.toList();
-    if (shapeList.isEmpty) return const SizedBox();
-
-    return Obx(() {
-      return SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: shapeList.map((shape) {
-            final isSelected = controller.selectedShape.value == shape;
-
-            return Padding(
-              padding: const EdgeInsets.only(right: 6),
-              child: GestureDetector(
-                onTap: () => controller.selectShape(shape),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: isSelected ? AppColor.primary : AppColor.gray,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(4),
-                    color: isSelected ? AppColor.primary.withOpacity(0.1) : Colors.transparent,
-                  ),
-                  child: Text(
-                    shape,
-                    style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w500,
-                      color: isSelected ? AppColor.primary : AppColor.black,
-                    ),
-                  ),
-                ),
-              ),
-            );
-          }).toList(),
-        ),
-      );
-    });
-  }
-}
-
-class _CompactMetalComboWidget extends StatelessWidget {
-  final List variants;
-  final ProductVariantController controller;
-
-  const _CompactMetalComboWidget({
-    required this.variants,
-    required this.controller,
-  });
-
-  String _comboText(String stamp, String metal) {
-    if (metal.contains('White')) return '$stamp WG';
-    if (metal.contains('Rose')) return '$stamp RG';
-    if (metal.contains('Yellow')) return '$stamp YG';
-    return '$stamp';
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final combos = <String>{};
-
-    for (final variant in variants) {
-      final metalStampList = variant['metalStamp'] as List?;
-      final metalTypeList = variant['metalType'] as List?;
-
-      if (metalStampList != null &&
-          metalStampList.isNotEmpty &&
-          metalTypeList != null &&
-          metalTypeList.isNotEmpty) {
-
-        final stamp = metalStampList[0]['paraMtrName']?.toString() ?? '';
-        final metal = metalTypeList[0]['metal']?.toString() ?? '';
-
-        if (stamp.isNotEmpty && metal.isNotEmpty) {
-          combos.add(_comboText(stamp, metal));
-        }
-      }
-    }
-
-    final comboList = combos.toList();
-    if (comboList.isEmpty) return const SizedBox();
-
-    return Obx(() {
-      return SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: comboList.map((combo) {
-            final isSelected = controller.selectedCombo.value == combo;
-
-            return Padding(
-              padding: const EdgeInsets.only(right: 6),
-              child: GestureDetector(
-                onTap: () => controller.selectCombo(variants, combo),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: isSelected ? AppColor.primary : AppColor.gray,
-                    ),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Text(
-                    combo,
-                    style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w500,
-                      color: isSelected ? AppColor.primary : AppColor.black,
-                    ),
-                  ),
-                ),
-              ),
-            );
-          }).toList(),
-        ),
-      );
-    });
-  }
-}
-
-class ProductVariantController extends GetxController {
-  final RxString selectedCombo = ''.obs;
-  final RxString selectedShape = ''.obs;
-  final Rxn<Map<String, dynamic>> selectedVariant = Rxn();
-
-  // Store all available shapes across all variants
-  final RxList<String> allShapes = RxList<String>();
-  // Store filtered stone details for selected shape
-  final RxList<Map<String, dynamic>> filteredStoneDetails = RxList<Map<String, dynamic>>();
-
-  void initDefault(List variants) {
-    if (variants.isEmpty) return;
-
-    final first = variants.first;
-    selectedVariant.value = first;
-
-    // Safely get metal stamp
-    final metalStampList = first['metalStamp'] as List?;
-    final metalTypeList = first['metalType'] as List?;
-    final stoneDetailsList = first['stoneDetails'] as List?;
-
-    String stamp = '';
-    String metal = '';
-
-    if (metalStampList != null && metalStampList.isNotEmpty) {
-      stamp = metalStampList[0]['paraMtrName']?.toString() ?? '';
-    }
-
-    if (metalTypeList != null && metalTypeList.isNotEmpty) {
-      metal = metalTypeList[0]['metal']?.toString() ?? '';
-    }
-
-    // Set combo if we have both stamp and metal
-    if (stamp.isNotEmpty && metal.isNotEmpty) {
-      selectedCombo.value = _comboText(stamp, metal);
-    }
-
-    // Extract all unique shapes from all variants
-    _extractAllShapes(variants);
-
-    // Set first shape as default if available
-    if (allShapes.isNotEmpty) {
-      selectedShape.value = allShapes.first;
-      _filterByShape(variants, allShapes.first);
-    }
-
-    // Also filter stones for current variant
-    if (stoneDetailsList != null && stoneDetailsList.isNotEmpty) {
-      filteredStoneDetails.value = List.from(stoneDetailsList);
-    }
-  }
-
-  void _extractAllShapes(List variants) {
-    final shapes = <String>{};
-
-    for (final variant in variants) {
-      final stoneDetailsList = variant['stoneDetails'] as List?;
-      if (stoneDetailsList != null) {
-        for (final stoneDetail in stoneDetailsList) {
-          final shapeData = stoneDetail['shape'] as Map<String, dynamic>?;
-          if (shapeData != null) {
-            final shapeName = shapeData['paraMtrName']?.toString();
-            if (shapeName != null && shapeName.isNotEmpty) {
-              shapes.add(shapeName);
-            }
-          }
-        }
-      }
-    }
-
-    allShapes.value = shapes.toList();
-  }
-
-  void _filterByShape(List variants, String shape) {
-    // Filter stone details from selected variant for the specific shape
-    final currentVariant = selectedVariant.value;
-    if (currentVariant != null) {
-      final stoneDetailsList = currentVariant['stoneDetails'] as List?;
-      if (stoneDetailsList != null) {
-        final filtered = stoneDetailsList.where((stoneDetail) {
-          final shapeData = stoneDetail['shape'] as Map<String, dynamic>?;
-          if (shapeData == null) return false;
-          final shapeName = shapeData['paraMtrName']?.toString();
-          return shapeName == shape;
-        }).toList();
-
-        filteredStoneDetails.value = filtered.cast<Map<String, dynamic>>();
-      }
-    }
-  }
-
-  void selectCombo(List variants, String combo) {
-    selectedCombo.value = combo;
-
-    try {
-      final selected = variants.firstWhere(
-            (v) {
-          final metalStampList = v['metalStamp'] as List?;
-          final metalTypeList = v['metalType'] as List?;
-
-          if (metalStampList == null ||
-              metalStampList.isEmpty ||
-              metalTypeList == null ||
-              metalTypeList.isEmpty) {
-            return false;
-          }
-
-          final stamp = metalStampList[0]['paraMtrName']?.toString() ?? '';
-          final metal = metalTypeList[0]['metal']?.toString() ?? '';
-
-          return _comboText(stamp, metal) == combo;
-        },
-      );
-
-      selectedVariant.value = selected;
-
-      // Re-filter stones for current shape when variant changes
-      if (selectedShape.value.isNotEmpty) {
-        _filterByShape([selected], selectedShape.value);
-      }
-    } catch (e) {
-      selectedVariant.value = selectedVariant.value ??
-          (variants.isNotEmpty ? variants.first : null);
-    }
-  }
-
-  void selectShape(String shape) {
-    selectedShape.value = shape;
-    _filterByShape(selectedVariant.value != null ? [selectedVariant.value!] : [], shape);
-  }
-
-  // Calculate price based on selected shape's weight
-  double getPriceForSelectedShape() {
-    if (filteredStoneDetails.isEmpty) return 0;
-
-    double totalPrice = 0;
-    for (final stone in filteredStoneDetails) {
-      final weight = stone['wgt'] as double? ?? 0;
-      final pricePerCarat = selectedVariant.value?['pricePerCarat'] as double? ?? 0;
-      totalPrice += weight * pricePerCarat;
-    }
-
-    // Add metal price if available
-    final metalPrice = selectedVariant.value?['metalPrice'] as double? ?? 0;
-    return totalPrice + metalPrice;
-  }
-
-  // Get total weight for selected shape
-  double getTotalWeightForSelectedShape() {
-    if (filteredStoneDetails.isEmpty) return 0;
-
-    double totalWeight = 0;
-    for (final stone in filteredStoneDetails) {
-      totalWeight += stone['wgt'] as double? ?? 0;
-    }
-    return totalWeight;
-  }
-
-  String _comboText(String stamp, String metal) {
-    if (metal.contains('White')) return '$stamp WG';
-    if (metal.contains('Rose')) return '$stamp RG';
-    if (metal.contains('Yellow')) return '$stamp YG';
-    return stamp.isNotEmpty ? '$stamp ${metal.isNotEmpty ? metal : ''}' : '';
-  }
-}
-
-// class ProductVariantController extends GetxController {
-//   final RxString selectedStamp = ''.obs;
-//   final RxString selectedMetal = ''.obs;
-//   final Rxn<Map<String, dynamic>> selectedVariant = Rxn();
-//
-//   void initDefault(List variants) {
-//     if (variants.isEmpty) return;
-//
-//     final first = variants.first;
-//     selectedVariant.value = first;
-//     selectedStamp.value = first['metalStamp'][0]['paraMtrName'];
-//     selectedMetal.value = first['metalType'][0]['metal'];
-//   }
-//
-//   void selectStamp(List variants, String stamp) {
-//     selectedStamp.value = stamp;
-//     _filter(variants);
-//   }
-//
-//   void selectMetal(List variants, String metal) {
-//     selectedMetal.value = metal;
-//     _filter(variants);
-//   }
-//
-//   void _filter(List variants) {
-//     selectedVariant.value = variants.firstWhere(
-//           (v) =>
-//       v['metalStamp'][0]['paraMtrName'] == selectedStamp.value &&
-//           v['metalType'][0]['metal'] == selectedMetal.value,
-//       orElse: () => selectedVariant.value ?? variants.first,
-//     );
-//   }
-// }
-
-// class Product extends StatelessWidget {
-//   final jewellry = Get.put(JewelleryAPICall());
-//   final List categoryId;
-//   Product({super.key, required this.categoryId});
-//   @override
-//   Widget build(BuildContext context) {
-//     final listItem = jewellry.categoryAPI.catagoryData['data'];
-//     final searchController = TextEditingController();
-//     return Fullscreen(
-//       appBar: allOtherScreen(AppString.product, cart: true),
-//       child: Column(
-//         children: [
-//           search(searchController, filtertab: () => Get.to(() => Filter())),
-//       Expanded(
-//         child: horizontalPadding(
-//           child: GridView.builder(
-//             itemCount: categoryId['subCategory'].length,
-//             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//               crossAxisCount: 2,
-//               crossAxisSpacing: Get.width * 0.04,
-//               mainAxisSpacing: Get.width * 0.04,
-//               mainAxisExtent: 300,
-//             ),
-//             itemBuilder: (context, index) {
-//               final item = categoryId[''][index];
-// print(categoryId[index]['subCategory'][index]['slug']);
-//               return Container(
-//                 // child: Image.network(categoryId[index]['image']),
-//               );
-//             },
-//           ),
-//         ),
-//       )],
-//       ),
-//     );
-//   }
-// }
-
-// productList(
-//   list: listItem['subCategory'],
-//   onTapImagePath: (image) {
-//     Get.to(() => ProductImage(image: image));
-//   },
-//   onTapProductDetail: (image, name, price) {
-//     Get.to(
-//           () => ProductDetail(image: image, name: name, price: price),
-//     );
-//   },
-// ),

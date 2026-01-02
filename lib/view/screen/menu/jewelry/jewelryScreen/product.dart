@@ -1,6 +1,7 @@
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productList_Controller.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/filter.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/productbody.dart';
+import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
@@ -305,7 +306,7 @@ class Product extends StatelessWidget {
                     crossAxisCount: 2,
                     mainAxisSpacing: 12,
                     crossAxisSpacing: 12,
-                    mainAxisExtent: 300, // Increased from 600 to 650
+                    mainAxisExtent: 330, // Increased from 600 to 650
                   ),
                   itemBuilder: (_, index) {
                     final product = productList[index];
@@ -325,6 +326,7 @@ class Product extends StatelessWidget {
 
                     return Container(
                       decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(borderradius.buttonboder),
                         border: Border.all(color: AppColor.gray),
                       ),
                       child: Padding(
@@ -424,11 +426,23 @@ class Product extends StatelessWidget {
                                 Row(
                                   children: [
                                     information('Carat'),
-                                    Text(
-                                      '${item?['totalWgt'] ?? 0}',
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 8,
+                                        vertical: 4,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: AppColor.gray5,
+                                        ),
+                                        borderRadius: BorderRadius.circular(borderradius.buttonboder),
+                                      ),
+                                      child: Text(
+                                        '${item?['totalWgt'] ?? 0}',
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
                                     ),
                                   ],

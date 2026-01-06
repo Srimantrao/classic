@@ -44,7 +44,7 @@ dependencies:
   floating_action_bubble:
   dio:
   shared_preferences:
-
+  shimmer:
 
 dev_dependencies:
   flutter_test:

@@ -856,6 +856,8 @@
 //   }
 // }
 
+// ignore_for_file: file_names
+
 // productList(
 //   list: listItem['subCategory'],
 //   onTapImagePath: (image) {

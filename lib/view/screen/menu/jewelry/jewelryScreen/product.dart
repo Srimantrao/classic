@@ -1,22 +1,15 @@
-import 'dart:developer';
-
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productList_Controller.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/filter.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/productbody.dart';
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
-import 'package:classic/view/utils/app_TextSize.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
-
+import 'package:shimmer/shimmer.dart';
 import '../../../../utils/widget/horizontalpaddind.dart';
 import '../jewelryExtraWidget/product.dart';
-
 
 class Product extends StatefulWidget {
   final String categoryId;
@@ -63,7 +56,6 @@ class _ProductState extends State<Product> {
       child: Column(
         children: [
           search(searchController, filtertab: () => Get.to(() => Filter())),
-
           Obx(() {
             final api = productListAPI;
             final loading = api.isLoading.value;
@@ -71,8 +63,8 @@ class _ProductState extends State<Product> {
             final List productList = product['data'] ?? [];
 
             if (loading) {
-              return const Expanded(
-                child: Center(child: CircularProgressIndicator()),
+              return Expanded(
+                child: Center(child: shimmerGrid()),
               );
             }
 
@@ -90,7 +82,7 @@ class _ProductState extends State<Product> {
                     crossAxisCount: 2,
                     mainAxisSpacing: 12,
                     crossAxisSpacing: 12,
-                    mainAxisExtent: 340,
+                    mainAxisExtent: 330,
                   ),
                   itemBuilder: (context, index) {
                     final product = productList[index];
@@ -105,7 +97,35 @@ class _ProductState extends State<Product> {
                     final String productTitle = activeVariant[0]['productTitle'] ?? '';
                     final double finalPrice = activeVariant[0]['finalPrice'];
                     final List metalStamp = activeVariant[0]['metalStamp'] ?? [];
-                    final List<dynamic>combinedMetal = product['childProduct'].cast<Map>().expand((item) {
+
+                    // Extract unique shape names
+                    final List<Map<String, dynamic>> shapeList = [];
+                    for (final item in childProducts) {
+                      final List stoneDetails = item['stoneDetails'] ?? [];
+                      for (final stone in stoneDetails) {
+                        final shape = stone['shape'];
+                        if (shape != null && shape['paraMtrName'] != null) {
+                          shapeList.add({
+                            'shapeId': shape['_id'],
+                            'shapeName': shape['paraMtrName'],
+                          });
+                        }
+                      }
+                    }
+
+                    final Set<String> added = {};
+                    final List<Map<String, dynamic>> uniqueShapeList = [];
+                    for (final s in shapeList) {
+                      final name = s['shapeName'];
+                      if (!added.contains(name)) {
+                        added.add(name);
+                        uniqueShapeList.add(s);
+                      }
+                    }
+
+                    // Combine metalStamp and metalType
+                    final List
+                    combinedMetal = product['childProduct'].cast<Map>().expand((item) {
                       final metalStamps = (item['metalStamp'] as List? ?? []).cast<Map>();
                       final metalTypes = (item['metalType'] as List? ?? []).cast<Map>();
                       return [
@@ -121,9 +141,35 @@ class _ProductState extends State<Product> {
                       ];
                     }).toList();
 
+                    final List<Map<String, dynamic>> carat = {
+                      for (final child in (product['childProduct'] as List? ?? []))
+                        for (final stamp in (child['metalStamp'] as List? ?? []))
+                          stamp['_id']: {
+                            'carat': stamp['slug'] ?? stamp['paraMtrName'] ?? '',
+                            'caratId': stamp['_id'],
+                          },
+                    }.values.toList();
+
+                    // Format price
                     final double priceValue = (finalPrice as num?)?.toDouble() ?? 0.0;
                     final String priceText = priceValue.toStringAsFixed(2);
 
+                    // Shape
+                    Widget buildShape() => SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: uniqueShapeList.map((shape) {
+                          final name = shape['shapeName'] ?? '';
+                          if (name.isEmpty) return const SizedBox();
+                          return showContainer(
+                            name: name,
+                            bgColor: AppColor.gray,
+                          );
+                        }).toList(),
+                      ),
+                    );
+
+                    // Build metal stamps
                     Widget buildMetalStamps() => SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -146,45 +192,72 @@ class _ProductState extends State<Product> {
                             bgColor = Colors.white; // default
                           }
 
-                          return Container(
-                            margin: const EdgeInsets.only(right: 8),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 6,
-                            ),
-                            decoration: BoxDecoration(
-                              color: bgColor,
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: Text(
-                              name,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
+                          return showContainer(
+                            name: name,
+                            bgColor: bgColor,
                           );
                         }).toList(),
                       ),
                     );
 
+                    // Build total wgt
+                    Widget buildTotalWgt() {
+                      final uniqueTotalWgt = {
+                        for (final item in childProducts)
+                          item['totalWgt']?.toString(): item,
+                      }.keys.toList();
+                      return SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: uniqueTotalWgt.map<Widget>((wgt) {
+                            return showContainer(
+                              name: wgt.toString(),
+                              bgColor: AppColor.gray,
+                            );
+                          }).toList(),
+                        ),
+                      );
+                    }
+
                     return Container(
-                      padding:  EdgeInsets.all(10),
+                      padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         border: Border.all(color: AppColor.gray),
+                        borderRadius: BorderRadius.circular(
+                          borderradius.buttonboder,
+                        ),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          (images.isNotEmpty)
+                          (images.isNotEmpty && (images.first['zoom'] ?? '').isNotEmpty)
                               ? Padding(
-                                  padding: const EdgeInsets.all(5),
-                                  child: Image.network(
-                                    (images.first['zoom'] ?? ''),
-                                    fit: BoxFit.cover,
+                            padding: const EdgeInsets.all(5),
+                            child: Image.network(
+                              images.first['zoom'],
+                              fit: BoxFit.cover,
+
+                              // 👇 shows loader while downloading
+                              loadingBuilder: (context, child, loadingProgress) {
+                                if (loadingProgress == null) return child;
+                                return const Center(
+                                  child: CircularProgressIndicator(strokeWidth: 2),
+                                );
+                              },
+
+                              // 👇 shows icon if image fails (Broken pipe, 404, etc.)
+                              errorBuilder: (context, error, stackTrace) {
+                                return const Center(
+                                  child: Icon(
+                                    Icons.broken_image,
+                                    size: 40,
+                                    color: Colors.grey,
                                   ),
-                                )
-                              : SizedBox(),
+                                );
+                              },
+                            ),
+                          )
+                              : const SizedBox(),
 
                           (productTitle.isNotEmpty)
                               ? productName(productTitle)
@@ -194,11 +267,29 @@ class _ProductState extends State<Product> {
                               ? price(priceText)
                               : SizedBox(),
 
+                          (shapeList.isNotEmpty)
+                              ? Row(
+                                  children: [
+                                    information('Shape'),
+                                    Expanded(child: buildShape()),
+                                  ],
+                                )
+                              : SizedBox(),
+
                           (metalStamp.isNotEmpty)
                               ? Row(
                                   children: [
                                     information('Metal'),
                                     Expanded(child: buildMetalStamps()),
+                                  ],
+                                )
+                              : SizedBox(),
+
+                          (carat.isNotEmpty)
+                              ? Row(
+                                  children: [
+                                    information('Carat'),
+                                    Expanded(child: buildTotalWgt()),
                                   ],
                                 )
                               : SizedBox(),
@@ -214,4 +305,64 @@ class _ProductState extends State<Product> {
       ),
     );
   }
+}
+
+
+Widget shimmerGrid() {
+  return Shimmer.fromColors(
+    baseColor: Colors.grey.shade300,
+    highlightColor: Colors.grey.shade100,
+    child: horizontalPadding(
+      child: GridView.builder(
+        itemCount: 20,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 15,
+          crossAxisSpacing: 15,
+          mainAxisExtent: 335,
+        ),
+        itemBuilder: (context, index) {
+          return Container(
+            decoration: BoxDecoration(
+              color: Colors.grey.shade300,
+              borderRadius: BorderRadius.circular(borderradius.buttonboder),
+            ),
+          );
+        },
+      ),
+    ),
+  );
+}
+
+
+
+Widget showContainer({
+  required String name,
+  required Color bgColor,
+  void Function()? onTap,
+}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Padding(
+      padding: EdgeInsets.symmetric(vertical: Get.width * 0.01),
+      child: Container(
+        margin: EdgeInsets.only(right: Get.width * 0.02),
+        padding: EdgeInsets.symmetric(
+          horizontal: Get.width * 0.025,
+          vertical: Get.width * 0.015,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(borderradius.buttonboder),
+          border: Border.all(color: bgColor),
+        ),
+        child: Text(
+          name,
+          style: TextStyle(
+            fontSize: Get.width * 0.03,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+    ),
+  );
 }

@@ -58,7 +58,7 @@ class Home extends StatelessWidget {
           SliverToBoxAdapter(
             child: Obx(() {
               final response = homeAPI.homeCollectionAPI.homeCollectionData;
-              final data = response?['data'];
+              final data = response['data'];
 
               if (data == null || data.isEmpty) {
                 return const SizedBox.shrink();

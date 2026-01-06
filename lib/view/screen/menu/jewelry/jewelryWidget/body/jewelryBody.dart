@@ -1,6 +1,5 @@
 // ignore_for_file: file_names, avoid_print
 
-import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productList_Controller.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryExtraWidget/jewellry.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';

@@ -46,7 +46,7 @@ Widget filterContainer({
         children: [
           if (image != null && image.isNotEmpty)
             Image.network(
-              image, // ✅ full URL already
+              image,
               height: 30,
               width: 30,
               errorBuilder: (_, __, ___) => Icon(Icons.image_not_supported),

@@ -30,6 +30,7 @@ class Filter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Fullscreen(
       appBar: allOtherScreen(AppString.filters, filter: true),
+
       //Filter Button
       bottomNavigationBar: Obx(() {
         final api = filterAPI;
@@ -45,6 +46,8 @@ class Filter extends StatelessWidget {
                 child: filterButton(onTapClear: () {}, onTapSave: () {}),
               );
       }),
+
+      //Body
       child: Obx(() {
         final api = filterAPI;
         final loading = api.isLoading.value;

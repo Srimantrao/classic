@@ -14,12 +14,19 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../controller/user_Interface/menu/jewelry/productUI_Controller.dart';
 
-Widget search(searchController, {void Function()? filtertab}) {
+Widget search(
+  searchController, {
+  void Function()? filtertab,
+  void Function(String)? onChanged,
+}) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: Get.width * 0.018),
     child: Row(
       children: [
-        Expanded(flex: 9, child: searchBar(searchController)),
+        Expanded(
+          flex: 9,
+          child: searchBar(searchController, onChanged: onChanged),
+        ),
         Column(
           children: [
             GestureDetector(
@@ -37,7 +44,6 @@ Widget search(searchController, {void Function()? filtertab}) {
     ),
   );
 }
-
 
 Widget shimmerGrid() {
   return Shimmer.fromColors(
@@ -67,14 +73,13 @@ Widget shimmerGrid() {
 
 // List controller
 Widget listController(
-    List productList,
-    ScrollController controller, {
-      required bool isLoadMore,
-    }) {
+  List productList,
+  ScrollController controller, {
+  required bool isLoadMore,
+}) {
   return Expanded(
     child: Stack(
       children: [
-
         //List Controller
         GridView.builder(
           controller: controller,
@@ -88,7 +93,7 @@ Widget listController(
           itemBuilder: (context, index) {
             final product = productList[index];
             final List<Map<String, dynamic>> childProducts =
-            List<Map<String, dynamic>>.from(product['childProduct'] ?? []);
+                List<Map<String, dynamic>>.from(product['childProduct'] ?? []);
             final String productId = product['_id'] ?? 'product_$index';
             final productControllerUI = Get.put(
               ProductuiController(

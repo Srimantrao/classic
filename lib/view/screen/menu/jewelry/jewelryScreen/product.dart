@@ -1,18 +1,19 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productList_Controller.dart';
+import 'package:classic/controller/user_Interface/menu/jewelry/productUI_Controller.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/filter.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/productbody.dart';
-import 'package:classic/view/utils/app_json.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
+import 'package:classic/view/utils/widget/noDada.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
 import '../../../../utils/widget/horizontalpaddind.dart';
 
 class Product extends StatelessWidget {
-  final productListAPI = Get.put(ProductlistController());
+  final searchUIController = Get.put(ProductSerchController());
+  final productListAPI = Get.put(ProductlistController(),permanent: true);
   final searchController = TextEditingController();
   final scrollController = ScrollController();
   final String categoryId;
@@ -38,52 +39,48 @@ class Product extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    productListAPI.fetchFirstPage(
-      categoryId: categoryId,
-      subCategoryId: subCategoryId,
-      metalType: metalType,
-      metalStamp: metalStamp,
-      shape: shape,
-      settingType: settingType,
-      minPrice: minPrice,
-      priceShort: priceShort,
+    final ProductAPICall apiController = Get.put(
+      ProductAPICall(
+        categoryId: categoryId,
+        subCategoryId: subCategoryId,
+        metalType: metalType,
+        metalStamp: metalStamp,
+        shape: shape,
+        settingType: settingType,
+        minPrice: minPrice,
+        priceShort: priceShort,
+      ),
     );
-
     scrollController.addListener(() {
-      if (scrollController.position.pixels ==
-          scrollController.position.maxScrollExtent) {
-        productListAPI.fetchNextPage(
-          categoryId: categoryId,
-          subCategoryId: subCategoryId,
-          metalType: metalType,
-          metalStamp: metalStamp,
-          shape: shape,
-          settingType: settingType,
-          minPrice: minPrice,
-          priceShort: priceShort,
-        );
+      if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+        apiController.loadNextPage();
       }
     });
     return Fullscreen(
       appBar: allOtherScreen(categoryName.toUpperCase(), cart: true),
       child: Column(
         children: [
-          search(searchController, filtertab: () => Get.to(() => Filter())),
+          search(
+            searchController,
+            onChanged: (value){
+              searchUIController.onSearchChanged(value);
+            },
+            filtertab: () => Get.to(() => Filter()),
+          ),
           Obx(() {
             final api = productListAPI;
             final loading = api.isLoading.value;
             final product = api.productListData;
+            final List productList = searchUIController.filteredProducts;
             // final List productList = product['data'] ?? [];
-            final List productList = product;
+            // final List productList = product;
 
             if (loading) {
               return Expanded(child: Center(child: shimmerGrid()));
             }
 
             if (product.isEmpty || productList.isEmpty) {
-              return Expanded(
-                child: Center(child: Lottie.asset(AppJson.noData)),
-              );
+              return noData();
             }
 
             return Expanded(

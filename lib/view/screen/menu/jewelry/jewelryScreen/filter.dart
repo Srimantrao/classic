@@ -1,18 +1,25 @@
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/filter_Controller.dart';
 import 'package:classic/controller/user_Interface/menu/jewelry/filter_Controller.dart';
 import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';
 import 'package:classic/modal/menu/jewelry/lisofProduct.dart';
 import 'package:classic/view/utils/app_Color.dart';
+import 'package:classic/view/utils/app_URL.dart';
 import 'package:classic/view/utils/widget/bottomNavigationButton.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
+import 'package:classic/view/utils/widget/noDada.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
+import '../../../../utils/app_Borderradius.dart';
 import '../../../../utils/app_String.dart';
+import '../jewelryExtraWidget/filter.dart';
 import '../jewelryWidget/body/filterbody.dart';
 
 class Filter extends StatelessWidget {
   final filter = Get.put(FilterUIController());
+  final filterAPI = Get.put(FilterController());
   final product = Lisofproduct();
   final dimaondlist = DiamondList();
   final filterCategory = FilterCategory();
@@ -24,49 +31,58 @@ class Filter extends StatelessWidget {
     return Fullscreen(
       appBar: allOtherScreen(AppString.filters, filter: true),
       //Filter Button
-      bottomNavigationBar: buttonNavigation(
-        child: filterButton(onTapClear: () {}, onTapSave: () {}),
-      ),
+      bottomNavigationBar: Obx(() {
+        final api = filterAPI;
+        final loading = api.isLoading.value;
+
+        if (loading) {
+          return Center(child: shimmer());
+        }
+
+        return (loading)
+            ? SizedBox()
+            : buttonNavigation(
+                child: filterButton(onTapClear: () {}, onTapSave: () {}),
+              );
+      }),
       child: Obx(() {
+        final api = filterAPI;
+        final loading = api.isLoading.value;
+
+        if (loading) {
+          return Center(child: shimmer());
+        }
+
+        final apiData = api.filterData;
+
+        if (apiData.isEmpty) {
+          return noData();
+        }
+
+        final filterData = apiData['data'];
+
+        final metalStampsList = filterData['metalStamp'];
+        final metalTypesList = filterData['metalType'];
+        final stoneTypesList = filterData['stone'];
+        final shapesList = filterData['shape'];
+
         return SingleChildScrollView(
           child: Column(
             children: [
-              //Metal Type
-              horizontalPadding(
-                child: metaltype(
-                  whiteGoldOneTap: filter.selectWhiteGold,
-                  roseGoldOneTap: filter.selectRoseGold,
-                  yellowGoldOneTap: filter.selectYellowGold,
-                  roseWhiteGoldOneTap: filter.selectRoseWhiteGold,
-                  yellowWhiteGoldOneTap: filter.selectYellowWhiteGold,
-                  whiteRoseGoldOneTap: filter.selectWhiteRoseGold,
-                  whiteselect: filter.whiteGold.value,
-                  roseGoldselect: filter.roseGold.value,
-                  yellowGoldselect: filter.yellowGold.value,
-                  roseWhiteGoldselect: filter.roseWhiteGold.value,
-                  yellowWhiteGoldselect: filter.yellowWhiteGold.value,
-                  whiteRoseGoldselect: filter.whiteRoseGold.value,
-                ),
-              ),
-              SizedBox(height: Get.height * 0.03),
-              Divider(color: AppColor.gray5, thickness: 2),
+              metalType(metalTypes: metalTypesList, filter: filter),
+              divider(),
 
               //Metal Stamp
-              metalstame(product),
-              SizedBox(height: Get.height * 0.03),
-              Divider(color: AppColor.gray5, thickness: 2),
+              metalStamps(metalStamps: metalStampsList, filter: filter),
+              divider(),
 
               //shape
-              SizedBox(height: Get.height * 0.01),
-              shapeSelected(dimaondlist),
-
-              SizedBox(height: Get.height * 0.03),
-              Divider(color: AppColor.gray5, thickness: 2),
+              shape(shapes: shapesList, filter: filter),
+              divider(),
 
               //Stone Type
-              stoneType(filterCategory),
-              SizedBox(height: Get.height * 0.03),
-              Divider(color: AppColor.gray5, thickness: 2),
+              stone(stone: stoneTypesList, filter: filter),
+              divider(),
 
               //Sort By
               shortBY(
@@ -76,7 +92,7 @@ class Filter extends StatelessWidget {
                 onTapLowToHigh: filter.sortLowToHigh,
               ),
 
-              SizedBox(height: Get.height * 0.03),
+              Padding(padding: EdgeInsetsGeometry.only(top: Get.height * 0.03)),
             ],
           ),
         );

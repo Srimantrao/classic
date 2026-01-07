@@ -8,8 +8,7 @@ Widget product({
   required String text,
   required String? image,
   void Function()? onTap,
-})
-{
+}) {
   final bool hasImage = image != null && image.isNotEmpty;
 
   return GestureDetector(
@@ -23,7 +22,29 @@ Widget product({
       child: Column(
         children: [
           hasImage
-              ? Image.network(AppUrl.imagebaseUrl + image, fit: BoxFit.cover)
+              ? Image.network(
+                  AppUrl.imagebaseUrl + image,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
+                    );
+                  },
+                  errorBuilder: (context, error, stackTrace) {
+                    return Center(
+                      child: Icon(
+                        Icons.broken_image,
+                        size: 40,
+                        color: Colors.grey,
+                      ),
+                    );
+                  },
+                )
               : SizedBox(),
           SizedBox(height: Get.height * 0.01),
           Text(

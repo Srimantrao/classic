@@ -1,105 +1,170 @@
 // ignore_for_file: strict_top_level_inference
 
+import 'package:classic/view/utils/app_String.dart';
+import 'package:classic/view/utils/app_TextSize.dart';
+import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import '../../../../../controller/user_Interface/menu/jewelry/filter_Controller.dart';
 import '../../../../utils/app_Borderradius.dart';
 import '../../../../utils/app_Color.dart';
+import '../../../../utils/app_URL.dart';
 import '../../diamondSearch/diamondSearchExtraWidget/diamondExtraWidget.dart';
 
 Widget heddingFilter(text) {
-  return Column(
-    children: [
-      SizedBox(height: Get.height * 0.02),
-      shapeHedding(text),
-    ],
-  );
+  return shapeHedding(text);
 }
 
-Widget selectmetalType({
-  required String value,
-  required Color bodercolor,
+Widget srinc(List<Widget> children) {
+  return Wrap(spacing: 10, runSpacing: 10, children: children);
+}
+
+Widget filterContainer({
   void Function()? onTap,
-  bool? isselect = false,
+  bool isSelected = false,
+  required String name,
+  String? image,
 }) {
   return GestureDetector(
     onTap: onTap,
     child: Container(
       padding: EdgeInsets.symmetric(
-        horizontal: Get.width * 0.05,
-        vertical: Get.height * 0.012,
+        horizontal: Get.width * 0.04,
+        vertical: Get.height * 0.010,
       ),
       decoration: BoxDecoration(
-        color: (isselect == true) ? AppColor.primary : AppColor.white,
+        color: isSelected ? AppColor.primary : AppColor.white,
         borderRadius: BorderRadius.circular(borderradius.buttonboder),
-        border: Border.all(color: bodercolor),
-      ),
-      child: Text(
-        value,
-        style: TextStyle(
-          color: (isselect == true) ? AppColor.white : AppColor.black,
+        border: Border.all(
+          color: isSelected ? AppColor.primary : AppColor.secondary,
         ),
+      ),
+      child: Column(
+        children: [
+          if (image != null && image.isNotEmpty)
+            Image.network(
+              image, // ✅ full URL already
+              height: 30,
+              width: 30,
+              errorBuilder: (_, __, ___) => Icon(Icons.image_not_supported),
+            ),
+          Text(
+            name,
+            style: TextStyle(
+              fontSize: Textsize.samisubHedding,
+              color: isSelected ? AppColor.white : AppColor.black,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
       ),
     ),
   );
 }
 
-Widget stampMetal({required String text, required bool isSelected}) {
-  return Container(
-    padding: EdgeInsets.symmetric(
-      horizontal: Get.width * 0.06,
-    ),
-    margin: EdgeInsets.symmetric(horizontal: Get.width * 0.01),
-    decoration: BoxDecoration(
-      color: isSelected ? AppColor.primary : AppColor.white,
-      border: Border.all(color: isSelected ? AppColor.primary : AppColor.gray5),
-      borderRadius: BorderRadius.circular(borderradius.buttonboder),
-    ),
-    child: Center(
-      child: Text(
-        text,
-        style: TextStyle(
-          color: isSelected ? AppColor.white : AppColor.black,
-          fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-        ),
+Widget showContainer({
+  required String heding,
+  required List listing,
+  required String listingName,
+  required FilterUIController filter,
+  required RxString selectedValue,
+  required void Function(String value) onSelect,
+  String? image,
+}) {
+  return Align(
+    alignment: Alignment.topLeft,
+    child: horizontalPadding(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(padding: EdgeInsetsGeometry.only(top: Get.height * 0.01)),
+          heddingFilter(heding),
+          Padding(padding: EdgeInsetsGeometry.only(top: Get.height * 0.01)),
+          srinc(
+            List.generate(listing.length, (index) {
+              final item = listing[index];
+              final itemName = item[listingName];
+              final image = item['images'];
+              return filterContainer(
+                image: image,
+                name: itemName,
+                onTap: () => onSelect(itemName),
+                isSelected: selectedValue.value == itemName,
+              );
+            }),
+          ),
+          SizedBox(height: Get.height * 0.01),
+        ],
       ),
     ),
   );
 }
 
-Widget shapeContainer({required String text, required bool isSelected}) {
-  return Container(
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(borderradius.buttonboder),
-      color: isSelected ? AppColor.primary : AppColor.white,
-      border: Border.all(color: AppColor.gray5),
-    ),
-    child: Center(
-      child: Text(
-        text,
-        style: TextStyle(
-          color: isSelected ? AppColor.white : AppColor.black,
-          fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-        ),
-      ),
-    ),
-  );
+Widget metalType({
+  required List metalTypes,
+  required FilterUIController filter,
+}) {
+  return Obx(() {
+    return showContainer(
+      heding: AppString.metalType,
+      listing: metalTypes,
+      listingName: 'metal',
+      filter: filter,
+      selectedValue: filter.selectedMetalType,
+      onSelect: filter.selectMetalType,
+    );
+  });
 }
 
-Widget stoneTypeSelected({required String text, required bool isSelected}) {
-  return Container(
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(borderradius.buttonboder),
-      border: Border.all(color: AppColor.gray),
-      color: isSelected ? AppColor.primary : AppColor.white,
-    ),
-    child: Center(
-      child: Text(
-        text,
-        style: TextStyle(color: isSelected ? AppColor.white : AppColor.black),
-      ),
-    ),
-  );
+Widget metalStamps({
+  required List metalStamps,
+  required FilterUIController filter,
+}) {
+  return Obx(() {
+    return showContainer(
+      heding: AppString.metalStamp,
+      listing: metalStamps,
+      listingName: 'paraMtrName',
+      filter: filter,
+      selectedValue: filter.selectedMetalStamp,
+      onSelect: filter.selectMetalStamp,
+    );
+  });
+}
+
+Widget shape({
+  required List shapes,
+  required FilterUIController filter,
+  String? image,
+}) {
+  return Obx(() {
+    return showContainer(
+      image: image,
+      heding: AppString.shape,
+      listing: shapes,
+      listingName: 'paraMtrName',
+      filter: filter,
+      selectedValue: filter.selectedShapes,
+      onSelect: filter.selectShapes,
+    );
+  });
+}
+
+Widget stone({required List stone, required FilterUIController filter}) {
+  return Obx(() {
+    return showContainer(
+      heding: AppString.stone,
+      listing: stone,
+      listingName: 'paraMtrName',
+      filter: filter,
+      selectedValue: filter.selectedStoneTypes,
+      onSelect: filter.selectStoneTypes,
+    );
+  });
 }
 
 Widget sortContainer(text, {required bool isSelected}) {
@@ -118,7 +183,66 @@ Widget sortContainer(text, {required bool isSelected}) {
       style: TextStyle(
         color: isSelected ? AppColor.white : AppColor.black,
         fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+        fontSize: Textsize.samisubHedding,
       ),
     ),
+  );
+}
+
+Widget divider() {
+  return Divider(color: AppColor.secondary, thickness: 1);
+}
+
+
+Widget shimmeContainer() {
+  return horizontalPadding(
+    child: Column(
+      children: [
+        Padding(padding: EdgeInsetsGeometry.only(top: Get.height * 0.03)),
+        Row(children: [shemmerWidget()]),
+        Padding(padding: EdgeInsetsGeometry.only(top: Get.height * 0.03)),
+        Column(
+          children: [
+            Row(
+              children: [
+                Row(
+                  children: [
+                    shemmerWidget(),
+                    Padding(
+                      padding: EdgeInsetsGeometry.only(left: Get.width * 0.03),
+                    ),
+                    shemmerWidget(),
+                    Padding(
+                      padding: EdgeInsetsGeometry.only(left: Get.width * 0.03),
+                    ),
+                    shemmerWidget(width: Get.width * 0.13),
+                  ],
+                ),
+              ],
+            ),
+            Padding(padding: EdgeInsetsGeometry.only(top: Get.height * 0.01)),
+            Row(
+              children: [
+                shemmerWidget(),
+                Padding(
+                  padding: EdgeInsetsGeometry.only(left: Get.width * 0.03),
+                ),
+                shemmerWidget(),
+              ],
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget shemmerWidget({double? width}) {
+  return Container(
+    padding: EdgeInsets.symmetric(
+      vertical: Get.height * 0.02,
+      horizontal: width ?? Get.width * 0.15,
+    ),
+    color: AppColor.gray,
   );
 }

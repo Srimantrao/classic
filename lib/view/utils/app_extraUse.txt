@@ -869,3 +869,327 @@
 //     );
 //   },
 // ),
+
+
+
+// Expanded(
+// child: horizontalPadding(
+// child: GridView.builder(
+// itemCount: productList.length,
+// gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+// crossAxisCount: 2,
+// mainAxisSpacing: 12,
+// crossAxisSpacing: 12,
+// mainAxisExtent: 330,
+// ),
+// itemBuilder: (context, index) {
+// final product = productList[index];
+// final List childProducts = product['childProduct'] ?? [];
+// var activeVariant = childProducts
+//     .where((item) => item?['slug'] == product?['slug'])
+//     .toList();
+// if (childProducts.isEmpty) {
+// return const SizedBox();
+// }
+// final List images = activeVariant[0]['images'] ?? [];
+// final String productTitle = activeVariant[0]['productTitle'] ?? '';
+// final double finalPrice = activeVariant[0]['finalPrice'];
+// final List metalStamp = activeVariant[0]['metalStamp'] ?? [];
+//
+// // Extract unique shape names
+// final List<Map<String, dynamic>> shapeList = [];
+// for (final item in childProducts) {
+// final List stoneDetails = item['stoneDetails'] ?? [];
+// for (final stone in stoneDetails) {
+// final shape = stone['shape'];
+// if (shape != null && shape['paraMtrName'] != null) {
+// shapeList.add({
+// 'shapeId': shape['_id'],
+// 'shapeName': shape['paraMtrName'],
+// });
+// }
+// }
+// }
+// final Set<String> added = {};
+// final List<Map<String, dynamic>> uniqueShapeList = [];
+// for (final s in shapeList) {
+// final name = s['shapeName'];
+// if (!added.contains(name)) {
+// added.add(name);
+// uniqueShapeList.add(s);
+// }
+// }
+//
+// // Combine metalStamp and metalType
+// final List
+// combinedMetal = product['childProduct'].cast<Map>().expand((item) {
+// final metalStamps = (item['metalStamp'] as List? ?? []).cast<Map>();
+// final metalTypes = (item['metalType'] as List? ?? []).cast<Map>();
+// return [
+// for (var stamp in metalStamps)
+// for (var metal in metalTypes)
+// {
+// 'slug' : stamp['slug'] ?? '',
+// 'metalStampId': stamp['_id'] ?? '',
+// 'metalTypeId': metal['_id'] ?? '',
+// 'combinedMetalName':
+// '${stamp['paraMtrName'] ?? ''}${(stamp['paraMtrName'] != null && metal['metal'] != null) ? ' ' : ''}${metal['metal'] ?? ''}',
+// 'param': stamp['paraMtrName'],
+// },
+// ];
+// }).toList();
+//
+// final List<Map<String, dynamic>> carat = {
+// for (final child in (product['childProduct'] as List? ?? []))
+// for (final stamp in (child['metalStamp'] as List? ?? []))
+// stamp['_id']: {
+// 'carat': stamp['slug'] ?? stamp['paraMtrName'] ?? '',
+// 'caratId': stamp['_id'],
+// },
+// }.values.toList();
+//
+// // Format price
+// final double priceValue = (finalPrice as num?)?.toDouble() ?? 0.0;
+// final String priceText = priceValue.toStringAsFixed(2);
+//
+// // Shape
+// Widget buildShape() => SingleChildScrollView(
+// scrollDirection: Axis.horizontal,
+// child: Row(
+// children: uniqueShapeList.map((shape) {
+// final name = shape['shapeName'] ?? '';
+// if (name.isEmpty) return const SizedBox();
+// return showContainer(
+// name: name,
+// bgColor: AppColor.gray,
+// );
+// }).toList(),
+// ),
+// );
+//
+// // Build metal stamps
+// Widget buildMetalStamps() => SingleChildScrollView(
+// scrollDirection: Axis.horizontal,
+// child: Row(
+// children: combinedMetal.map((stamp) {
+// final name = (stamp['param'] ?? '').toString();
+//
+// // Conditional background color
+// Color bgColor;
+// if (stamp['combinedMetalName'].contains('White')) {
+// bgColor = Colors.grey.shade300; // grey for White
+// } else if (stamp['combinedMetalName'].contains('Rose')) {
+// bgColor = Colors.pink.shade200; // rose color
+// } else if (stamp['combinedMetalName'].contains('Yellow')) {
+// bgColor = Colors.yellow.shade200; // rose color
+// } else {
+// bgColor = Colors.white; // default
+// }
+//
+// return showContainer(
+// onTap: (){
+//
+// },
+// name: name,
+// bgColor: bgColor,
+// );
+// }).toList(),
+// ),
+// );
+//
+// // Build total wgt
+// Widget buildTotalWgt() {
+// final uniqueTotalWgt = {
+// for (final item in childProducts)
+// item['totalWgt']?.toString(): item,
+// }.keys.toList();
+// return SingleChildScrollView(
+// scrollDirection: Axis.horizontal,
+// child: Row(
+// children: uniqueTotalWgt.map<Widget>((wgt) {
+// return showContainer(
+// name: wgt.toString(),
+// bgColor: AppColor.gray,
+// );
+// }).toList(),
+// ),
+// );
+// }
+//
+// return Container(
+// padding: EdgeInsets.all(10),
+// decoration: BoxDecoration(
+// border: Border.all(color: AppColor.gray),
+// borderRadius: BorderRadius.circular(
+// borderradius.buttonboder,
+// ),
+// ),
+// child: Column(
+// crossAxisAlignment: CrossAxisAlignment.start,
+// children: [
+// (images.isNotEmpty && (images.first['zoom'] ?? '').isNotEmpty)
+// ? Padding(
+// padding: const EdgeInsets.all(5),
+// child: Image.network(
+// images.first['zoom'],
+// fit: BoxFit.cover,
+//
+// // 👇 shows loader while downloading
+// loadingBuilder: (context, child, loadingProgress) {
+// if (loadingProgress == null) return child;
+// return const Center(
+// child: CircularProgressIndicator(strokeWidth: 2),
+// );
+// },
+//
+// // 👇 shows icon if image fails (Broken pipe, 404, etc.)
+// errorBuilder: (context, error, stackTrace) {
+// return const Center(
+// child: Icon(
+// Icons.broken_image,
+// size: 40,
+// color: Colors.grey,
+// ),
+// );
+// },
+// ),
+// )
+//     : const SizedBox(),
+//
+// (productTitle.isNotEmpty)
+// ? productName(productTitle)
+//     : SizedBox(),
+//
+// (priceText.isNotEmpty)
+// ? price(priceText)
+//     : SizedBox(),
+//
+// (shapeList.isNotEmpty)
+// ? Row(
+// children: [
+// information('Shape'),
+// Expanded(child: buildShape()),
+// ],
+// )
+//     : SizedBox(),
+//
+// (metalStamp.isNotEmpty)
+// ? Row(
+// children: [
+// information('Metal'),
+// Expanded(child: buildMetalStamps()),
+// ],
+// )
+//     : SizedBox(),
+//
+// (carat.isNotEmpty)
+// ? Row(
+// children: [
+// information('Carat'),
+// Expanded(child: buildTotalWgt()),
+// ],
+// )
+//     : SizedBox(),
+// ],
+// ),
+// );
+// },
+// ),
+// ),
+// );
+
+
+Widget productList({
+  required List list,
+  required void Function(String imagePath) onTapImagePath,
+  required void Function(
+      String imagePath,
+      String productNameText,
+      String priceText,
+      ) onTapProductDetail,
+}) {
+  return Expanded(
+    child: horizontalPadding(
+      child: GridView.builder(
+        itemCount: list.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: Get.width * 0.04,
+          mainAxisSpacing: Get.width * 0.04,
+          mainAxisExtent: 300,
+        ),
+        itemBuilder: (context, index) {
+          final item = list[index];
+
+          return productWidget(
+            onTapImagePath: () {
+              onTapImagePath(item['image'] ?? '');
+            },
+            onTapProductDetail: () {
+              onTapProductDetail(
+                item['image'] ?? '',
+                item['categoryName'] ?? '',
+                '₹ --', // price not in API
+              );
+            },
+            productImagePath: item['image'] ?? '',
+            productNameText: item['categoryName'] ?? '',
+            priceText: '₹ --',
+          );
+        },
+      ),
+    ),
+  );
+}
+
+Widget productWidget({
+  required String productImagePath,
+  required String productNameText,
+  required String priceText,
+  void Function()? onTapImagePath,
+  void Function()? onTapProductDetail,
+}) {
+  return Container(
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(borderradius.buttonboder),
+      border: Border.all(color: AppColor.gray),
+    ),
+    child: Padding(
+      padding: EdgeInsets.all(8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          GestureDetector(
+            onTap: onTapImagePath,
+            child: productImage(productImagePath),
+          ),
+          GestureDetector(
+            onTap: onTapProductDetail,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                productName(productNameText),
+                price(priceText),
+                SizedBox(height: Get.height * 0.01),
+                Row(
+                  children: [
+                    information('Metal'),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: caratInformation(),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: Get.height * 0.01),
+                Row(children: [information('Carat'), caratHowMany('1')]),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}

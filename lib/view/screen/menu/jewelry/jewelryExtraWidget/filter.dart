@@ -1,4 +1,4 @@
-// ignore_for_file: strict_top_level_inference
+// ignore_for_file: strict_top_level_inference, unnecessary_import, unnecessary_underscores
 
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
@@ -12,7 +12,6 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import '../../../../../controller/user_Interface/menu/jewelry/filter_Controller.dart';
 import '../../../../utils/app_Borderradius.dart';
 import '../../../../utils/app_Color.dart';
-import '../../../../utils/app_URL.dart';
 import '../../diamondSearch/diamondSearchExtraWidget/diamondExtraWidget.dart';
 
 Widget heddingFilter(text) {

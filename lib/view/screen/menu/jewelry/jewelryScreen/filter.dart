@@ -2,17 +2,12 @@ import 'package:classic/controller/application_Programing_interface/apiControlle
 import 'package:classic/controller/user_Interface/menu/jewelry/filter_Controller.dart';
 import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';
 import 'package:classic/modal/menu/jewelry/lisofProduct.dart';
-import 'package:classic/view/utils/app_Color.dart';
-import 'package:classic/view/utils/app_URL.dart';
 import 'package:classic/view/utils/widget/bottomNavigationButton.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
-import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:classic/view/utils/widget/noDada.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shimmer/shimmer.dart';
-import '../../../../utils/app_Borderradius.dart';
 import '../../../../utils/app_String.dart';
 import '../jewelryExtraWidget/filter.dart';
 import '../jewelryWidget/body/filterbody.dart';

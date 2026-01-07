@@ -1,4 +1,4 @@
-// ignore_for_file: strict_top_level_inference
+// ignore_for_file: strict_top_level_inference, deprecated_member_use
 
 import 'package:classic/view/screen/menu/jewelry/jewelryExtraWidget/product.dart';
 import 'package:classic/view/utils/app_Borderradius.dart';
@@ -263,7 +263,6 @@ Widget buildMetalStamps(ProductuiController productControllerUI) {
 // Build total weight options widget
 Widget buildTotalWgt(ProductuiController productControllerUI) {
   return Obx(() {
-    final weightOptions = productControllerUI.weightOptions;
     final sortedWeights = productControllerUI.sortedWeightList;
 
     if (sortedWeights.isEmpty) {
@@ -280,7 +279,6 @@ Widget buildTotalWgt(ProductuiController productControllerUI) {
       scrollDirection: Axis.horizontal,
       child: Row(
         children: sortedWeights.map<Widget>((weight) {
-          final slugs = weightOptions[weight] ?? [];
           final isSelected = productControllerUI.isWeightSelected(weight);
 
           return showContainer(

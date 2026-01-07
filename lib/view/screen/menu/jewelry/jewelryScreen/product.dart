@@ -1,20 +1,15 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productList_Controller.dart';
-import 'package:classic/controller/user_Interface/menu/jewelry/productUI_Controller.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/filter.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/productbody.dart';
-import 'package:classic/view/utils/app_Borderradius.dart';
-import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_json.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:shimmer/shimmer.dart';
 import '../../../../utils/widget/horizontalpaddind.dart';
-import '../jewelryExtraWidget/product.dart';
 
 class Product extends StatelessWidget {
   final productListAPI = Get.put(ProductlistController());

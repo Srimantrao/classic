@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, strict_top_level_inference
+// ignore_for_file: deprecated_member_use, strict_top_level_inference, duplicate_ignore
 
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';

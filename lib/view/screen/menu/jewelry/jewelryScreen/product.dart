@@ -6,10 +6,12 @@ import 'package:classic/view/screen/menu/jewelry/jewelryScreen/filter.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/productbody.dart';
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
+import 'package:classic/view/utils/app_json.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../utils/widget/horizontalpaddind.dart';
 import '../jewelryExtraWidget/product.dart';
@@ -17,6 +19,7 @@ import '../jewelryExtraWidget/product.dart';
 class Product extends StatelessWidget {
   final productListAPI = Get.put(ProductlistController());
   final searchController = TextEditingController();
+  final scrollController = ScrollController();
   final String categoryId;
   final String categoryName;
   final String? subCategoryId;
@@ -40,11 +43,32 @@ class Product extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    productListAPI.productList(
+    productListAPI.fetchFirstPage(
       categoryId: categoryId,
-      pageNumber: '1',
-      pageSize: '25',
+      subCategoryId: subCategoryId,
+      metalType: metalType,
+      metalStamp: metalStamp,
+      shape: shape,
+      settingType: settingType,
+      minPrice: minPrice,
+      priceShort: priceShort,
     );
+
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        productListAPI.fetchNextPage(
+          categoryId: categoryId,
+          subCategoryId: subCategoryId,
+          metalType: metalType,
+          metalStamp: metalStamp,
+          shape: shape,
+          settingType: settingType,
+          minPrice: minPrice,
+          priceShort: priceShort,
+        );
+      }
+    });
     return Fullscreen(
       appBar: allOtherScreen(categoryName.toUpperCase(), cart: true),
       child: Column(
@@ -54,46 +78,34 @@ class Product extends StatelessWidget {
             final api = productListAPI;
             final loading = api.isLoading.value;
             final product = api.productListData;
-            final List productList = product['data'] ?? [];
+            // final List productList = product['data'] ?? [];
+            final List productList = product;
 
             if (loading) {
               return Expanded(child: Center(child: shimmerGrid()));
             }
 
             if (product.isEmpty || productList.isEmpty) {
-              return const Expanded(
-                child: Center(child: Text('No products found')),
+              return Expanded(
+                child: Center(child: Lottie.asset(AppJson.noData)),
               );
             }
 
             return Expanded(
               child: horizontalPadding(
-                child: GridView.builder(
-                  itemCount: productList.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 12,
-                    crossAxisSpacing: 12,
-                    mainAxisExtent: 330,
-                  ),
-                  itemBuilder: (context, index) {
-                    final product = productList[index];
-                    final List<Map<String, dynamic>> childProducts =
-                        List<Map<String, dynamic>>.from(
-                          product['childProduct'] ?? [],
-                        );
-                    final String productId = product['_id'] ?? 'product_$index';
-
-                    final productControllerUI = Get.put(
-                      ProductuiController(
-                        productId: productId,
-                        initialChildProducts: childProducts,
+                child: Column(
+                  children: [
+                    listController(
+                      productList,
+                      scrollController,
+                      isLoadMore: api.isLoadMore.value,
+                    ),
+                    Padding(
+                      padding: EdgeInsetsGeometry.symmetric(
+                        vertical: Get.height * 0.02,
                       ),
-                      tag: productId, // 🔥 REQUIRED
-                    );
-
-                    return productShowList(productControllerUI);
-                  },
+                    ),
+                  ],
                 ),
               ),
             );

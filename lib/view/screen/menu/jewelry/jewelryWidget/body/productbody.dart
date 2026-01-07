@@ -7,6 +7,7 @@ import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:classic/view/utils/widget/search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:shimmer/shimmer.dart';
@@ -60,6 +61,65 @@ Widget shimmerGrid() {
           );
         },
       ),
+    ),
+  );
+}
+
+// List controller
+Widget listController(
+    List productList,
+    ScrollController controller, {
+      required bool isLoadMore,
+    }) {
+  return Expanded(
+    child: Stack(
+      children: [
+
+        //List Controller
+        GridView.builder(
+          controller: controller,
+          itemCount: productList.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 12,
+            crossAxisSpacing: 12,
+            mainAxisExtent: 330.0,
+          ),
+          itemBuilder: (context, index) {
+            final product = productList[index];
+            final List<Map<String, dynamic>> childProducts =
+            List<Map<String, dynamic>>.from(product['childProduct'] ?? []);
+            final String productId = product['_id'] ?? 'product_$index';
+            final productControllerUI = Get.put(
+              ProductuiController(
+                productId: productId,
+                initialChildProducts: childProducts,
+              ),
+              tag: productId,
+              permanent: false,
+            );
+            return productShowList(productControllerUI);
+          },
+        ),
+
+        // 🔹 Footer loader
+        if (isLoadMore)
+          Positioned(
+            bottom: 16,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.9), // optional
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: CircularProgressIndicator(color: AppColor.primary),
+              ),
+            ),
+          ),
+      ],
     ),
   );
 }

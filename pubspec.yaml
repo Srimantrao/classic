@@ -45,6 +45,7 @@ dependencies:
   dio:
   shared_preferences:
   shimmer:
+  lottie:
 
 dev_dependencies:
   flutter_test:

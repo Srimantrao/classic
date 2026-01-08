@@ -1,7 +1,12 @@
+// ignore_for_file: avoid_print
+
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/filter_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/getAllParameter_Controller.dart';
 import 'package:classic/controller/user_Interface/menu/jewelry/filter_Controller.dart';
 import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';
 import 'package:classic/modal/menu/jewelry/lisofProduct.dart';
+import 'package:classic/view/utils/app_Borderradius.dart';
+import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/widget/bottomNavigationButton.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
@@ -12,15 +17,38 @@ import '../../../../utils/app_String.dart';
 import '../jewelryExtraWidget/filter.dart';
 import '../jewelryWidget/body/filterbody.dart';
 
+void bottomStyle(
+    BuildContext context, {
+      required String categoryId,
+      required String categoryName,
+    }) {
+  showModalBottomSheet(
+    useSafeArea: true,
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: AppColor.white,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        top: Radius.circular(borderradius.buttonboder),
+      ),
+    ),
+    builder: (_) {
+      return Filter(categoryId: categoryId, categoryName: categoryName);
+    },
+  );
+}
+
+
 class Filter extends StatelessWidget {
+  final String categoryId;
+  final String categoryName;
   final filter = Get.put(FilterUIController());
   final filterAPI = Get.put(FilterController());
+  final getAllPeraMeter = Get.put(GetallparameterController());
   final product = Lisofproduct();
   final dimaondlist = DiamondList();
   final filterCategory = FilterCategory();
-
-  Filter({super.key});
-
+  Filter({super.key, required this.categoryId, required this.categoryName});
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
@@ -38,22 +66,36 @@ class Filter extends StatelessWidget {
         return (loading)
             ? SizedBox()
             : buttonNavigation(
-                child: filterButton(onTapClear: () {}, onTapSave: () {}),
+                child: filterButton(
+                  onTapClear: () {
+                    filter.reset(categoryId, categoryName);
+                  },
+                  onTapSave: () {
+                    filter.savePerametter(categoryId, categoryName);
+                  },
+                ),
               );
       }),
 
       //Body
       child: Obx(() {
-        final api = filterAPI;
-        final loading = api.isLoading.value;
+        final apiflter = filterAPI;
+        final apiGetAllParameter = getAllPeraMeter;
+        final loadingApiFilter = apiflter.isLoading.value;
+        final loadingApiGetAllParameter = apiGetAllParameter.isLoading.value;
 
-        if (loading) {
+        if (loadingApiFilter) {
           return Center(child: shimmer());
         }
 
-        final apiData = api.filterData;
+        if (loadingApiGetAllParameter) {
+          return Center(child: shimmer());
+        }
 
-        if (apiData.isEmpty) {
+        final apiData = apiflter.filterData;
+        final getAllParameterData = apiGetAllParameter.getAllParameterData;
+
+        if (apiData.isEmpty || getAllParameterData.isEmpty) {
           return noData();
         }
 
@@ -61,7 +103,7 @@ class Filter extends StatelessWidget {
 
         final metalStampsList = filterData['metalStamp'];
         final metalTypesList = filterData['metalType'];
-        final stoneTypesList = filterData['stone'];
+        final stoneTypesList = getAllParameterData['settingType'];
         final shapesList = filterData['shape'];
 
         return SingleChildScrollView(

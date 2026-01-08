@@ -47,8 +47,7 @@ Widget filterContainer({
           if (image != null && image.isNotEmpty)
             Image.network(
               image,
-              height: 30,
-              width: 30,
+              scale: 3,
               errorBuilder: (_, __, ___) => Icon(Icons.image_not_supported),
             ),
           Text(
@@ -65,14 +64,51 @@ Widget filterContainer({
   );
 }
 
+// Widget showContainer({
+//   required String heding,
+//   required List listing,
+//   required String listingName,
+//   required FilterUIController filter,
+//   required RxString selectedValue,
+//   required void Function(String value) onSelect,
+//   String? image,
+// }) {
+//   return Align(
+//     alignment: Alignment.topLeft,
+//     child: horizontalPadding(
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Padding(padding: EdgeInsetsGeometry.only(top: Get.height * 0.01)),
+//           heddingFilter(heding),
+//           Padding(padding: EdgeInsetsGeometry.only(top: Get.height * 0.01)),
+//           srinc(
+//             List.generate(listing.length, (index) {
+//               final item = listing[index];
+//               final itemName = item[listingName];
+//               final image = item['images'];
+//               return filterContainer(
+//                 image: image,
+//                 name: itemName,
+//                 onTap: () => onSelect(itemName),
+//                 isSelected: selectedValue.value == itemName,
+//               );
+//             }),
+//           ),
+//           SizedBox(height: Get.height * 0.01),
+//         ],
+//       ),
+//     ),
+//   );
+// }
+
 Widget showContainer({
   required String heding,
   required List listing,
-  required String listingName,
-  required FilterUIController filter,
+  required String nameKey,
+  required String idKey,
   required RxString selectedValue,
-  required void Function(String value) onSelect,
-  String? image,
+  required void Function(String id) onSelect,
 }) {
   return Align(
     alignment: Alignment.topLeft,
@@ -82,21 +118,21 @@ Widget showContainer({
         children: [
           Padding(padding: EdgeInsetsGeometry.only(top: Get.height * 0.01)),
           heddingFilter(heding),
-          Padding(padding: EdgeInsetsGeometry.only(top: Get.height * 0.01)),
+          Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.01)),
           srinc(
             List.generate(listing.length, (index) {
               final item = listing[index];
-              final itemName = item[listingName];
+              final String id = item[idKey];
+              final String name = item[nameKey];
               final image = item['images'];
               return filterContainer(
                 image: image,
-                name: itemName,
-                onTap: () => onSelect(itemName),
-                isSelected: selectedValue.value == itemName,
+                name: name,
+                isSelected: selectedValue.value == id,
+                onTap: () => onSelect(id),
               );
             }),
           ),
-          SizedBox(height: Get.height * 0.01),
         ],
       ),
     ),
@@ -111,8 +147,8 @@ Widget metalType({
     return showContainer(
       heding: AppString.metalType,
       listing: metalTypes,
-      listingName: 'metal',
-      filter: filter,
+      nameKey: 'metal',
+      idKey: '_id',
       selectedValue: filter.selectedMetalType,
       onSelect: filter.selectMetalType,
     );
@@ -127,10 +163,10 @@ Widget metalStamps({
     return showContainer(
       heding: AppString.metalStamp,
       listing: metalStamps,
-      listingName: 'paraMtrName',
-      filter: filter,
       selectedValue: filter.selectedMetalStamp,
       onSelect: filter.selectMetalStamp,
+      nameKey: 'paraMtrName',
+      idKey: '_id',
     );
   });
 }
@@ -142,13 +178,12 @@ Widget shape({
 }) {
   return Obx(() {
     return showContainer(
-      image: image,
       heding: AppString.shape,
       listing: shapes,
-      listingName: 'paraMtrName',
-      filter: filter,
       selectedValue: filter.selectedShapes,
       onSelect: filter.selectShapes,
+      nameKey: 'paraMtrName',
+      idKey: '_id',
     );
   });
 }
@@ -158,10 +193,10 @@ Widget stone({required List stone, required FilterUIController filter}) {
     return showContainer(
       heding: AppString.stone,
       listing: stone,
-      listingName: 'paraMtrName',
-      filter: filter,
       selectedValue: filter.selectedStoneTypes,
       onSelect: filter.selectStoneTypes,
+      nameKey: 'paraMtrName',
+      idKey: '_id',
     );
   });
 }
@@ -181,7 +216,7 @@ Widget sortContainer(text, {required bool isSelected}) {
       text,
       style: TextStyle(
         color: isSelected ? AppColor.white : AppColor.black,
-        fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+        fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
         fontSize: Textsize.samisubHedding,
       ),
     ),

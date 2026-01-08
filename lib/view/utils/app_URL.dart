@@ -24,4 +24,6 @@ class AppUrl {
       static const String productList = "${baseUrl}App/product/getProductList";
           //Filter
             static const String getProductFilterList = "${baseUrl}App/product/getProductFilterList";
+            static const String getAllParameter = "${baseUrl}admin/parameter/getAllParameter";
+
 }

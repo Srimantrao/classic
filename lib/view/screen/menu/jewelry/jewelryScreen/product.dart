@@ -13,7 +13,7 @@ import '../../../../utils/widget/horizontalpaddind.dart';
 
 class Product extends StatelessWidget {
   final searchUIController = Get.put(ProductSerchController());
-  final productListAPI = Get.put(ProductlistController(),permanent: true);
+  final productListAPI = Get.put(ProductlistController(), permanent: true);
   final searchController = TextEditingController();
   final scrollController = ScrollController();
   final String categoryId;
@@ -52,7 +52,8 @@ class Product extends StatelessWidget {
       ),
     );
     scrollController.addListener(() {
-      if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
         apiController.loadNextPage();
       }
     });
@@ -62,10 +63,16 @@ class Product extends StatelessWidget {
         children: [
           search(
             searchController,
-            onChanged: (value){
+            onChanged: (value) {
               searchUIController.onSearchChanged(value);
             },
-            filtertab: () => Get.to(() => Filter()),
+            filtertab: () {
+              bottomStyle(
+                context,
+                categoryId: categoryId,
+                categoryName: categoryName,
+              );
+            },
           ),
           Obx(() {
             final api = productListAPI;
@@ -94,7 +101,7 @@ class Product extends StatelessWidget {
                     ),
                     Padding(
                       padding: EdgeInsetsGeometry.symmetric(
-                        vertical: Get.height * 0.02,
+                        vertical: Get.height * 0.01,
                       ),
                     ),
                   ],

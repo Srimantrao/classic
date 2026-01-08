@@ -14,16 +14,18 @@ Widget shimmer() {
     baseColor: Colors.grey.shade300,
     highlightColor: Colors.grey.shade100,
     child: SingleChildScrollView(
-      child: Column(children: [
-        shimmeContainer(),
-        divider(),
-        shimmeContainer(),
-        divider(),
-        shimmeContainer(),
-        divider(),
-        shimmeContainer(),
-        divider(),
-      ]),
+      child: Column(
+        children: [
+          shimmeContainer(),
+          divider(),
+          shimmeContainer(),
+          divider(),
+          shimmeContainer(),
+          divider(),
+          shimmeContainer(),
+          divider(),
+        ],
+      ),
     ),
   );
 }
@@ -34,37 +36,42 @@ Widget shortBY({
   bool isSelectedLowToHigh = false,
   bool isSelectedHighToLow = false,
 }) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    mainAxisAlignment: MainAxisAlignment.start,
-    children: [
-      horizontalPadding(child: heddingFilter(AppString.sortBy)),
-      SizedBox(height: Get.height * 0.009),
-      Row(
-        children: [
-          SizedBox(width: Get.width * 0.03),
-          GestureDetector(
-            onTap: onTapLowToHigh,
-            child: sortContainer(
-              'Price(Low To High)',
-              isSelected: isSelectedLowToHigh,
+  return horizontalPadding(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        heddingFilter(AppString.sortBy),
+        SizedBox(height: Get.height * 0.009),
+        Row(
+          children: [
+            Padding(padding: EdgeInsetsGeometry.only(top: Get.height * 0.02)),
+            GestureDetector(
+              onTap: onTapLowToHigh,
+              child: sortContainer(
+                'Price(Low To High)',
+                isSelected: isSelectedLowToHigh,
+              ),
             ),
-          ),
-          SizedBox(width: Get.width * 0.02),
-          GestureDetector(
-            onTap: onTapHighToLow,
-            child: sortContainer(
-              'Price(High To Low)',
-              isSelected: isSelectedHighToLow,
+            Padding(padding: EdgeInsetsGeometry.only(left: Get.height * 0.01)),
+            GestureDetector(
+              onTap: onTapHighToLow,
+              child: sortContainer(
+                'Price(High To Low)',
+                isSelected: isSelectedHighToLow,
+              ),
             ),
-          ),
-        ],
-      ),
-    ],
+          ],
+        ),
+      ],
+    ),
   );
 }
 
-Widget filterButton({void Function()? onTapClear, void Function()? onTapSave}) {
+Widget filterButton({
+  void Function()? onTapClear,
+  void Function()? onTapSave,
+}) {
   return Row(
     children: [
       Expanded(
@@ -74,12 +81,16 @@ Widget filterButton({void Function()? onTapClear, void Function()? onTapSave}) {
           backgroundColor: AppColor.white,
           borderColor: AppColor.primary,
           AppString.clear,
-          onTap: () {},
+          onTap: onTapClear,
         ),
       ),
       SizedBox(width: Get.width * 0.05),
       Expanded(
-        child: button(AppString.save, onTap: () {}, bottomBottonFontSize: true),
+        child: button(
+          AppString.save,
+          onTap: onTapSave,
+          bottomBottonFontSize: true,
+        ),
       ),
     ],
   );

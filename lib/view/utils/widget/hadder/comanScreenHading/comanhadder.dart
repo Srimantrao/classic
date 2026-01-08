@@ -57,6 +57,7 @@ PreferredSizeWidget allOtherScreen(
   text, {
   bool? cart = false,
   bool? filter = false,
+  void Function()? onTapLeft,
 }) {
   final double iconsize = 22;
   return PreferredSize(
@@ -73,6 +74,9 @@ PreferredSizeWidget allOtherScreen(
               children: [
                 (filter == true)
                     ? GestureDetector(
+                        onTap: () {
+                          onTapLeft != null ? onTapLeft() : Get.back();
+                        },
                         child: Icon(
                           Icons.chevron_left,
                           color: AppColor.secondary,
@@ -80,7 +84,9 @@ PreferredSizeWidget allOtherScreen(
                         ),
                       )
                     : GestureDetector(
-                        onTap: () => Get.back(),
+                        onTap: () {
+                          onTapLeft != null ? onTapLeft!() : Get.back();
+                        },
                         child: Icon(
                           Icons.chevron_left,
                           color: AppColor.primary,

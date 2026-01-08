@@ -97,36 +97,13 @@ class Filter extends StatelessWidget {
         }
 
         final filterData = apiData['data'];
-        final metalStampsList = (filterData['metalStamp'] as List? ?? [])
-            .cast<Map<String, dynamic>>();
-        final metalTypesList = (filterData['metalType'] as List? ?? [])
-            .cast<Map<String, dynamic>>();
-        final stoneTypesList =
-            (getAllParameterData['settingType'] as List? ?? [])
-                .cast<Map<String, dynamic>>();
-        final shapesList = (filterData['shape'] as List? ?? [])
-            .cast<Map<String, dynamic>>();
+        final metalStampsList = (filterData['metalStamp'] as List? ?? []).cast<Map<String, dynamic>>();
+        final metalTypesList = (filterData['metalType'] as List? ?? []).cast<Map<String, dynamic>>();
+        final stoneTypesList = (getAllParameterData['settingType'] as List? ?? []).cast<Map<String, dynamic>>();
+        final shapesList = (filterData['shape'] as List? ?? []).cast<Map<String, dynamic>>();
 
-        // ✅ Compute combinedMetal here
-        final List<Map<String, dynamic>> combinedMetal = [];
-        for (final stamp in metalStampsList) {
-          for (final metal in metalTypesList) {
-            final stampName = stamp['paraMtrName'] ?? '';
-            final metalName = metal['metal'] ?? '';
+        filter.computeCombinedMetal(filterData);
 
-            combinedMetal.add({
-              'metalStampId': stamp['_id'] ?? '',
-              'metalTypeId': metal['_id'] ?? '',
-              'combinedMetalName': stampName.isNotEmpty && metalName.isNotEmpty
-                  ? '$stampName $metalName'
-                  : stampName + metalName,
-              'stampSlug': stamp['slug'] ?? '',
-              'param': stampName,
-            });
-          }
-        }
-
-        // Now you can use combinedMetal in your UI
         return SingleChildScrollView(
           child: Column(
             children: [
@@ -135,7 +112,7 @@ class Filter extends StatelessWidget {
               //
               // metalStamps(metalStamps: metalStampsList, filter: filter),
               // divider(),
-              combinedMetalWidget(combinedMetal: combinedMetal, filter: filter),
+              combinedMetalWidget(combinedMetal: filter.combinedMetal, filter: filter),
               divider(),
 
               shape(shapes: shapesList, filter: filter),
@@ -151,7 +128,7 @@ class Filter extends StatelessWidget {
                 onTapLowToHigh: filter.sortLowToHigh,
               ),
 
-              SizedBox(height: Get.height * 0.03),
+              Padding(padding: EdgeInsetsGeometry.only(top: Get.height * 0.03))
             ],
           ),
         );

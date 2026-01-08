@@ -3,23 +3,60 @@
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/product.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import '../../../application_Programing_interface/apiController/menu/jewellery/filter_Controller.dart';
+import '../../../application_Programing_interface/apiController/menu/jewellery/getAllParameter_Controller.dart';
 import '../../../application_Programing_interface/apiController/menu/jewellery/productList_Controller.dart';
 
 class FilterUIController extends GetxController {
+  // API controllers
+  final filterAPI = Get.put(FilterController());
+  final getAllPeraMeter = Get.put(GetallparameterController());
+
+  // Selected filters
   RxString selectedMetalType = ''.obs;
   RxString selectedMetalStamp = ''.obs;
   RxString selectedShapes = ''.obs;
   RxString selectedStoneTypes = ''.obs;
   RxString priceSort = '1'.obs;
 
-  /// UI state
+  // UI state
   var lowToHigh = true.obs;
   var highToLow = false.obs;
 
-  selectMetalType(String value) => selectedMetalType.value = value;
-  selectMetalStamp(String value) => selectedMetalStamp.value = value;
-  selectShapes(String value) => selectedShapes.value = value;
-  selectStoneTypes(String value) => selectedStoneTypes.value = value;
+  // Combined metal list
+  RxList<Map<String, dynamic>> combinedMetal = <Map<String, dynamic>>[].obs;
+
+  // Select methods
+  void selectMetalType(String value) => selectedMetalType.value = value;
+  void selectMetalStamp(String value) => selectedMetalStamp.value = value;
+  void selectShapes(String value) => selectedShapes.value = value;
+  void selectStoneTypes(String value) => selectedStoneTypes.value = value;
+
+  // Compute combinedMetal from API data
+  void computeCombinedMetal(Map<String, dynamic> filterData) {
+    final metalStampsList = (filterData['metalStamp'] as List? ?? [])
+        .cast<Map<String, dynamic>>();
+    final metalTypesList = (filterData['metalType'] as List? ?? [])
+        .cast<Map<String, dynamic>>();
+
+
+    final List<Map<String, dynamic>> temp = [];
+    for (final stamp in metalStampsList) {
+      for (final metal in metalTypesList) {
+        final stampName = stamp['paraMtrName'] ?? '';
+        final metalName = metal['metal'] ?? '';
+        temp.add({
+          'metalStampId': stamp['_id'] ?? '',
+          'metalTypeId': metal['_id'] ?? '',
+          'combinedMetalName':
+          [stampName, metalName].where((e) => e.isNotEmpty).join(' '),
+          'stampSlug': stamp['slug'] ?? '',
+          'param': stampName,
+        });
+      }
+    }
+    combinedMetal.value = temp;
+  }
 
   void selectMetalCombination({
     required String metalStampId,
@@ -31,8 +68,8 @@ class FilterUIController extends GetxController {
         'Selected Combination => MetalStamp: $metalStampId, MetalType: $metalTypeId');
   }
 
-  //Reset
-  void reset(categoryId,categoryName) {
+  // Reset all filters
+  void reset(String categoryId, String categoryName) {
     selectedMetalType.value = '';
     selectedMetalStamp.value = '';
     selectedShapes.value = '';
@@ -40,6 +77,7 @@ class FilterUIController extends GetxController {
     lowToHigh.value = true;
     highToLow.value = false;
     priceSort.value = '1';
+
     final productListAPI = Get.put(ProductlistController(), permanent: true);
     productListAPI.fetchFirstPage(
       categoryId: categoryId,
@@ -49,6 +87,7 @@ class FilterUIController extends GetxController {
       settingType: '',
       priceShort: '',
     );
+
     final product = Product(
       categoryId: categoryId,
       categoryName: categoryName,
@@ -58,17 +97,13 @@ class FilterUIController extends GetxController {
       settingType: '',
       priceShort: '',
     );
+
     Get.back(result: product);
-    debugPrint('categoryID :- $categoryId');
-    debugPrint('categoryName :- $categoryName');
-    debugPrint('metalType :- ${selectedMetalType.value}');
-    debugPrint('metalStamp :- ${selectedMetalStamp.value}');
-    debugPrint('shape :- ${selectedShapes.value}');
-    debugPrint('settingType :- ${selectedStoneTypes.value}');
-    debugPrint('priceShort :- ${priceSort.value}');
+
+    debugPrint('Reset filters');
   }
 
-  // Sort By
+  // Sorting
   void sortLowToHigh() {
     lowToHigh.value = true;
     highToLow.value = false;
@@ -81,7 +116,8 @@ class FilterUIController extends GetxController {
     priceSort.value = '-1';
   }
 
-  void savePerametter(categoryId, categoryName) {
+  // Save filters and fetch API
+  void savePerametter(String categoryId, String categoryName) {
     final productListAPI = Get.put(ProductlistController(), permanent: true);
     productListAPI.fetchFirstPage(
       categoryId: categoryId,
@@ -91,6 +127,7 @@ class FilterUIController extends GetxController {
       settingType: selectedStoneTypes.value,
       priceShort: priceSort.value,
     );
+
     final product = Product(
       categoryId: categoryId,
       categoryName: categoryName,
@@ -100,14 +137,9 @@ class FilterUIController extends GetxController {
       settingType: selectedStoneTypes.value,
       priceShort: priceSort.value,
     );
+
     Get.back(result: product);
-    debugPrint('categoryID :- $categoryId');
-    debugPrint('categoryName :- $categoryName');
-    debugPrint('metalType :- ${selectedMetalType.value}');
-    debugPrint('metalStamp :- ${selectedMetalStamp.value}');
-    debugPrint('shape :- ${selectedShapes.value}');
-    debugPrint('settingType :- ${selectedStoneTypes.value}');
-    debugPrint('priceShort :- ${priceSort.value}');
+    debugPrint('Saved filters');
   }
 }
 

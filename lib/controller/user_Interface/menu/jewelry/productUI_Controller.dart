@@ -261,6 +261,7 @@ class ProductuiController extends GetxController {
     return selectedShapes[productId] == shapeId;
   }
 
+  //combinedMetal
   List<Map<String, dynamic>> get combinedMetal {
     final result = <Map<String, dynamic>>[];
 

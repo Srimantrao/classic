@@ -21,6 +21,16 @@ class FilterUIController extends GetxController {
   selectShapes(String value) => selectedShapes.value = value;
   selectStoneTypes(String value) => selectedStoneTypes.value = value;
 
+  void selectMetalCombination({
+    required String metalStampId,
+    required String metalTypeId,
+  }) {
+    selectedMetalStamp.value = metalStampId;
+    selectedMetalType.value = metalTypeId;
+    debugPrint(
+        'Selected Combination => MetalStamp: $metalStampId, MetalType: $metalTypeId');
+  }
+
   //Reset
   void reset(categoryId,categoryName) {
     selectedMetalType.value = '';

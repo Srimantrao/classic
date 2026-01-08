@@ -139,6 +139,105 @@ Widget showContainer({
   );
 }
 
+Widget showCombinedMetalContainer({
+  required String heading,
+  required List<Map<String, dynamic>> combinedMetal,
+  required RxString selectedValue,
+  required FilterUIController filter,
+}) {
+  return Align(
+    alignment: Alignment.topLeft,
+    child: horizontalPadding(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: Get.height * 0.01),
+          heddingFilter(heading),
+          SizedBox(height: Get.height * 0.01),
+          srinc(
+            List.generate(combinedMetal.length, (index) {
+              final item = combinedMetal[index];
+              final String metalStampId = item['metalStampId'] ?? '';
+              final String metalTypeId = item['metalTypeId'] ?? '';
+              final String name = item['combinedMetalName'] ?? '';
+              final image = item['images']; // optional
+
+              // Create a unique key for this combination
+              final combinationKey = '$metalStampId-$metalTypeId';
+
+              return Obx(() {
+                final isSelected = selectedValue.value == combinationKey;
+
+                return filterContainer(
+                  image: image,
+                  name: name,
+                  isSelected: isSelected,
+                  onTap: () {
+                    selectedValue.value = combinationKey;
+                    filter.selectMetalCombination(
+                      metalStampId: metalStampId,
+                      metalTypeId: metalTypeId,
+                    );
+                  },
+                );
+              });
+            }),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget combinedMetalWidget({
+  required List<Map<String, dynamic>> combinedMetal,
+  required FilterUIController filter,
+}) {
+  return Align(
+    alignment: Alignment.topLeft,
+    child: horizontalPadding(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(padding: EdgeInsetsGeometry.only(top: Get.height * 0.01)),
+          heddingFilter(AppString.metal),
+          Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.01)),
+          srinc(
+            List.generate(combinedMetal.length, (index) {
+              final item = combinedMetal[index];
+              final String metalStampId = item['metalStampId'] ?? '';
+              final String metalTypeId = item['metalTypeId'] ?? '';
+              final String name = item['combinedMetalName'] ?? '';
+              final image = item['images']; // optional, if you have images
+
+              // Reactive container
+              return Obx(() {
+                final isSelected =
+                    filter.selectedMetalStamp.value == metalStampId &&
+                        filter.selectedMetalType.value == metalTypeId;
+
+                return filterContainer(
+                  image: image,
+                  name: name,
+                  isSelected: isSelected,
+                  onTap: () {
+                    filter.selectMetalCombination(
+                      metalStampId: metalStampId,
+                      metalTypeId: metalTypeId,
+                    );
+                  },
+                );
+              });
+            }),
+          ),
+          Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.01)),
+        ],
+      ),
+    ),
+  );
+}
+
+
 Widget metalType({
   required List metalTypes,
   required FilterUIController filter,

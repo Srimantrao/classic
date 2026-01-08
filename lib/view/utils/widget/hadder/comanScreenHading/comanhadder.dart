@@ -85,7 +85,7 @@ PreferredSizeWidget allOtherScreen(
                       )
                     : GestureDetector(
                         onTap: () {
-                          onTapLeft != null ? onTapLeft!() : Get.back();
+                          onTapLeft != null ? onTapLeft() : Get.back();
                         },
                         child: Icon(
                           Icons.chevron_left,

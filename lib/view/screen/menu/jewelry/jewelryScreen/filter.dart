@@ -18,10 +18,10 @@ import '../jewelryExtraWidget/filter.dart';
 import '../jewelryWidget/body/filterbody.dart';
 
 void bottomStyle(
-    BuildContext context, {
-      required String categoryId,
-      required String categoryName,
-    }) {
+  BuildContext context, {
+  required String categoryId,
+  required String categoryName,
+}) {
   showModalBottomSheet(
     useSafeArea: true,
     context: context,
@@ -38,7 +38,6 @@ void bottomStyle(
   );
 }
 
-
 class Filter extends StatelessWidget {
   final String categoryId;
   final String categoryName;
@@ -48,7 +47,9 @@ class Filter extends StatelessWidget {
   final product = Lisofproduct();
   final dimaondlist = DiamondList();
   final filterCategory = FilterCategory();
+
   Filter({super.key, required this.categoryId, required this.categoryName});
+
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
@@ -84,11 +85,7 @@ class Filter extends StatelessWidget {
         final loadingApiFilter = apiflter.isLoading.value;
         final loadingApiGetAllParameter = apiGetAllParameter.isLoading.value;
 
-        if (loadingApiFilter) {
-          return Center(child: shimmer());
-        }
-
-        if (loadingApiGetAllParameter) {
+        if (loadingApiFilter || loadingApiGetAllParameter) {
           return Center(child: shimmer());
         }
 
@@ -100,31 +97,53 @@ class Filter extends StatelessWidget {
         }
 
         final filterData = apiData['data'];
+        final metalStampsList = (filterData['metalStamp'] as List? ?? [])
+            .cast<Map<String, dynamic>>();
+        final metalTypesList = (filterData['metalType'] as List? ?? [])
+            .cast<Map<String, dynamic>>();
+        final stoneTypesList =
+            (getAllParameterData['settingType'] as List? ?? [])
+                .cast<Map<String, dynamic>>();
+        final shapesList = (filterData['shape'] as List? ?? [])
+            .cast<Map<String, dynamic>>();
 
-        final metalStampsList = filterData['metalStamp'];
-        final metalTypesList = filterData['metalType'];
-        final stoneTypesList = getAllParameterData['settingType'];
-        final shapesList = filterData['shape'];
+        // ✅ Compute combinedMetal here
+        final List<Map<String, dynamic>> combinedMetal = [];
+        for (final stamp in metalStampsList) {
+          for (final metal in metalTypesList) {
+            final stampName = stamp['paraMtrName'] ?? '';
+            final metalName = metal['metal'] ?? '';
 
+            combinedMetal.add({
+              'metalStampId': stamp['_id'] ?? '',
+              'metalTypeId': metal['_id'] ?? '',
+              'combinedMetalName': stampName.isNotEmpty && metalName.isNotEmpty
+                  ? '$stampName $metalName'
+                  : stampName + metalName,
+              'stampSlug': stamp['slug'] ?? '',
+              'param': stampName,
+            });
+          }
+        }
+
+        // Now you can use combinedMetal in your UI
         return SingleChildScrollView(
           child: Column(
             children: [
-              metalType(metalTypes: metalTypesList, filter: filter),
+              // metalType(metalTypes: metalTypesList, filter: filter),
+              // divider(),
+              //
+              // metalStamps(metalStamps: metalStampsList, filter: filter),
+              // divider(),
+              combinedMetalWidget(combinedMetal: combinedMetal, filter: filter),
               divider(),
 
-              //Metal Stamp
-              metalStamps(metalStamps: metalStampsList, filter: filter),
-              divider(),
-
-              //shape
               shape(shapes: shapesList, filter: filter),
               divider(),
 
-              //Stone Type
               stone(stone: stoneTypesList, filter: filter),
               divider(),
 
-              //Sort By
               shortBY(
                 isSelectedHighToLow: filter.highToLow.value,
                 isSelectedLowToHigh: filter.lowToHigh.value,
@@ -132,7 +151,7 @@ class Filter extends StatelessWidget {
                 onTapLowToHigh: filter.sortLowToHigh,
               ),
 
-              Padding(padding: EdgeInsetsGeometry.only(top: Get.height * 0.03)),
+              SizedBox(height: Get.height * 0.03),
             ],
           ),
         );

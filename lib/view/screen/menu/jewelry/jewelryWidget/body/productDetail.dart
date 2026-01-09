@@ -26,7 +26,7 @@ Widget productDetailImage(image) {
           border: Border.all(color: AppColor.gray3, width: 2),
           color: AppColor.gray,
         ),
-        child: Image(image: AssetImage(image)),
+        child: Image(image: NetworkImage(image)),
       ),
       SizedBox(height: Get.height * 0.015),
       horizontalPadding(
@@ -46,7 +46,7 @@ Widget productDetailImage(image) {
 }
 
 //Product Price
-Widget productDetailsPrice(name, price) {
+Widget productDetailsPrice(name, price, itemCode) {
   return horizontalPadding(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +60,7 @@ Widget productDetailsPrice(name, price) {
         ),
         SizedBox(height: Get.height * 0.003),
         Text(
-          'SKU : SJBR20352-0.75CT-S-14W',
+          'SKU : $itemCode',
           style: TextStyle(
             fontSize: Get.width * 0.03,
             fontWeight: FontWeight.w500,
@@ -71,7 +71,7 @@ Widget productDetailsPrice(name, price) {
         Row(
           children: [
             Text(
-              price,
+              "₹${double.parse(price).toStringAsFixed(2)}",
               style: TextStyle(
                 fontSize: Get.width * 0.04,
                 fontWeight: FontWeight.w500,

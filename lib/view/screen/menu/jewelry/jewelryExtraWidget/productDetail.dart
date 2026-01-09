@@ -37,7 +37,7 @@ Widget showItemImage(image) {
     padding: EdgeInsets.all(40),
     decoration: BoxDecoration(
       border: Border.all(color: AppColor.gray3),
-      image: DecorationImage(image: AssetImage(image)),
+      image: DecorationImage(image: NetworkImage(image)),
     ),
   );
 }

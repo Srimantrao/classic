@@ -1,30 +1,32 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, avoid_print
 
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail_Controller.dart';
 import 'package:classic/modal/menu/jewelry/lisofProduct.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/productDetail.dart';
+import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/widget/button.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
+import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../controller/user_Interface/menu/jewelry/productDetailUI_Controller.dart';
+import '../../../../utils/app_Color.dart';
 import '../../../../utils/widget/bottomNavigationButton.dart';
+import '../jewelryExtraWidget/productDetail.dart';
 
 class ProductDetail extends StatelessWidget {
-  final productdetail = Get.put(ProductdetailuiController());
+  final productDetail = Get.put(ProductdetailuiController());
+  final productDetailAPI = Get.put(ProductdetailController());
   final products = Lisofproduct();
-  final String image;
-  final String name;
-  final String price;
-  ProductDetail({
-    super.key,
-    required this.name,
-    required this.price,
-    required this.image,
-  });
+  final String slug;
+
+  ProductDetail({super.key, required this.slug});
+
   @override
   Widget build(BuildContext context) {
+    productDetailAPI.prductDetail(slug);
     return Fullscreen(
       appBar: allOtherScreen(AppString.productDetail, cart: true),
       bottomNavigationBar: buttonNavigation(
@@ -36,42 +38,189 @@ class ProductDetail extends StatelessWidget {
       ),
       child: SingleChildScrollView(
         child: Obx(() {
+          final api = productDetailAPI;
+          final loading = api.isLoading.value;
+
+          if (loading) {
+            return Center(child: CircularProgressIndicator());
+          }
+
+          final detailData = api.prdoctdetailData;
+          final productData = detailData['data'];
+
+          final List<Map<String, dynamic>> childProducts =
+              (productData['childProduct'] as List)
+                  .map((e) => Map<String, dynamic>.from(e))
+                  .toList();
+
+          final image = childProducts[0]['images'];
+
+          final imageController = Get.put(ImageController(image));
+
+          final firstImage = childProducts[0]['images'][0]['zoom'];
+          final name = childProducts[0]['productTitle'];
+          final price = childProducts[0]['finalPrice'].toString();
+          final itemCode = childProducts[0]['itemCode'];
+          final shape = childProducts[0]['productStoneDetails'];
+          final metalStamp = childProducts[0]['metalStamp'];
+
+          final List<Map<String, dynamic>> shapeList =
+              (childProducts[0]['productStoneDetails'] as List)
+                  .map((e) => e['shape'] as Map<String, dynamic>)
+                  .toList();
+
+          final List<Map<String, dynamic>> uniqueShapeList = {
+            for (var s in shapeList) s['paraMtrName']: s,
+          }.values.toList();
+
+          final List<Map<String, dynamic>> caratList = childProducts
+              .map((e) => {'totalWgt': e['totalWgt']})
+              .toList();
+
+          final List<Map<String, dynamic>> uniqueCaratList = {
+            for (var item in caratList) item['totalWgt']: item,
+          }.values.toList();
+
+          print('childProducts :- ${childProducts[0]['itemCode']}');
+
           return Column(
             children: [
-              SizedBox(height: Get.height * 0.02),
+              // //Product Image
+              // productDetailImage(image),
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColor.gray3, width: 2),
+                  color: AppColor.gray,
+                ),
+                child: InteractiveViewer(
+                  panEnabled: true,
+                  minScale: 1.0,
+                  maxScale: 4.0,
+                  child: Image(
+                    image: NetworkImage(imageController.selectedImage),
+                  ),
+                ),
+              ),
 
-              //Product Image
-              productDetailImage(image),
+              Padding(
+                padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.009),
+              ),
+
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minWidth: Get.width),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: List.generate(image.length, (index) {
+                        final img = image[index]['zoom'];
+                        return GestureDetector(
+                          onTap: () {
+                            imageController.changeImage(index);
+                          },
+                          child: Container(
+                            margin: EdgeInsets.symmetric(
+                              horizontal: Get.width * 0.009,
+                            ),
+                            padding: const EdgeInsets.all(40),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: AppColor.gray3),
+                              image: DecorationImage(
+                                image: NetworkImage(image[index]['zoom']),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        );
+                      }),
+                    ),
+                  ),
+                ),
+              ),
+
+              Padding(
+                padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.009),
+              ),
 
               //Details
-              productDetailsPrice(name, price),
+              productDetailsPrice(name, price, itemCode),
+              Padding(
+                padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.009),
+              ),
 
               //Shape
-              productShape(),
+              commonHorizontalList(
+                title: AppString.shape,
+                list: uniqueShapeList,
+                textKey: 'paraMtrName',
+              ),
 
-              //Metal Stamp
-              productStamp(productdetail),
+              commonHorizontalList(
+                title: AppString.metalStamp,
+                list: metalStamp,
+                textKey: 'paraMtrName',
+              ),
 
-              //Metal Type
-              productmetalType(productdetail),
+              productmetalType(productDetail),
 
               //Carat
-              selectCarat(productdetail),
+              // selectCarat(productDetail),
+              horizontalPadding(
+                child: Row(
+                  children: [
+                    productDetailsubHedding('${AppString.carat} :- '),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: List.generate(uniqueCaratList.length, (
+                            index,
+                          ) {
+                            return Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: Get.width * 0.009,
+                              ),
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: Get.width * 0.025,
+                                  vertical: Get.height * 0.005,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                    borderradius.buttonboder,
+                                  ),
+                                  border: Border.all(color: AppColor.secondary),
+                                ),
+                                child: Text(
+                                  uniqueCaratList[index]['totalWgt'].toString(),
+                                ),
+                              ),
+                            );
+                          }),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
 
               //Remark
-              productDetailsRemark(productdetail.remarkController),
+              productDetailsRemark(productDetail.remarkController),
 
               //Bracelet Size
-              braceletSize(productdetail),
+              braceletSize(productDetail),
 
               //Engraving
-              engraving(productdetail, productdetail.engravingController),
+              engraving(productDetail, productDetail.engravingController),
 
               // Qty
               quantity(
-                value: productdetail.qtyValue.value,
-                onTapDecrimant: productdetail.decrementQty,
-                onTapIncrimant: productdetail.incrementQty,
+                value: productDetail.qtyValue.value,
+                onTapDecrimant: productDetail.decrementQty,
+                onTapIncrimant: productDetail.incrementQty,
               ),
 
               //Metal & CenterStone Detail
@@ -86,10 +235,10 @@ class ProductDetail extends StatelessWidget {
                 shape: 'Round',
                 wgt: '1.94 Gram',
                 pieces: '1',
-                metalDetail: productdetail.metalDetail.value,
-                stoneDetail: productdetail.stoneDetail.value,
-                onTapMetal: productdetail.metalDetails,
-                onTapStone: productdetail.stoneDetails,
+                metalDetail: productDetail.metalDetail.value,
+                stoneDetail: productDetail.stoneDetail.value,
+                onTapMetal: productDetail.metalDetails,
+                onTapStone: productDetail.stoneDetails,
               ),
 
               //Like
@@ -99,5 +248,61 @@ class ProductDetail extends StatelessWidget {
         }),
       ),
     );
+  }
+}
+
+Widget commonHorizontalList({
+  required String title,
+  required List list,
+  required String textKey,
+  EdgeInsets? margin,
+}) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: Get.height * 0.003),
+    child: horizontalPadding(
+      child: Row(
+        children: [
+          productDetailsubHedding('$title :- '),
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: List.generate(list.length, (index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        borderradius.buttonboder,
+                      ),
+                      border: Border.all(color: AppColor.secondary),
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: Get.width * 0.025,
+                      vertical: Get.height * 0.005,
+                    ),
+                    margin:
+                        margin ??
+                        EdgeInsets.symmetric(horizontal: Get.width * 0.009),
+                    child: Text(list[index][textKey].toString()),
+                  );
+                }),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+class ImageController extends GetxController {
+  RxInt selectedIndex = 0.obs;
+  final List imageList;
+
+  ImageController(this.imageList);
+
+  String get selectedImage => imageList[selectedIndex.value]['zoom'];
+
+  void changeImage(int index) {
+    selectedIndex.value = index;
   }
 }

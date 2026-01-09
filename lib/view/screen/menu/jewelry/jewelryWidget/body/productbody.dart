@@ -1,6 +1,8 @@
 // ignore_for_file: strict_top_level_inference, deprecated_member_use
 
 import 'package:classic/view/screen/menu/jewelry/jewelryExtraWidget/product.dart';
+import 'package:classic/view/screen/menu/jewelry/jewelryScreen/productDetail.dart';
+import 'package:classic/view/screen/menu/jewelry/jewelryScreen/productImage.dart';
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
@@ -95,6 +97,7 @@ Widget listController(
             final List<Map<String, dynamic>> childProducts =
                 List<Map<String, dynamic>>.from(product['childProduct'] ?? []);
             final String productId = product['_id'] ?? 'product_$index';
+            final slug = product['slug'];
             final productControllerUI = Get.put(
               ProductuiController(
                 productId: productId,
@@ -103,7 +106,12 @@ Widget listController(
               tag: productId,
               permanent: false,
             );
-            return productShowList(productControllerUI);
+            return productShowList(
+              productControllerUI,
+              detailonTap: () {
+                Get.to(() => ProductDetail(slug: slug));
+              },
+            );
           },
         ),
 
@@ -130,7 +138,10 @@ Widget listController(
 }
 
 // Product show list widget
-Widget productShowList(ProductuiController productControllerUI) {
+Widget productShowList(
+  ProductuiController productControllerUI, {
+  void Function()? detailonTap,
+}) {
   return Obx(() {
     return Container(
       padding: EdgeInsets.all(10),
@@ -144,65 +155,83 @@ Widget productShowList(ProductuiController productControllerUI) {
           // Image with loading and error handling
           if (productControllerUI.images.isNotEmpty &&
               (productControllerUI.images.first['zoom'] ?? '').isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.all(5),
-              child: Image.network(
-                productControllerUI.images.first['zoom'],
-                fit: BoxFit.cover,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return const Center(
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  );
-                },
-                errorBuilder: (context, error, stackTrace) {
-                  return const Center(
-                    child: Icon(
-                      Icons.broken_image,
-                      size: 40,
-                      color: Colors.grey,
-                    ),
-                  );
-                },
+            GestureDetector(
+              onTap: () {
+                Get.to(
+                  () => ProductImage(
+                    images: productControllerUI.images.first['zoom'],
+                    tilte: productControllerUI.productTitle,
+                  ),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(5),
+                child: Image.network(
+                  productControllerUI.images.first['zoom'],
+                  fit: BoxFit.cover,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return const Center(
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    );
+                  },
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Center(
+                      child: Icon(
+                        Icons.broken_image,
+                        size: 40,
+                        color: Colors.grey,
+                      ),
+                    );
+                  },
+                ),
               ),
             )
           else
             const SizedBox(),
 
-          // Product title
-          if (productControllerUI.productTitle.isNotEmpty)
-            productName(productControllerUI.productTitle),
-
-          // Price
-          if (productControllerUI.formattedPrice.isNotEmpty)
-            price(productControllerUI.formattedPrice),
-
-          // Shape
-          if (productControllerUI.uniqueShapeList.isNotEmpty)
-            Row(
+          GestureDetector(
+            onTap: detailonTap,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                information('Shape'),
-                Expanded(child: buildShape(productControllerUI)),
+                // Product title
+                if (productControllerUI.productTitle.isNotEmpty)
+                  productName(productControllerUI.productTitle),
+
+                // Price
+                if (productControllerUI.formattedPrice.isNotEmpty)
+                  price(productControllerUI.formattedPrice),
+
+                // Shape
+                if (productControllerUI.uniqueShapeList.isNotEmpty)
+                  Row(
+                    children: [
+                      information('Shape'),
+                      Expanded(child: buildShape(productControllerUI)),
+                    ],
+                  ),
+
+                // Metal stamps (now interactive)
+                if (productControllerUI.combinedMetal.isNotEmpty)
+                  Row(
+                    children: [
+                      information('Metal'),
+                      Expanded(child: buildMetalStamps(productControllerUI)),
+                    ],
+                  ),
+
+                // Carat/Weight options (now interactive)
+                if (productControllerUI.caratOptions.isNotEmpty)
+                  Row(
+                    children: [
+                      information('Carat'),
+                      Expanded(child: buildTotalWgt(productControllerUI)),
+                    ],
+                  ),
               ],
             ),
-
-          // Metal stamps (now interactive)
-          if (productControllerUI.combinedMetal.isNotEmpty)
-            Row(
-              children: [
-                information('Metal'),
-                Expanded(child: buildMetalStamps(productControllerUI)),
-              ],
-            ),
-
-          // Carat/Weight options (now interactive)
-          if (productControllerUI.caratOptions.isNotEmpty)
-            Row(
-              children: [
-                information('Carat'),
-                Expanded(child: buildTotalWgt(productControllerUI)),
-              ],
-            ),
+          ),
         ],
       ),
     );

@@ -58,7 +58,8 @@ Widget productDetailsPrice(name, price, itemCode) {
             fontWeight: FontWeight.w500,
           ),
         ),
-        SizedBox(height: Get.height * 0.003),
+        // SizedBox(height: Get.height * 0.003),
+        Padding(padding: EdgeInsetsGeometry.only(top: Get.height * 0.003)),
         Text(
           'SKU : $itemCode',
           style: TextStyle(
@@ -67,7 +68,7 @@ Widget productDetailsPrice(name, price, itemCode) {
             color: AppColor.gray3,
           ),
         ),
-        SizedBox(height: Get.height * 0.003),
+        Padding(padding: EdgeInsetsGeometry.only(top: Get.height * 0.009)),
         Row(
           children: [
             Text(
@@ -88,6 +89,9 @@ Widget productDetailsPrice(name, price, itemCode) {
               ),
             ),
           ],
+        ),
+        Padding(
+          padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.009),
         ),
       ],
     ),
@@ -239,7 +243,7 @@ Widget productDetailsRemark(TextEditingController? controller) {
             Expanded(
               child: Inputfield(
                 controller: controller,
-                color: AppColor.gray5,
+                color: AppColor.secondary,
                 height: Get.height * 0.09,
                 hinttext: AppString.enterRemark,
                 hintStyle: TextStyle(fontFamily: 'FuturaCyrillic'),
@@ -259,7 +263,7 @@ Widget braceletSize(productdetail) {
       children: [
         productDetailsubHedding('${AppString.braceletSize} :- '),
         Container(
-          decoration: BoxDecoration(border: Border.all(color: AppColor.gray3)),
+          decoration: BoxDecoration(border: Border.all(color: AppColor.secondary)),
           child: DropdownButtonHideUnderline(
             child: DropdownButton2<String>(
               iconStyleData: IconStyleData(
@@ -267,7 +271,7 @@ Widget braceletSize(productdetail) {
                 iconSize: 22,
               ),
               buttonStyleData: ButtonStyleData(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.symmetric(horizontal: Get.height * 0.005),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(borderradius.buttonboder),
                 ),
@@ -284,14 +288,12 @@ Widget braceletSize(productdetail) {
                 style: TextStyle(fontSize: Get.height * 0.015),
               ),
               value: productdetail.selectedBraceletSize.value,
-              items: ProductDetailList().braceletSizes
-                  .map(
+              items: ProductDetailList().braceletSizes.map(
                     (size) => DropdownMenuItem<String>(
                       value: size,
                       child: Text(size),
                     ),
-                  )
-                  .toList(),
+                  ).toList(),
               onChanged: (value) {
                 productdetail.selectedBraceletSize.value = value!;
               },
@@ -314,7 +316,7 @@ Widget engraving(productdetail, controller) {
             Expanded(
               child: Inputfield(
                 controller: controller,
-                color: AppColor.gray5,
+                color: AppColor.secondary,
                 height: Get.height * 0.05,
                 hinttext: AppString.enterRemark,
                 hintStyle: TextStyle(fontFamily: 'FuturaCyrillic'),
@@ -476,30 +478,31 @@ Widget productmetalDetails({
 //Like
 Widget listLike({required List product}) {
   return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      SizedBox(height: Get.height * 0.02),
-      Text(
-        'You May Also Like',
-        style: TextStyle(
-          fontSize: Get.width * 0.047,
-          fontWeight: FontWeight.w500,
-          color: AppColor.primary,
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        child: Text(
+          'You May Also Like',
+          style: TextStyle(
+            fontSize: Get.width * 0.04,
+            fontWeight: FontWeight.w500,
+            color: AppColor.primary,
+          ),
         ),
       ),
-      SizedBox(height: Get.height * 0.009),
-      SizedBox(
-        height: Get.height * 0.3,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: product.length,
-          padding: EdgeInsets.zero,
-          itemBuilder: (context, index) {
+      SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        padding: EdgeInsets.symmetric(horizontal: Get.width * 0.02),
+        child: Row(
+          children: product.map((item) {
             return like(
-              image: product[index]['image'],
-              name: product[index]['name'],
-              price: product[index]['price'],
+              image: item['image'],
+              name: item['name'],
+              price: item['price'],
             );
-          },
+          }).toList(),
         ),
       ),
     ],

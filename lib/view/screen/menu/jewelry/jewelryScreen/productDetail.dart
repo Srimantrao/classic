@@ -64,6 +64,26 @@ class ProductDetail extends StatelessWidget {
           final shape = childProducts[0]['productStoneDetails'];
           final metalStamp = childProducts[0]['metalStamp'];
 
+          final List<Map<String, dynamic>> allMetalStamp = childProducts
+              .expand((product) => product['metalStamp'] ?? [])
+              .map((e) => e as Map<String, dynamic>)
+              .toList();
+
+          final List<Map<String, dynamic>> uniqueMetalStamp = {
+            for (var s in allMetalStamp)
+              if (s['paraMtrName'] != null) s['paraMtrName']: s,
+          }.values.toList();
+
+          final List<Map<String, dynamic>> allMetalType = childProducts
+              .expand((product) => product['metalType'] ?? [])
+              .map((e) => e as Map<String, dynamic>)
+              .toList();
+
+          final List<Map<String, dynamic>> uniqueMetalType = {
+            for (var m in allMetalType)
+              if (m['metal'] != null) m['metal']: m,
+          }.values.toList();
+
           final List<Map<String, dynamic>> shapeList =
               (childProducts[0]['productStoneDetails'] as List)
                   .map((e) => e['shape'] as Map<String, dynamic>)
@@ -81,75 +101,13 @@ class ProductDetail extends StatelessWidget {
             for (var item in caratList) item['totalWgt']: item,
           }.values.toList();
 
-          print('childProducts :- ${childProducts[0]['itemCode']}');
-
           return Column(
             children: [
               // //Product Image
-              // productDetailImage(image),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColor.gray3, width: 2),
-                  color: AppColor.gray,
-                ),
-                child: InteractiveViewer(
-                  panEnabled: true,
-                  minScale: 1.0,
-                  maxScale: 4.0,
-                  child: Image(
-                    image: NetworkImage(imageController.selectedImage),
-                  ),
-                ),
-              ),
-
-              Padding(
-                padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.009),
-              ),
-
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minWidth: Get.width),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: List.generate(image.length, (index) {
-                        final img = image[index]['zoom'];
-                        return GestureDetector(
-                          onTap: () {
-                            imageController.changeImage(index);
-                          },
-                          child: Container(
-                            margin: EdgeInsets.symmetric(
-                              horizontal: Get.width * 0.009,
-                            ),
-                            padding: const EdgeInsets.all(40),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: AppColor.gray3),
-                              image: DecorationImage(
-                                image: NetworkImage(image[index]['zoom']),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        );
-                      }),
-                    ),
-                  ),
-                ),
-              ),
-
-              Padding(
-                padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.009),
-              ),
+              imageContainer(imageController, image),
 
               //Details
               productDetailsPrice(name, price, itemCode),
-              Padding(
-                padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.009),
-              ),
 
               //Shape
               commonHorizontalList(
@@ -158,53 +116,25 @@ class ProductDetail extends StatelessWidget {
                 textKey: 'paraMtrName',
               ),
 
+              //MetalStamp
               commonHorizontalList(
                 title: AppString.metalStamp,
-                list: metalStamp,
+                list: uniqueMetalStamp,
                 textKey: 'paraMtrName',
               ),
 
-              productmetalType(productDetail),
+              //Metal
+              commonHorizontalList(
+                title: AppString.metalType,
+                list: uniqueMetalType,
+                textKey: 'metal',
+              ),
 
               //Carat
-              // selectCarat(productDetail),
-              horizontalPadding(
-                child: Row(
-                  children: [
-                    productDetailsubHedding('${AppString.carat} :- '),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: List.generate(uniqueCaratList.length, (
-                            index,
-                          ) {
-                            return Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: Get.width * 0.009,
-                              ),
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: Get.width * 0.025,
-                                  vertical: Get.height * 0.005,
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(
-                                    borderradius.buttonboder,
-                                  ),
-                                  border: Border.all(color: AppColor.secondary),
-                                ),
-                                child: Text(
-                                  uniqueCaratList[index]['totalWgt'].toString(),
-                                ),
-                              ),
-                            );
-                          }),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+              commonHorizontalList(
+                title: AppString.carat,
+                list: uniqueCaratList,
+                textKey: 'totalWgt',
               ),
 
               //Remark
@@ -251,6 +181,81 @@ class ProductDetail extends StatelessWidget {
   }
 }
 
+Widget imageContainer(ImageController imageController, image) {
+  return Column(
+    children: [
+      imageViwe(imageController),
+      Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.009)),
+      selectImage(imageController, image),
+      Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.009)),
+    ],
+  );
+}
+
+Widget imageViwe(ImageController imageController) {
+  return Container(
+    decoration: BoxDecoration(
+      border: Border(bottom: BorderSide(color: AppColor.secondary)),
+      color: AppColor.gray,
+    ),
+    child: InteractiveViewer(
+      panEnabled: true,
+      minScale: 1.0,
+      maxScale: 4.0,
+      child:
+          (imageController.selectedImage == null ||
+              imageController.selectedImage.isEmpty)
+          ? Center(child: Icon(Icons.image_not_supported, color: Colors.grey))
+          : Image.network(
+              imageController.selectedImage,
+              fit: BoxFit.contain,
+              errorBuilder: (context, error, stackTrace) {
+                return Center(
+                  child: Icon(Icons.image_not_supported, color: Colors.grey),
+                );
+              },
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Center(child: CircularProgressIndicator());
+              },
+            ),
+    ),
+  );
+}
+
+Widget selectImage(ImageController imageController, image) {
+  return SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    child: ConstrainedBox(
+      constraints: BoxConstraints(minWidth: Get.width),
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: List.generate(image.length, (index) {
+            final img = image[index]['zoom'];
+            return GestureDetector(
+              onTap: () => imageController.changeImage(index),
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: Get.width * 0.009),
+                padding: const EdgeInsets.all(40),
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColor.secondary),
+                  image: DecorationImage(
+                    image: NetworkImage(img),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            );
+          }),
+        ),
+      ),
+    ),
+  );
+}
+
 Widget commonHorizontalList({
   required String title,
   required List list,
@@ -258,7 +263,7 @@ Widget commonHorizontalList({
   EdgeInsets? margin,
 }) {
   return Padding(
-    padding: EdgeInsets.symmetric(vertical: Get.height * 0.003),
+    padding: EdgeInsets.symmetric(vertical: Get.height * 0.006),
     child: horizontalPadding(
       child: Row(
         children: [
@@ -268,6 +273,10 @@ Widget commonHorizontalList({
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: List.generate(list.length, (index) {
+                  final item = list[index];
+                  final value = (item is Map && item.containsKey(textKey))
+                      ? item[textKey]
+                      : '';
                   return Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(
@@ -282,7 +291,7 @@ Widget commonHorizontalList({
                     margin:
                         margin ??
                         EdgeInsets.symmetric(horizontal: Get.width * 0.009),
-                    child: Text(list[index][textKey].toString()),
+                    child: Text(value.toString()),
                   );
                 }),
               ),
@@ -297,11 +306,8 @@ Widget commonHorizontalList({
 class ImageController extends GetxController {
   RxInt selectedIndex = 0.obs;
   final List imageList;
-
   ImageController(this.imageList);
-
   String get selectedImage => imageList[selectedIndex.value]['zoom'];
-
   void changeImage(int index) {
     selectedIndex.value = index;
   }

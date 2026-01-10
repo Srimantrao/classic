@@ -184,7 +184,7 @@ Widget like({
         padding: EdgeInsets.all(Get.width * 0.18),
         margin: EdgeInsets.only(left: Get.width * 0.03,right: Get.width * 0.02),
         decoration: BoxDecoration(
-          border: Border.all(color: AppColor.gray5),
+          border: Border.all(color: AppColor.secondary),
           borderRadius: BorderRadius.circular(borderradius.buttonboder),
           image: DecorationImage(
             fit: BoxFit.cover,

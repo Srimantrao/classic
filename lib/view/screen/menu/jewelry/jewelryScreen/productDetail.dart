@@ -30,6 +30,7 @@ class ProductDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     productDetailAPI.prductDetail(slug);
+
     return Fullscreen(
       appBar: allOtherScreen(AppString.productDetail, cart: true),
       bottomNavigationBar: buttonNavigation(
@@ -42,274 +43,212 @@ class ProductDetail extends StatelessWidget {
       child: SingleChildScrollView(
         child: Obx(() {
           final api = productDetailAPI;
-          final loading = api.isLoading.value;
 
-          if (loading) {
-            return Center(child: CircularProgressIndicator());
+          if (api.isLoading.value) {
+            return const Center(child: CircularProgressIndicator());
           }
 
-          final detailData = api.prdoctdetailData;
-          final productData = detailData['data'];
+          final productData = api.prdoctdetailData['data'];
 
           final List<Map<String, dynamic>> childProducts =
               (productData['childProduct'] as List)
                   .map((e) => Map<String, dynamic>.from(e))
                   .toList();
 
-          // Get the currently selected variant
-          final productDetail = Get.find<ProductDetailController>();
-          final activeVariantSlug = productDetail.selectedVariantSlug.value;
-
-          // Find active variant or use first one
+          /// ACTIVE VARIANT
           final activeVariant = childProducts.firstWhere(
-            (product) => product['slug'] == activeVariantSlug,
-            orElse: () => childProducts[0],
+            (p) =>
+                p['slug'] == productDetailController.selectedVariantSlug.value,
+            orElse: () => childProducts.first,
           );
-          log(activeVariantSlug);
 
-          // Prepare data for each section
-
-          // 1. SHAPE - ALL variants से unique shapes
-          final List<Map<String, dynamic>> allShapes = childProducts
-              .expand(
-                (product) => (product['productStoneDetails'] as List? ?? []),
-              )
-              .where((stoneDetail) => stoneDetail['shape'] != null)
-              .map((e) => e['shape'] as Map<String, dynamic>)
-              .where((shape) => shape['paraMtrName'] != null)
-              .toList();
-
-          final List<Map<String, dynamic>> uniqueShapes = {
-            for (var shape in allShapes) shape['paraMtrName']: shape,
-          }.values.toList();
-
-          // CURRENT active variant का shape
+          /// ✅ CURRENT VALUES (FIXED)
           final currentShape =
-              (activeVariant['productStoneDetails'] as List?)?.isNotEmpty ==
-                  true
-              ? ((activeVariant['productStoneDetails'] as List)[0]['shape']
-                            as Map<String, dynamic>?) !=
-                        null
-                    ? ['paraMtrName'].toString() ?? ''
-                    : ''
-              : '';
+              activeVariant['productStoneDetails']?[0]?['shape']?['paraMtrName']
+                  ?.toString() ??
+              '';
 
-          // 2. METAL STAMP - ALL variants से unique metal stamps
-          final List<Map<String, dynamic>> allMetalStamp = childProducts
-              .expand((product) => (product['metalStamp'] as List? ?? []))
-              .where((stamp) => stamp['paraMtrName'] != null)
-              .map((e) => e as Map<String, dynamic>)
-              .toList();
-
-          final List<Map<String, dynamic>> uniqueMetalStamp = {
-            for (var s in allMetalStamp) s['paraMtrName']: s,
-          }.values.toList();
-
-          // CURRENT active variant का metal stamp
           final currentMetalStamp =
-              (activeVariant['metalStamp'] as List?)?.isNotEmpty == true
-              ? (activeVariant['metalStamp'] as List)[0]['paraMtrName']
-                        ?.toString() ??
-                    ''
-              : '';
+              activeVariant['metalStamp']?[0]?['paraMtrName']?.toString() ?? '';
 
-          // 3. METAL TYPE - ALL variants से unique metal types
-          final List<Map<String, dynamic>> allMetalType = childProducts
-              .expand((product) => (product['metalType'] as List? ?? []))
-              .where((metal) => metal['metal'] != null)
-              .map((e) => e as Map<String, dynamic>)
-              .toList();
-
-          final List<Map<String, dynamic>> uniqueMetalType = {
-            for (var m in allMetalType) m['metal']: m,
-          }.values.toList();
-
-          // CURRENT active variant का metal type
           final currentMetalType =
-              (activeVariant['metalType'] as List?)?.isNotEmpty == true
-              ? (activeVariant['metalType'] as List)[0]['metal']?.toString() ??
-                    ''
-              : '';
+              activeVariant['metalType']?[0]?['metal']?.toString() ?? '';
 
-          // 4. CARAT - यहाँ CHANGE किया है: सिर्फ CURRENT variant का carat show करें
-          // (लेकिन selection के लिए सभी carat options दिखाएं)
-          final List<Map<String, dynamic>> allCarats = childProducts
-              .where((product) => product['totalWgt'] != null)
-              .map(
-                (e) => {
-                  'totalWgt': e['totalWgt'],
-                  'slug': e['slug'], // साथ में slug भी store करें
-                },
-              )
-              .toList();
-
-          // Unique carats for selection (duplicates remove)
-          final List<Map<String, dynamic>> uniqueCaratList = {
-            for (var item in allCarats) item['totalWgt'].toString(): item,
-          }.values.toList();
-
-          // CURRENT active variant का carat
           final currentCarat = activeVariant['totalWgt']?.toString() ?? '';
 
-          // Functions to find matching variants
-          findVariantByShape(Map<String, dynamic> selectedShape) {
-            return childProducts.firstWhere((product) {
-              final shapes = (product['productStoneDetails'] as List)
-                  .map((e) => e['shape'] as Map<String, dynamic>)
-                  .toList();
-              return shapes.any(
-                (shape) => shape['paraMtrName'] == selectedShape['paraMtrName'],
-              );
-            }, orElse: () => childProducts[0]);
-          }
+          /// ---------- UNIQUE OPTIONS ----------
+          final List<Map<String, dynamic>> uniqueShapes = {
+            for (var p in childProducts)
+              p['productStoneDetails'][0]['shape']['paraMtrName']:
+                  Map<String, dynamic>.from(
+                    p['productStoneDetails'][0]['shape'],
+                  ),
+          }.values.toList();
 
-          findVariantByMetalStamp(Map<String, dynamic> selectedStamp) {
-            return childProducts.firstWhere((product) {
-              final stamps = product['metalStamp'] ?? [];
-              return stamps.any(
-                (stamp) => stamp['paraMtrName'] == selectedStamp['paraMtrName'],
-              );
-            }, orElse: () => childProducts[0]);
-          }
+          final List<Map<String, dynamic>> uniqueMetalStamp = {
+            for (var p in childProducts)
+              p['metalStamp'][0]['paraMtrName']: Map<String, dynamic>.from(
+                p['metalStamp'][0],
+              ),
+          }.values.toList();
 
-          findVariantByMetalType(Map<String, dynamic> selectedMetal) {
-            return childProducts.firstWhere((product) {
-              final metals = product['metalType'] ?? [];
-              return metals.any(
-                (metal) => metal['metal'] == selectedMetal['metal'],
-              );
-            }, orElse: () => childProducts[0]);
-          }
+          final List<Map<String, dynamic>> uniqueMetalType = {
+            for (var p in childProducts)
+              p['metalType'][0]['metal']: Map<String, dynamic>.from(
+                p['metalType'][0],
+              ),
+          }.values.toList();
 
-          findVariantByCarat(Map<String, dynamic> selectedCarat) {
-            // Carat के लिए specific variant ढूंढें जिसका totalWgt match करे
-            return childProducts.firstWhere(
-              (product) =>
-                  product['totalWgt'].toString() ==
-                  selectedCarat['totalWgt'].toString(),
-              orElse: () => childProducts[0],
-            );
-          }
+          final uniqueCaratList = {
+            for (var p in childProducts)
+              p['totalWgt'].toString(): {'totalWgt': p['totalWgt']},
+          }.values.toList();
 
-          // Update image controller with active variant images
           Get.put(ImageController(activeVariant['images']));
 
           return Column(
             children: [
-              // Product Image
               imageContainer(
                 Get.find<ImageController>(),
                 activeVariant['images'],
               ),
 
-              // Details - Price, Title, etc.
               productDetailsPrice(
                 activeVariant['productTitle'],
                 activeVariant['finalPrice'].toString(),
                 activeVariant['itemCode'],
               ),
 
-              // Shape - Now shows ALL shapes from ALL variants
-              if (uniqueShapes.isNotEmpty)
-                commonHorizontalList(
-                  title: AppString.shape,
-                  list: uniqueShapes,
-                  textKey: 'paraMtrName',
-                  compareKey: 'paraMtrName',
-                  selectedValue: currentShape,
-                  onItemSelected: (selectedShape) {
-                    final variant = findVariantByShape(selectedShape);
-                    productDetail.updateSelectedVariant(variant['slug']);
-                    // Update image controller
-                    Get.delete<ImageController>();
-                    Get.put(ImageController(variant['images']));
-                  },
-                ),
+              /// SHAPE
+              (currentShape.isNotEmpty)
+                  ? commonHorizontalList(
+                      title: AppString.shape,
+                      list: uniqueShapes,
+                      textKey: 'paraMtrName',
+                      compareKey: 'paraMtrName',
+                      selectedValue: currentShape,
+                      onItemSelected: (s) {
+                        final v = productDetailController.findMatchingVariant(
+                          childProducts: childProducts,
+                          shape: s['paraMtrName'],
+                          metalStamp: currentMetalStamp,
+                          metalType: currentMetalType,
+                          carat: currentCarat,
+                        );
+                        productDetailController.updateSelectedVariant(
+                          v['slug'],
+                        );
+                      },
+                    )
+                  : SizedBox(),
 
-              // MetalStamp
-              if (uniqueMetalStamp.isNotEmpty)
-                commonHorizontalList(
-                  title: AppString.metalStamp,
-                  list: uniqueMetalStamp,
-                  textKey: 'paraMtrName',
-                  compareKey: 'paraMtrName',
-                  selectedValue: currentMetalStamp,
-                  onItemSelected: (selectedStamp) {
-                    final variant = findVariantByMetalStamp(selectedStamp);
-                    productDetail.updateSelectedVariant(variant['slug']);
-                    // Update image controller
-                    Get.delete<ImageController>();
-                    Get.put(ImageController(variant['images']));
-                  },
-                ),
+              /// METAL STAMP
+              (currentMetalStamp.isNotEmpty)
+                  ? commonHorizontalList(
+                      title: AppString.metalStamp,
+                      list: uniqueMetalStamp,
+                      textKey: 'paraMtrName',
+                      compareKey: 'paraMtrName',
+                      selectedValue: currentMetalStamp,
+                      onItemSelected: (s) {
+                        final v = productDetailController.findMatchingVariant(
+                          childProducts: childProducts,
+                          shape: currentShape,
+                          metalStamp: s['paraMtrName'],
+                          metalType: currentMetalType,
+                          carat: currentCarat,
+                        );
+                        productDetailController.updateSelectedVariant(
+                          v['slug'],
+                        );
+                      },
+                    )
+                  : SizedBox(),
 
-              // Metal Type
-              if (uniqueMetalType.isNotEmpty)
-                commonHorizontalList(
-                  title: AppString.metalType,
-                  list: uniqueMetalType,
-                  textKey: 'metal',
-                  compareKey: 'metal',
-                  selectedValue: currentMetalType,
-                  onItemSelected: (selectedMetal) {
-                    final variant = findVariantByMetalType(selectedMetal);
-                    productDetail.updateSelectedVariant(variant['slug']);
-                    // Update image controller
-                    Get.delete<ImageController>();
-                    Get.put(ImageController(variant['images']));
-                  },
-                ),
+              /// METAL TYPE
+              (currentMetalType.isNotEmpty)
+                  ? commonHorizontalList(
+                      title: AppString.metalType,
+                      list: uniqueMetalType,
+                      textKey: 'metal',
+                      compareKey: 'metal',
+                      selectedValue: currentMetalType,
+                      onItemSelected: (s) {
+                        final v = productDetailController.findMatchingVariant(
+                          childProducts: childProducts,
+                          shape: currentShape,
+                          metalStamp: currentMetalStamp,
+                          metalType: s['metal'],
+                          carat: currentCarat,
+                        );
+                        productDetailController.updateSelectedVariant(
+                          v['slug'],
+                        );
+                      },
+                    )
+                  : SizedBox(),
 
-              // Carat
-              if (uniqueCaratList.isNotEmpty)
-                commonHorizontalList(
-                  title: AppString.carat,
-                  list: uniqueCaratList,
-                  textKey: 'totalWgt',
-                  compareKey: 'totalWgt',
-                  selectedValue: currentCarat,
-                  onItemSelected: (selectedCarat) {
-                    final variant = findVariantByCarat(selectedCarat);
-                    productDetail.updateSelectedVariant(variant['slug']);
-                    // Update image controller
-                    Get.delete<ImageController>();
-                    Get.put(ImageController(variant['images']));
-                  },
-                ),
+              /// CARAT
+              (currentCarat.isNotEmpty)
+                  ? commonHorizontalList(
+                      title: AppString.carat,
+                      list: uniqueCaratList,
+                      textKey: 'totalWgt',
+                      compareKey: 'totalWgt',
+                      selectedValue: currentCarat,
+                      onItemSelected: (s) {
+                        final v = productDetailController.findMatchingVariant(
+                          childProducts: childProducts,
+                          shape: currentShape,
+                          metalStamp: currentMetalStamp,
+                          metalType: currentMetalType,
+                          carat: s['totalWgt'].toString(),
+                        );
+                        productDetailController.updateSelectedVariant(
+                          v['slug'],
+                        );
+                      },
+                    )
+                  : SizedBox(),
 
               // Remark
-              // productDetailsRemark(productDetail.remarkController),
-              //
-              // // Bracelet Size
-              // braceletSize(productDetail),
-              //
-              // // Engraving
-              // engraving(productDetail, productDetail.engravingController),
-              //
-              // // Quantity
-              // quantity(
-              //   value: productDetail.qtyValue.value,
-              //   onTapDecrimant: productDetail.decrementQty,
-              //   onTapIncrimant: productDetail.incrementQty,
-              // ),
-              //
-              // // Metal & CenterStone Detail
-              // productmetalDetails(
-              //   productCodeValue: activeVariant['itemCode'] ?? 'N/A',
-              //   metalValue: currentMetalType.isNotEmpty ? currentMetalType : 'N/A',
-              //   heightValue: '-',
-              //   widthValue: '-',
-              //   productWeightValue: '${currentCarat} Gram',
-              //   color: 'D', // You should extract this from your data
-              //   clarity: 'SI1', // You should extract this from your data
-              //   shape: currentShape.isNotEmpty ? currentShape : 'N/A',
-              //   wgt: '${currentCarat} Gram',
-              //   pieces: '1', // You should extract this from your data
-              //   metalDetail: productDetail.metalDetail.value,
-              //   stoneDetail: productDetail.stoneDetail.value,
-              //   onTapMetal: productDetail.metalDetails,
-              //   onTapStone: productDetail.stoneDetails,
-              // ),
+              productDetailsRemark(productDetail.remarkController),
+
+              // Bracelet Size
+              braceletSize(productDetail),
+
+              // Engraving
+              engraving(productDetail, productDetail.engravingController),
+
+              // Quantity
+              quantity(
+                value: productDetail.qtyValue.value,
+                onTapDecrimant: productDetail.decrementQty,
+                onTapIncrimant: productDetail.incrementQty,
+              ),
+
+              // Metal & CenterStone Detail
+              productmetalDetails(
+                productCodeValue: activeVariant['itemCode'] ?? 'N/A',
+                metalValue: currentMetalType.isNotEmpty
+                    ? currentMetalType
+                    : 'N/A',
+                heightValue: '-',
+                widthValue: '-',
+                productWeightValue: '$currentCarat Gram',
+                color: 'D',
+                // You should extract this from your data
+                clarity: 'SI1',
+                // You should extract this from your data
+                shape: currentShape.isNotEmpty ? currentShape : 'N/A',
+                wgt: '$currentCarat Gram',
+                pieces: '1',
+                // You should extract this from your data
+                metalDetail: productDetail.metalDetail.value,
+                stoneDetail: productDetail.stoneDetail.value,
+                onTapMetal: productDetail.metalDetails,
+                onTapStone: productDetail.stoneDetails,
+              ),
 
               // Like
               listLike(product: products.product),
@@ -392,12 +331,16 @@ class ProductDetailController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // Initialize with first variant slug when data loads
+
+    /// ⚠️ sirf FIRST TIME hi default slug set hoga
     ever(productDetailAPI.prdoctdetailData, (data) {
+      if (selectedVariantSlug.value.isNotEmpty) return;
+
       if (data != null && data['data'] != null) {
         final childProducts = (data['data']['childProduct'] as List)
             .map((e) => Map<String, dynamic>.from(e))
             .toList();
+
         if (childProducts.isNotEmpty) {
           selectedVariantSlug.value = childProducts[0]['slug'];
         }
@@ -407,6 +350,28 @@ class ProductDetailController extends GetxController {
 
   void updateSelectedVariant(String slug) {
     selectedVariantSlug.value = slug;
+  }
+
+  /// 🔥 COMBINATION MATCHING (MOST IMPORTANT)
+  Map<String, dynamic> findMatchingVariant({
+    required List<Map<String, dynamic>> childProducts,
+    String? shape,
+    String? metalStamp,
+    String? metalType,
+    String? carat,
+  }) {
+    return childProducts.firstWhere((product) {
+      final pShape =
+          product['productStoneDetails']?[0]?['shape']?['paraMtrName'];
+      final pStamp = product['metalStamp']?[0]?['paraMtrName'];
+      final pMetal = product['metalType']?[0]?['metal'];
+      final pCarat = product['totalWgt']?.toString();
+
+      return (shape == null || shape == pShape) &&
+          (metalStamp == null || metalStamp == pStamp) &&
+          (metalType == null || metalType == pMetal) &&
+          (carat == null || carat == pCarat);
+    }, orElse: () => childProducts.first);
   }
 }
 
@@ -539,10 +504,10 @@ Widget commonHorizontalList({
                           color: isSelected
                               ? AppColor.primary
                               : AppColor.secondary,
-                          width: isSelected ? 2 : 1,
+                          width: isSelected ? 1 : 1,
                         ),
                         color: isSelected
-                            ? AppColor.primary.withOpacity(0.1)
+                            ? AppColor.secondary.withOpacity(0.3)
                             : Colors.transparent,
                       ),
                       padding: EdgeInsets.symmetric(
@@ -557,8 +522,8 @@ Widget commonHorizontalList({
                         style: TextStyle(
                           color: isSelected ? AppColor.primary : Colors.black,
                           fontWeight: isSelected
-                              ? FontWeight.bold
-                              : FontWeight.normal,
+                              ? FontWeight.w600
+                              : FontWeight.w500,
                         ),
                       ),
                     ),

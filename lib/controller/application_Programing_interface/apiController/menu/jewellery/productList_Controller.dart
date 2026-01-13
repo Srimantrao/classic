@@ -63,6 +63,8 @@ class ProductlistController extends GetxController {
 
   var productListData = <dynamic>[].obs;
 
+  var productListDatas = {}.obs;
+
   /// RESET & LOAD FIRST PAGE
   Future<void> fetchFirstPage({
     required String categoryId,

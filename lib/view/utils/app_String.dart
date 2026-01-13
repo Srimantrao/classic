@@ -188,6 +188,7 @@ class AppString {
       static const height = 'Height';
       static const productWeight = 'Product Weight(Approximate)';
       static const wgt = 'Weight';
+      static const youMay = 'You May Also Like';
 
   //DashBoard Scrren
   static const diamond = 'Diamonds';

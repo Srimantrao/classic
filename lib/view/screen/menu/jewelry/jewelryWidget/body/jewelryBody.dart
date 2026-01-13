@@ -1,9 +1,8 @@
-// ignore_for_file: file_names, avoid_print
+// ignore_for_file: file_names, avoid_print, strict_top_level_inference
 
 import 'package:classic/view/screen/menu/jewelry/jewelryExtraWidget/jewellry.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-
 import '../../jewelryScreen/product.dart';
 
 Widget listOfItem({required List list}) {
@@ -24,19 +23,19 @@ Widget listOfItem({required List list}) {
       itemCount: newList.length,
       itemBuilder: (BuildContext context, int index) {
         return product(
-          onTap: () {
-            final categoryId = newList[index]['_id'];
-            final categoryName = newList[index]['categoryName'];
-            Get.to(
-              () => Product(categoryId: categoryId, categoryName: categoryName),
-            );
-            print("categoryId :- $categoryId");
-            print("categoryId :- $categoryName");
-          },
+          onTap: () => callProductList(newList, index),
           text: newList[index]['categoryName'],
           image: newList[index]['image'],
         );
       },
     ),
   );
+}
+
+void callProductList(newList, index) {
+  final categoryId = newList[index]['_id'];
+  final categoryName = newList[index]['categoryName'];
+  Get.to(() => Product(categoryId: categoryId, categoryName: categoryName));
+  print("categoryId :- $categoryId");
+  print("categoryId :- $categoryName");
 }

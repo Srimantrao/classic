@@ -7,45 +7,16 @@ import 'package:classic/view/utils/widget/cartcontainer.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import '../../../../../../controller/user_Interface/menu/jewelry/productDetailUI_Controller.dart';
-import '../../../../../../modal/menu/diamondSearch/diamondSearch.dart';
 import '../../../../../../modal/menu/jewelry/productDetail.dart';
 import '../../../../../utils/app_Borderradius.dart';
 import '../../../../../utils/widget/horizontalpaddind.dart';
 import '../../../../../utils/widget/inputfield.dart';
 import '../../jewelryExtraWidget/productDetail.dart';
 
-//Product Image
-Widget productDetailImage(image) {
-  return Column(
-    children: [
-      Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: AppColor.gray3, width: 2),
-          color: AppColor.gray,
-        ),
-        child: Image(image: NetworkImage(image)),
-      ),
-      SizedBox(height: Get.height * 0.015),
-      horizontalPadding(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            showItemImage(image),
-            showItemImage(image),
-            showItemImage(image),
-            showItemImage(image),
-          ],
-        ),
-      ),
-      SizedBox(height: Get.height * 0.015),
-    ],
-  );
-}
-
-//Product Price
 Widget productDetailsPrice(name, price, itemCode) {
   return horizontalPadding(
     child: Column(
@@ -72,7 +43,7 @@ Widget productDetailsPrice(name, price, itemCode) {
         Row(
           children: [
             Text(
-              "₹${double.parse(price).toStringAsFixed(2)}",
+              "\$${double.parse(price).toStringAsFixed(2)}",
               style: TextStyle(
                 fontSize: Get.width * 0.04,
                 fontWeight: FontWeight.w500,
@@ -90,151 +61,18 @@ Widget productDetailsPrice(name, price, itemCode) {
             ),
           ],
         ),
-        Padding(
-          padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.009),
-        ),
+        Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.009)),
       ],
     ),
   );
 }
 
-Widget productShape() {
-  final diamondList = DiamondList();
-  return horizontalPadding(
-    child: Column(
-      children: [
-        SizedBox(height: Get.height * 0.02),
-        SizedBox(
-          height: Get.height * 0.04,
-          child: Row(
-            children: [
-              productDetailsubHedding(AppString.shape),
-              GetBuilder<ProductdetailuiController>(
-                builder: (controller) {
-                  return Expanded(
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: diamondList.shapes.length,
-                      itemBuilder: (context, index) {
-                        final shape = diamondList.shapes[index];
-                        final isSelected = controller.selectShape == shape;
-                        return sahapeContainer(
-                          shape: shape,
-                          isSelected: isSelected,
-                          onTap: () => controller.selectDiamondShape(shape),
-                        );
-                      },
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-//Product Stamp
-Widget productStamp(productdetail) {
-  return horizontalPadding(
-    child: Column(
-      children: [
-        SizedBox(height: Get.height * 0.02),
-        Row(
-          children: [
-            productDetailsubHedding('${AppString.metalStamp} :- '),
-            SizedBox(width: Get.width * 0.03),
-            caratButton(
-              '10 K',
-              isSelectcarat: productdetail.isSelectcarat_10K.value,
-              onTap: productdetail.selectcarat_10K,
-            ),
-            caratButton(
-              '14 K',
-              isSelectcarat: productdetail.isSelectcarat_14K.value,
-              onTap: productdetail.selectcarat_14K,
-            ),
-            caratButton(
-              '18 K',
-              isSelectcarat: productdetail.isSelectcarat_18K.value,
-              onTap: productdetail.selectcarat_18K,
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
-}
-
-//Product Metal Type
-Widget productmetalType(productdetail) {
-  return horizontalPadding(
-    child: Column(
-      children: [
-        SizedBox(height: Get.height * 0.02),
-        Row(
-          children: [
-            productDetailsubHedding('${AppString.metalType} :- '),
-            SizedBox(width: Get.width * 0.03),
-            metaltypeselect(
-              AppColor.gray3,
-              isSelectmetaltype: productdetail.isSelectWitheGold.value,
-              onTap: productdetail.selectWitheGold,
-            ),
-            metaltypeselect(
-              AppColor.roseGold,
-              isSelectmetaltype: productdetail.isSelectRoseGold.value,
-              onTap: productdetail.selectRoseGold,
-            ),
-            metaltypeselect(
-              AppColor.complete,
-              isSelectmetaltype: productdetail.isSelectYellowGold.value,
-              onTap: productdetail.selectYellowGold,
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
-}
-
-//Product Carat
-Widget selectCarat(productdetail) {
-  return horizontalPadding(
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(height: Get.height * 0.02),
-        Row(
-          children: [
-            productDetailsubHedding('${AppString.carat} :- '),
-            caratButton(
-              '0.75',
-              isSelectcarat: productdetail.selectcarat_75.value,
-              onTap: productdetail.select_75,
-            ),
-            caratButton(
-              '1',
-              isSelectcarat: productdetail.selectcarat_1.value,
-              onTap: productdetail.select_1,
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
-}
-
-//Product Remark
 Widget productDetailsRemark(TextEditingController? controller) {
   return horizontalPadding(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        SizedBox(height: Get.height * 0.02),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -257,59 +95,93 @@ Widget productDetailsRemark(TextEditingController? controller) {
 }
 
 //Bracelet Size
-Widget braceletSize(productdetail) {
-  return horizontalPadding(
-    child: Row(
-      children: [
-        productDetailsubHedding('${AppString.braceletSize} :- '),
-        Container(
-          decoration: BoxDecoration(border: Border.all(color: AppColor.secondary)),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton2<String>(
-              iconStyleData: IconStyleData(
-                icon: Icon(Icons.keyboard_arrow_down_rounded),
-                iconSize: 22,
+Widget productSize(ProductDetailUIController productdetail, String name) {
+  final isRing = name == AppString.ringSize;
+
+  final sizes = isRing
+      ? ProductDetailList().braceletSizes
+      : ProductDetailList().braceletSizes;
+
+  return Obx(() {
+    final selectedValue = isRing
+        ? productdetail.selectedRingSize.value
+        : productdetail.selectedBraceletSize.value;
+
+    return horizontalPadding(
+      child: Padding(
+        padding: EdgeInsets.only(bottom: Get.height * 0.02),
+        child: Row(
+          children: [
+            productDetailsubHedding('$name :- '),
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: AppColor.secondary),
               ),
-              buttonStyleData: ButtonStyleData(
-                padding: EdgeInsets.symmetric(horizontal: Get.height * 0.005),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(borderradius.buttonboder),
-                ),
-              ),
-              dropdownStyleData: DropdownStyleData(
-                maxHeight: 100,
-                width: 110,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(borderradius.buttonboder),
-                ),
-              ),
-              hint: Text(
-                AppString.select,
-                style: TextStyle(fontSize: Get.height * 0.015),
-              ),
-              value: productdetail.selectedBraceletSize.value,
-              items: ProductDetailList().braceletSizes.map(
-                    (size) => DropdownMenuItem<String>(
-                      value: size,
-                      child: Text(size),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton2<String>(
+                  iconStyleData: const IconStyleData(
+                    icon: Icon(Icons.keyboard_arrow_down_rounded),
+                    iconSize: 22,
+                  ),
+                  buttonStyleData: ButtonStyleData(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: Get.height * 0.005,
                     ),
-                  ).toList(),
-              onChanged: (value) {
-                productdetail.selectedBraceletSize.value = value!;
-              },
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        borderradius.buttonboder,
+                      ),
+                    ),
+                  ),
+                  dropdownStyleData: DropdownStyleData(
+                    maxHeight: 100,
+                    width: 110,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        borderradius.buttonboder,
+                      ),
+                    ),
+                  ),
+                  hint: Text(
+                    AppString.select,
+                    style: TextStyle(fontSize: Get.height * 0.015),
+                  ),
+
+                  /// 🔥 VERY IMPORTANT FIX
+                  value: selectedValue.isEmpty ? null : selectedValue,
+
+                  items: sizes
+                      .map(
+                        (size) => DropdownMenuItem<String>(
+                          value: size,
+                          child: Text(size),
+                        ),
+                      )
+                      .toList(),
+
+                  onChanged: (value) {
+                    if (value == null) return;
+
+                    if (isRing) {
+                      productdetail.selectedRingSize.value = value;
+                    } else {
+                      productdetail.selectedBraceletSize.value = value;
+                    }
+                  },
+                ),
+              ),
             ),
-          ),
+          ],
         ),
-      ],
-    ),
-  );
+      ),
+    );
+  });
 }
 
 Widget engraving(productdetail, controller) {
   return horizontalPadding(
     child: Column(
       children: [
-        SizedBox(height: Get.height * 0.02),
         Row(
           children: [
             productDetailsubHedding('${AppString.engraving} :- '),
@@ -358,6 +230,158 @@ Widget quantity({
         ),
       ],
     ),
+  );
+}
+
+Widget productDetailList(productDetail, categoryId, youMayLikeControllerAPI) {
+  return Column(
+    children: [
+      imageContainer(
+        Get.find<ImageController>(),
+        productDetail.activeVariant['images'],
+      ),
+
+      productDetailsPrice(
+        productDetail.activeVariant['productTitle'],
+        productDetail.activeVariant['finalPrice'].toString(),
+        productDetail.activeVariant['itemCode'],
+      ),
+
+      /// SHAPE
+      (productDetail.currentShape.value.isNotEmpty)
+          ? commonHorizontalList(
+              title: AppString.shape,
+              list: productDetail.uniqueShapes,
+              textKey: 'paraMtrName',
+              compareKey: 'paraMtrName',
+              selectedValue: productDetail.currentShape.value,
+              onItemSelected: (s) {
+                final v = productDetail.findMatchingVariant(
+                  childProducts: productDetail.childProducts,
+                  shape: s['paraMtrName'],
+                  metalStamp: productDetail.currentMetalStamp.value,
+                  metalType: productDetail.currentMetalType.value,
+                  carat: productDetail.currentCarat.value,
+                );
+                productDetail.updateSelectedVariant(v['slug']);
+              },
+            )
+          : SizedBox(),
+
+      /// METAL STAMP
+      (productDetail.currentMetalStamp.value.isNotEmpty)
+          ? commonHorizontalList(
+              title: AppString.metalStamp,
+              list: productDetail.uniqueMetalStamp,
+              textKey: 'paraMtrName',
+              compareKey: 'paraMtrName',
+              selectedValue: productDetail.currentMetalStamp.value,
+              onItemSelected: (s) {
+                final v = productDetail.findMatchingVariant(
+                  childProducts: productDetail.childProducts,
+                  shape: productDetail.currentShape.value,
+                  metalStamp: s['paraMtrName'],
+                  metalType: productDetail.currentMetalType.value,
+                  carat: productDetail.currentCarat.value,
+                );
+                productDetail.updateSelectedVariant(v['slug']);
+              },
+            )
+          : SizedBox(),
+
+      /// METAL TYPE
+      (productDetail.currentMetalType.value.isNotEmpty)
+          ? commonHorizontalList(
+              title: AppString.metalType,
+              list: productDetail.uniqueMetalType,
+              textKey: 'metal',
+              compareKey: 'metal',
+              selectedValue: productDetail.currentMetalType.value,
+              onItemSelected: (s) {
+                final v = productDetail.findMatchingVariant(
+                  childProducts: productDetail.childProducts,
+                  shape: productDetail.currentShape.value,
+                  metalStamp: productDetail.currentMetalStamp.value,
+                  metalType: s['metal'],
+                  carat: productDetail.currentCarat.value,
+                );
+                productDetail.updateSelectedVariant(v['slug']);
+              },
+            )
+          : SizedBox(),
+
+      /// CARAT
+      (productDetail.currentCarat.value.isNotEmpty)
+          ? commonHorizontalList(
+              title: AppString.carat,
+              list: productDetail.uniqueCaratList,
+              textKey: 'totalWgt',
+              compareKey: 'totalWgt',
+              selectedValue: productDetail.currentCarat.value,
+              onItemSelected: (s) {
+                final v = productDetail.findMatchingVariant(
+                  childProducts: productDetail.childProducts,
+                  shape: productDetail.currentShape.value,
+                  metalStamp: productDetail.currentMetalStamp.value,
+                  metalType: productDetail.currentMetalType.value,
+                  carat: s['totalWgt'].toString(),
+                );
+                productDetail.updateSelectedVariant(v['slug']);
+              },
+            )
+          : SizedBox(),
+
+      // Remark
+      productDetailsRemark(productDetail.remarkController),
+
+      //Rings
+      (categoryId == '67ee85d43c2ae60318a28998')
+          ? productSize(productDetail, AppString.ringSize)
+          : SizedBox(),
+
+      // Bracelet Size
+      (categoryId == '67f3a6e10d01f3f9f578083b')
+          ? productSize(productDetail, AppString.braceletSize)
+          : SizedBox(),
+
+      // Engraving
+      engraving(productDetail, productDetail.engravingController),
+
+      // Quantity
+      quantity(
+        value: productDetail.qtyValue.value,
+        onTapDecrimant: productDetail.decrementQty,
+        onTapIncrimant: productDetail.incrementQty,
+      ),
+
+      // Metal & CenterStone Detail
+      productmetalDetails(
+        productCodeValue: productDetail.activeVariant['itemCode'] ?? 'N/A',
+        metalValue: productDetail.currentMetalType.value.isNotEmpty
+            ? productDetail.currentMetalType.value
+            : 'N/A',
+        heightValue: '-',
+        widthValue: '-',
+        productWeightValue: '$productDetail.currentCarat Gram',
+        color: 'D',
+        // You should extract this from your data
+        clarity: 'SI1',
+        // You should extract this from your data
+        shape: productDetail.currentShape.value.isNotEmpty
+            ? productDetail.currentShape.value
+            : 'N/A',
+        wgt: '$productDetail.currentCarat Gram',
+        pieces: '1',
+        // You should extract this from your data
+        metalDetail: productDetail.metalDetail.value,
+        stoneDetail: productDetail.stoneDetail.value,
+        onTapMetal: productDetail.metalDetails,
+        onTapStone: productDetail.stoneDetails,
+      ),
+
+      // Like
+      listLike(product: youMayLikeControllerAPI.youmaylikeData['data']),
+    ],
   );
 }
 
@@ -484,7 +508,7 @@ Widget listLike({required List product}) {
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         child: Text(
-          'You May Also Like',
+          AppString.youMay,
           style: TextStyle(
             fontSize: Get.width * 0.04,
             fontWeight: FontWeight.w500,
@@ -498,9 +522,9 @@ Widget listLike({required List product}) {
         child: Row(
           children: product.map((item) {
             return like(
-              image: item['image'],
-              name: item['name'],
-              price: item['price'],
+              image: item['images'][0]['zoom'],
+              name: item['productTitle'],
+              price: item['finalPrice'].toStringAsFixed(2),
             );
           }).toList(),
         ),

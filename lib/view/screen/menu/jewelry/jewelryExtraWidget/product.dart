@@ -22,7 +22,7 @@ Widget price(text) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: Get.height * 0.0035),
     child: Text(
-      '₹ $text',
+      '\$$text',
       style: TextStyle(
         fontSize: Textsize.samiHedding,
         fontWeight: FontWeight.w600,

@@ -10,6 +10,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../../../../controller/user_Interface/menu/jewelry/productDetailUI_Controller.dart';
 import '../../../../../../modal/menu/jewelry/productDetail.dart';
 import '../../../../../utils/app_Borderradius.dart';
@@ -530,5 +531,316 @@ Widget listLike({required List product}) {
         ),
       ),
     ],
+  );
+}
+
+Widget shimmerGrid() {
+  return Shimmer.fromColors(
+    baseColor: Colors.grey.shade300,
+    highlightColor: Colors.grey.shade100,
+    child: Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(color: AppColor.gray),
+          height: Get.height * 0.5,
+        ),
+        SizedBox(height: Get.height * 0.02),
+        horizontalPadding(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(color: AppColor.gray),
+                    width: Get.width * 0.2,
+                    height: Get.height * 0.08,
+                  ),
+                  SizedBox(width: Get.width * 0.02),
+                  Container(
+                    decoration: BoxDecoration(color: AppColor.gray),
+                    width: Get.width * 0.2,
+                    height: Get.height * 0.08,
+                  ),
+                  SizedBox(width: Get.width * 0.02),
+                  Container(
+                    decoration: BoxDecoration(color: AppColor.gray),
+                    width: Get.width * 0.2,
+                    height: Get.height * 0.08,
+                  ),
+                  SizedBox(width: Get.width * 0.02),
+                  Container(
+                    decoration: BoxDecoration(color: AppColor.gray),
+                    width: Get.width * 0.2,
+                    height: Get.height * 0.08,
+                  ),
+                ],
+              ),
+              SizedBox(height: Get.height * 0.02),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Get.width * 0.02),
+                  color: AppColor.gray,
+                ),
+                height: Get.height * 0.03,
+              ),
+              SizedBox(height: Get.height * 0.01),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Get.width * 0.02),
+                  color: AppColor.gray,
+                ),
+                height: Get.height * 0.01,
+                width: Get.width * 0.8,
+              ),
+              SizedBox(height: Get.height * 0.01),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Get.width * 0.02),
+                  color: AppColor.gray,
+                ),
+                height: Get.height * 0.01,
+                width: Get.width * 0.7,
+              ),
+              SizedBox(height: Get.height * 0.01),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Get.width * 0.02),
+                  color: AppColor.gray,
+                ),
+                height: Get.height * 0.01,
+                width: Get.width * 0.6,
+              ),
+              SizedBox(height: Get.height * 0.01),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Get.width * 0.02),
+                  color: AppColor.gray,
+                ),
+                height: Get.height * 0.01,
+                width: Get.width * 0.5,
+              ),
+              SizedBox(height: Get.height * 0.02),
+              Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(Get.width * 0.02),
+                      color: AppColor.gray,
+                    ),
+                    height: Get.height * 0.01,
+                    width: Get.width * 0.2,
+                  ),
+                  SizedBox(width: Get.width * 0.02),
+                  Container(
+                    width: Get.width * 0.2,
+                    height: Get.height * 0.03,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        borderradius.buttonboder,
+                      ),
+                      color: AppColor.gray,
+                    ),
+                  ),
+                  SizedBox(width: Get.width * 0.02),
+                  Container(
+                    width: Get.width * 0.2,
+                    height: Get.height * 0.03,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        borderradius.buttonboder,
+                      ),
+                      color: AppColor.gray,
+                    ),
+                  ),
+                  SizedBox(width: Get.width * 0.02),
+                  Container(
+                    width: Get.width * 0.2,
+                    height: Get.height * 0.03,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        borderradius.buttonboder,
+                      ),
+                      color: AppColor.gray,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: Get.height * 0.01),
+              Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(Get.width * 0.02),
+                      color: AppColor.gray,
+                    ),
+                    height: Get.height * 0.01,
+                    width: Get.width * 0.2,
+                  ),
+                  SizedBox(width: Get.width * 0.02),
+                  Container(
+                    width: Get.width * 0.2,
+                    height: Get.height * 0.03,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        borderradius.buttonboder,
+                      ),
+                      color: AppColor.gray,
+                    ),
+                  ),
+                  SizedBox(width: Get.width * 0.02),
+                  Container(
+                    width: Get.width * 0.2,
+                    height: Get.height * 0.03,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        borderradius.buttonboder,
+                      ),
+                      color: AppColor.gray,
+                    ),
+                  ),
+                  SizedBox(width: Get.width * 0.02),
+                  Container(
+                    width: Get.width * 0.2,
+                    height: Get.height * 0.03,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        borderradius.buttonboder,
+                      ),
+                      color: AppColor.gray,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: Get.height * 0.01),
+              Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(Get.width * 0.02),
+                      color: AppColor.gray,
+                    ),
+                    height: Get.height * 0.01,
+                    width: Get.width * 0.2,
+                  ),
+                  SizedBox(width: Get.width * 0.02),
+                  Container(
+                    width: Get.width * 0.2,
+                    height: Get.height * 0.03,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        borderradius.buttonboder,
+                      ),
+                      color: AppColor.gray,
+                    ),
+                  ),
+                  SizedBox(width: Get.width * 0.02),
+                  Container(
+                    width: Get.width * 0.2,
+                    height: Get.height * 0.03,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        borderradius.buttonboder,
+                      ),
+                      color: AppColor.gray,
+                    ),
+                  ),
+                  SizedBox(width: Get.width * 0.02),
+                  Container(
+                    width: Get.width * 0.2,
+                    height: Get.height * 0.03,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        borderradius.buttonboder,
+                      ),
+                      color: AppColor.gray,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: Get.height * 0.01),
+              Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(Get.width * 0.02),
+                      color: AppColor.gray,
+                    ),
+                    height: Get.height * 0.01,
+                    width: Get.width * 0.2,
+                  ),
+                  SizedBox(width: Get.width * 0.02),
+                  Container(
+                    width: Get.width * 0.2,
+                    height: Get.height * 0.03,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        borderradius.buttonboder,
+                      ),
+                      color: AppColor.gray,
+                    ),
+                  ),
+                  SizedBox(width: Get.width * 0.02),
+                  Container(
+                    width: Get.width * 0.2,
+                    height: Get.height * 0.03,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        borderradius.buttonboder,
+                      ),
+                      color: AppColor.gray,
+                    ),
+                  ),
+                  SizedBox(width: Get.width * 0.02),
+                  Container(
+                    width: Get.width * 0.2,
+                    height: Get.height * 0.03,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        borderradius.buttonboder,
+                      ),
+                      color: AppColor.gray,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: Get.height * 0.02),
+              Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(Get.width * 0.02),
+                      color: AppColor.gray,
+                    ),
+                    height: Get.height * 0.01,
+                    width: Get.width * 0.2,
+                  ),
+                  SizedBox(width: Get.width * 0.02),
+                  Container(
+                    width: Get.width * 0.3,
+                    height: Get.height * 0.03,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        borderradius.buttonboder,
+                      ),
+                      color: AppColor.gray,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: Get.height * 0.02),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Get.width * 0.02),
+                  color: AppColor.gray,
+                ),
+                height: Get.height * 0.3,
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
   );
 }

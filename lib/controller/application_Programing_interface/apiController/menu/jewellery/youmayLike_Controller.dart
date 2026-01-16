@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, non_constant_identifier_names
 
 import 'package:classic/controller/application_Programing_interface/apiService/menu/jewellery/youmayLikeService.dart';
 import 'package:classic/view/utils/api_Message.dart';
@@ -11,10 +11,22 @@ class YoumaylikeController extends GetxController {
   final isLoading = false.obs;
   final youmaylikeData = {}.obs;
 
-  Future<void> getYouMayLike() async {
+  Future<void> getYouMayLike({
+    required String shape,
+    required String carat,
+    required String AppWeight,
+    required String metalType,
+    required String metalStamp,
+  }) async {
     isLoading.value = true;
     try {
-      final response = await youmaylikeService.getYouMayLike();
+      final response = await youmaylikeService.getYouMayLike(
+        shape: shape,
+        carat: carat,
+        AppWeight: AppWeight,
+        metalType: metalType,
+        metalStamp: metalStamp,
+      );
       if (response.statusCode == 200) {
         successMesssess(
           response: response,

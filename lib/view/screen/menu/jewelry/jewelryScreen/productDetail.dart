@@ -26,22 +26,60 @@ class ProductDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     productDetailAPI.prductDetail(slug);
-    youMayLikeControllerAPI.getYouMayLike();
+    T? getNestedValue<T>(Map<String, dynamic> map, List<dynamic> keys) {
+      dynamic current = map;
+      for (var key in keys) {
+        if (current is Map && current.containsKey(key)) {
+          current = current[key];
+        } else if (current is List && key is int && key < current.length) {
+          current = current[key];
+        } else {
+          return null;
+        }
+      }
+      return current as T?;
+    }
+    final productData = productListAPI.productListData.isNotEmpty
+        ? productListAPI.productListData[0]
+        : <String, dynamic>{};
+    youMayLikeControllerAPI.getYouMayLike(
+      shape: getNestedValue<String>(productData, ['stoneDetails', 0, 'shape', '_id',]) ?? "",
+      carat: getNestedValue<dynamic>(productData, ['totalWgt'])?.toString() ?? "",
+      AppWeight: getNestedValue<dynamic>(productData, ['appxMetalWgt'])?.toString() ?? "",
+      metalType: getNestedValue<String>(productData, ['metalType', 0, '_id']) ?? "",
+      metalStamp: getNestedValue<String>(productData, ['metalStamp', 0, '_id']) ?? "",
+    );
     return Fullscreen(
       appBar: allOtherScreen(AppString.productDetail, cart: true),
-      bottomNavigationBar: buttonNavigation(
-        child: button(
-          AppString.addtoCart,
-          isLowercase: true,
-          bottomBottonFontSize: true,
-        ),
-      ),
+      bottomNavigationBar: Obx(() {
+        final api = productDetailAPI;
+
+        if (api.isLoading.value) {
+          return SizedBox();
+        }
+
+        if (youMayLikeControllerAPI.isLoading.value) {
+          return SizedBox();
+        }
+
+        return buttonNavigation(
+          child: button(
+            AppString.addtoCart,
+            isLowercase: true,
+            bottomBottonFontSize: true,
+          ),
+        );
+      }),
       child: SingleChildScrollView(
         child: Obx(() {
           final api = productDetailAPI;
 
           if (api.isLoading.value) {
-            return const Center(child: CircularProgressIndicator());
+            return shimmerGrid();
+          }
+
+          if (youMayLikeControllerAPI.isLoading.value) {
+            return shimmerGrid();
           }
 
           return productDetailList(
@@ -54,3 +92,11 @@ class ProductDetail extends StatelessWidget {
     );
   }
 }
+
+// youMayLikeControllerAPI.getYouMayLike(
+//   shape: productListAPI.productListData[0]['stoneDetails'][0]['shape']['_id'].toString(),
+//   carat: productListAPI.productListData[0]['totalWgt'].toString(),
+//   AppWeight: productListAPI.productListData[0]['appxMetalWgt'].toString(),
+//   metalType: productListAPI.productListData[0]['metalType'][0]['_id'],
+//   metalStamp: productListAPI.productListData[0]['metalStamp'][0]['_id'],
+// );

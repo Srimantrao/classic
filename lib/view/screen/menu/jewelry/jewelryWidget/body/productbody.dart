@@ -1,6 +1,5 @@
 // ignore_for_file: strict_top_level_inference, deprecated_member_use
 
-import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/youmayLike_Controller.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryExtraWidget/product.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/productDetail.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/productImage.dart';
@@ -8,7 +7,6 @@ import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:classic/view/utils/widget/search.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
@@ -109,14 +107,9 @@ Widget listController(
               tag: productId,
               permanent: false,
             );
-            return GestureDetector(
-              onTap: (){
-
-              },
-              child: productShowList(
-                productControllerUI,
-                detailonTap: () => callproductDetail(slug, categoryId),
-              ),
+            return productShowList(
+              productControllerUI,
+              detailonTap: () => callproductDetail(slug, categoryId),
             );
           },
         ),

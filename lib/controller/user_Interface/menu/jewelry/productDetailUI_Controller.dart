@@ -1,11 +1,9 @@
 // ignore_for_file: file_names
 
-import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productList_Controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../application_Programing_interface/apiController/menu/jewellery/productDetail_Controller.dart';
-import '../../../application_Programing_interface/apiController/menu/jewellery/youmayLike_Controller.dart';
 
 class ImageController extends GetxController {
   RxInt selectedIndex = 0.obs;

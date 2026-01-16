@@ -3,7 +3,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../application_Programing_interface/apiController/menu/jewellery/productList_Controller.dart';
+import '../../../application_Programing_interface/apiController/menu/jewellery/productList/productList_Controller.dart';
 
 class ProductAPICall extends GetxController {
   ProductAPICall({

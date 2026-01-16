@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, strict_top_level_inference
 
+import 'package:classic/view/screen/menu/jewelry/jewelryScreen/productDetail.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
@@ -363,15 +364,13 @@ Widget productDetailList(productDetail, categoryId, youMayLikeControllerAPI) {
             : 'N/A',
         heightValue: '-',
         widthValue: '-',
-        productWeightValue: '$productDetail.currentCarat Gram',
+        productWeightValue: '${productDetail.currentCarat.value} Gram',
         color: 'D',
-        // You should extract this from your data
         clarity: 'SI1',
-        // You should extract this from your data
         shape: productDetail.currentShape.value.isNotEmpty
             ? productDetail.currentShape.value
             : 'N/A',
-        wgt: '$productDetail.currentCarat Gram',
+        wgt: '${productDetail.currentCarat.value} Gram',
         pieces: '1',
         // You should extract this from your data
         metalDetail: productDetail.metalDetail.value,
@@ -381,7 +380,13 @@ Widget productDetailList(productDetail, categoryId, youMayLikeControllerAPI) {
       ),
 
       // Like
-      listLike(product: youMayLikeControllerAPI.youmaylikeData['data']),
+      listLike(
+        product: youMayLikeControllerAPI.youmaylikeData['data'] ?? [],
+        categoryId: categoryId,
+        onTap: (slug) {
+          Get.to(() => ProductDetail(slug: slug, categoryId: categoryId));
+        },
+      ),
     ],
   );
 }
@@ -501,13 +506,17 @@ Widget productmetalDetails({
 }
 
 //Like
-Widget listLike({required List product}) {
+Widget listLike({
+  required List product,
+  required String categoryId,
+  required void Function(String slug) onTap,
+}) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         child: Text(
           AppString.youMay,
           style: TextStyle(
@@ -522,10 +531,15 @@ Widget listLike({required List product}) {
         padding: EdgeInsets.symmetric(horizontal: Get.width * 0.02),
         child: Row(
           children: product.map((item) {
-            return like(
-              image: item['images'][0]['zoom'],
-              name: item['productTitle'],
-              price: item['finalPrice'].toStringAsFixed(2),
+            return GestureDetector(
+              onTap: () {
+                onTap(item['slug']);
+              },
+              child: like(
+                image: item['images'][0]['zoom'],
+                name: item['productTitle'],
+                price: item['finalPrice'].toStringAsFixed(2),
+              ),
             );
           }).toList(),
         ),

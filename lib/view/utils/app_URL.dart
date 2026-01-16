@@ -20,10 +20,15 @@ class AppUrl {
       static const String homeCollection = "${baseUrl}App/homecollection/getCategoryHomeCollection";
 
     //jewelry
+      //Catagory
       static const String category = "${baseUrl}App/category/getCategory";
-      static const String productList = "${baseUrl}App/product/getProductList";
-      static const String productDetail = "${baseUrl}App/product/productDetails";
-      static const String youmayLike = "${baseUrl}App/product/youMayAlsoLike";
+        //Product List
+        static const String productList = "${baseUrl}App/product/getProductList";
+          //Product Detail
+            static const String productDetail = "${baseUrl}App/product/productDetails";
+            static const String youmayLike = "${baseUrl}App/product/youMayAlsoLike";
+            static const String braceletPrice = "${baseUrl}App/product/braceletPrice";
+
           //Filter
             static const String getProductFilterList = "${baseUrl}App/product/getProductFilterList";
             static const String getAllParameter = "${baseUrl}admin/parameter/getAllParameter";

@@ -3,9 +3,9 @@
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/product.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import '../../../application_Programing_interface/apiController/menu/jewellery/filter_Controller.dart';
-import '../../../application_Programing_interface/apiController/menu/jewellery/getAllParameter_Controller.dart';
-import '../../../application_Programing_interface/apiController/menu/jewellery/productList_Controller.dart';
+import '../../../application_Programing_interface/apiController/menu/jewellery/productList/filter/filter_Controller.dart';
+import '../../../application_Programing_interface/apiController/menu/jewellery/productList/filter/getAllParameter_Controller.dart';
+import '../../../application_Programing_interface/apiController/menu/jewellery/productList/productList_Controller.dart';
 
 class FilterUIController extends GetxController {
   // API controllers

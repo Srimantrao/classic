@@ -1,10 +1,10 @@
 
 // ignore_for_file: file_names
 
+import 'package:classic/controller/application_Programing_interface/apiService/menu/jewellery/productList/filter/filterService.dart';
 import 'package:classic/view/utils/api_Message.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import '../../../apiService/menu/jewellery/filterService.dart';
 
 class FilterController extends GetxController {
   final filter = FilterService();

@@ -2,7 +2,7 @@
 
 import 'package:classic/view/utils/widget/apiService.dart';
 import 'package:dio/dio.dart';
-import '../../../../../view/utils/app_URL.dart';
+import '../../../../../../view/utils/app_URL.dart';
 
 class ProductListService {
   Future<Response<dynamic>> productListService({

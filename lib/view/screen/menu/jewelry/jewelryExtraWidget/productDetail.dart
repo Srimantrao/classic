@@ -24,8 +24,8 @@ Widget productDetailsubHedding2(text) {
     text,
     style: TextStyle(
       fontSize: Textsize.samisubHedding,
-      fontWeight: FontWeight.w500,
-      color: AppColor.editColor,
+      fontWeight: FontWeight.w600,
+      color: AppColor.gray5,
     ),
   );
 }
@@ -257,9 +257,9 @@ Widget commonHorizontalList({
   EdgeInsets? margin,
   Function(Map<String, dynamic>)? onItemSelected,
   required String
-  compareKey, // Key to compare for selection (e.g., 'paraMtrName', 'metal', etc.)
+  compareKey,
   required dynamic
-  selectedValue, // Current selected value for this specific list
+  selectedValue,
 }) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: Get.height * 0.006),
@@ -273,20 +273,13 @@ Widget commonHorizontalList({
               child: Row(
                 children: List.generate(list.length, (index) {
                   final item = list[index];
-                  final value = (item.containsKey(textKey))
-                      ? item[textKey]
-                      : '';
-
-                  // Check if this item is selected
+                  final value = (item.containsKey(textKey)) ? item[textKey] : '';
                   bool isSelected = false;
                   if (compareKey == 'totalWgt') {
-                    // For carat, we compare by totalWgt value
-                    isSelected =
-                        item[compareKey].toString() == selectedValue.toString();
+                    isSelected = item[compareKey].toString() == selectedValue.toString();
                   } else {
                     isSelected = item[compareKey] == selectedValue;
                   }
-
                   return GestureDetector(
                     onTap: () {
                       if (onItemSelected != null) {
@@ -299,29 +292,21 @@ Widget commonHorizontalList({
                           borderradius.buttonboder,
                         ),
                         border: Border.all(
-                          color: isSelected
-                              ? AppColor.primary
-                              : AppColor.secondary,
+                          color: isSelected ? AppColor.primary : AppColor.secondary,
                           width: isSelected ? 1 : 1,
                         ),
-                        color: isSelected
-                            ? AppColor.secondary.withOpacity(0.3)
-                            : Colors.transparent,
+                        color: isSelected ? AppColor.secondary.withOpacity(0.3) : Colors.transparent,
                       ),
                       padding: EdgeInsets.symmetric(
                         horizontal: Get.width * 0.025,
                         vertical: Get.height * 0.005,
                       ),
-                      margin:
-                          margin ??
-                          EdgeInsets.symmetric(horizontal: Get.width * 0.009),
+                      margin: margin ?? EdgeInsets.symmetric(horizontal: Get.width * 0.009),
                       child: Text(
                         value.toString(),
                         style: TextStyle(
                           color: isSelected ? AppColor.primary : Colors.black,
-                          fontWeight: isSelected
-                              ? FontWeight.w600
-                              : FontWeight.w500,
+                          fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
                         ),
                       ),
                     ),

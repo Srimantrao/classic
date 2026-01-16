@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../application_Programing_interface/apiController/menu/jewellery/productDetail_Controller.dart';
+import '../../../application_Programing_interface/apiController/menu/jewellery/productDetail/productDetail_Controller.dart';
 
 class ImageController extends GetxController {
   RxInt selectedIndex = 0.obs;

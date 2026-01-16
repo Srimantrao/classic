@@ -3,7 +3,7 @@
 import 'package:classic/view/utils/api_Message.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import '../../../apiService/menu/jewellery/productDetailService.dart';
+import '../../../../apiService/menu/jewellery/productDetail/productDetailService.dart';
 
 class ProductdetailController extends GetxController {
   final productService = ProductDetailService();

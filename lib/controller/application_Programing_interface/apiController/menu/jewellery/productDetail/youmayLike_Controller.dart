@@ -1,6 +1,6 @@
 // ignore_for_file: deprecated_member_use, non_constant_identifier_names
 
-import 'package:classic/controller/application_Programing_interface/apiService/menu/jewellery/youmayLikeService.dart';
+import 'package:classic/controller/application_Programing_interface/apiService/menu/jewellery/productDetail/youmayLikeService.dart';
 import 'package:classic/view/utils/api_Message.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';

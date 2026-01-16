@@ -1,4 +1,4 @@
-import 'package:classic/controller/application_Programing_interface/apiService/menu/jewellery/getAllParameterService.dart';
+import 'package:classic/controller/application_Programing_interface/apiService/menu/jewellery/productList/filter/getAllParameterService.dart';
 import 'package:classic/view/utils/api_Message.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';

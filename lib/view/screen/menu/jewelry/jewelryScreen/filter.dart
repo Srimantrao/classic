@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print, unused_local_variable
 
-import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/filter_Controller.dart';
-import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/getAllParameter_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productList/filter/filter_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productList/filter/getAllParameter_Controller.dart';
 import 'package:classic/controller/user_Interface/menu/jewelry/filter_Controller.dart';
 import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';
 import 'package:classic/modal/menu/jewelry/lisofProduct.dart';

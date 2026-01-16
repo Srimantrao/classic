@@ -1,7 +1,7 @@
 // ignore_for_file: file_names, avoid_print, unnecessary_null_comparison, deprecated_member_use
 
-import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail_Controller.dart';
-import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/youmayLike_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/productDetail_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/youmayLike_Controller.dart';
 import 'package:classic/modal/menu/jewelry/lisofProduct.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/productDetail.dart';
 import 'package:classic/view/utils/app_String.dart';
@@ -10,7 +10,7 @@ import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../../controller/application_Programing_interface/apiController/menu/jewellery/productList_Controller.dart';
+import '../../../../../controller/application_Programing_interface/apiController/menu/jewellery/productList/productList_Controller.dart';
 import '../../../../../controller/user_Interface/menu/jewelry/productDetailUI_Controller.dart';
 import '../../../../utils/widget/bottomNavigationButton.dart';
 
@@ -39,15 +39,28 @@ class ProductDetail extends StatelessWidget {
       }
       return current as T?;
     }
+
     final productData = productListAPI.productListData.isNotEmpty
         ? productListAPI.productListData[0]
         : <String, dynamic>{};
     youMayLikeControllerAPI.getYouMayLike(
-      shape: getNestedValue<String>(productData, ['stoneDetails', 0, 'shape', '_id',]) ?? "",
-      carat: getNestedValue<dynamic>(productData, ['totalWgt'])?.toString() ?? "",
-      AppWeight: getNestedValue<dynamic>(productData, ['appxMetalWgt'])?.toString() ?? "",
-      metalType: getNestedValue<String>(productData, ['metalType', 0, '_id']) ?? "",
-      metalStamp: getNestedValue<String>(productData, ['metalStamp', 0, '_id']) ?? "",
+      shape:
+          getNestedValue<String>(productData, [
+            'stoneDetails',
+            0,
+            'shape',
+            '_id',
+          ]) ??
+          "",
+      carat:
+          getNestedValue<dynamic>(productData, ['totalWgt'])?.toString() ?? "",
+      AppWeight:
+          getNestedValue<dynamic>(productData, ['appxMetalWgt'])?.toString() ??
+          "",
+      metalType:
+          getNestedValue<String>(productData, ['metalType', 0, '_id']) ?? "",
+      metalStamp:
+          getNestedValue<String>(productData, ['metalStamp', 0, '_id']) ?? "",
     );
     return Fullscreen(
       appBar: allOtherScreen(AppString.productDetail, cart: true),

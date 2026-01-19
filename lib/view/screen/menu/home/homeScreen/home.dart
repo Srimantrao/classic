@@ -29,7 +29,9 @@ class Home extends StatelessWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final homeUI = Get.put(HomeUIController());
   final homeAPI = Get.put(HomeAPICall());
+
   Home({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
@@ -44,22 +46,16 @@ class Home extends StatelessWidget {
           SliverToBoxAdapter(
             child: Obx(() {
               final data = homeAPI.filterSilderAPI.filterSliderData['data'];
-
               if (data == null || data.isEmpty) {
                 return const SizedBox();
               }
-
               final image = data[0]['mobileImage'];
               return (image != null && image.isNotEmpty)
                   ? sliderImages(image)
                   : SizedBox();
             }),
           ),
-
-          SliverToBoxAdapter(
-            child: collectonList(homeAPI, homeUI),
-          ),
-
+          SliverToBoxAdapter(child: collectonList(homeAPI, homeUI)),
           SliverToBoxAdapter(child: adVideo()),
           SliverToBoxAdapter(child: adImage()),
           SliverToBoxAdapter(child: whatClassic()),

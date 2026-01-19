@@ -1,5 +1,5 @@
 //Silder Section Start
-// ignore_for_file: file_names, avoid_unnecessary_containers, strict_top_level_inference
+// ignore_for_file: file_names, avoid_unnecessary_containers, strict_top_level_inference, avoid_print
 
 import 'package:classic/view/screen/menu/home/homeExtraWidget/homeconnectingWideget.dart';
 import 'package:classic/view/utils/app_Color.dart';
@@ -13,6 +13,10 @@ import 'package:classic/view/utils/widget/widgetSize.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+
+import '../../../../../../controller/user_Interface/menu/home/home_Controller.dart';
+import '../../../jewelry/jewelryScreen/product.dart';
 
 Widget sliderImages(image) {
   return AspectRatio(
@@ -20,10 +24,7 @@ Widget sliderImages(image) {
     child: Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        image: DecorationImage(
-          image: NetworkImage(image),
-          fit: BoxFit.cover,
-        ),
+        image: DecorationImage(image: NetworkImage(image), fit: BoxFit.cover),
       ),
     ),
   );
@@ -31,7 +32,14 @@ Widget sliderImages(image) {
 //Slider Section End
 
 //Over Collection Start
-Widget ourCollection(collections,selectedIndex,data,homeUI){
+Widget ourCollection(
+  List collections,
+  int selectedIndex,
+  List data,
+  HomeUIController homeUI, {
+  required void Function(int) onCategoryTap,
+  required void Function(Map) onCollectionTap,
+}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
@@ -48,11 +56,12 @@ Widget ourCollection(collections,selectedIndex,data,homeUI){
         child: Row(
           children: List.generate(data.length, (index) {
             final isSelected = selectedIndex == index;
+
             return GestureDetector(
               onTap: () {
-                homeUI.index.value = index;
+                onCategoryTap(index); // ✅ Category tap
               },
-              child: ouerCollectionTitle(isSelected,data,index),
+              child: ouerCollectionTitle(isSelected, data, index),
             );
           }),
         ),
@@ -65,11 +74,18 @@ Widget ourCollection(collections,selectedIndex,data,homeUI){
         scrollDirection: Axis.horizontal,
         child: Row(
           children: List.generate(collections.length, (index) {
-            final item = collections[index];
-            return overCollectionItems(item);
+            final Map item = collections[index];
+
+            return overCollectionItems(
+              item,
+              onTap: () {
+                onCollectionTap(item);
+              },
+            );
           }),
         ),
       ),
+
       SizedBox(height: Get.height * 0.01),
     ],
   );
@@ -144,6 +160,71 @@ Widget adImage() {
   );
 }
 //Image Conatiner End
+
+//Collection Start
+Widget collectonList(homeAPI, homeUI) {
+  return Obx(() {
+    final response = homeAPI.homeCollectionAPI.homeCollectionData;
+    final data = response['data'];
+
+    if (data == null || data.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    final selectedIndex = homeUI.index.value;
+
+    if (selectedIndex < 0 || selectedIndex >= data.length) {
+      return const SizedBox.shrink();
+    }
+
+    final selectedCategory = data[selectedIndex];
+    final collections = selectedCategory['collection'];
+
+    if (collections == null || collections.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return ourCollection(
+      collections,
+      selectedIndex,
+      data,
+      homeUI,
+      onCategoryTap: (index) {
+        homeUI.index.value = index;
+      },
+      onCollectionTap: (item) {
+        print('🚀 Collection Item Tapped:');
+        print('Item data: $item');
+        print('subCategoryId: ${item['subCategoryId']}');
+        print('subCategoryName: ${item['subCategoryName']}');
+        print('_id: ${item['_id']}');
+        print('title: ${item['title']}');
+
+        // Make sure to check if subCategoryId exists
+        if (item['subCategoryId'] != null) {
+          Get.to(
+            () => Product(
+              categoryId: item['_id'].toString(),
+              categoryName: item['subCategoryName']?.toString() ?? '',
+              subCategoryId: item['subCategoryId'].toString(),
+            ),
+          );
+        } else {
+          // Fallback if subCategoryId is missing
+          Get.to(
+            () => Product(
+              categoryId: item['_id'].toString(),
+              categoryName:
+                  item['subCategoryName']?.toString() ??
+                  item['title'].toString(),
+            ),
+          );
+        }
+      },
+    );
+  });
+}
+//Collection End
 
 //What is Classic Start
 Widget whatClassic() {
@@ -224,4 +305,5 @@ Widget emailContainer() {
     ],
   );
 }
+
 //EmailConyainer End

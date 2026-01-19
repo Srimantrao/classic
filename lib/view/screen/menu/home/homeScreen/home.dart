@@ -22,6 +22,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 
+import '../../jewelry/jewelryScreen/product.dart';
 import '../homeExtraWidget/homeconnectingWideget.dart';
 
 class Home extends StatelessWidget {
@@ -44,7 +45,7 @@ class Home extends StatelessWidget {
             child: Obx(() {
               final data = homeAPI.filterSilderAPI.filterSliderData['data'];
 
-              if (data == null || data.isEmpty){
+              if (data == null || data.isEmpty) {
                 return const SizedBox();
               }
 
@@ -56,34 +57,7 @@ class Home extends StatelessWidget {
           ),
 
           SliverToBoxAdapter(
-            child: Obx(() {
-              final response = homeAPI.homeCollectionAPI.homeCollectionData;
-              final data = response['data'];
-
-              if (data == null || data.isEmpty) {
-                return const SizedBox.shrink();
-              }
-
-              final selectedIndex = homeUI.index.value;
-
-              if (selectedIndex < 0 || selectedIndex >= data.length) {
-                return const SizedBox.shrink();
-              }
-
-              final selectedCategory = data[selectedIndex];
-
-              final collections = selectedCategory['collection'];
-              if (collections == null || collections.isEmpty) {
-                return const SizedBox.shrink();
-              }
-
-              return ourCollection(
-                collections,
-                selectedIndex,
-                data,
-                homeUI,
-              );
-            }),
+            child: collectonList(homeAPI, homeUI),
           ),
 
           SliverToBoxAdapter(child: adVideo()),

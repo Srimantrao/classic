@@ -202,28 +202,31 @@ Widget ouerCollectionTitle(isSelected, data, index){
   );
 }
 
-Widget overCollectionItems(item){
+Widget overCollectionItems(item,{required void Function() onTap}){
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: Get.width * 0.03),
-    child: Column(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Image.network(
-            item['image'],
-            width: Get.width * 0.25,
-            fit: BoxFit.cover,
+    child: GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.network(
+              item['image'],
+              width: Get.width * 0.25,
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        SizedBox(height: Get.width * 0.01),
-        Text(
-          textAlign: TextAlign.center,
-          item['title'].replaceFirst(' ', '\n'),
-          softWrap: true,
-          maxLines: 2,
-          style: TextStyle(fontSize: Get.width * 0.030),
-        ),
-      ],
+          SizedBox(height: Get.width * 0.01),
+          Text(
+            textAlign: TextAlign.center,
+            item['title'].replaceFirst(' ', '\n'),
+            softWrap: true,
+            maxLines: 2,
+            style: TextStyle(fontSize: Get.width * 0.030),
+          ),
+        ],
+      ),
     ),
   );
 }

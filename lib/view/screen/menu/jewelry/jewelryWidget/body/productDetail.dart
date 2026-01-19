@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, strict_top_level_inference
+// ignore_for_file: file_names, strict_top_level_inference, avoid_print
 
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/productDetail.dart';
 import 'package:classic/view/utils/app_Color.dart';
@@ -7,13 +7,12 @@ import 'package:classic/view/utils/app_TextSize.dart';
 import 'package:classic/view/utils/widget/cartcontainer.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
+import '../../../../../../controller/application_Programing_interface/apiController/menu/jewellery/productDetail/productsize_Controller.dart';
+import '../../../../../../controller/application_Programing_interface/apiController/menu/jewellery/productList/filter/getAllParameter_Controller.dart';
+import '../../../../../../controller/application_Programing_interface/apiController/menu/jewellery/productList/productList_Controller.dart';
 import '../../../../../../controller/user_Interface/menu/jewelry/productDetailUI_Controller.dart';
-import '../../../../../../modal/menu/jewelry/productDetail.dart';
 import '../../../../../utils/app_Borderradius.dart';
 import '../../../../../utils/widget/horizontalpaddind.dart';
 import '../../../../../utils/widget/inputfield.dart';
@@ -98,17 +97,19 @@ Widget productDetailsRemark(TextEditingController? controller) {
 
 //Bracelet Size
 Widget productSize(ProductDetailUIController productdetail, String name) {
-  final isRing = name == AppString.ringSize;
-
-  final sizes = isRing
-      ? ProductDetailList().braceletSizes
-      : ProductDetailList().braceletSizes;
-
+  final getAllPeraMeter = Get.find<GetallparameterController>();
+  final productListAPI = Get.put(ProductlistController(), permanent: true);
+  final bool isRing = name == AppString.ringSize;
   return Obx(() {
+    final List sizeList = isRing
+        ? (getAllPeraMeter.getAllParameterData['ringSize'] ?? [])
+        : (getAllPeraMeter.getAllParameterData['braceletSize'] ?? []);
+    if (sizeList.isEmpty) {
+      return const SizedBox();
+    }
     final selectedValue = isRing
         ? productdetail.selectedRingSize.value
         : productdetail.selectedBraceletSize.value;
-
     return horizontalPadding(
       child: Padding(
         padding: EdgeInsets.only(bottom: Get.height * 0.02),
@@ -116,25 +117,20 @@ Widget productSize(ProductDetailUIController productdetail, String name) {
           children: [
             productDetailsubHedding('$name :- '),
             Container(
+              padding: EdgeInsetsGeometry.symmetric(
+                horizontal: Get.width * 0.03,
+              ),
               decoration: BoxDecoration(
                 border: Border.all(color: AppColor.secondary),
+                borderRadius: BorderRadius.circular(borderradius.buttonboder),
               ),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton2<String>(
-                  iconStyleData: const IconStyleData(
-                    icon: Icon(Icons.keyboard_arrow_down_rounded),
-                    iconSize: 22,
+                  hint: Text(
+                    AppString.select,
+                    style: TextStyle(fontSize: Get.height * 0.015),
                   ),
-                  buttonStyleData: ButtonStyleData(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: Get.height * 0.005,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        borderradius.buttonboder,
-                      ),
-                    ),
-                  ),
+                  iconStyleData: IconStyleData(icon: SizedBox()),
                   dropdownStyleData: DropdownStyleData(
                     maxHeight: 100,
                     width: 110,
@@ -144,31 +140,29 @@ Widget productSize(ProductDetailUIController productdetail, String name) {
                       ),
                     ),
                   ),
-                  hint: Text(
-                    AppString.select,
-                    style: TextStyle(fontSize: Get.height * 0.015),
-                  ),
-
-                  /// 🔥 VERY IMPORTANT FIX
                   value: selectedValue.isEmpty ? null : selectedValue,
-
-                  items: sizes
-                      .map(
-                        (size) => DropdownMenuItem<String>(
-                          value: size,
-                          child: Text(size),
-                        ),
-                      )
-                      .toList(),
-
+                  items: sizeList.map<DropdownMenuItem<String>>((item) {
+                    return DropdownMenuItem<String>(
+                      value: item['paraMtrName'],
+                      child: Text(item['caption'] ?? item['paraMtrName']),
+                    );
+                  }).toList(),
                   onChanged: (value) {
                     if (value == null) return;
-
-                    if (isRing) {
-                      productdetail.selectedRingSize.value = value;
-                    } else {
-                      productdetail.selectedBraceletSize.value = value;
-                    }
+                    final selectedItem = sizeList.firstWhere(
+                      (e) => e['paraMtrName'] == value,
+                    );
+                    productdetail.onSizeSelected(
+                      isRing: isRing,
+                      size: selectedItem['paraMtrName'],
+                      paraMtrId: selectedItem['paraMtrId'],
+                      productId: productListAPI.productListData[0]['_id'],
+                      sizeId: selectedItem['_id'],
+                    );
+                    print({
+                      'productId': productListAPI.productListData[0]['_id'],
+                      'sizeId': selectedItem['_id'],
+                    });
                   },
                 ),
               ),
@@ -236,6 +230,10 @@ Widget quantity({
 }
 
 Widget productDetailList(productDetail, categoryId, youMayLikeControllerAPI) {
+  final bracelet = Get.put(BraceletPriceController());
+  final ring = Get.put(RingsSizeController());
+  final rings = '682181561353060d79b6e480';
+  final bracelets = '67f3a6e10d01f3f9f578083b';
   return Column(
     children: [
       imageContainer(
@@ -243,11 +241,16 @@ Widget productDetailList(productDetail, categoryId, youMayLikeControllerAPI) {
         productDetail.activeVariant['images'],
       ),
 
-      productDetailsPrice(
-        productDetail.activeVariant['productTitle'],
-        productDetail.activeVariant['finalPrice'].toString(),
-        productDetail.activeVariant['itemCode'],
-      ),
+      Obx(() {
+        final ringPrice = ring.ringsPrice['data']?['finalPrice'];
+        final braceletPrice = bracelet.braceletPrice['data']?['finalPrice'];
+
+        return productDetailsPrice(
+          productDetail.activeVariant['productTitle'],
+          braceletPrice ?? ringPrice ?? productDetail.activeVariant['finalPrice'].toString(),
+          productDetail.activeVariant['itemCode'],
+        );
+      }),
 
       /// SHAPE
       (productDetail.currentShape.value.isNotEmpty)
@@ -337,12 +340,12 @@ Widget productDetailList(productDetail, categoryId, youMayLikeControllerAPI) {
       productDetailsRemark(productDetail.remarkController),
 
       //Rings
-      (categoryId == '67ee85d43c2ae60318a28998')
+      (categoryId == rings)
           ? productSize(productDetail, AppString.ringSize)
           : SizedBox(),
 
       // Bracelet Size
-      (categoryId == '67f3a6e10d01f3f9f578083b')
+      (categoryId == bracelets)
           ? productSize(productDetail, AppString.braceletSize)
           : SizedBox(),
 
@@ -384,7 +387,9 @@ Widget productDetailList(productDetail, categoryId, youMayLikeControllerAPI) {
         product: youMayLikeControllerAPI.youmaylikeData['data'] ?? [],
         categoryId: categoryId,
         onTap: (slug) {
-          Get.to(() => ProductDetail(slug: slug, categoryId: categoryId));
+          Get.off(() => ProductDetail(slug: slug, categoryId: categoryId),
+            preventDuplicates: false,
+          );
         },
       ),
     ],
@@ -533,7 +538,9 @@ Widget listLike({
           children: product.map((item) {
             return GestureDetector(
               onTap: () {
-                onTap(item['slug']);
+                if (item['slug'] != null) {
+                  onTap(item['slug']);
+                }
               },
               child: like(
                 image: item['images'][0]['zoom'],

@@ -35,3 +35,33 @@ class BraceletPriceController extends GetxController {
     }
   }
 }
+
+class RingsSizeController extends GetxController {
+  final ringsPriceService = RindsPrice();
+  var isLoading = false.obs;
+  var ringsPrice = {}.obs;
+
+  Future<void> ringsPriceAPI({
+    required String productId,
+    required String sizeId,
+  }) async {
+    isLoading.value = true;
+    try {
+      final response = await ringsPriceService.ringsDetailService(
+        productId: productId,
+        sizeId: sizeId,
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        successMesssess(
+          response: response,
+          data: ringsPrice,
+          callAPI: 'ringsPrice',
+        );
+      }
+    } on DioException catch (e) {
+      print("ringsPrice Error :-  $e");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+}

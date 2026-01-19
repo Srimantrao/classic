@@ -1,8 +1,8 @@
 // ignore_for_file: file_names
 
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/productsize_Controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../application_Programing_interface/apiController/menu/jewellery/productDetail/productDetail_Controller.dart';
 
 class ImageController extends GetxController {
@@ -20,6 +20,8 @@ class ImageController extends GetxController {
 
 class ProductDetailUIController extends GetxController {
   final productDetailAPI = Get.put(ProductdetailController());
+  final bracelet = Get.put(BraceletPriceController());
+  final rings = Get.put(RingsSizeController());
   final remarkController = TextEditingController();
   final engravingController = TextEditingController();
 
@@ -116,20 +118,16 @@ class ProductDetailUIController extends GetxController {
     activeVariant.value = variant;
 
     /// CURRENT VALUES
-    currentShape.value =
-        variant['productStoneDetails']?[0]?['shape']?['paraMtrName'] ?? '';
-
+    currentShape.value = variant['productStoneDetails']?[0]?['shape']?['paraMtrName'] ?? '';
     currentMetalStamp.value = variant['metalStamp']?[0]?['paraMtrName'] ?? '';
-
     currentMetalType.value = variant['metalType']?[0]?['metal'] ?? '';
-
     currentCarat.value = variant['totalWgt']?.toString() ?? '';
 
     /// UNIQUE OPTIONS
     uniqueShapes.value = {
       for (var p in childProducts)
         p['productStoneDetails'][0]['shape']['paraMtrName']:
-            Map<String, dynamic>.from(p['productStoneDetails'][0]['shape']),
+        Map<String, dynamic>.from(p['productStoneDetails'][0]['shape']),
     }.values.toList();
 
     uniqueMetalStamp.value = {
@@ -169,8 +167,7 @@ class ProductDetailUIController extends GetxController {
     String? carat,
   }) {
     return childProducts.firstWhere((product) {
-      final pShape =
-          product['productStoneDetails']?[0]?['shape']?['paraMtrName'];
+      final pShape = product['productStoneDetails']?[0]?['shape']?['paraMtrName'];
       final pStamp = product['metalStamp']?[0]?['paraMtrName'];
       final pMetal = product['metalType']?[0]?['metal'];
       final pCarat = product['totalWgt']?.toString();
@@ -181,104 +178,28 @@ class ProductDetailUIController extends GetxController {
           (carat == null || carat == pCarat);
     }, orElse: () => childProducts.first);
   }
-}
 
-// class ProductdetailuiController extends GetxController {
-//   final remarkController = TextEditingController();
-//   final engravingController = TextEditingController();
-//
-//   //selected Bracele Size
-//   var selectedBraceletSize = RxnString();
-//
-//   //Shape
-//   String? selectShape;
-//
-//   //carat Button
-//   var isSelectcarat_10K = false.obs;
-//   var isSelectcarat_14K = true.obs;
-//   var isSelectcarat_18K = false.obs;
-//
-//   //metal Type Button
-//   var isSelectWitheGold = false.obs;
-//   var isSelectRoseGold = false.obs;
-//   var isSelectYellowGold = false.obs;
-//
-//   //select carat
-//   var selectcarat_75 = false.obs;
-//   var selectcarat_1 = false.obs;
-//
-//   //Qty
-//   var qtyValue = 1.obs;
-//
-//   //Metal Detail & Stone Detail
-//   var metalDetail = false.obs;
-//   var stoneDetail = false.obs;
-//
-//   //Shape
-//   void selectDiamondShape(String shape) {
-//     selectShape = shape;
-//     update();
-//   }
-//
-//   //carat Button
-//   void selectcarat_10K() {
-//     isSelectcarat_10K.value = true;
-//     isSelectcarat_14K.value = false;
-//     isSelectcarat_18K.value = false;
-//   }
-//
-//   void selectcarat_14K() {
-//     isSelectcarat_10K.value = false;
-//     isSelectcarat_14K.value = true;
-//     isSelectcarat_18K.value = false;
-//   }
-//
-//   void selectcarat_18K() {
-//     isSelectcarat_10K.value = false;
-//     isSelectcarat_14K.value = false;
-//     isSelectcarat_18K.value = true;
-//   }
-//
-//   //metal Type Button
-//   void selectWitheGold() {
-//     isSelectWitheGold.value = true;
-//     isSelectRoseGold.value = false;
-//     isSelectYellowGold.value = false;
-//   }
-//
-//   void selectRoseGold() {
-//     isSelectWitheGold.value = false;
-//     isSelectRoseGold.value = true;
-//     isSelectYellowGold.value = false;
-//   }
-//
-//   void selectYellowGold() {
-//     isSelectWitheGold.value = false;
-//     isSelectRoseGold.value = false;
-//     isSelectYellowGold.value = true;
-//   }
-//
-//   //select carat
-//   void select_75() {
-//     selectcarat_75.value = true;
-//     selectcarat_1.value = false;
-//   }
-//
-//   void select_1() {
-//     selectcarat_75.value = false;
-//     selectcarat_1.value = true;
-//   }
-//
-//
-//
-//   //Metal Detail & Stone Detail
-//   void metalDetails() {
-//     metalDetail.value =! metalDetail.value;
-//     stoneDetail.value = false;
-//   }
-//
-//   void stoneDetails() {
-//     metalDetail.value = false;
-//     stoneDetail.value =! stoneDetail.value;
-//   }
-// }
+  /// Selected IDs
+  final selectedRingSizeId = ''.obs;
+  final selectedBraceletSizeId = ''.obs;
+
+  void onSizeSelected({
+    required bool isRing,
+    required String size,
+    required String paraMtrId,
+    String? productId,
+    String? sizeId,
+  }) {
+    if (isRing) {
+      selectedRingSize.value = size;
+      selectedRingSizeId.value = paraMtrId;
+      /// Ring size related API
+      rings.ringsPriceAPI(productId: productId!, sizeId: sizeId!);
+    } else {
+      selectedBraceletSize.value = size;
+      selectedBraceletSizeId.value = paraMtrId;
+      /// Bracelet size related API
+      bracelet.braceletPriceAPI(productId: productId!, sizeId: sizeId!);
+    }
+  }
+}

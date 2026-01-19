@@ -26,6 +26,7 @@ class ProductDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     productDetailAPI.prductDetail(slug);
+    print("Product Id :- ${productListAPI.productListData[0]['_id']}");
     T? getNestedValue<T>(Map<String, dynamic> map, List<dynamic> keys) {
       dynamic current = map;
       for (var key in keys) {
@@ -39,42 +40,26 @@ class ProductDetail extends StatelessWidget {
       }
       return current as T?;
     }
-
     final productData = productListAPI.productListData.isNotEmpty
         ? productListAPI.productListData[0]
         : <String, dynamic>{};
     youMayLikeControllerAPI.getYouMayLike(
-      shape:
-          getNestedValue<String>(productData, [
-            'stoneDetails',
-            0,
-            'shape',
-            '_id',
-          ]) ??
-          "",
-      carat:
-          getNestedValue<dynamic>(productData, ['totalWgt'])?.toString() ?? "",
-      AppWeight:
-          getNestedValue<dynamic>(productData, ['appxMetalWgt'])?.toString() ??
-          "",
-      metalType:
-          getNestedValue<String>(productData, ['metalType', 0, '_id']) ?? "",
-      metalStamp:
-          getNestedValue<String>(productData, ['metalStamp', 0, '_id']) ?? "",
+      shape: getNestedValue<String>(productData, ['stoneDetails', 0, 'shape', '_id']) ?? "",
+      carat: getNestedValue<dynamic>(productData, ['totalWgt'])?.toString() ?? "",
+      AppWeight: getNestedValue<dynamic>(productData, ['appxMetalWgt'])?.toString() ?? "",
+      metalType: getNestedValue<String>(productData, ['metalType', 0, '_id']) ?? "",
+      metalStamp: getNestedValue<String>(productData, ['metalStamp', 0, '_id']) ?? "",
     );
     return Fullscreen(
       appBar: allOtherScreen(AppString.productDetail, cart: true),
       bottomNavigationBar: Obx(() {
         final api = productDetailAPI;
-
         if (api.isLoading.value) {
           return SizedBox();
         }
-
         if (youMayLikeControllerAPI.isLoading.value) {
           return SizedBox();
         }
-
         return buttonNavigation(
           child: button(
             AppString.addtoCart,
@@ -86,15 +71,12 @@ class ProductDetail extends StatelessWidget {
       child: SingleChildScrollView(
         child: Obx(() {
           final api = productDetailAPI;
-
           if (api.isLoading.value) {
             return shimmerGrid();
           }
-
           if (youMayLikeControllerAPI.isLoading.value) {
             return shimmerGrid();
           }
-
           return productDetailList(
             productDetail,
             categoryId,

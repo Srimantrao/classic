@@ -1,6 +1,5 @@
 // ignore_for_file: file_names
 
-import 'dart:developer';
 
 import 'package:classic/controller/application_Programing_interface/apiService/menu/jewellery/catagory/categoryService.dart';
 import 'package:classic/view/utils/api_Message.dart';

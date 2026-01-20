@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, non_constant_identifier_names
 
 import 'package:classic/controller/application_Programing_interface/apiService/menu/jewellery/productDetail/createCartService.dart';
 import 'package:classic/view/utils/api_Message.dart';

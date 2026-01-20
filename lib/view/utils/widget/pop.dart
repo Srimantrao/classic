@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:classic/view/utils/app_Color.dart';
 import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
 
@@ -14,6 +15,7 @@ class ToastificationSuccess {
         style: ToastificationStyle.minimal,
         autoCloseDuration: const Duration(seconds: 5),
         boxShadow: kElevationToShadow[2],
+        primaryColor: AppColor.primary,
       );
     });
   }

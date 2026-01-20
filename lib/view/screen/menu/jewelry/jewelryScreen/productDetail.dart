@@ -4,6 +4,7 @@ import 'package:classic/controller/application_Programing_interface/apiControlle
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/youmayLike_Controller.dart';
 import 'package:classic/modal/menu/jewelry/lisofProduct.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/productDetail.dart';
+import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/widget/button.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../controller/application_Programing_interface/apiController/menu/jewellery/productList/productList_Controller.dart';
 import '../../../../../controller/user_Interface/menu/jewelry/productDetailUI_Controller.dart';
+import '../../../../utils/app_cricularProgrssIndicator.dart';
 import '../../../../utils/widget/bottomNavigationButton.dart';
 
 class ProductDetail extends StatelessWidget {
@@ -22,7 +24,9 @@ class ProductDetail extends StatelessWidget {
   final products = Lisofproduct();
   final String slug;
   final String categoryId;
+
   ProductDetail({super.key, required this.slug, required this.categoryId});
+
   @override
   Widget build(BuildContext context) {
     productDetailAPI.prductDetail(slug);
@@ -40,6 +44,9 @@ class ProductDetail extends StatelessWidget {
         }
         return buttonNavigation(
           child: button(
+            loadingWait: (productDetail.adToCart.isLoading.value)
+                ? customCircular()
+                : null,
             onTap: productDetail.addToCart,
             AppString.addtoCart,
             isLowercase: true,

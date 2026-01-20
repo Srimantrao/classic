@@ -11,6 +11,8 @@ import 'package:classic/view/utils/widget/logo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../utils/app_cricularProgrssIndicator.dart';
+
 class Login extends StatelessWidget {
   final loginUI = Get.put(LoginuiController());
   Login({super.key});
@@ -34,14 +36,7 @@ class Login extends StatelessWidget {
                   onChangedusername: (value) => loginUI.onChanged1(),
                   onChangedpassword: (value) => loginUI.onChanged2(),
                   loadingWait: loginUI.loginAPI.isLoading.value
-                      ? SizedBox(
-                    height: Get.width * 0.06,
-                    width: Get.width * 0.06,
-                    child: CircularProgressIndicator(
-                      color: AppColor.white,
-                      strokeWidth: 2.5,
-                    ),
-                  )
+                      ? customCircular()
                       : null,
                   onTap: () => loginUI.allDoneGotonextPage(Bottombar()),
                 );

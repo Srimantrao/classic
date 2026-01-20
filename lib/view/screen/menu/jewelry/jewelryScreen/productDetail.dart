@@ -1,6 +1,5 @@
 // ignore_for_file: file_names, avoid_print, unnecessary_null_comparison, deprecated_member_use
 
-
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/productDetail_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/youmayLike_Controller.dart';
 import 'package:classic/modal/menu/jewelry/lisofProduct.dart';
@@ -23,36 +22,12 @@ class ProductDetail extends StatelessWidget {
   final products = Lisofproduct();
   final String slug;
   final String categoryId;
-
   ProductDetail({super.key, required this.slug, required this.categoryId});
-
   @override
   Widget build(BuildContext context) {
     productDetailAPI.prductDetail(slug);
     print("Product Id :- ${productListAPI.productListData[0]['_id']}");
-    T? getNestedValue<T>(Map<String, dynamic> map, List<dynamic> keys) {
-      dynamic current = map;
-      for (var key in keys) {
-        if (current is Map && current.containsKey(key)) {
-          current = current[key];
-        } else if (current is List && key is int && key < current.length) {
-          current = current[key];
-        } else {
-          return null;
-        }
-      }
-      return current as T?;
-    }
-    final productData = productListAPI.productListData.isNotEmpty
-        ? productListAPI.productListData[0]
-        : <String, dynamic>{};
-    youMayLikeControllerAPI.getYouMayLike(
-      shape: getNestedValue<String>(productData, ['stoneDetails', 0, 'shape', '_id',]) ?? "",
-      carat: getNestedValue<dynamic>(productData, ['totalWgt'])?.toString() ?? "",
-      AppWeight: getNestedValue<dynamic>(productData, ['appxMetalWgt'])?.toString() ?? "",
-      metalType: getNestedValue<String>(productData, ['metalType', 0, '_id']) ?? "",
-      metalStamp: getNestedValue<String>(productData, ['metalStamp', 0, '_id']) ?? "",
-    );
+    youlike(youMayLikeControllerAPI, productListAPI);
     return Fullscreen(
       appBar: allOtherScreen(AppString.productDetail, cart: true),
       bottomNavigationBar: Obx(() {

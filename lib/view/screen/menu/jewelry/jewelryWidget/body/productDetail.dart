@@ -229,6 +229,34 @@ Widget quantity({
   );
 }
 
+void youlike(youMayLikeControllerAPI,productListAPI){
+  print("Product Id :- ${productListAPI.productListData[0]['_id']}");
+  T? getNestedValue<T>(Map<String, dynamic> map, List<dynamic> keys) {
+    dynamic current = map;
+    for (var key in keys) {
+      if (current is Map && current.containsKey(key)) {
+        current = current[key];
+      } else if (current is List && key is int && key < current.length) {
+        current = current[key];
+      } else {
+        return null;
+      }
+    }
+    return current as T?;
+  }
+  final productData = productListAPI.productListData.isNotEmpty
+      ? productListAPI.productListData[0]
+      : <String, dynamic>{};
+  youMayLikeControllerAPI.getYouMayLike(
+    shape: getNestedValue<String>(productData, ['stoneDetails', 0, 'shape', '_id',]) ?? "",
+    carat: getNestedValue<dynamic>(productData, ['totalWgt'])?.toString() ?? "",
+    AppWeight: getNestedValue<dynamic>(productData, ['appxMetalWgt'])?.toString() ?? "",
+    metalType: getNestedValue<String>(productData, ['metalType', 0, '_id']) ?? "",
+    metalStamp: getNestedValue<String>(productData, ['metalStamp', 0, '_id']) ?? "",
+  );
+}
+
+
 Widget productDetailList(productDetail, categoryId, youMayLikeControllerAPI) {
   final bracelet = Get.put(BraceletPriceController());
   final ring = Get.put(RingsSizeController());

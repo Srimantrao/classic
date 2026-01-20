@@ -1,5 +1,6 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, avoid_print
 
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createCart_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/productsize_Controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,6 +23,7 @@ class ProductDetailUIController extends GetxController {
   final productDetailAPI = Get.put(ProductdetailController());
   final bracelet = Get.put(BraceletPriceController());
   final rings = Get.put(RingsSizeController());
+  final adToCart = Get.put(CreateCartController());
   final remarkController = TextEditingController();
   final engravingController = TextEditingController();
 
@@ -167,7 +169,8 @@ class ProductDetailUIController extends GetxController {
     String? carat,
   }) {
     return childProducts.firstWhere((product) {
-      final pShape = product['productStoneDetails']?[0]?['shape']?['paraMtrName'];
+      final pShape =
+          product['productStoneDetails']?[0]?['shape']?['paraMtrName'];
       final pStamp = product['metalStamp']?[0]?['paraMtrName'];
       final pMetal = product['metalType']?[0]?['metal'];
       final pCarat = product['totalWgt']?.toString();
@@ -193,13 +196,49 @@ class ProductDetailUIController extends GetxController {
     if (isRing) {
       selectedRingSize.value = size;
       selectedRingSizeId.value = paraMtrId;
+
       /// Ring size related API
       rings.ringsPriceAPI(productId: productId!, sizeId: sizeId!);
     } else {
       selectedBraceletSize.value = size;
       selectedBraceletSizeId.value = paraMtrId;
+
       /// Bracelet size related API
       bracelet.braceletPriceAPI(productId: productId!, sizeId: sizeId!);
     }
+  }
+
+  //Add To Cart
+  void addToCart() {
+    String? ringSizeParam;
+
+    if (selectedRingSize.value.isNotEmpty) {
+      ringSizeParam = selectedRingSize.value;
+    } else if (selectedBraceletSize.value.isNotEmpty) {
+      ringSizeParam = selectedBraceletSize.value;
+    } else {
+      ringSizeParam = null;
+    }
+
+    adToCart.createCart(
+      price: activeVariant['finalPrice'].toString(),
+      productId: activeVariant['_id'].toString(),
+      engravingText: engravingController.text,
+      sizeRemark: remarkController.text,
+      qty: qtyValue.value.toString(),
+      ringSize: ringSizeParam?.isEmpty == true ? null : ringSizeParam,
+      DiamondId: '',
+    );
+
+    print({
+      'activeVariant': activeVariant,
+      'ringSize': ringSizeParam,
+      'price': activeVariant['finalPrice'].toString(),
+      'productId': activeVariant['_id'].toString(),
+      'engravingText': engravingController.text,
+      'sizeRemark': remarkController.text,
+      'qty': qtyValue.value.toString(),
+      'DiamondId': '',
+    });
   }
 }

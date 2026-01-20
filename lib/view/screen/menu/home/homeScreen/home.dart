@@ -29,9 +29,7 @@ class Home extends StatelessWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final homeUI = Get.put(HomeUIController());
   final homeAPI = Get.put(HomeAPICall());
-
   Home({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Fullscreen(

@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toastification/toastification.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -72,10 +73,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-    return GetMaterialApp(
-      theme: ThemeData(fontFamily: 'Sans-Bold'),
-      debugShowCheckedModeBanner: false,
-      home: Logo(),
+    return ToastificationWrapper(
+      child: GetMaterialApp(
+        theme: ThemeData(fontFamily: 'Sans-Bold'),
+        debugShowCheckedModeBanner: false,
+        home: Logo(),
+      ),
     );
   }
 }

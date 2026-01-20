@@ -22,7 +22,7 @@ class CategoryController extends GetxController {
           data: catagoryData,
           callAPI: 'Catagory',
         );
-        log(response.data);
+        // log(response.data);
       } else {
         throw Exception('Failed to load data');
       }

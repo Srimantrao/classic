@@ -46,6 +46,7 @@ dependencies:
   shared_preferences:
   shimmer:
   lottie:
+  toastification:
 
 dev_dependencies:
   flutter_test:

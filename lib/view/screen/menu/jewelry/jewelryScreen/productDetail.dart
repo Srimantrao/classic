@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, avoid_print, unnecessary_null_comparison, deprecated_member_use
 
+
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/productDetail_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/youmayLike_Controller.dart';
 import 'package:classic/modal/menu/jewelry/lisofProduct.dart';
@@ -22,7 +23,9 @@ class ProductDetail extends StatelessWidget {
   final products = Lisofproduct();
   final String slug;
   final String categoryId;
+
   ProductDetail({super.key, required this.slug, required this.categoryId});
+
   @override
   Widget build(BuildContext context) {
     productDetailAPI.prductDetail(slug);
@@ -44,7 +47,7 @@ class ProductDetail extends StatelessWidget {
         ? productListAPI.productListData[0]
         : <String, dynamic>{};
     youMayLikeControllerAPI.getYouMayLike(
-      shape: getNestedValue<String>(productData, ['stoneDetails', 0, 'shape', '_id']) ?? "",
+      shape: getNestedValue<String>(productData, ['stoneDetails', 0, 'shape', '_id',]) ?? "",
       carat: getNestedValue<dynamic>(productData, ['totalWgt'])?.toString() ?? "",
       AppWeight: getNestedValue<dynamic>(productData, ['appxMetalWgt'])?.toString() ?? "",
       metalType: getNestedValue<String>(productData, ['metalType', 0, '_id']) ?? "",
@@ -62,6 +65,7 @@ class ProductDetail extends StatelessWidget {
         }
         return buttonNavigation(
           child: button(
+            onTap: productDetail.addToCart,
             AppString.addtoCart,
             isLowercase: true,
             bottomBottonFontSize: true,

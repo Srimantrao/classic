@@ -13,7 +13,6 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:shimmer/shimmer.dart';
-
 import '../../../../../../controller/user_Interface/menu/jewelry/productUI_Controller.dart';
 
 Widget search(
@@ -91,7 +90,7 @@ Widget listController(
             crossAxisCount: 2,
             mainAxisSpacing: 12,
             crossAxisSpacing: 12,
-            mainAxisExtent: 330.0,
+            childAspectRatio: 0.48,
           ),
           itemBuilder: (context, index) {
             final product = productList[index];

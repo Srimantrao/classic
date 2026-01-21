@@ -13,17 +13,14 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 
 Widget cart({
   required String cartImage,
-  required String shape,
-  required String clarity,
-  required String color,
-  required String cut,
-  required String lab,
   required String PRICE_CT,
-  required String location,
-  required String CVD,
   required String stock,
   required String type,
-  required String certification,
+  required String Weightm,
+  required String title,
+  void Function()? onTapIncrimant,
+  void Function()? onTapDecrimant,
+  int? value,
 }) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: Get.height * 0.007),
@@ -35,17 +32,14 @@ Widget cart({
     ),
     child: cartValue(
       cartImage: cartImage,
-      shape: shape,
-      clarity: clarity,
-      color: color,
-      cut: cut,
-      lab: lab,
       PRICE_CT: PRICE_CT,
-      location: location,
-      CVD: CVD,
       stock: stock,
       type: type,
-      certification: certification,
+      Weightm: Weightm,
+      title: title,
+      onTapIncrimant: onTapIncrimant,
+      onTapDecrimant: onTapDecrimant,
+      value: value
     ),
   );
 }

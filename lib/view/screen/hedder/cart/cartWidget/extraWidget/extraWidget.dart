@@ -1,72 +1,78 @@
 // ignore_for_file: file_names, non_constant_identifier_names, strict_top_level_inference
 
+import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../../../menu/jewelry/jewelryWidget/body/productDetail.dart';
 
 Widget cartValue({
   required String cartImage,
-  required String shape,
-  required String clarity,
-  required String color,
-  required String cut,
-  required String lab,
   required String PRICE_CT,
-  required String location,
-  required String CVD,
   required String stock,
   required String type,
-  required String certification,
+  required String Weightm,
+  required String title,
+  void Function()? onTapIncrimant,
+  void Function()? onTapDecrimant,
+  int? value,
 }) {
+  final parsedPrice = double.tryParse(PRICE_CT);
+
   return Padding(
-    padding: EdgeInsets.all(10),
+    padding: const EdgeInsets.all(10),
     child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(cartImage, scale: 20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  '#LLA290D - 20',
-                  style: TextStyle(
-                    color: AppColor.black,
-                    fontWeight: FontWeight.w500,
-                    fontSize: Textsize.normal,
+            Container(
+              padding: EdgeInsets.all(Get.width * 0.005),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(borderradius.buttonboder),
+                border: Border.all(color: AppColor.gray),
+              ),
+              child: SizedBox(
+                height: Get.width * 0.22,
+                width: Get.width * 0.22,
+                child: Image.network(cartImage),
+              ),
+            ),
+
+            SizedBox(width: Get.width * 0.03),
+
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    softWrap: true,
+                    style: TextStyle(
+                      color: AppColor.black,
+                      fontWeight: FontWeight.w500,
+                      fontSize: Textsize.samisubHedding,
+                    ),
                   ),
-                ),
-                price('116.72'),
-                Row(
-                  children: [
-                    valuedetails(shape: 'Shape', valueDetails: shape),
-                    valuedetails(shape: 'Clarity', valueDetails: clarity),
-                    valuedetails(shape: 'Color', valueDetails: color),
-                  ],
-                ),
-                Row(
-                  children: [
-                    valuedetails(shape: 'Cut', valueDetails: cut),
-                    valuedetails(shape: 'Lab', valueDetails: lab),
-                    valuedetails(shape: 'PRICE/CT', valueDetails: PRICE_CT),
-                  ],
-                ),
-                Row(
-                  children: [
-                    valuedetails(shape: 'Location', valueDetails: location),
-                    valuedetails(shape: 'CVD', valueDetails: CVD),
-                  ],
-                ),
-                valuedetails(shape: 'Stock Id', valueDetails: stock),
-                valuedetails(shape: 'Type', valueDetails: type),
-                valuedetails(
-                  shape: 'Certification',
-                  valueDetails: certification,
-                ),
-              ],
+                  price(
+                    parsedPrice != null
+                        ? '\$${parsedPrice.toStringAsFixed(2)}'
+                        : '\$$PRICE_CT',
+                  ),
+                  valuedetails(shape: 'PRICE/CT', valueDetails: PRICE_CT),
+                  valuedetails(shape: 'Stock Id', valueDetails: stock),
+                  valuedetails(shape: 'Weightm (Apx)', valueDetails: Weightm),
+                  valuedetails(shape: 'Type', valueDetails: type),
+
+                  Padding(padding: EdgeInsetsGeometry.only(top: Get.height * 0.02)),
+                  quantity(
+                    value: value,
+                    onTapDecrimant: onTapDecrimant,
+                    onTapIncrimant: onTapIncrimant,
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -76,7 +82,16 @@ Widget cartValue({
 }
 
 Widget valuedetails({required String valueDetails, required String shape}) {
-  return Row(children: [hedding(shape), valuecart(valueDetails)]);
+  String displayValue = valueDetails;
+
+  if (shape == 'PRICE/CT') {
+    final parsed = double.tryParse(valueDetails);
+    displayValue = parsed != null
+        ? '\$${parsed.toStringAsFixed(2)}'
+        : '\$$valueDetails';
+  }
+
+  return Row(children: [hedding(shape), valuecart(displayValue)]);
 }
 
 Widget price(text) {

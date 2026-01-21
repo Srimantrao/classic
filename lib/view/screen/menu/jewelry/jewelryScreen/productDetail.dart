@@ -4,7 +4,6 @@ import 'package:classic/controller/application_Programing_interface/apiControlle
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/youmayLike_Controller.dart';
 import 'package:classic/modal/menu/jewelry/lisofProduct.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/productDetail.dart';
-import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/widget/button.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
@@ -24,9 +23,7 @@ class ProductDetail extends StatelessWidget {
   final products = Lisofproduct();
   final String slug;
   final String categoryId;
-
   ProductDetail({super.key, required this.slug, required this.categoryId});
-
   @override
   Widget build(BuildContext context) {
     productDetailAPI.prductDetail(slug);

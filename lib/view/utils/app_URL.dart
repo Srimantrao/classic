@@ -14,6 +14,9 @@ class AppUrl {
   static const String login = "${application}login";
   static const String signup = "${application}signup";
 
+  //hedder
+  static const String filterCart = "${baseUrl}App/cart/filterCart";
+
   //Menu
     //home
       static const String filterSlider = "${baseUrl}App/slider/filterSlider/1";

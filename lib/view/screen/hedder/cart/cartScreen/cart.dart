@@ -14,12 +14,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../menu/jewelry/jewelryScreen/productDetail.dart';
+
 class Cart extends StatelessWidget {
   final cartAPICallAPI = Get.put(CartAPICall());
   final cartUI = Get.put(CartUiController());
-
   Cart({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
@@ -89,16 +89,26 @@ Widget cartShow(product, productImage, cartUI, index, cartProduct) {
     id: 'qty_$index',
     builder: (_) {
       double price = product['price']?.toDouble() ?? 0;
-      return cart(
-        title: product['productDetails']?['productTitle'] ?? '',
-        cartImage: productImage?['zoom'] ?? '',
-        PRICE_CT: price.toString(),
-        stock: product['productDetails']?['itemCode'] ?? '',
-        type: product['productDetails']?['metalType'] ?? '',
-        Weightm: product['productDetails']?['appxMetalWgt'].toString() ?? '',
-        onTapDecrimant: () => cartUI.decrementQty(index, cartProduct),
-        onTapIncrimant: () => cartUI.incrementQty(index, cartProduct),
-        value: cartUI.qtyList[index],
+      return GestureDetector(
+        onTap: () {
+          Get.to(
+            () => ProductDetail(
+              slug: product['productDetails']?['slug'],
+              categoryId: product['productId'],
+            ),
+          );
+        },
+        child: cart(
+          title: product['productDetails']?['productTitle'] ?? '',
+          cartImage: productImage?['zoom'] ?? '',
+          PRICE_CT: price.toString(),
+          stock: product['productDetails']?['itemCode'] ?? '',
+          type: product['productDetails']?['metalType'] ?? '',
+          Weightm: product['productDetails']?['appxMetalWgt'].toString() ?? '',
+          onTapDecrimant: () => cartUI.decrementQty(index, cartProduct),
+          onTapIncrimant: () => cartUI.incrementQty(index, cartProduct),
+          value: cartUI.qtyList[index],
+        ),
       );
     },
   );

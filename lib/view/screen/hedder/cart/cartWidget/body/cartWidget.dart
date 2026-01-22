@@ -20,6 +20,7 @@ Widget cart({
   required String title,
   void Function()? onTapIncrimant,
   void Function()? onTapDecrimant,
+  required void Function() removeItem,
   int? value,
 }) {
   return Container(
@@ -39,7 +40,7 @@ Widget cart({
       title: title,
       onTapIncrimant: onTapIncrimant,
       onTapDecrimant: onTapDecrimant,
-      value: value
+      value: value, removeItem: removeItem
     ),
   );
 }

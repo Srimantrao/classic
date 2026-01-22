@@ -27,7 +27,11 @@ class ProductDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     productDetailAPI.prductDetail(slug);
-    print("Product Id :- ${productListAPI.productListData[0]['_id']}");
+    ever(productListAPI.productListData, (_) {
+      if (productListAPI.productListData.isNotEmpty) {
+        youlike(youMayLikeControllerAPI, productListAPI);
+      }
+    });
     youlike(youMayLikeControllerAPI, productListAPI);
     return Fullscreen(
       appBar: allOtherScreen(AppString.productDetail, cart: true),

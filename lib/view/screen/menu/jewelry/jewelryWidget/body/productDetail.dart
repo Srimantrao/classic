@@ -229,8 +229,8 @@ Widget quantity({
   );
 }
 
-void youlike(youMayLikeControllerAPI,productListAPI){
-  print("Product Id :- ${productListAPI.productListData[0]['_id']}");
+Future<void> youlike(youMayLikeControllerAPI, productListAPI) async {
+  print("Product Id Like :- ${productListAPI.productListData[0]['_id']}");
   T? getNestedValue<T>(Map<String, dynamic> map, List<dynamic> keys) {
     dynamic current = map;
     for (var key in keys) {
@@ -247,7 +247,7 @@ void youlike(youMayLikeControllerAPI,productListAPI){
   final productData = productListAPI.productListData.isNotEmpty
       ? productListAPI.productListData[0]
       : <String, dynamic>{};
-  youMayLikeControllerAPI.getYouMayLike(
+  await youMayLikeControllerAPI.getYouMayLike(
     shape: getNestedValue<String>(productData, ['stoneDetails', 0, 'shape', '_id',]) ?? "",
     carat: getNestedValue<dynamic>(productData, ['totalWgt'])?.toString() ?? "",
     AppWeight: getNestedValue<dynamic>(productData, ['appxMetalWgt'])?.toString() ?? "",
@@ -255,7 +255,6 @@ void youlike(youMayLikeControllerAPI,productListAPI){
     metalStamp: getNestedValue<String>(productData, ['metalStamp', 0, '_id']) ?? "",
   );
 }
-
 
 Widget productDetailList(productDetail, categoryId, youMayLikeControllerAPI) {
   final bracelet = Get.put(BraceletPriceController());
@@ -275,7 +274,9 @@ Widget productDetailList(productDetail, categoryId, youMayLikeControllerAPI) {
 
         return productDetailsPrice(
           productDetail.activeVariant['productTitle'],
-          braceletPrice ?? ringPrice ?? productDetail.activeVariant['finalPrice'].toString(),
+          braceletPrice ??
+              ringPrice ??
+              productDetail.activeVariant['finalPrice'].toString(),
           productDetail.activeVariant['itemCode'],
         );
       }),
@@ -415,7 +416,8 @@ Widget productDetailList(productDetail, categoryId, youMayLikeControllerAPI) {
         product: youMayLikeControllerAPI.youmaylikeData['data'] ?? [],
         categoryId: categoryId,
         onTap: (slug) {
-          Get.off(() => ProductDetail(slug: slug, categoryId: categoryId),
+          Get.off(
+            () => ProductDetail(slug: slug, categoryId: categoryId),
             preventDuplicates: false,
           );
         },
@@ -548,17 +550,19 @@ Widget listLike({
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-        child: Text(
-          AppString.youMay,
-          style: TextStyle(
-            fontSize: Get.width * 0.04,
-            fontWeight: FontWeight.w500,
-            color: AppColor.primary,
-          ),
-        ),
-      ),
+      (categoryId.isNotEmpty || product.isNotEmpty)
+          ? Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Text(
+                AppString.youMay,
+                style: TextStyle(
+                  fontSize: Get.width * 0.04,
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.primary,
+                ),
+              ),
+            )
+          : SizedBox(),
       SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         padding: EdgeInsets.symmetric(horizontal: Get.width * 0.02),

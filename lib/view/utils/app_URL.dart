@@ -15,7 +15,10 @@ class AppUrl {
   static const String signup = "${application}signup";
 
   //hedder
+  //cart
   static const String filterCart = "${baseUrl}App/cart/filterCart";
+  static const String updateCart = "${baseUrl}App/cart/updateCart";
+  static const String deleteCart ="${baseUrl}App/cart/deleteCart";
 
   //Menu
     //home

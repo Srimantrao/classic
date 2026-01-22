@@ -16,6 +16,7 @@ Widget cartValue({
   required String title,
   void Function()? onTapIncrimant,
   void Function()? onTapDecrimant,
+  required void Function() removeItem,
   int? value,
 }) {
   final parsedPrice = double.tryParse(PRICE_CT);
@@ -24,6 +25,25 @@ Widget cartValue({
     padding: const EdgeInsets.all(10),
     child: Column(
       children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            GestureDetector(
+              onTap: removeItem,
+              child: Text(
+                'Remove Item',
+                style: TextStyle(
+                  fontSize: Textsize.samisubHedding,
+                  color: AppColor.primary,
+                  decoration: TextDecoration.underline,
+                  decorationColor: AppColor.primary,
+                  decorationThickness: 1.5,
+                ),
+              ),
+            ),
+          ],
+        ),
+        Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.005)),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -65,7 +85,9 @@ Widget cartValue({
                   valuedetails(shape: 'Weightm (Apx)', valueDetails: Weightm),
                   valuedetails(shape: 'Type', valueDetails: type),
 
-                  Padding(padding: EdgeInsetsGeometry.only(top: Get.height * 0.02)),
+                  Padding(
+                    padding: EdgeInsetsGeometry.only(top: Get.height * 0.02),
+                  ),
                   quantity(
                     value: value,
                     onTapDecrimant: onTapDecrimant,

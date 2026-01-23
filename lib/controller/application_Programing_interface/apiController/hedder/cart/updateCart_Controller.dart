@@ -27,8 +27,11 @@ class UpdateCartController extends GetxController {
       if (response.statusCode == 200) {
         successMesssess(
           response: response,
-          data: response.data,
+          data: updateCartData,
           callAPI: 'updateCartData',
+          messages: true,
+          showSnackbarSuccess: true,
+          showSnackbar: true,
         );
         // updateCartData(response.data);
       } else {

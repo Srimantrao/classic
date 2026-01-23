@@ -14,7 +14,7 @@ class UpdateCartService {
   }) {
     final Future<Response<dynamic>> response = ApiService.post(
       url: "${AppUrl.updateCart}/$id",
-      data: {"qty": 1, "price": price, "ringSizeId": ringSizeId},
+      data: {"qty": qty, "price": price, "ringSizeId": ringSizeId},
     );
     if (kDebugMode) {
       print(AppUrl.updateCart);

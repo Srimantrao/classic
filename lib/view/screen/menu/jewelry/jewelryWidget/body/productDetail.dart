@@ -550,17 +550,25 @@ Widget listLike({
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      (categoryId.isNotEmpty || product.isNotEmpty)
-          ? Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: Text(
-                AppString.youMay,
-                style: TextStyle(
-                  fontSize: Get.width * 0.04,
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.primary,
+      (product.isNotEmpty)
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
+                  child: Text(
+                    AppString.youMay,
+                    style: TextStyle(
+                      fontSize: Get.width * 0.04,
+                      fontWeight: FontWeight.w500,
+                      color: AppColor.primary,
+                    ),
+                  ),
                 ),
-              ),
+              ],
             )
           : SizedBox(),
       SingleChildScrollView(

@@ -19,9 +19,12 @@ class DeleteCartController extends GetxController {
       final response = await deleteCartService.deleteCartService(id);
       if (response.statusCode == 200 || response.statusCode == 201) {
         successMesssess(
-          response: response.data,
+          response: response,
           data: deleteCartData,
           callAPI: 'deleteCartData',
+          messages: true,
+          showSnackbarSuccess: true,
+          showSnackbar: true,
         );
       }
     } on DioException catch (e) {

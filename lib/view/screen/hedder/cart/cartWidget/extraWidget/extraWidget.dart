@@ -140,13 +140,16 @@ Widget hedding(text) {
 }
 
 Widget valuecart(text) {
-  return Text(
-    '$text, ',
-    style: TextStyle(
-      color: AppColor.black,
-      fontFamily: 'Sans-Bold',
-      fontWeight: FontWeight.w500,
-      fontSize: Textsize.small,
+  return SizedBox(
+    width: Get.width * 0.3,
+    child: Text(
+      '$text, ',
+      style: TextStyle(
+        color: AppColor.black,
+        fontFamily: 'Sans-Bold',
+        fontWeight: FontWeight.w500,
+        fontSize: Textsize.small,
+      ),
     ),
   );
 }

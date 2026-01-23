@@ -10,6 +10,74 @@ import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_state_manager/src/simple/get_state.dart';
+
+import '../../../../../../controller/user_Interface/hedder/cart/cartUI_Controller.dart';
+import '../../../../menu/jewelry/jewelryScreen/productDetail.dart';
+
+Widget cartProductItem(cartUI, cartProduct) {
+  return GetBuilder<CartUiController>(
+    id: 'cartList',
+    initState: (_) => cartUI.initQty(cartProduct),
+    builder: (cartUI) {
+      return Expanded(
+        child: ListView.builder(
+          itemCount: cartProduct.length,
+          itemBuilder: (context, index) {
+            final product = cartProduct[index];
+            final images = product['productDetails']?['images'] as List?;
+            final productImage = (images != null && images.isNotEmpty)
+                ? images.first
+                : null;
+            return cartShow(product, productImage, cartUI, index, cartProduct);
+          },
+        ),
+      );
+    },
+  );
+}
+
+Widget cartShow(product, productImage, cartUI, index, cartProduct) {
+  // if (index >= cartUI.qtyList.length ||
+  //     index >= cartUI.unitPriceList.length ||
+  //     cartUI.qtyList.isEmpty) {
+  //   return SizedBox.shrink();
+  // }
+  return GetBuilder<CartUiController>(
+    id: 'qty_$index',
+    builder: (_) {
+      return GestureDetector(
+        onTap: () {
+          Get.to(
+                () => ProductDetail(
+              slug: product['productDetails']?['slug'],
+              categoryId: product['productId'],
+            ),
+          );
+        },
+        child: cart(
+          title: product['productDetails']?['productTitle'] ?? '',
+          cartImage: productImage?['zoom'] ?? '',
+          PRICE_CT: (cartUI.unitPriceList[index] * cartUI.qtyList[index])
+              .toStringAsFixed(2),
+          stock: product['productDetails']?['itemCode'] ?? '',
+          type: product['productDetails']?['metalType'] ?? '',
+          Weightm: product['productDetails']?['appxMetalWgt']?.toString() ?? '',
+          onTapDecrimant: () {
+            cartUI.decrementQty(index, product['_id']);
+          },
+          onTapIncrimant: () {
+            cartUI.incrementQty(index, product['_id']);
+          },
+          value: cartUI.qtyList[index],
+          removeItem: () {
+            cartUI.removeCartItem(index, product['_id']);
+          },
+        ),
+      );
+    },
+  );
+}
 
 Widget cart({
   required String cartImage,

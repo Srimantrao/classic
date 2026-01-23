@@ -5,29 +5,62 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
+// void successMesssess({
+//   required Response response,
+//   required RxMap data,
+//   String? callAPI,
+//   bool messages = false,
+//   bool showSnackbar = false,
+//   bool showSnackbarMessages = false,
+//   bool showSnackbarSuccess = false,
+// }) {
+//   data.value = response.data;
+//   print("✅$callAPI Status: ${response.statusCode}");
+//   (messages)
+//       ? print("⚠️$callAPI Status :- ${response.data["message"]}")
+//       : SizedBox();
+//   (showSnackbarMessages)
+//       ? ToastificationSuccess.Success(
+//           "$callAPI Message :- ${response.data?['message'] ?? 'Success'}",
+//         )
+//       : SizedBox();
+//   (showSnackbarSuccess)
+//       ? ToastificationSuccess.Success("Success, ${response.data["message"]}")
+//       : SizedBox();
+//   // log(response.data);
+//   return;
+// }
+
 void successMesssess({
   required Response response,
-  required RxMap data,
+  dynamic data, // Change from RxMap to dynamic
   String? callAPI,
   bool messages = false,
   bool showSnackbar = false,
   bool showSnackbarMessages = false,
   bool showSnackbarSuccess = false,
 }) {
-  data.value = response.data;
+  // Check if data is RxMap
+  if (data is RxMap) {
+    data.value = response.data;
+  }
+  // Or if data is Rx variable
+  else if (data is Rx) {
+    data.value = response.data;
+  }
+
   print("✅$callAPI Status: ${response.statusCode}");
   (messages)
       ? print("⚠️$callAPI Status :- ${response.data["message"]}")
       : SizedBox();
   (showSnackbarMessages)
       ? ToastificationSuccess.Success(
-          "$callAPI Message :- ${response.data?['message'] ?? 'Success'}",
-        )
+    "$callAPI Message :- ${response.data?['message'] ?? 'Success'}",
+  )
       : SizedBox();
   (showSnackbarSuccess)
       ? ToastificationSuccess.Success("Success, ${response.data["message"]}")
       : SizedBox();
-  // log(response.data);
   return;
 }
 

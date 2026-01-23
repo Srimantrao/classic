@@ -59,7 +59,7 @@ void successMesssess({
   )
       : SizedBox();
   (showSnackbarSuccess)
-      ? ToastificationSuccess.Success("Success, ${response.data["message"]}")
+      ? ToastificationSuccess.Success(response.data["message"])
       : SizedBox();
   return;
 }

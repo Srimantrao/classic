@@ -268,7 +268,7 @@ class AppString {
   static const appxMetalWeight = 'Appx Metal Weight (GM)';
   static const budget = 'Budget';
   static const engraving = 'Engraving';
-  static const ringSize = 'Ring Size (Check Ring Size)';
+  static const ringSize = 'Ring Size';
   static const selectRingSize = 'Select Ring Size';
   static const diamondAndGemstoneDetails = 'Diamond And Gemstone Details';
   static const contactInformation = 'Contact Information';

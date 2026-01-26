@@ -1,10 +1,13 @@
-// ignore_for_file: file_names, non_constant_identifier_names, strict_top_level_inference
+// ignore_for_file: file_names, non_constant_identifier_names, strict_top_level_inference, unused_local_variable
 
+import 'package:classic/controller/user_Interface/menu/jewelry/productDetailUI_Controller.dart';
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
+import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../../../controller/application_Programing_interface/apiController/menu/jewellery/productDetail/productsize_Controller.dart';
 import '../../../../menu/jewelry/jewelryWidget/body/productDetail.dart';
 
 Widget cartValue({
@@ -14,13 +17,18 @@ Widget cartValue({
   required String type,
   required String Weightm,
   required String title,
+  required ProductDetailUIController productDetail,
   void Function()? onTapIncrimant,
   void Function()? onTapDecrimant,
   required void Function() removeItem,
+  required String categoryId,
   int? value,
 }) {
   final parsedPrice = double.tryParse(PRICE_CT);
-
+  final bracelet = Get.put(BraceletPriceController());
+  final ring = Get.put(RingsSizeController());
+  final rings = '682181561353060d79b6e480';
+  final bracelets = '67f3a6e10d01f3f9f578083b';
   return Padding(
     padding: const EdgeInsets.all(10),
     child: Column(
@@ -84,10 +92,18 @@ Widget cartValue({
                   valuedetails(shape: 'Stock Id', valueDetails: stock),
                   valuedetails(shape: 'Weightm (Apx)', valueDetails: Weightm),
                   valuedetails(shape: 'Type', valueDetails: type),
-
                   Padding(
                     padding: EdgeInsetsGeometry.only(top: Get.height * 0.02),
                   ),
+                  //Rings
+                  (categoryId == rings)
+                      ? productSize(productDetail, AppString.ringSize)
+                      : SizedBox(),
+
+                  // Bracelet Size
+                  (categoryId == bracelets)
+                      ? productSize(productDetail, AppString.braceletSize)
+                      : SizedBox(),
                   quantity(
                     value: value,
                     onTapDecrimant: onTapDecrimant,

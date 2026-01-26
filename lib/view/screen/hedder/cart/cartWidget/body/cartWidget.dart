@@ -13,9 +13,10 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 
 import '../../../../../../controller/user_Interface/hedder/cart/cartUI_Controller.dart';
+import '../../../../../../controller/user_Interface/menu/jewelry/productDetailUI_Controller.dart';
 import '../../../../menu/jewelry/jewelryScreen/productDetail.dart';
 
-Widget cartProductItem(cartUI, cartProduct) {
+Widget cartProductItem(cartUI, cartProduct, productDetail) {
   return GetBuilder<CartUiController>(
     id: 'cartList',
     initState: (_) => cartUI.initQty(cartProduct),
@@ -29,7 +30,14 @@ Widget cartProductItem(cartUI, cartProduct) {
             final productImage = (images != null && images.isNotEmpty)
                 ? images.first
                 : null;
-            return cartShow(product, productImage, cartUI, index, cartProduct);
+            return cartShow(
+              product,
+              productImage,
+              cartUI,
+              index,
+              cartProduct,
+              productDetail,
+            );
           },
         ),
       );
@@ -37,7 +45,14 @@ Widget cartProductItem(cartUI, cartProduct) {
   );
 }
 
-Widget cartShow(product, productImage, cartUI, index, cartProduct) {
+Widget cartShow(
+  product,
+  productImage,
+  cartUI,
+  index,
+  cartProduct,
+  productDetail,
+) {
   // if (index >= cartUI.qtyList.length ||
   //     index >= cartUI.unitPriceList.length ||
   //     cartUI.qtyList.isEmpty) {
@@ -49,7 +64,7 @@ Widget cartShow(product, productImage, cartUI, index, cartProduct) {
       return GestureDetector(
         onTap: () {
           Get.to(
-                () => ProductDetail(
+            () => ProductDetail(
               slug: product['productDetails']?['slug'],
               categoryId: product['productId'],
             ),
@@ -73,6 +88,8 @@ Widget cartShow(product, productImage, cartUI, index, cartProduct) {
           removeItem: () {
             cartUI.removeCartItem(index, product['_id']);
           },
+          productDetail: productDetail,
+          categoryId: product['productDetails']?['categoryDetails']?['_id'],
         ),
       );
     },
@@ -85,7 +102,9 @@ Widget cart({
   required String stock,
   required String type,
   required String Weightm,
+  required ProductDetailUIController productDetail,
   required String title,
+  required String categoryId,
   void Function()? onTapIncrimant,
   void Function()? onTapDecrimant,
   required void Function() removeItem,
@@ -108,7 +127,10 @@ Widget cart({
       title: title,
       onTapIncrimant: onTapIncrimant,
       onTapDecrimant: onTapDecrimant,
-      value: value, removeItem: removeItem
+      value: value,
+      removeItem: removeItem,
+      productDetail: productDetail,
+      categoryId: categoryId,
     ),
   );
 }

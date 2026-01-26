@@ -14,9 +14,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../../../controller/user_Interface/menu/jewelry/productDetailUI_Controller.dart';
+
 class Cart extends StatelessWidget {
   final cartAPICallAPI = Get.put(CartAPICall());
   final cartUI = Get.put(CartUiController());
+  final productDetail = Get.put(ProductDetailUIController());
   Cart({super.key});
   @override
   Widget build(BuildContext context) {
@@ -38,7 +41,7 @@ class Cart extends StatelessWidget {
           // }
           final cartData = api.cartData;
           if (cartData.isEmpty) {
-            return Center(child: Lottie.asset(AppJson.noData));
+            return SizedBox();
           }
           final cartProduct = cartData['data'][0]['productLookup'] as List;
           if (cartProduct.isEmpty) {
@@ -51,7 +54,7 @@ class Cart extends StatelessWidget {
           return Column(
             children: [
               //List
-              cartProductItem(cartUI, cartProduct),
+              cartProductItem(cartUI, cartProduct,productDetail),
               //Price
               // total(totalPrice.toStringAsFixed(2)),
               GetBuilder<CartUiController>(

@@ -22,7 +22,8 @@ class LoginAPIController extends GetxController {
         data: loginData,
         callAPI: 'Login',
         messages: true,
-        showSnackbarMessages: true,
+        showSnackbarSuccess: true,
+        showSnackbar: true,
       );
     } on DioException catch (e) {
       errorMesssess(e: e, callAPI: 'Login', showSnackbarErorr: true);

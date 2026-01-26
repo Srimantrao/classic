@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 Widget diamondSection({
+  bool? isDiamond,
   String? informationContainerDiamondText,
   String? informationContainerDiamondValue,
   String? informationContainerOrderText,
@@ -31,11 +32,13 @@ Widget diamondSection({
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               informationOfProduct(
+                isDiamond: isDiamond ?? false,
                 informationContainerDiamondText,
                 informationContainerDiamondValue,
                 isFirst: true,
               ),
               informationOfProduct(
+                isDiamond: isDiamond ?? false,
                 informationContainerOrderText,
                 informationContainerOrderValue,
               ),
@@ -43,6 +46,7 @@ Widget diamondSection({
                       informationContainerHoldValue == '')
                   ? SizedBox()
                   : informationOfProduct(
+                isDiamond: isDiamond ?? false,
                       informationContainerHoldText,
                       informationContainerHoldValue,
                     ),

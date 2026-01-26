@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../utils/app_TextSize.dart';
 
-Widget informationOfProduct(text, value, {bool isFirst = false}) {
+Widget informationOfProduct(text, value, {bool isFirst = false, bool isDiamond = false}) {
   return Container(
     margin: EdgeInsets.only(
       right: Get.width * 0.010,
@@ -22,13 +22,23 @@ Widget informationOfProduct(text, value, {bool isFirst = false}) {
     ),
     child: Row(
       children: [
-        CircleAvatar(
+        (isDiamond == true) ? CircleAvatar(
           radius: 15,
           backgroundColor: AppColor.primary,
           child: Padding(
             padding: EdgeInsets.all(5),
             child: Image(
               image: AssetImage(AppIcon.diamond),
+              color: AppColor.white,
+            ),
+          ),
+        ) : CircleAvatar(
+          radius: 15,
+          backgroundColor: AppColor.primary,
+          child: Padding(
+            padding: EdgeInsets.all(5),
+            child: Image(
+              image: AssetImage(AppIcon.jewelry),
               color: AppColor.white,
             ),
           ),

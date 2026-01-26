@@ -1,5 +1,6 @@
 // ignore_for_file: must_call_super, file_names, unused_import
 
+import 'package:classic/controller/application_Programing_interface/apiController/menu/dashbord/totalRecored_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/home/filterSlider_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/home/homeCollctionAPIController.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/catagory/category_Controller.dart';
@@ -50,6 +51,17 @@ class JewelleryAPICall extends GetxController {
       categoryAPI.getCategory();
       filter.filterAPI();
       getAllParameter.getAllParameterAPI();
+    });
+  }
+}
+
+class DashBordAPICall extends GetxController{
+  final totalRecored = Get.put(TotalRecordedController());
+
+  @override
+  void onInit() {
+    Future.microtask(() {
+      totalRecored.totalRecord();
     });
   }
 }

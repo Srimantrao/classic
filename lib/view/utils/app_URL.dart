@@ -39,4 +39,7 @@ class AppUrl {
           //Filter
             static const String getProductFilterList = "${baseUrl}App/product/getProductFilterList";
             static const String getAllParameter = "${baseUrl}admin/parameter/getAllParameter";
+
+    //dashbord
+      static const String totalRecord ="${baseUrl}App/dashboard/totalRecord";
 }

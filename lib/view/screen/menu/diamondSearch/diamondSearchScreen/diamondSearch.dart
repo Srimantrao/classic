@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, avoid_unnecessary_containers
 
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productList/filter/getAllParameter_Controller.dart';
 import 'package:classic/controller/user_Interface/menu/diamondSearch/diamondSearch_Controller.dart';
 import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/drawer.dart';
@@ -17,6 +18,7 @@ import '../diamondWidget/body/diamondSearchWidget.dart';
 
 class Diamondsearch extends StatelessWidget {
   final diamondSearch = Get.put(DiamondSearchUIController());
+  final getAllPeraMeter = Get.put(GetallparameterController());
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final diamondList = DiamondList();
   Diamondsearch({super.key});
@@ -64,7 +66,7 @@ class Diamondsearch extends StatelessWidget {
               ),
 
               //Shape
-              shapeViwe(diamondSearch, AppString.shape),
+              shapeViwe(getAllPeraMeter, AppString.shape),
 
               //Carat
               searchColor(

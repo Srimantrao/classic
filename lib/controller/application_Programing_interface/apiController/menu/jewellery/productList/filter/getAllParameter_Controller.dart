@@ -8,6 +8,11 @@ class GetallparameterController extends GetxController{
   var isLoading = false.obs;
   var getAllParameterData = {}.obs;
 
+  void onInit() {
+    super.onInit();
+    getAllParameterAPI();
+  }
+
   Future<void> getAllParameterAPI() async {
     isLoading.value = true;
 

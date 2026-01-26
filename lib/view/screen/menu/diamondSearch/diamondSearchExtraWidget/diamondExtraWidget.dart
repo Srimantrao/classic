@@ -6,10 +6,13 @@ import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
+import 'package:classic/view/utils/app_icon.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:classic/view/utils/widget/inputfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../../../controller/application_Programing_interface/apiController/menu/jewellery/productList/filter/getAllParameter_Controller.dart';
 
 Widget shapeHedding(text) {
   return Text(
@@ -23,43 +26,104 @@ Widget shapeHedding(text) {
 }
 
 // Shape
-Widget shape(DiamondSearchUIController diamondSearch) {
-  final diamondList = DiamondList();
+// Widget shape(DiamondSearchUIController diamondSearch) {
+//   final diamondList = DiamondList();
+//   return GetBuilder<DiamondSearchUIController>(
+//     builder: (controller) {
+//       return Expanded(
+//         child: GridView.builder(
+//           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+//             crossAxisCount: 4,
+//             crossAxisSpacing: Get.width * 0.02,
+//             mainAxisSpacing: Get.height * 0.009,
+//             childAspectRatio: 1.7,
+//           ),
+//           itemCount: diamondList.shapes.length,
+//           physics: NeverScrollableScrollPhysics(),
+//           shrinkWrap: true,
+//           itemBuilder: (context, index) {
+//             bool isSelected =
+//                 controller.selectedShapes.contains(index) ||
+//                 controller.selectedShapes.contains(diamondList.shapes[index]);
+//             return GestureDetector(
+//               onTap: () => controller.toggleShapeSelection(index),
+//               child: Container(
+//                 alignment: Alignment.center,
+//                 padding: EdgeInsets.all(Get.width * 0.03),
+//                 decoration: BoxDecoration(
+//                   borderRadius: BorderRadius.circular(borderradius.buttonboder),
+//                   border: Border.all(
+//                     color: isSelected ? AppColor.primary : AppColor.gray3,
+//                     width: 1.0,
+//                   ),
+//                   color: isSelected
+//                       ? AppColor.primary.withOpacity(0.1)
+//                       : Colors.transparent,
+//                 ),
+//                 child: Text(
+//                   diamondList.shapes[index],
+//                   textAlign: TextAlign.center,
+//                   style: TextStyle(
+//                     fontSize: Textsize.samisubHedding,
+//                     color: isSelected ? AppColor.primary : AppColor.black,
+//                     fontWeight: isSelected
+//                         ? FontWeight.w500
+//                         : FontWeight.normal,
+//                   ),
+//                 ),
+//               ),
+//             );
+//           },
+//         ),
+//       );
+//     },
+//   );
+// }
+
+Widget shape(GetallparameterController diamondSearch, {required bool isMenu}) {
   return GetBuilder<DiamondSearchUIController>(
     builder: (controller) {
-      return Expanded(
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
-            crossAxisSpacing: Get.width * 0.02,
-            mainAxisSpacing: Get.height * 0.009,
-            childAspectRatio: 1.7,
-          ),
-          itemCount: diamondList.shapes.length,
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            bool isSelected =
-                controller.selectedShapes.contains(index) ||
-                controller.selectedShapes.contains(diamondList.shapes[index]);
-            return GestureDetector(
-              onTap: () => controller.toggleShapeSelection(index),
-              child: Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.all(Get.width * 0.03),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(borderradius.buttonboder),
-                  border: Border.all(
-                    color: isSelected ? AppColor.primary : AppColor.gray3,
-                    width: 1.0,
-                  ),
-                  color: isSelected
-                      ? AppColor.primary.withOpacity(0.1)
-                      : Colors.transparent,
-                ),
-                child: Text(
-                  diamondList.shapes[index],
-                  textAlign: TextAlign.center,
+      final allShapes = diamondSearch.getAllParameterData['shape'];
+      if (allShapes == null || allShapes.isEmpty) {
+        return const SizedBox();
+      }
+      final shapeList = allShapes.where((item) {
+        final menuValue = item['isMenu'];
+        return isMenu ? menuValue == true : menuValue != true;
+      }).toList();
+      if (shapeList.isEmpty) {
+        return const SizedBox();
+      }
+      return Wrap(
+        spacing: Get.width * 0.05,
+        runSpacing: Get.height * 0.009,
+        children: [
+          ...List.generate(shapeList.length, (index) {
+        final imageUrl = shapeList[index]['image1'];
+        bool isSelected = controller.selectedShapes.contains(index) || controller.selectedShapes.contains(shapeList[index]);
+        return GestureDetector(
+          onTap: () => controller.toggleShapeSelection(index),
+          child: Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: Get.width * 0.04,
+              vertical: Get.height * 0.012,
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(borderradius.buttonboder),
+              border: Border.all(
+                color: isSelected ? AppColor.primary : AppColor.gray3,
+              ),
+              color: isSelected
+                  ? AppColor.primary.withOpacity(0.1)
+                  : Colors.transparent,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (imageUrl != null && imageUrl.isNotEmpty)
+                  Image.network(imageUrl, scale: 4, fit: BoxFit.contain),
+                Text(
+                  shapeList[index]['paraMtrName'],
                   style: TextStyle(
                     fontSize: Textsize.samisubHedding,
                     color: isSelected ? AppColor.primary : AppColor.black,
@@ -68,10 +132,32 @@ Widget shape(DiamondSearchUIController diamondSearch) {
                         : FontWeight.normal,
                   ),
                 ),
+              ],
+            ),
+          ),
+        );
+      }),
+          Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: Get.width * 0.04,
+              vertical: Get.height * 0.012,
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(borderradius.buttonboder),
+              border: Border.all(
+                color:  AppColor.gray3,
               ),
-            );
-          },
-        ),
+              color: Colors.transparent,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(AppIcon.edit, scale: 25, fit: BoxFit.contain,color: AppColor.gray3),
+                Text('Other',style: TextStyle(fontSize: Textsize.samisubHedding)),
+              ],
+            ),
+          )
+        ]
       );
     },
   );

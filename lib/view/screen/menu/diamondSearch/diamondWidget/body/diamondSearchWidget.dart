@@ -46,19 +46,14 @@ Widget indexButtons({
 
 //Shape
 Widget shapeViwe(diamondSearch, text) {
-  return SizedBox(
-    height: Get.height / 3,
-    child: horizontalPadding(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: Get.height * 0.02),
-          shapeHedding(text),
-          SizedBox(height: Get.height * 0.01),
-          shape(diamondSearch),
-        ],
-      ),
-    ),
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.02)),
+      shapeHedding(text),
+      Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.02)),
+      shape(diamondSearch,isMenu: true),
+    ],
   );
 }
 

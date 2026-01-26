@@ -6,6 +6,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class DiamondSearchUIController extends GetxController {
   var selectedIndex = 0.obs;
+  bool selectedOtherShape = false;
   List<int> selectedShapes = [];
   List<int> selectedCarat = [];
   List<int> selectedClarity = [];
@@ -52,6 +53,15 @@ class DiamondSearchUIController extends GetxController {
       selectedEyeClean.remove(index);
     } else {
       selectedEyeClean.add(index);
+    }
+    update();
+  }
+
+  void toggleOtherShapeSelection() {
+    selectedOtherShape = !selectedOtherShape;
+    // If selecting "Other", clear specific shape selections
+    if (selectedOtherShape) {
+      selectedShapes.clear();
     }
     update();
   }

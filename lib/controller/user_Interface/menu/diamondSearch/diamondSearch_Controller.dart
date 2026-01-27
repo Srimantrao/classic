@@ -1,26 +1,36 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, avoid_print
 
+import 'package:classic/controller/application_Programing_interface/apiController/menu/diamondSearch/diamondSearch_Controller.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class DiamondSearchUIController extends GetxController {
+  final diamondSearchAPI = Get.put(DiamondSearchController());
   var selectedIndex = 0.obs;
   bool selectedOtherShape = false;
-  List<int> selectedShapes = [];
+  List<String> selectedShapes = [];
   Set<String> selectedShapeIds = {};
   RxBool selecteOtherShape = false.obs;
   List<int> selectedCarat = [];
   List<int> selectedClarity = [];
-  List<int> selectWhiteColor = [];
-  List<int> selectShortcut = [];
-  List<int> selectLAB = [];
-  List<int> selectPolish = [];
-  List<int> selectSymmetry = [];
-  List<int> selectAvailability = [];
-  List<int> selectTreatment = [];
-  List<int> selectFluorescence = [];
-  List<int> selectedEyeClean = [];
+  List<String> selectedClarityIds = [];
+  List<int> selectedColor = [];
+  List<String> selectedColorIds = [];
+  List<String> selectShortcut = [];
+  List<int> selectedLAB = [];
+  List<String> selectedLABIds = [];
+  List<int> selectedPolish = [];
+  List<String> selectedPolishIds = [];
+  List<int> selectedSymmetry = [];
+  List<String> selectedSymmetryIds = [];
+  List<String> selectAvailability = [];
+  List<String> selectTreatment = [];
+  List<int> selectedFluorescence = [];
+  List<String> selectedFluorescenceIds = [];
+  List<String> selectedEyeClean = [];
 
   TextEditingController lengthMinController = TextEditingController();
   TextEditingController lengthMaxController = TextEditingController();
@@ -40,21 +50,23 @@ class DiamondSearchUIController extends GetxController {
   TextEditingController pavilionAngleMaxController = TextEditingController();
 
   //Multiple selection White Color
-  void toggleWhiteColorSelection(int index) {
-    if (selectWhiteColor.contains(index)) {
-      selectWhiteColor.remove(index);
+  void toggleColorSelection(int index, String paraMtrId) {
+    if (selectedColor.contains(index)) {
+      selectedColor.remove(index);
+      selectedColorIds.remove(paraMtrId);
     } else {
-      selectWhiteColor.add(index);
+      selectedColor.add(index);
+      selectedColorIds.add(paraMtrId);
     }
     update();
   }
 
   //Multiple selection Eye Clean
-  void toggleEyeCleanSelection(int index) {
-    if (selectedEyeClean.contains(index)) {
-      selectedEyeClean.remove(index);
+  void toggleEyeCleanSelection(String paraMtrId) {
+    if (selectedEyeClean.contains(paraMtrId)) {
+      selectedEyeClean.remove(paraMtrId);
     } else {
-      selectedEyeClean.add(index);
+      selectedEyeClean.add(paraMtrId);
     }
     update();
   }
@@ -69,91 +81,101 @@ class DiamondSearchUIController extends GetxController {
   }
 
   //Multiple selection Fluorescence
-  void toggleFluorescenceSelection(int index) {
-    if (selectFluorescence.contains(index)) {
-      selectFluorescence.remove(index);
+  void toggleFluorescenceSelection(int index, String paraMtrId) {
+    if (selectedFluorescence.contains(index)) {
+      selectedFluorescence.remove(index);
+      selectedFluorescenceIds.remove(paraMtrId);
     } else {
-      selectFluorescence.add(index);
+      selectedFluorescence.add(index);
+      selectedFluorescenceIds.add(paraMtrId);
     }
     update();
   }
 
   //Multiple selection Treatment
-  void toggleTreatmentSelection(int index) {
-    if (selectTreatment.contains(index)) {
-      selectTreatment.remove(index);
+  void toggleTreatmentSelection(String paraMtrId) {
+    if (selectTreatment.contains(paraMtrId)) {
+      selectTreatment.remove(paraMtrId);
     } else {
-      selectTreatment.add(index);
+      selectTreatment.add(paraMtrId);
     }
     update();
   }
 
   //Multiple selection Availability
-  void toggleAvailabilitySelection(int index) {
-    if (selectAvailability.contains(index)) {
-      selectAvailability.remove(index);
+  void toggleAvailabilitySelection(String paraMtrId) {
+    if (selectAvailability.contains(paraMtrId)) {
+      selectAvailability.remove(paraMtrId);
     } else {
-      selectAvailability.add(index);
+      selectAvailability.add(paraMtrId);
     }
     update();
   }
 
   //Multiple selection Shortcut
-  void toggleShortcutSelection(int index) {
-    if (selectShortcut.contains(index)) {
-      selectShortcut.remove(index);
+  void toggleShortcutSelection(String paraMtrId) {
+    if (selectShortcut.contains(paraMtrId)) {
+      selectShortcut.remove(paraMtrId);
     } else {
-      selectShortcut.add(index);
+      selectShortcut.add(paraMtrId);
     }
     update();
   }
 
   //Multiple selection selectSymmetry
-  void toggleSymmetrySelection(int index) {
-    if (selectSymmetry.contains(index)) {
-      selectSymmetry.remove(index);
+  void toggleSymmetrySelection(int index, String paraMtrId) {
+    if (selectedSymmetry.contains(index)) {
+      selectedSymmetry.remove(index);
+      selectedSymmetryIds.remove(paraMtrId);
     } else {
-      selectSymmetry.add(index);
+      selectedSymmetry.add(index);
+      selectedSymmetryIds.add(paraMtrId);
     }
     update();
   }
 
   //Multiple selection Polish
-  void togglePolishSelection(int index) {
-    if (selectPolish.contains(index)) {
-      selectPolish.remove(index);
+  void togglePolishSelection(int index, String paraMtrId) {
+    if (selectedPolish.contains(index)) {
+      selectedPolish.remove(index);
+      selectedPolishIds.remove(paraMtrId);
     } else {
-      selectPolish.add(index);
+      selectedPolish.add(index);
+      selectedPolishIds.add(paraMtrId);
     }
     update();
   }
 
   //Multiple selection Lab
-  void toggleLABSelection(int index) {
-    if (selectLAB.contains(index)) {
-      selectLAB.remove(index);
+  void toggleLABSelection(int index, String paraMtrId) {
+    if (selectedLAB.contains(index)) {
+      selectedLAB.remove(index);
+      selectedLABIds.remove(paraMtrId);
     } else {
-      selectLAB.add(index);
+      selectedLAB.add(index);
+      selectedLABIds.add(paraMtrId);
     }
     update();
   }
 
   //Multiple selection clarity
-  void toggleClaritySelection(int index) {
+  void toggleClaritySelection(int index, String paraMtrId) {
     if (selectedClarity.contains(index)) {
       selectedClarity.remove(index);
+      selectedClarityIds.remove(paraMtrId);
     } else {
       selectedClarity.add(index);
+      selectedClarityIds.add(paraMtrId);
     }
     update();
   }
 
   //Multiple selection Shape
-  void toggleShapeSelection(int index) {
-    if (selectedShapes.contains(index)) {
-      selectedShapes.remove(index);
+  void toggleShapeSelection(String paraMtrId) {
+    if (selectedShapes.contains(paraMtrId)) {
+      selectedShapes.remove(paraMtrId);
     } else {
-      selectedShapes.add(index);
+      selectedShapes.add(paraMtrId);
     }
     update();
   }
@@ -174,11 +196,13 @@ class DiamondSearchUIController extends GetxController {
   }
 
   //Multiple selection carat
-  void toggleCaratSelection(int index) {
-    if (selectedCarat.contains(index)) {
-      selectedCarat.remove(index);
+  void toggleCaratSelection(String paraMtrId) {
+    final int id = int.parse(paraMtrId);
+
+    if (selectedCarat.contains(id)) {
+      selectedCarat.remove(id);
     } else {
-      selectedCarat.add(index);
+      selectedCarat.add(id);
     }
     update();
   }
@@ -191,58 +215,58 @@ class DiamondSearchUIController extends GetxController {
   }
 
   //For single selection (if you prefer) Eye Clean
-  void selectEyeClean(int index) {
+  void selectEyeClean(String paraMtrId) {
     selectedEyeClean.clear();
-    selectedEyeClean.add(index);
+    selectedEyeClean.add(paraMtrId);
     update();
   }
 
   //For single selection (if you prefer) Treatment
-  void selecttreatment(int index) {
+  void selecttreatment(String paraMtrId) {
     selectTreatment.clear();
-    selectTreatment.add(index);
+    selectTreatment.add(paraMtrId);
     update();
   }
 
   // For single selection (if you prefer) Availability
-  void selectAvailabilitys(int index) {
+  void selectAvailabilitys(String paraMtrId) {
     selectAvailability.clear();
-    selectAvailability.add(index);
+    selectAvailability.add(paraMtrId);
     update();
   }
 
   // For single selection (if you prefer) Symmetry
   void selectsymmetry(int index) {
-    selectSymmetry.clear();
-    selectSymmetry.add(index);
+    selectedSymmetry.clear();
+    selectedSymmetry.add(index);
     update();
   }
 
   // For single selection (if you prefer) LB
   void selectLab(int index) {
-    selectLAB.clear();
-    selectLAB.add(index);
+    selectedLAB.clear();
+    selectedLAB.add(index);
     update();
   }
 
   // For single selection (if you prefer) Shortcut
   void selectshortcut(int index) {
     selectShortcut.clear();
-    selectShortcut.add(index);
+    selectShortcut.add(index.toString());
     update();
   }
 
   // For single selection (if you prefer) Polish
   void selectspolish(int index) {
-    selectPolish.clear();
-    selectPolish.add(index);
+    selectedPolish.clear();
+    selectedPolish.add(index);
     update();
   }
 
   // For single selection (if you prefer) White Color
   void selectWitheColor(int index) {
-    selectWhiteColor.clear();
-    selectWhiteColor.add(index);
+    selectedColor.clear();
+    selectedColor.add(index);
     update();
   }
 
@@ -255,15 +279,15 @@ class DiamondSearchUIController extends GetxController {
 
   // For single selection (if you prefer) Fluorescence
   void selectFluorescences(int index) {
-    selectFluorescence.clear();
-    selectFluorescence.add(index);
+    selectedFluorescence.clear();
+    selectedFluorescence.add(index);
     update();
   }
 
   // For single selection (if you prefer) Shape
-  void selectShape(int index) {
+  void selectShape(String paraMtrId) {
     selectedShapes.clear();
-    selectedShapes.add(index);
+    selectedShapes.add(paraMtrId);
     update();
   }
 
@@ -272,14 +296,13 @@ class DiamondSearchUIController extends GetxController {
     selectedShapes.clear();
     selectedCarat.clear();
     selectedClarity.clear();
-    selectWhiteColor.clear();
-    selectWhiteColor.clear();
-    selectLAB.clear();
-    selectPolish.clear();
-    selectSymmetry.clear();
+    selectedColor.clear();
+    selectedLAB.clear();
+    selectedPolish.clear();
+    selectedSymmetry.clear();
     selectAvailability.clear();
     selectTreatment.clear();
-    selectFluorescence.clear();
+    selectedFluorescence.clear();
     selectedEyeClean.clear();
     update();
   }
@@ -291,4 +314,36 @@ class DiamondSearchUIController extends GetxController {
   bool get isWhite => selectedIndex.value == 0;
 
   bool get isColored => selectedIndex.value == 1;
+
+  void searchDiamond() {
+    diamondSearchAPI.diamondSearching(
+      pageSize: '1',
+      pageNumber: '20',
+      shape: selectedShapes,
+      carat: selectedCarat,
+      clarity: selectedClarity,
+      color: selectedColor,
+      lab: selectedLAB,
+      polish: selectedPolish,
+      symmetry: selectedSymmetry,
+      availability: selectAvailability,
+      treatment: selectTreatment,
+      fluorescence: selectedFluorescence,
+      eyeClean: selectedEyeClean,
+      shortcut: selectShortcut,
+    );
+
+    print("Shape :- $selectedShapes");
+    print("Carat :- $selectedCarat");
+    print("Clarity :- $selectedClarity");
+    print("Color :- $selectedColor");
+    print("LAB :- $selectedLAB");
+    print("Polish :- $selectedPolish");
+    print("Symmetry :- $selectedSymmetry");
+    print("Availability :- $selectAvailability");
+    print("Treatment :- $selectTreatment");
+    print("Fluorescence :- $selectedFluorescence");
+    print("Eye Clean :- $selectedEyeClean");
+    print("Shortcut :- $selectShortcut");
+  }
 }

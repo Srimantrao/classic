@@ -8,10 +8,12 @@ import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/jewelryBody.
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/header/appbar.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_icon.dart';
+import 'package:classic/view/utils/app_json.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 class Jewelry extends StatelessWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -20,7 +22,6 @@ class Jewelry extends StatelessWidget {
   Jewelry({super.key});
   @override
   Widget build(BuildContext context) {
-    final listItem = jewellry.categoryAPI.catagoryData['data'];
     return Fullscreen(
       scaffoldKey: scaffoldKey,
       endDrawer: Drawers(),
@@ -31,15 +32,31 @@ class Jewelry extends StatelessWidget {
         suffixIcon: AppIcon.drawer,
         hedding: AppString.category,
       ),
-      child: horizontalPadding(
-        child: Column(
-          children: [
-            SizedBox(height: Get.height / 40),
-            listOfItem(list: listItem),
-            SizedBox(height: Get.height * 0.10),
-          ],
-        ),
-      ),
+      child: Obx(() {
+        final api = jewellry.categoryAPI;
+        final apiData = api.catagoryData['data'];
+        final listItem = apiData;
+        if (listItem == null) {
+          return Center(child: Lottie.asset(AppJson.noData));
+        }
+        return horizontalPadding(
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsetsGeometry.only(
+                  bottom: Get.height / 40,
+                ),
+              ),
+              listOfItem(list: listItem),
+              Padding(
+                padding: EdgeInsetsGeometry.only(
+                  bottom: Get.height * 0.10,
+                ),
+              ),
+            ],
+          ),
+        );
+      }),
     );
   }
 }

@@ -14,6 +14,7 @@ import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../utils/app_cricularProgrssIndicator.dart';
 import '../diamondWidget/body/diamondSearchWidget.dart';
 
 class Diamondsearch extends StatelessWidget {
@@ -34,13 +35,20 @@ class Diamondsearch extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: Get.height * 0.025),
-              button(
-                AppString.searchdiamond,
-                onTap: () {},
-                isLowercase: true,
-                bottomBottonFontSize: true,
+              Obx((){
+                return button(
+                  AppString.searchdiamond,
+                  onTap: diamondSearch.searchDiamond,
+                  isLowercase: true,
+                  bottomBottonFontSize: true,
+                  loadingWait: (diamondSearch.diamondSearchAPI.isLoading.value)
+                      ? customCircular()
+                      : null,
+                );
+              }),
+              Padding(
+                padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.025),
               ),
-              SizedBox(height: Get.height * 0.025),
             ],
           ),
         ),
@@ -55,8 +63,9 @@ class Diamondsearch extends StatelessWidget {
         return SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: Get.height * 0.02),
-
+              Padding(
+                padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.02),
+              ),
               // TOP TABS
               indexButtons(
                 isWhiteDimaond: diamondSearch.isWhite,
@@ -79,15 +88,14 @@ class Diamondsearch extends StatelessWidget {
               searchColor(
                 diamondSearch: diamondSearch,
                 text: AppString.clarity,
-                contain: clarity(diamondSearch, diamondList),
+                contain: clarity(getAllPeraMeter),
               ),
 
               //White Color
               searchColor(
                 diamondSearch: diamondSearch,
                 text: AppString.whiteColor,
-                contain: whiteColor(diamondSearch, diamondList),
-                height: Get.height / 6.3,
+                contain: whiteColor(getAllPeraMeter),
               ),
 
               //ShortCut
@@ -95,31 +103,27 @@ class Diamondsearch extends StatelessWidget {
                 diamondSearch: diamondSearch,
                 text: AppString.shortcut,
                 contain: shortcutColor(diamondSearch, diamondList),
-                height: Get.height / 8.5,
               ),
 
               //Lab
               searchColor(
                 diamondSearch: diamondSearch,
                 text: AppString.lab,
-                contain: lab(diamondSearch, diamondList),
-                height: Get.height / 6.3,
+                contain: lab(getAllPeraMeter),
               ),
 
               //Polish
               searchColor(
                 diamondSearch: diamondSearch,
                 text: AppString.polish,
-                contain: polish(diamondSearch, diamondList),
-                height: Get.height / 9.3,
+                contain: polish(getAllPeraMeter),
               ),
 
               //Symmetry
               searchColor(
                 diamondSearch: diamondSearch,
                 text: AppString.symmetry,
-                contain: symmetry(diamondSearch, diamondList),
-                height: Get.height / 9.3,
+                contain: symmetry(getAllPeraMeter),
               ),
 
               //Availability
@@ -127,7 +131,6 @@ class Diamondsearch extends StatelessWidget {
                 diamondSearch: diamondSearch,
                 text: AppString.availability,
                 contain: availability(diamondSearch, diamondList),
-                height: Get.height / 8.9,
               ),
 
               //Treatment
@@ -135,15 +138,13 @@ class Diamondsearch extends StatelessWidget {
                 diamondSearch: diamondSearch,
                 text: AppString.treatment,
                 contain: treatment(diamondSearch, diamondList),
-                height: Get.height / 8.9,
               ),
 
               //Fluorescence
               searchColor(
                 diamondSearch: diamondSearch,
                 text: AppString.fluorescence,
-                contain: fluorescence(diamondSearch, diamondList),
-                height: Get.height / 8.9,
+                contain: fluorescence(getAllPeraMeter),
               ),
 
               //Eye Clean
@@ -151,7 +152,6 @@ class Diamondsearch extends StatelessWidget {
                 diamondSearch: diamondSearch,
                 text: AppString.eyeClean,
                 contain: eyeClean(diamondSearch, diamondList),
-                height: Get.height / 8.5,
               ),
 
               //Measurements
@@ -179,8 +179,6 @@ class Diamondsearch extends StatelessWidget {
                 pavilionAngleMaxController:
                     diamondSearch.pavilionAngleMaxController,
               ),
-
-              SizedBox(height: Get.height * 0.2),
             ],
           ),
         );

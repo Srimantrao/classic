@@ -42,4 +42,7 @@ class AppUrl {
 
     //dashbord
       static const String totalRecord ="${baseUrl}App/dashboard/totalRecord";
+
+    //diamond Sarch
+      static const String filterDiamond = "${baseUrl}App/diamond/filterDiamond";
 }

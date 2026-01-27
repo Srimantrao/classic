@@ -1,3 +1,5 @@
+// ignore_for_file: annotate_overrides
+
 import 'package:classic/controller/application_Programing_interface/apiService/menu/jewellery/productList/filter/getAllParameterService.dart';
 import 'package:classic/view/utils/api_Message.dart';
 import 'package:dio/dio.dart';

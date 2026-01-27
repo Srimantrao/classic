@@ -29,7 +29,7 @@ Widget indexButtons({
             borderColor: (isWhiteDimaond) ? AppColor.primary : AppColor.gray3,
           ),
         ),
-        SizedBox(width: Get.width * 0.04),
+        Padding(padding: EdgeInsetsGeometry.only(right: Get.width * 0.04)),
         Expanded(
           child: indexButton(
             onTap: onTapJewellwery,
@@ -49,9 +49,17 @@ Widget shapeViwe(diamondSearch, text) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.02)),
+      Padding(
+        padding: EdgeInsetsGeometry.only(
+          bottom: Get.height * 0.02,
+        ),
+      ),
       shapeHedding(text),
-      Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.02)),
+      Padding(
+        padding: EdgeInsetsGeometry.only(
+          bottom: Get.height * 0.02,
+        ),
+      ),
       shape(diamondSearch,isMenu: true),
     ],
   );
@@ -61,20 +69,16 @@ Widget searchColor({
   required DiamondSearchUIController diamondSearch,
   required String text,
   required Widget contain,
-  double? height,
 }) {
-  return SizedBox(
-    height: height ?? Get.height / 4.7,
-    child: horizontalPadding(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: Get.height * 0.02),
-          shapeHedding(text),
-          SizedBox(height: Get.height * 0.01),
-          contain,
-        ],
-      ),
+  return horizontalPadding(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.02)),
+        shapeHedding(text),
+        Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.01)),
+        contain,
+      ],
     ),
   );
 }
@@ -100,6 +104,7 @@ Widget measurements({
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
+      Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.02)),
       horizontalPadding(child: shapeHedding(AppString.measurements)),
       textLine(
         hediingtext: AppString.length,

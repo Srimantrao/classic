@@ -47,9 +47,7 @@ class Filter extends StatelessWidget {
   final product = Lisofproduct();
   final dimaondlist = DiamondList();
   final filterCategory = FilterCategory();
-
   Filter({super.key, required this.categoryId, required this.categoryName});
-
   @override
   Widget build(BuildContext context) {
     return Fullscreen(

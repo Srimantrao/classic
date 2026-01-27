@@ -8,6 +8,8 @@ class DiamondSearchUIController extends GetxController {
   var selectedIndex = 0.obs;
   bool selectedOtherShape = false;
   List<int> selectedShapes = [];
+  Set<String> selectedShapeIds = {};
+  RxBool selecteOtherShape = false.obs;
   List<int> selectedCarat = [];
   List<int> selectedClarity = [];
   List<int> selectWhiteColor = [];
@@ -27,7 +29,7 @@ class DiamondSearchUIController extends GetxController {
   TextEditingController depthMinController = TextEditingController();
   TextEditingController depthMaxController = TextEditingController();
   TextEditingController tableMinController = TextEditingController();
-  TextEditingController tableMaxController = TextEditingController(); 
+  TextEditingController tableMaxController = TextEditingController();
   TextEditingController crownHeightMinController = TextEditingController();
   TextEditingController crownHeightMaxController = TextEditingController();
   TextEditingController crownAngleMinController = TextEditingController();
@@ -136,7 +138,6 @@ class DiamondSearchUIController extends GetxController {
     update();
   }
 
-
   //Multiple selection clarity
   void toggleClaritySelection(int index) {
     if (selectedClarity.contains(index)) {
@@ -153,6 +154,21 @@ class DiamondSearchUIController extends GetxController {
       selectedShapes.remove(index);
     } else {
       selectedShapes.add(index);
+    }
+    update();
+  }
+
+  void togleOtherShape(List allShapes) {
+    selecteOtherShape.value = !selecteOtherShape.value;
+    final otherShapes = allShapes.where((e) => e['isMenu'] == false).toList();
+    if (selecteOtherShape.value) {
+      for (var shape in otherShapes) {
+        selectedShapeIds.add(shape['paraMtrId']);
+      }
+    } else {
+      for (var shape in otherShapes) {
+        selectedShapeIds.remove(shape['paraMtrId']);
+      }
     }
     update();
   }
@@ -177,7 +193,7 @@ class DiamondSearchUIController extends GetxController {
   //For single selection (if you prefer) Eye Clean
   void selectEyeClean(int index) {
     selectedEyeClean.clear();
-    selectedEyeClean.add(index);  
+    selectedEyeClean.add(index);
     update();
   }
 
@@ -188,7 +204,7 @@ class DiamondSearchUIController extends GetxController {
     update();
   }
 
-// For single selection (if you prefer) Availability
+  // For single selection (if you prefer) Availability
   void selectAvailabilitys(int index) {
     selectAvailability.clear();
     selectAvailability.add(index);
@@ -196,7 +212,7 @@ class DiamondSearchUIController extends GetxController {
   }
 
   // For single selection (if you prefer) Symmetry
-  void selectsymmetry (int index) {
+  void selectsymmetry(int index) {
     selectSymmetry.clear();
     selectSymmetry.add(index);
     update();
@@ -222,7 +238,6 @@ class DiamondSearchUIController extends GetxController {
     selectPolish.add(index);
     update();
   }
-
 
   // For single selection (if you prefer) White Color
   void selectWitheColor(int index) {
@@ -274,5 +289,6 @@ class DiamondSearchUIController extends GetxController {
   }
 
   bool get isWhite => selectedIndex.value == 0;
+
   bool get isColored => selectedIndex.value == 1;
 }

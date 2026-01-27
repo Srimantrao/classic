@@ -99,65 +99,90 @@ Widget shape(GetallparameterController diamondSearch, {required bool isMenu}) {
         runSpacing: Get.height * 0.009,
         children: [
           ...List.generate(shapeList.length, (index) {
-        final imageUrl = shapeList[index]['image1'];
-        bool isSelected = controller.selectedShapes.contains(index) || controller.selectedShapes.contains(shapeList[index]);
-        return GestureDetector(
-          onTap: () => controller.toggleShapeSelection(index),
-          child: Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: Get.width * 0.04,
-              vertical: Get.height * 0.012,
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(borderradius.buttonboder),
-              border: Border.all(
-                color: isSelected ? AppColor.primary : AppColor.gray3,
-              ),
-              color: isSelected
-                  ? AppColor.primary.withOpacity(0.1)
-                  : Colors.transparent,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (imageUrl != null && imageUrl.isNotEmpty)
-                  Image.network(imageUrl, scale: 4, fit: BoxFit.contain),
-                Text(
-                  shapeList[index]['paraMtrName'],
-                  style: TextStyle(
-                    fontSize: Textsize.samisubHedding,
-                    color: isSelected ? AppColor.primary : AppColor.black,
-                    fontWeight: isSelected
-                        ? FontWeight.w500
-                        : FontWeight.normal,
-                  ),
+            final imageUrl = shapeList[index]['image1'];
+            bool isSelected =
+                controller.selectedShapes.contains(index) ||
+                controller.selectedShapes.contains(shapeList[index]);
+            return GestureDetector(
+              onTap: () => controller.toggleShapeSelection(index),
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: Get.width * 0.04,
+                  vertical: Get.height * 0.012,
                 ),
-              ],
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(borderradius.buttonboder),
+                  border: Border.all(
+                    color: isSelected ? AppColor.primary : AppColor.gray3,
+                  ),
+                  color: isSelected
+                      ? AppColor.primary.withOpacity(0.1)
+                      : Colors.transparent,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (imageUrl != null && imageUrl.isNotEmpty)
+                      Image.network(imageUrl, scale: 4, fit: BoxFit.contain),
+                    Text(
+                      shapeList[index]['paraMtrName'],
+                      style: TextStyle(
+                        fontSize: Textsize.samisubHedding,
+                        color: isSelected ? AppColor.primary : AppColor.black,
+                        fontWeight: isSelected
+                            ? FontWeight.w500
+                            : FontWeight.normal,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }),
+          GestureDetector(
+            onTap: () => controller.togleOtherShape(allShapes),
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: Get.width * 0.04,
+                vertical: Get.height * 0.012,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(borderradius.buttonboder),
+                border: Border.all(
+                  color: controller.selecteOtherShape.value
+                      ? AppColor.primary
+                      : AppColor.gray3,
+                ),
+                color: controller.selecteOtherShape.value
+                    ? AppColor.primary.withOpacity(0.1)
+                    : Colors.transparent,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(
+                    AppIcon.edit,
+                    scale: 25,
+                    fit: BoxFit.contain,
+                    color: AppColor.gray3,
+                  ),
+                  Text(
+                    'Other',
+                    style: TextStyle(
+                      fontSize: Textsize.samisubHedding,
+                      color: controller.selecteOtherShape.value
+                          ? AppColor.primary
+                          : AppColor.black,
+                      fontWeight: controller.selecteOtherShape.value
+                          ? FontWeight.w500
+                          : FontWeight.normal,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        );
-      }),
-          Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: Get.width * 0.04,
-              vertical: Get.height * 0.012,
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(borderradius.buttonboder),
-              border: Border.all(
-                color:  AppColor.gray3,
-              ),
-              color: Colors.transparent,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset(AppIcon.edit, scale: 25, fit: BoxFit.contain,color: AppColor.gray3),
-                Text('Other',style: TextStyle(fontSize: Textsize.samisubHedding)),
-              ],
-            ),
-          )
-        ]
+        ],
       );
     },
   );

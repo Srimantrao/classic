@@ -1,5 +1,7 @@
 // ignore_for_file: file_names, avoid_print
 
+import 'dart:convert';
+
 import 'package:classic/controller/application_Programing_interface/apiController/menu/diamondSearch/diamondSearch_Controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -14,21 +16,21 @@ class DiamondSearchUIController extends GetxController {
   List<String> selectedShapes = [];
   Set<String> selectedShapeIds = {};
   RxBool selecteOtherShape = false.obs;
-  List<int> selectedCarat = [];
-  List<int> selectedClarity = [];
+  List<String> selectedCarat = [];
+  List<String> selectedClarity = [];
   List<String> selectedClarityIds = [];
-  List<int> selectedColor = [];
+  List<String> selectedColor = [];
   List<String> selectedColorIds = [];
   List<String> selectShortcut = [];
-  List<int> selectedLAB = [];
+  List<String> selectedLAB = [];
   List<String> selectedLABIds = [];
-  List<int> selectedPolish = [];
+  List<String> selectedPolish = [];
   List<String> selectedPolishIds = [];
-  List<int> selectedSymmetry = [];
+  List<String> selectedSymmetry = [];
   List<String> selectedSymmetryIds = [];
   List<String> selectAvailability = [];
   List<String> selectTreatment = [];
-  List<int> selectedFluorescence = [];
+  List<String> selectedFluorescence = [];
   List<String> selectedFluorescenceIds = [];
   List<String> selectedEyeClean = [];
 
@@ -50,12 +52,12 @@ class DiamondSearchUIController extends GetxController {
   TextEditingController pavilionAngleMaxController = TextEditingController();
 
   //Multiple selection White Color
-  void toggleColorSelection(int index, String paraMtrId) {
-    if (selectedColor.contains(index)) {
-      selectedColor.remove(index);
+  void toggleColorSelection(String paraMtrId) {
+    if (selectedColor.contains(paraMtrId)) {
+      selectedColor.remove(paraMtrId);
       selectedColorIds.remove(paraMtrId);
     } else {
-      selectedColor.add(index);
+      selectedColor.add(paraMtrId);
       selectedColorIds.add(paraMtrId);
     }
     update();
@@ -73,7 +75,6 @@ class DiamondSearchUIController extends GetxController {
 
   void toggleOtherShapeSelection() {
     selectedOtherShape = !selectedOtherShape;
-    // If selecting "Other", clear specific shape selections
     if (selectedOtherShape) {
       selectedShapes.clear();
     }
@@ -81,12 +82,12 @@ class DiamondSearchUIController extends GetxController {
   }
 
   //Multiple selection Fluorescence
-  void toggleFluorescenceSelection(int index, String paraMtrId) {
-    if (selectedFluorescence.contains(index)) {
-      selectedFluorescence.remove(index);
+  void toggleFluorescenceSelection(String paraMtrId) {
+    if (selectedFluorescence.contains(paraMtrId)) {
+      selectedFluorescence.remove(paraMtrId);
       selectedFluorescenceIds.remove(paraMtrId);
     } else {
-      selectedFluorescence.add(index);
+      selectedFluorescence.add(paraMtrId);
       selectedFluorescenceIds.add(paraMtrId);
     }
     update();
@@ -123,48 +124,48 @@ class DiamondSearchUIController extends GetxController {
   }
 
   //Multiple selection selectSymmetry
-  void toggleSymmetrySelection(int index, String paraMtrId) {
-    if (selectedSymmetry.contains(index)) {
-      selectedSymmetry.remove(index);
+  void toggleSymmetrySelection(String paraMtrId) {
+    if (selectedSymmetry.contains(paraMtrId)) {
+      selectedSymmetry.remove(paraMtrId);
       selectedSymmetryIds.remove(paraMtrId);
     } else {
-      selectedSymmetry.add(index);
+      selectedSymmetry.add(paraMtrId);
       selectedSymmetryIds.add(paraMtrId);
     }
     update();
   }
 
   //Multiple selection Polish
-  void togglePolishSelection(int index, String paraMtrId) {
-    if (selectedPolish.contains(index)) {
-      selectedPolish.remove(index);
+  void togglePolishSelection(String paraMtrId) {
+    if (selectedPolish.contains(paraMtrId)) {
+      selectedPolish.remove(paraMtrId);
       selectedPolishIds.remove(paraMtrId);
     } else {
-      selectedPolish.add(index);
+      selectedPolish.add(paraMtrId);
       selectedPolishIds.add(paraMtrId);
     }
     update();
   }
 
   //Multiple selection Lab
-  void toggleLABSelection(int index, String paraMtrId) {
-    if (selectedLAB.contains(index)) {
-      selectedLAB.remove(index);
+  void toggleLABSelection(String paraMtrId) {
+    if (selectedLAB.contains(paraMtrId)) {
+      selectedLAB.remove(paraMtrId);
       selectedLABIds.remove(paraMtrId);
     } else {
-      selectedLAB.add(index);
+      selectedLAB.add(paraMtrId);
       selectedLABIds.add(paraMtrId);
     }
     update();
   }
 
   //Multiple selection clarity
-  void toggleClaritySelection(int index, String paraMtrId) {
-    if (selectedClarity.contains(index)) {
-      selectedClarity.remove(index);
+  void toggleClaritySelection(String paraMtrId) {
+    if (selectedClarity.contains(paraMtrId)) {
+      selectedClarity.remove(paraMtrId);
       selectedClarityIds.remove(paraMtrId);
     } else {
-      selectedClarity.add(index);
+      selectedClarity.add(paraMtrId);
       selectedClarityIds.add(paraMtrId);
     }
     update();
@@ -197,20 +198,18 @@ class DiamondSearchUIController extends GetxController {
 
   //Multiple selection carat
   void toggleCaratSelection(String paraMtrId) {
-    final int id = int.parse(paraMtrId);
-
-    if (selectedCarat.contains(id)) {
-      selectedCarat.remove(id);
+    if (selectedCarat.contains(paraMtrId)) {
+      selectedCarat.remove(paraMtrId);
     } else {
-      selectedCarat.add(id);
+      selectedCarat.add(paraMtrId);
     }
     update();
   }
 
   // For single selection (if you prefer) Clarity
-  void selectClarity(int index) {
+  void selectClarity(String paraMtrId) {
     selectedClarity.clear();
-    selectedClarity.add(index);
+    selectedClarity.add(paraMtrId);
     update();
   }
 
@@ -236,16 +235,16 @@ class DiamondSearchUIController extends GetxController {
   }
 
   // For single selection (if you prefer) Symmetry
-  void selectsymmetry(int index) {
+  void selectsymmetry(String paraMtrId) {
     selectedSymmetry.clear();
-    selectedSymmetry.add(index);
+    selectedSymmetry.add(paraMtrId);
     update();
   }
 
   // For single selection (if you prefer) LB
-  void selectLab(int index) {
+  void selectLab(String paraMtrId) {
     selectedLAB.clear();
-    selectedLAB.add(index);
+    selectedLAB.add(paraMtrId);
     update();
   }
 
@@ -257,30 +256,30 @@ class DiamondSearchUIController extends GetxController {
   }
 
   // For single selection (if you prefer) Polish
-  void selectspolish(int index) {
+  void selectspolish(String paraMtrId) {
     selectedPolish.clear();
-    selectedPolish.add(index);
+    selectedPolish.add(paraMtrId);
     update();
   }
 
   // For single selection (if you prefer) White Color
-  void selectWitheColor(int index) {
+  void selectWitheColor(String paraMtrId) {
     selectedColor.clear();
-    selectedColor.add(index);
+    selectedColor.add(paraMtrId);
     update();
   }
 
   // For single selection (if you prefer) Carat
-  void selectCarat(int index) {
+  void selectCarat(String paraMtrId) {
     selectedCarat.clear();
-    selectedCarat.add(index);
+    selectedCarat.add(paraMtrId);
     update();
   }
 
   // For single selection (if you prefer) Fluorescence
-  void selectFluorescences(int index) {
+  void selectFluorescences(String paraMtrId) {
     selectedFluorescence.clear();
-    selectedFluorescence.add(index);
+    selectedFluorescence.add(paraMtrId);
     update();
   }
 
@@ -319,31 +318,101 @@ class DiamondSearchUIController extends GetxController {
     diamondSearchAPI.diamondSearching(
       pageSize: '1',
       pageNumber: '20',
-      shape: selectedShapes,
-      carat: selectedCarat,
-      clarity: selectedClarity,
-      color: selectedColor,
-      lab: selectedLAB,
-      polish: selectedPolish,
-      symmetry: selectedSymmetry,
-      availability: selectAvailability,
-      treatment: selectTreatment,
-      fluorescence: selectedFluorescence,
-      eyeClean: selectedEyeClean,
-      shortcut: selectShortcut,
+      shape: selectedShapes.isEmpty ? null : jsonEncode(selectedShapes),
+      carat: selectedCarat.isEmpty ? null : jsonEncode(selectedCarat),
+      clarity: selectedClarity.isEmpty ? null : jsonEncode(selectedClarity),
+      color: selectedColor.isEmpty ? null : jsonEncode(selectedColor),
+      lab: selectedLAB.isEmpty ? null : jsonEncode(selectedLAB),
+      polish: selectedPolish.isEmpty ? null : jsonEncode(selectedPolish),
+      symmetry: selectedSymmetry.isEmpty ? null : jsonEncode(selectedSymmetry),
+      availability: selectAvailability.isEmpty
+          ? null
+          : jsonEncode(selectAvailability),
+      treatment: selectTreatment.isEmpty ? null : jsonEncode(selectTreatment),
+      fluorescence: selectedFluorescence.isEmpty
+          ? null
+          : jsonEncode(selectedFluorescence),
+      eyeClean: selectedEyeClean.isEmpty ? null : jsonEncode(selectedEyeClean),
+      shortcut: selectShortcut.isEmpty ? null : jsonEncode(selectShortcut),
+      length:
+      (lengthMinController.text.isEmpty && lengthMaxController.text.isEmpty)
+          ? null
+          : jsonEncode({
+        'min': lengthMinController.text,
+        'max': lengthMaxController.text,
+      }),
+      width: (widthMinController.text.isEmpty)
+          ? null
+          : jsonEncode({
+        'min': widthMinController.text,
+        'max': widthMaxController.text,
+      }),
+      depth: (depthMinController.text.isEmpty)
+          ? null
+          : jsonEncode({
+        'min': depthMinController.text,
+        'max': depthMaxController.text,
+      }),
+      table: (tableMinController.text.isEmpty)
+          ? null
+          : jsonEncode({
+        'min': tableMinController.text,
+        'max': tableMaxController.text,
+      }),
+      crownHeight: (crownHeightMinController.text.isEmpty)
+          ? null
+          : jsonEncode({
+        'min': crownHeightMinController.text,
+        'max': crownHeightMaxController.text,
+      }),
+      crownAngle: (crownAngleMinController.text.isEmpty)
+          ? null
+          : jsonEncode({
+        'min': crownAngleMinController.text,
+        'max': crownAngleMaxController.text,
+      }),
+      pavilionDepth: (pavilionDepthMinController.text.isEmpty)
+          ? null
+          : jsonEncode({
+        'min': pavilionDepthMinController.text,
+        'max': pavilionDepthMaxController.text,
+      }),
+      pavilionAngle: (pavilionAngleMinController.text.isEmpty)
+          ? null
+          : jsonEncode({
+        'min': pavilionAngleMinController.text,
+        'max': pavilionAngleMaxController.text,
+      }),
     );
-
-    print("Shape :- $selectedShapes");
-    print("Carat :- $selectedCarat");
-    print("Clarity :- $selectedClarity");
-    print("Color :- $selectedColor");
-    print("LAB :- $selectedLAB");
-    print("Polish :- $selectedPolish");
-    print("Symmetry :- $selectedSymmetry");
-    print("Availability :- $selectAvailability");
-    print("Treatment :- $selectTreatment");
-    print("Fluorescence :- $selectedFluorescence");
-    print("Eye Clean :- $selectedEyeClean");
-    print("Shortcut :- $selectShortcut");
+    print("Shape :- ${jsonEncode(selectedShapes)}");
+    print("Carat :- ${jsonEncode(selectedCarat)}");
+    print("Clarity :- ${jsonEncode(selectedClarity)}");
+    print("Color :- ${jsonEncode(selectedColor)}");
+    print("LAB :- ${jsonEncode(selectedLAB)}");
+    print("Polish :- ${jsonEncode(selectedPolish)}");
+    print("Symmetry :- ${jsonEncode(selectedSymmetry)}");
+    print("Availability :- ${jsonEncode(selectAvailability)}");
+    print("Treatment :- ${jsonEncode(selectTreatment)}");
+    print("Fluorescence :- ${jsonEncode(selectedFluorescence)}");
+    print("Eye Clean :- ${jsonEncode(selectedEyeClean)}");
+    print("Shortcut :- ${jsonEncode(selectShortcut)}");
+    print(
+        "Length :- ${(
+            lengthMinController.text.isEmpty &&
+                lengthMaxController.text.isEmpty
+        )
+            ? null
+            : jsonEncode({
+          'min': lengthMinController.text,
+          'max': lengthMaxController.text,
+        })}"
+    );
+    print(
+        "Width :- ${(widthMinController.text.isEmpty &&
+            widthMaxController.text.isEmpty) ? null : jsonEncode({
+      'min': widthMinController.text,
+      'max': widthMaxController.text,
+    })}"
+    );
   }
 }

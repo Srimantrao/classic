@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, strict_top_level_inference
+// ignore_for_file: file_names, strict_top_level_inference, avoid_print
 
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/product.dart';
 import 'package:flutter/cupertino.dart';
@@ -39,7 +39,6 @@ class FilterUIController extends GetxController {
     final metalTypesList = (filterData['metalType'] as List? ?? [])
         .cast<Map<String, dynamic>>();
 
-
     final List<Map<String, dynamic>> temp = [];
     for (final stamp in metalStampsList) {
       for (final metal in metalTypesList) {
@@ -48,8 +47,10 @@ class FilterUIController extends GetxController {
         temp.add({
           'metalStampId': stamp['_id'] ?? '',
           'metalTypeId': metal['_id'] ?? '',
-          'combinedMetalName':
-          [stampName, metalName].where((e) => e.isNotEmpty).join(' '),
+          'combinedMetalName': [
+            stampName,
+            metalName,
+          ].where((e) => e.isNotEmpty).join(' '),
           'stampSlug': stamp['slug'] ?? '',
           'param': stampName,
         });
@@ -65,7 +66,8 @@ class FilterUIController extends GetxController {
     selectedMetalStamp.value = metalStampId;
     selectedMetalType.value = metalTypeId;
     debugPrint(
-        'Selected Combination => MetalStamp: $metalStampId, MetalType: $metalTypeId');
+      'Selected Combination => MetalStamp: $metalStampId, MetalType: $metalTypeId',
+    );
   }
 
   // Reset all filters
@@ -81,26 +83,32 @@ class FilterUIController extends GetxController {
     final productListAPI = Get.put(ProductlistController(), permanent: true);
     productListAPI.fetchFirstPage(
       categoryId: categoryId,
-      metalType: '',
-      metalStamp: '',
-      shape: '',
+      metalType: selectedMetalType.value,
+      metalStamp: selectedMetalStamp.value,
+      shape: selectedShapes.value,
       settingType: '',
-      priceShort: '',
+      priceShort: priceSort.value,
     );
 
     final product = Product(
       categoryId: categoryId,
       categoryName: categoryName,
-      metalType: '',
-      metalStamp: '',
-      shape: '',
+      metalType: selectedMetalType.value,
+      metalStamp: selectedMetalStamp.value,
+      shape: selectedShapes.value,
       settingType: '',
-      priceShort: '',
+      priceShort: priceSort.value,
     );
 
     Get.back(result: product);
-
     debugPrint('Reset filters');
+    print("category :- $categoryId");
+    print("categoryName :- $categoryName");
+    print("metalType :- ${selectedMetalType.value}");
+    print("metalStamp :- ${selectedMetalStamp.value}");
+    print("shape :- ${selectedShapes.value}");
+    print("settingType :- ${selectedStoneTypes.value}");
+    print("priceShort :- ${priceSort.value}");
   }
 
   // Sorting
@@ -140,7 +148,12 @@ class FilterUIController extends GetxController {
 
     Get.back(result: product);
     debugPrint('Saved filters');
+    print("category :- $categoryId");
+    print("categoryName :- $categoryName");
+    print("metalType :- ${selectedMetalType.value}");
+    print("metalStamp :- ${selectedMetalStamp.value}");
+    print("shape :- ${selectedShapes.value}");
+    print("settingType :- ${selectedStoneTypes.value}");
+    print("priceShort :- ${priceSort.value}");
   }
 }
-
-

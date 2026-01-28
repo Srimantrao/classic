@@ -35,7 +35,7 @@ class Diamondsearch extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: Get.height * 0.025),
-              Obx((){
+              Obx(() {
                 return button(
                   AppString.searchdiamond,
                   onTap: diamondSearch.searchDiamond,

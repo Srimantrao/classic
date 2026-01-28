@@ -12,21 +12,29 @@ class DiamondSearchController extends GetxController {
   Future<void> diamondSearching({
     required String pageSize,
     required String pageNumber,
-    List<dynamic>? shape,
-    List<dynamic>? carat,
-    List<dynamic>? clarity,
-    List<dynamic>? color,
-    List<dynamic>? lab,
-    List<dynamic>? polish,
-    List<dynamic>? symmetry,
-    List<dynamic>? availability,
-    List<dynamic>? treatment,
-    List<dynamic>? fluorescence,
-    List<dynamic>? eyeClean,
-    List<dynamic>? shortcut,
-    List<dynamic>? sym,
-    List<dynamic>? location,
-    List<dynamic>? stoneIdCertNo,
+    String? shape,
+    String? carat,
+    String? clarity,
+    String? color,
+    String? lab,
+    String? polish,
+    String? symmetry,
+    String? availability,
+    String? treatment,
+    String? fluorescence,
+    String? eyeClean,
+    String? shortcut,
+    String? sym,
+    String? location,
+    String? stoneIdCertNo,
+    String? length,
+    String? width,
+    String? depth,
+    String? table,
+    String? crownHeight,
+    String? crownAngle,
+    String? pavilionDepth,
+    String? pavilionAngle,
   }) async {
     isLoading.value = true;
     try {
@@ -48,12 +56,22 @@ class DiamondSearchController extends GetxController {
         sym: sym,
         location: location,
         stoneIdCertNo: stoneIdCertNo,
+        length: length,
+        width: width,
+        depth: depth,
+        table: table,
+        crownHeight: crownHeight,
+        crownAngle: crownAngle,
+        pavilionDepth: pavilionDepth,
+        pavilionAngle: pavilionAngle,
       );
       if (response.statusCode == 200) {
         successMesssess(
           response: response,
-          callAPI: 'diamondSearchService',
+          callAPI: 'diamondSearch',
           data: diamondSearchData,
+          messages: true,
+          showSnackbarSuccess: true,
         );
       } else {
         if (kDebugMode) {
@@ -61,7 +79,11 @@ class DiamondSearchController extends GetxController {
         }
       }
     } on DioException catch (e) {
-      errorMesssess(e: e, callAPI: 'diamondSearchService');
+      errorMesssess(
+        e: e,
+        callAPI: 'diamondSearch',
+        showSnackbarErorr: true,
+      );
     } finally {
       isLoading.value = false;
     }

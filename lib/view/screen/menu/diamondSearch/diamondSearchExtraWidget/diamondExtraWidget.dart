@@ -1,5 +1,5 @@
 //Shape
-// ignore_for_file: collection_methods_unrelated_type, deprecated_member_use, file_names, strict_top_level_inference
+// ignore_for_file: collection_methods_unrelated_type, deprecated_member_use, file_names, strict_top_level_inference, unnecessary_underscores
 
 import 'package:classic/controller/user_Interface/menu/diamondSearch/diamondSearch_Controller.dart';
 import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';
@@ -25,61 +25,6 @@ Widget shapeHedding(text) {
   );
 }
 
-// Shape
-// Widget shape(DiamondSearchUIController diamondSearch) {
-//   final diamondList = DiamondList();
-//   return GetBuilder<DiamondSearchUIController>(
-//     builder: (controller) {
-//       return Expanded(
-//         child: GridView.builder(
-//           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//             crossAxisCount: 4,
-//             crossAxisSpacing: Get.width * 0.02,
-//             mainAxisSpacing: Get.height * 0.009,
-//             childAspectRatio: 1.7,
-//           ),
-//           itemCount: diamondList.shapes.length,
-//           physics: NeverScrollableScrollPhysics(),
-//           shrinkWrap: true,
-//           itemBuilder: (context, index) {
-//             bool isSelected =
-//                 controller.selectedShapes.contains(index) ||
-//                 controller.selectedShapes.contains(diamondList.shapes[index]);
-//             return GestureDetector(
-//               onTap: () => controller.toggleShapeSelection(index),
-//               child: Container(
-//                 alignment: Alignment.center,
-//                 padding: EdgeInsets.all(Get.width * 0.03),
-//                 decoration: BoxDecoration(
-//                   borderRadius: BorderRadius.circular(borderradius.buttonboder),
-//                   border: Border.all(
-//                     color: isSelected ? AppColor.primary : AppColor.gray3,
-//                     width: 1.0,
-//                   ),
-//                   color: isSelected
-//                       ? AppColor.primary.withOpacity(0.1)
-//                       : Colors.transparent,
-//                 ),
-//                 child: Text(
-//                   diamondList.shapes[index],
-//                   textAlign: TextAlign.center,
-//                   style: TextStyle(
-//                     fontSize: Textsize.samisubHedding,
-//                     color: isSelected ? AppColor.primary : AppColor.black,
-//                     fontWeight: isSelected
-//                         ? FontWeight.w500
-//                         : FontWeight.normal,
-//                   ),
-//                 ),
-//               ),
-//             );
-//           },
-//         ),
-//       );
-//     },
-//   );
-// }
-
 Widget shape(GetallparameterController diamondSearch, {required bool isMenu}) {
   return GetBuilder<DiamondSearchUIController>(
     builder: (controller) {
@@ -100,13 +45,10 @@ Widget shape(GetallparameterController diamondSearch, {required bool isMenu}) {
         children: [
           ...List.generate(shapeList.length, (index) {
             final imageUrl = shapeList[index]['image1'];
-            bool isSelected = controller.selectedShapes.contains(
-              shapeList[index]['paraMtrId'],
-            );
+            final String paraMtrId = shapeList[index]['paraMtrId'].toString();
+            bool isSelected = controller.selectedShapes.contains(paraMtrId);
             return GestureDetector(
-              onTap: () {
-                controller.toggleShapeSelection(shapeList[index]['paraMtrId']);
-              },
+              onTap: () => controller.toggleShapeSelection(paraMtrId),
               child: Container(
                 padding: EdgeInsets.symmetric(
                   horizontal: Get.width * 0.04,
@@ -125,7 +67,18 @@ Widget shape(GetallparameterController diamondSearch, {required bool isMenu}) {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     if (imageUrl != null && imageUrl.isNotEmpty)
-                      Image.network(imageUrl, scale: 4, fit: BoxFit.contain),
+                      Image.network(
+                        imageUrl,
+                        scale: 4,
+                        fit: BoxFit.contain,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return const CircularProgressIndicator();
+                        },
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(Icons.broken_image);
+                        },
+                      ),
                     Text(
                       shapeList[index]['paraMtrName'],
                       style: TextStyle(
@@ -191,16 +144,16 @@ Widget shape(GetallparameterController diamondSearch, {required bool isMenu}) {
 }
 
 //carat
-Widget carat(DiamondSearchUIController diamondSearch, DiamondList diamondList) {
+Widget carat(DiamondSearchUIController controller, DiamondList diamondList) {
   return selectionGrid<String>(
     items: diamondList.carat.map((e) => e['paraMtrName'].toString()).toList(),
-    isSelected: (controller, index, item) => controller.selectedCarat.contains(
-      int.parse(diamondList.carat[index]['paraMtrId']),
-    ),
-    onTap: (controller, index) {
-      return controller.toggleCaratSelection(
+    isSelected: (_, index, __) {
+      return controller.selectedCarat.contains(
         diamondList.carat[index]['paraMtrId'],
       );
+    },
+    onTap: (_, index) {
+      controller.toggleCaratSelection(diamondList.carat[index]['paraMtrId']);
     },
   );
 }
@@ -216,12 +169,13 @@ Widget clarity(GetallparameterController diamondSearch) {
       return selectionGrid<String>(
         items: clarityList,
         isSelected: (controller, index, item) {
-          return controller.selectedClarity.contains(index);
+          final String paraMtrId = clarityData[index]['paraMtrId'];
+          return controller.selectedClarity.contains(paraMtrId);
         },
         onTap: (controller, index) {
           final selectedObj = clarityData[index];
           final String paraMtrId = selectedObj['paraMtrId'];
-          controller.toggleClaritySelection(index, paraMtrId);
+          controller.toggleClaritySelection(paraMtrId);
         },
       );
     },
@@ -231,20 +185,22 @@ Widget clarity(GetallparameterController diamondSearch) {
 //White Color
 Widget whiteColor(GetallparameterController diamondSearch) {
   final List colorData = diamondSearch.getAllParameterData['color'] as List;
+
   final List<String> colorList = colorData
       .map((e) => e['paraMtrName'].toString())
       .toList();
+
   return GetBuilder<GetallparameterController>(
     builder: (controller) {
       return selectionGrid<String>(
         items: colorList,
         isSelected: (controller, index, item) {
-          return controller.selectedColor.contains(index);
+          final String paraMtrId = colorData[index]['paraMtrId'];
+          return controller.selectedColor.contains(paraMtrId);
         },
         onTap: (controller, index) {
-          final selectedObj = colorData[index];
-          final String paraMtrId = selectedObj['paraMtrId'];
-          controller.toggleColorSelection(index, paraMtrId);
+          final String paraMtrId = colorData[index]['paraMtrId'];
+          controller.toggleColorSelection(paraMtrId);
         },
       );
     },
@@ -274,20 +230,22 @@ Widget shortcutColor(
 //Lab
 Widget lab(GetallparameterController diamondSearch) {
   final List labData = diamondSearch.getAllParameterData['lab'] as List;
+
   final List<String> labList = labData
       .map((e) => e['paraMtrName'].toString())
       .toList();
+
   return GetBuilder<GetallparameterController>(
     builder: (controller) {
       return selectionGrid<String>(
         items: labList,
         isSelected: (controller, index, item) {
-          return controller.selectedLAB.contains(index);
+          final String paraMtrId = labData[index]['paraMtrId'];
+          return controller.selectedLAB.contains(paraMtrId);
         },
         onTap: (controller, index) {
-          final selectedObj = labData[index];
-          final String paraMtrId = selectedObj['paraMtrId'];
-          controller.toggleLABSelection(index, paraMtrId);
+          final String paraMtrId = labData[index]['paraMtrId'];
+          controller.toggleLABSelection(paraMtrId);
         },
       );
     },
@@ -297,20 +255,22 @@ Widget lab(GetallparameterController diamondSearch) {
 //polish
 Widget polish(GetallparameterController diamondSearch) {
   final List polishData = diamondSearch.getAllParameterData['polish'] as List;
+
   final List<String> polishList = polishData
       .map((e) => e['paraMtrName'].toString())
       .toList();
+
   return GetBuilder<GetallparameterController>(
     builder: (controller) {
       return selectionGrid<String>(
         items: polishList,
         isSelected: (controller, index, item) {
-          return controller.selectedPolish.contains(index);
+          final String paraMtrId = polishData[index]['paraMtrId'];
+          return controller.selectedPolish.contains(paraMtrId);
         },
         onTap: (controller, index) {
-          final selectedObj = polishData[index];
-          final String paraMtrId = selectedObj['paraMtrId'];
-          controller.togglePolishSelection(index, paraMtrId);
+          final String paraMtrId = polishData[index]['paraMtrId'];
+          controller.togglePolishSelection(paraMtrId);
         },
       );
     },
@@ -321,20 +281,22 @@ Widget polish(GetallparameterController diamondSearch) {
 Widget symmetry(GetallparameterController diamondSearch) {
   final List symmetryData =
       diamondSearch.getAllParameterData['symmetry'] as List;
+
   final List<String> symmetryList = symmetryData
       .map((e) => e['paraMtrName'].toString())
       .toList();
+
   return GetBuilder<GetallparameterController>(
     builder: (controller) {
       return selectionGrid<String>(
         items: symmetryList,
         isSelected: (controller, index, item) {
-          return controller.selectedSymmetry.contains(index);
+          final String paraMtrId = symmetryData[index]['paraMtrId'];
+          return controller.selectedSymmetry.contains(paraMtrId);
         },
         onTap: (controller, index) {
-          final selectedObj = symmetryData[index];
-          final String paraMtrId = selectedObj['paraMtrId'];
-          controller.toggleSymmetrySelection(index, paraMtrId);
+          final String paraMtrId = symmetryData[index]['paraMtrId'];
+          controller.toggleSymmetrySelection(paraMtrId);
         },
       );
     },
@@ -384,20 +346,22 @@ Widget treatment(
 Widget fluorescence(GetallparameterController diamondSearch) {
   final List fluorescenceData =
       diamondSearch.getAllParameterData['fluorescence'] as List;
+
   final List<String> fluorescenceList = fluorescenceData
       .map((e) => e['paraMtrName'].toString())
       .toList();
+
   return GetBuilder<GetallparameterController>(
     builder: (controller) {
       return selectionGrid<String>(
         items: fluorescenceList,
         isSelected: (controller, index, item) {
-          return controller.selectedFluorescence.contains(index);
+          final String paraMtrId = fluorescenceData[index]['paraMtrId'];
+          return controller.selectedFluorescence.contains(paraMtrId);
         },
         onTap: (controller, index) {
-          final selectedObj = fluorescenceData[index];
-          final String paraMtrId = selectedObj['paraMtrId'];
-          controller.toggleFluorescenceSelection(index, paraMtrId);
+          final String paraMtrId = fluorescenceData[index]['paraMtrId'];
+          controller.toggleFluorescenceSelection(paraMtrId);
         },
       );
     },

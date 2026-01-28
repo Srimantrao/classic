@@ -219,7 +219,6 @@ class ProductDetailUIController extends GetxController {
     } else {
       ringSizeParam = null;
     }
-
     adToCart.createCart(
       price: activeVariant['finalPrice'].toString(),
       productId: activeVariant['_id'].toString(),
@@ -229,7 +228,6 @@ class ProductDetailUIController extends GetxController {
       ringSize: ringSizeParam?.isEmpty == true ? null : ringSizeParam,
       DiamondId: '',
     );
-
     print({
       'activeVariant': activeVariant,
       'ringSize': ringSizeParam,

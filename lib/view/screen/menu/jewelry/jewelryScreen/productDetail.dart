@@ -11,6 +11,7 @@ import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.d
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../controller/application_Programing_interface/apiController/menu/jewellery/productList/productList_Controller.dart';
+import '../../../../../controller/application_Programing_interface/callApi/callAPI.dart';
 import '../../../../../controller/user_Interface/menu/jewelry/productDetailUI_Controller.dart';
 import '../../../../utils/app_cricularProgrssIndicator.dart';
 import '../../../../utils/widget/bottomNavigationButton.dart';
@@ -18,6 +19,7 @@ import '../../../../utils/widget/bottomNavigationButton.dart';
 class ProductDetail extends StatelessWidget {
   final productDetail = Get.put(ProductDetailUIController());
   final productDetailAPI = Get.put(ProductdetailController());
+  final cartAPICallAPI = Get.put(CartAPICall());
   final productListAPI = Get.put(ProductlistController(), permanent: true);
   final youMayLikeControllerAPI = Get.put(YoumaylikeController());
   final products = Lisofproduct();
@@ -48,7 +50,10 @@ class ProductDetail extends StatelessWidget {
             loadingWait: (productDetail.adToCart.isLoading.value)
                 ? customCircular()
                 : null,
-            onTap: productDetail.addToCart,
+            onTap: () {
+              productDetail.addToCart();
+              cartAPICallAPI.cartAPI.filterCart();
+            },
             AppString.addtoCart,
             isLowercase: true,
             bottomBottonFontSize: true,

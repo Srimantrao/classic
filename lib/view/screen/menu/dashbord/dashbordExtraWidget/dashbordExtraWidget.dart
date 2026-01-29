@@ -140,7 +140,7 @@ Widget dashbordValueList({required Widget list}) {
     child: Column(
       children: [
         list,
-        SizedBox(height: Get.height * 0.09),
+        Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.09))
       ],
     ),
   );

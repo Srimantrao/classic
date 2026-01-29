@@ -23,9 +23,7 @@ class Dashbord extends StatelessWidget {
   final dashbord_API = Get.put(DashBordAPICall());
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final value = Listviwe();
-
   Dashbord({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Fullscreen(

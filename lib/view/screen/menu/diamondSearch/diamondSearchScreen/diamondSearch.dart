@@ -5,6 +5,7 @@ import 'package:classic/controller/user_Interface/menu/diamondSearch/diamondSear
 import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/drawer.dart';
 import 'package:classic/view/screen/menu/diamondSearch/diamondSearchExtraWidget/diamondExtraWidget.dart';
+import 'package:classic/view/screen/menu/diamondSearch/diamondSearchScreen/searchResult.dart';
 import 'package:classic/view/screen/menu/diamondSearch/diamondWidget/header/appbar.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
@@ -38,7 +39,11 @@ class Diamondsearch extends StatelessWidget {
               Obx(() {
                 return button(
                   AppString.searchdiamond,
-                  onTap: diamondSearch.searchDiamond,
+                  onTap: () {
+                    diamondSearch.searchDiamond().then((value) {
+                      Get.to(() => SearchResult());
+                    });
+                  },
                   isLowercase: true,
                   bottomBottonFontSize: true,
                   loadingWait: (diamondSearch.diamondSearchAPI.isLoading.value)

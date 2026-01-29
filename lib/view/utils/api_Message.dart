@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print, file_names
 
+import 'dart:developer';
+
 import 'package:classic/view/utils/widget/pop.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -61,6 +63,7 @@ void successMesssess({
   (showSnackbarSuccess)
       ? ToastificationSuccess.Success(response.data["message"])
       : SizedBox();
+  log(" ✅$callAPI Data: ${response.data}");
   return;
 }
 

@@ -47,6 +47,7 @@ dependencies:
   shimmer:
   lottie:
   toastification:
+  flutter_html:
 
 dev_dependencies:
   flutter_test:

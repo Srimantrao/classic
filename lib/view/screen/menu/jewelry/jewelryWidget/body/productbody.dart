@@ -2,7 +2,7 @@
 
 import 'package:classic/view/screen/menu/jewelry/jewelryExtraWidget/product.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/productDetail.dart';
-import 'package:classic/view/screen/menu/jewelry/jewelryScreen/productImage.dart';
+import 'package:classic/view/utils/widget/image/productImage.dart';
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';

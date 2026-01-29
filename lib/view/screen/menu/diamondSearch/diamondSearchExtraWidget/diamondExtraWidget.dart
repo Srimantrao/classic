@@ -59,9 +59,8 @@ Widget shape(GetallparameterController diamondSearch, {required bool isMenu}) {
                   border: Border.all(
                     color: isSelected ? AppColor.primary : AppColor.gray3,
                   ),
-                  color: isSelected
-                      ? AppColor.primary.withOpacity(0.1)
-                      : Colors.transparent,
+                  boxShadow: kElevationToShadow[2],
+                  color: isSelected ? AppColor.primary : AppColor.white,
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -70,20 +69,24 @@ Widget shape(GetallparameterController diamondSearch, {required bool isMenu}) {
                       Image.network(
                         imageUrl,
                         scale: 4,
+                        color: isSelected ? AppColor.white : AppColor.black,
                         fit: BoxFit.contain,
                         loadingBuilder: (context, child, loadingProgress) {
                           if (loadingProgress == null) return child;
                           return const CircularProgressIndicator();
                         },
                         errorBuilder: (context, error, stackTrace) {
-                          return const Icon(Icons.broken_image);
+                          return Icon(
+                            Icons.broken_image,
+                            color: isSelected ? AppColor.white : AppColor.black,
+                          );
                         },
                       ),
                     Text(
                       shapeList[index]['paraMtrName'],
                       style: TextStyle(
                         fontSize: Textsize.samisubHedding,
-                        color: isSelected ? AppColor.primary : AppColor.black,
+                        color: isSelected ? AppColor.white : AppColor.black,
                         fontWeight: isSelected
                             ? FontWeight.w500
                             : FontWeight.normal,
@@ -109,8 +112,9 @@ Widget shape(GetallparameterController diamondSearch, {required bool isMenu}) {
                       : AppColor.gray3,
                 ),
                 color: controller.selecteOtherShape.value
-                    ? AppColor.primary.withOpacity(0.1)
-                    : Colors.transparent,
+                    ? AppColor.primary
+                    : AppColor.white,
+                boxShadow: kElevationToShadow[2],
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -119,14 +123,16 @@ Widget shape(GetallparameterController diamondSearch, {required bool isMenu}) {
                     AppIcon.edit,
                     scale: 25,
                     fit: BoxFit.contain,
-                    color: AppColor.gray3,
+                    color: controller.selecteOtherShape.value
+                        ? AppColor.white
+                        : AppColor.gray3,
                   ),
                   Text(
                     'Other',
                     style: TextStyle(
                       fontSize: Textsize.samisubHedding,
                       color: controller.selecteOtherShape.value
-                          ? AppColor.primary
+                          ? AppColor.white
                           : AppColor.black,
                       fontWeight: controller.selecteOtherShape.value
                           ? FontWeight.w500
@@ -436,6 +442,7 @@ Widget viweContainer({
         borderRadius: BorderRadius.circular(borderradius.buttonboder),
         border: Border.all(color: colorBoder),
         color: color,
+        boxShadow: kElevationToShadow[2],
       ),
       child: Text(
         text,
@@ -470,7 +477,7 @@ Widget selectionGrid<T>({
           return viweContainer(
             onTap: () => onTap(controller, index),
             colorBoder: selected ? AppColor.primary : AppColor.gray3,
-            color: selected ? AppColor.primary : Colors.transparent,
+            color: selected ? AppColor.primary : AppColor.white,
             textColor: selected ? AppColor.white : AppColor.black,
             text: item.toString(),
             fontWeight: selected ? FontWeight.w500 : FontWeight.normal,

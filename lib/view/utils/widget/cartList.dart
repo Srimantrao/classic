@@ -147,7 +147,6 @@ Widget listHeddind({
           listHeadingText('|'),
           listHeadingText(clarity),
           listHeadingText('|'),
-          listHeadingText('|'),
           listHeadingText(lab),
         ],
       ),
@@ -205,9 +204,9 @@ Widget listHeadingText(text) {
     child: Text(
       text,
       style: TextStyle(
-        color: AppColor.black,
+        color: AppColor.primary,
         fontWeight: FontWeight.w600,
-        fontSize: Textsize.samisubHedding,
+        fontSize: Textsize.small,
       ),
     ),
   );
@@ -223,7 +222,7 @@ Widget listsubHedding(text) {
         style: TextStyle(
           color: AppColor.gray3,
           fontWeight: FontWeight.w600,
-          fontSize: Textsize.small,
+          fontSize: Textsize.minismall,
         ),
       ),
     ),

@@ -39,8 +39,8 @@ class DiamondSearchController extends GetxController {
     isLoading.value = true;
     try {
       final response = await diamondSearch.diamondSearchService(
-        pageSize: '1',
-        pageNumber: '20',
+        pageSize: '20',
+        pageNumber: '1',
         shape: shape,
         carat: carat,
         clarity: clarity,

@@ -314,8 +314,8 @@ class DiamondSearchUIController extends GetxController {
 
   bool get isColored => selectedIndex.value == 1;
 
-  void searchDiamond() {
-    diamondSearchAPI.diamondSearching(
+  Future<void> searchDiamond() async{
+   await diamondSearchAPI.diamondSearching(
       pageSize: '1',
       pageNumber: '20',
       shape: selectedShapes.isEmpty ? null : jsonEncode(selectedShapes),

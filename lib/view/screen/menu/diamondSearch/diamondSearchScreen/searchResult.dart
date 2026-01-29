@@ -21,7 +21,9 @@ import '../../dashbord/dashbordScreen/diamondDetail.dart';
 
 class SearchResult extends StatelessWidget {
   final diamondSearchAPI = Get.put(DiamondSearchController());
+
   SearchResult({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -73,7 +75,7 @@ Widget valueListDiamond({
                   lab: valueList[index]['lab'],
                   colorcode: valueList[index]['countryCode'].toString(),
                   clarity: valueList[index]['clarity'],
-                  cartifactNo: valueList[index]['dimCountryId'].toString(),
+                  cartifactNo: valueList[index]['certno'].toString(),
                 ),
               );
             },
@@ -96,7 +98,13 @@ Widget valueListDiamond({
                       lab: valueList[index]['lab'],
                       colorcode: valueList[index]['countryCode'].toString(),
                       clarity: valueList[index]['clarity'],
-                      cartifactNo: valueList[index]['dimCountryId'].toString(),
+                      cartifactNo: (valueList[index]['certno'] == null || valueList[index]['certno'] == '-')
+                          ? ''
+                          : valueList[index]['certno'].toString(),
+                      cartifactIcon: (valueList[index]['certno'] == null ||
+                          valueList[index]['certno'] == '-')
+                          ? AppIcon.user1
+                          : AppIcon.diamondId,
                     ),
                     Divider(color: AppColor.gray3),
                     Row(
@@ -133,7 +141,7 @@ Widget valueListDiamond({
                       isCart: isCart,
                       camara: camara,
                       video: video,
-                      cartOnTap: (){
+                      cartOnTap: () {
                         adToCart.createCart(
                           price: valueList[index]['finalamount'].toString(),
                           productId: valueList[index]['_id'],

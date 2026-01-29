@@ -6,7 +6,7 @@ class AppImage{
   static const spalsh_background = 'assets/images/Spalsh.jpg';
 
   //credentials
-  //login & signup Scrren
+  //login & signup Screen
   static const logo = 'assets/images/newlogo.png';
 
   //Menu
@@ -20,11 +20,11 @@ class AppImage{
   static const icon1 = 'assets/images/icon1.png';
   static const icon2 = 'assets/images/icon2.png';
   static const icon3 = 'assets/images/icon3.png';
-  //home Sccen Slider
+  //home Screen Slider
     static const sliderImage = 'assets/images/1.jpg';
     static const sliderImage2 = 'assets/images/2.jpg';
     static const sliderImage3 = 'assets/images/3.jpg';
-  //home Sccen Fotter
+  //home Screen footer
     static const instagram = 'assets/images/instagram.png';
     static const youtube = 'assets/images/youtube.png';
     static const twitter = 'assets/images/twitter.png';

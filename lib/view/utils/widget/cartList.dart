@@ -133,6 +133,7 @@ Widget listHeddind({
   required String colorcode,
   required String clarity,
   required String cartifactNo,
+  String? cartifactIcon,
 }) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -150,7 +151,10 @@ Widget listHeddind({
           listHeadingText(lab),
         ],
       ),
-      Row(children: [listHeadingText(cartifactNo)]),
+      Row(children: [
+        Image.asset(cartifactIcon!,scale: 27,color: AppColor.primary),
+        listHeadingText(cartifactNo),
+      ]),
     ],
   );
 }

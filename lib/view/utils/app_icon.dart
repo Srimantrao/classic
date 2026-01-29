@@ -31,4 +31,7 @@ class AppIcon{
   static const dashboard = 'assets/icons/dashboard.png';
   static const diamond = 'assets/icons/diamond.png';
   static const custom = 'assets/icons/custom.png';
+
+  //DiamondList Icon
+  static const diamondId = 'assets/icons/t&c.png';
 }

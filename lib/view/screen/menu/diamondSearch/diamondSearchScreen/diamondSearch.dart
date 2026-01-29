@@ -59,10 +59,11 @@ class Diamondsearch extends StatelessWidget {
         ),
       ),
       appBar: appBarDiamond(
-        prefixIcon: AppIcon.newcart,
+        prefixIcon: AppIcon.edit,
         suffixIcon: AppIcon.drawer,
         hedding: AppString.diamondSearch,
         suffixOnTap: () => scaffoldKey.currentState?.openEndDrawer(),
+        prefixOnTap: diamondSearch.clearSelections
       ),
       child: Obx(() {
         return SingleChildScrollView(

@@ -112,7 +112,7 @@ class Diamondsearch extends StatelessWidget {
                     )
                   : shapeViwe(
                       getAllPeraMeter,
-                      AppString.shape,
+                      AppString.color,
                       Widget: fancyColor(getAllPeraMeter),
                     ),
 

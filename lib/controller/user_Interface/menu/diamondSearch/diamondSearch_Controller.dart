@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_print
+// ignore_for_file: file_names, avoid_print, unrelated_type_equality_checks
 
 import 'dart:convert';
 
@@ -334,15 +334,12 @@ class DiamondSearchUIController extends GetxController {
 
   Future<void> searchDiamond() async {
     final shapeList = {
-      ...selectedShapeIds,
+      ...selectedShapes,
       ...selecteOtherShape
     }.toList();
 
     final currentSelectedColors =
     selectedIndex == 0 ? selectedColor : selectedFancyColors;
-    final selectedColorJson = currentSelectedColors.isEmpty
-        ? null
-        : jsonEncode(currentSelectedColors);
 
     await diamondSearchAPI.diamondSearching(
       pageSize: diamondSearchAPI.pageSize.toString(),
@@ -350,7 +347,9 @@ class DiamondSearchUIController extends GetxController {
       shape: shapeList.isEmpty ? null : jsonEncode(shapeList),
       carat: selectedCarat.isEmpty ? null : jsonEncode(selectedCarat),
       clarity: selectedClarity.isEmpty ? null : jsonEncode(selectedClarity),
-      color: selectedColorJson,
+      color: currentSelectedColors.isEmpty
+          ? null
+          : jsonEncode(currentSelectedColors),
       lab: selectedLAB.isEmpty ? null : jsonEncode(selectedLAB),
       polish: selectedPolish.isEmpty ? null : jsonEncode(selectedPolish),
       symmetry: selectedSymmetry.isEmpty ? null : jsonEncode(selectedSymmetry),
@@ -416,7 +415,7 @@ class DiamondSearchUIController extends GetxController {
     print("Shape :- ${jsonEncode(shapeList)}");
     print("Carat :- ${jsonEncode(selectedCarat)}");
     print("Clarity :- ${jsonEncode(selectedClarity)}");
-    print("Color :- ${jsonEncode(selectedColorJson)}");
+    print("Color :- ${jsonEncode(currentSelectedColors)}");
     print("LAB :- ${jsonEncode(selectedLAB)}");
     print("Polish :- ${jsonEncode(selectedPolish)}");
     print("Symmetry :- ${jsonEncode(selectedSymmetry)}");

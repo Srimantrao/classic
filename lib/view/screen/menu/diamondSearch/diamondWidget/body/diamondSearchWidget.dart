@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, strict_top_level_inference
+// ignore_for_file: file_names, strict_top_level_inference, non_constant_identifier_names
 
 //Index Button
 import 'package:classic/controller/user_Interface/menu/diamondSearch/diamondSearch_Controller.dart';

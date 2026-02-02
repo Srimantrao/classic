@@ -15,6 +15,7 @@ import '../../../../../controller/application_Programing_interface/apiController
 import '../../../../utils/app_json.dart';
 import '../../../../utils/widget/bottomNavigationButton.dart';
 import '../../../../utils/widget/image/productVideo.dart';
+import '../dashbordExtraWidget/diamondDetailExtraWidget.dart';
 
 class DiamondDetail extends StatelessWidget {
   final diamondShow = Get.put(DiamondShowController());
@@ -31,17 +32,23 @@ class DiamondDetail extends StatelessWidget {
     print("Video URL: $video");
     return Fullscreen(
       appBar: allOtherScreen(AppString.diamondDetail, cart: true),
-      bottomNavigationBar: buttonNavigation(
-        child: button(
-          AppString.addtoCart,
-          isLowercase: true,
-          bottomBottonFontSize: true,
-        ),
-      ),
+      bottomNavigationBar: Obx(() {
+        final api = diamondShow;
+        if (api.isLoading.value) {
+          return SizedBox();
+        }
+        return buttonNavigation(
+          child: button(
+            AppString.addtoCart,
+            isLowercase: true,
+            bottomBottonFontSize: true,
+          ),
+        );
+      }),
       child: Obx(() {
         final api = diamondShow;
         if (api.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
+          return shirmmer();
         }
         final diamond = api.diamondSearchData;
         if (diamond['data'] == null || (diamond['data'] as List).isEmpty) {
@@ -156,8 +163,4 @@ class DiamondDetail extends StatelessWidget {
       }),
     );
   }
-}
-
-Widget angelPadding() {
-  return Padding(padding: EdgeInsetsGeometry.only(top: Get.height * 0.03));
 }

@@ -33,6 +33,12 @@ class Video extends StatelessWidget {
               /// VIDEO
               VideoPlayer(controller.videoPlayerController!),
 
+              Positioned.fill(
+                child: Container(
+                  color: Colors.black.withOpacity(0.3),
+                ),
+              ),
+
               /// DARK OVERLAY
               Obx(
                 () => controller.showControls.value

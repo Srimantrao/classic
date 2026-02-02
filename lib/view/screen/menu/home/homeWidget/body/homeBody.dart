@@ -95,19 +95,14 @@ Widget ourCollection(
 //Video Containner Start
 Widget adVideo() {
   return SizedBox(
-    height: Get.height * 0.4,
+    height: Get.height * 0.5,
     width: Get.width,
     child: Stack(
       children: [
         Positioned.fill(child: Video(videoUrl: AppVideo.addVideo)),
-
-        /// Overlay text
-        Positioned(
-          left: Get.width * 0.05,
-          right: Get.width * 0.025,
-          top: Get.height * 0.04,
-          bottom: Get.height * 0.003,
+        Center(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               videotext(
                 text: AppString.ringsThatPerfectly.toUpperCase(),
@@ -132,29 +127,52 @@ Widget adVideo() {
 
 //Image Conatiner Start
 Widget adImage() {
-  return Container(
-    height: Get.height * 0.4,
+  return SizedBox(
+    height: Get.height * 0.5,
     width: Get.width,
-    decoration: BoxDecoration(
-      image: DecorationImage(
-        image: AssetImage(AppImage.adImage),
-        fit: BoxFit.cover,
-      ),
-    ),
-    child: Column(
+    child: Stack(
       children: [
-        SizedBox(height: Get.height * 0.04),
-        videotext(
-          text: AppString.customizeYourOwnJewelry,
-          fontSize: Get.width * 0.06,
-          fontWeight: FontWeight.w600,
+
+        /// Background Image
+        Positioned.fill(
+          child: Image.asset(
+            AppImage.adImage,
+            fit: BoxFit.cover,
+          ),
         ),
-        SizedBox(height: Get.height * 0.01),
-        videotext(text: AppString.doYouHaveAnyIdea, fontSize: Get.width * 0.03),
-        SizedBox(height: Get.height * 0.01),
-        videotext(text: AppString.letUsKnowWhat, fontSize: Get.width * 0.03),
-        SizedBox(height: Get.height * 0.03),
-        schedulebutton(AppString.customProduct),
+
+        /// Optional Dark Overlay
+        Positioned.fill(
+          child: Container(
+            color: Colors.black.withOpacity(0.3),
+          ),
+        ),
+
+        /// Center Content
+        Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              videotext(
+                text: AppString.customizeYourOwnJewelry,
+                fontSize: Get.width * 0.06,
+                fontWeight: FontWeight.w600,
+              ),
+              SizedBox(height: Get.height * 0.01),
+              videotext(
+                text: AppString.doYouHaveAnyIdea,
+                fontSize: Get.width * 0.03,
+              ),
+              SizedBox(height: Get.height * 0.01),
+              videotext(
+                text: AppString.letUsKnowWhat,
+                fontSize: Get.width * 0.03,
+              ),
+              SizedBox(height: Get.height * 0.03),
+              schedulebutton(AppString.customProduct),
+            ],
+          ),
+        ),
       ],
     ),
   );

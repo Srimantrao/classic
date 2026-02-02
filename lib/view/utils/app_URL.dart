@@ -45,4 +45,6 @@ class AppUrl {
 
     //diamond Sarch
       static const String filterDiamond = "${baseUrl}App/diamond/filterDiamond";
+      static const String diamondDetails = "${baseUrl}App/diamond/diamondDetails";
+
 }

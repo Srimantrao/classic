@@ -45,7 +45,7 @@ Widget indexButtons({
 }
 
 //Shape
-Widget shapeViwe(diamondSearch, text) {
+Widget shapeViwe(diamondSearch, text, {required Widget Widget}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -60,7 +60,7 @@ Widget shapeViwe(diamondSearch, text) {
           bottom: Get.height * 0.02,
         ),
       ),
-      shape(diamondSearch,isMenu: true),
+      Widget,
     ],
   );
 }

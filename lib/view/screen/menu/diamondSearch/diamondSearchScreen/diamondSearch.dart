@@ -23,7 +23,9 @@ class Diamondsearch extends StatelessWidget {
   final getAllPeraMeter = Get.put(GetallparameterController());
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final diamondList = DiamondList();
+
   Diamondsearch({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
@@ -37,6 +39,8 @@ class Diamondsearch extends StatelessWidget {
             children: [
               SizedBox(height: Get.height * 0.025),
               Obx(() {
+                final api = diamondSearch.diamondSearchAPI;
+                final loading = api.isLoading.value;
                 return button(
                   AppString.searchdiamond,
                   onTap: () {
@@ -46,9 +50,7 @@ class Diamondsearch extends StatelessWidget {
                   },
                   isLowercase: true,
                   bottomBottonFontSize: true,
-                  loadingWait: (diamondSearch.diamondSearchAPI.isLoading.value)
-                      ? customCircular()
-                      : null,
+                  loadingWait: (loading) ? customCircular() : null,
                 );
               }),
               Padding(
@@ -63,7 +65,7 @@ class Diamondsearch extends StatelessWidget {
         suffixIcon: AppIcon.drawer,
         hedding: AppString.diamondSearch,
         suffixOnTap: () => scaffoldKey.currentState?.openEndDrawer(),
-        prefixOnTap: diamondSearch.clearSelections
+        prefixOnTap: diamondSearch.clearSelections,
       ),
       child: Obx(() {
         return SingleChildScrollView(
@@ -81,7 +83,11 @@ class Diamondsearch extends StatelessWidget {
               ),
 
               //Shape
-              shapeViwe(getAllPeraMeter, AppString.shape),
+              shapeViwe(
+                getAllPeraMeter,
+                AppString.shape,
+                Widget: shape(getAllPeraMeter, isMenu: true),
+              ),
 
               //Carat
               searchColor(
@@ -98,11 +104,17 @@ class Diamondsearch extends StatelessWidget {
               ),
 
               //White Color
-              searchColor(
-                diamondSearch: diamondSearch,
-                text: AppString.whiteColor,
-                contain: whiteColor(getAllPeraMeter),
-              ),
+              (diamondSearch.selectedIndex.value == 0)
+                  ? searchColor(
+                      diamondSearch: diamondSearch,
+                      text: AppString.whiteColor,
+                      contain: whiteColor(getAllPeraMeter),
+                    )
+                  : shapeViwe(
+                      getAllPeraMeter,
+                      AppString.shape,
+                      Widget: fancyColor(getAllPeraMeter),
+                    ),
 
               //ShortCut
               searchColor(

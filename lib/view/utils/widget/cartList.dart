@@ -1,6 +1,5 @@
 // ignore_for_file: file_names, strict_top_level_inference
 
-import 'package:classic/view/screen/menu/dashbord/dashbordScreen/diamondDetail.dart';
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
@@ -25,16 +24,16 @@ Widget valueList({
         return horizontalPadding(
           child: GestureDetector(
             onTap: () {
-              Get.to(
-                () => Diamonddetail(
-                  shape: valueList[index]['shape'],
-                  careat: valueList[index]['careat'],
-                  lab: valueList[index]['lab'],
-                  colorcode: valueList[index]['colorcode'],
-                  clarity: valueList[index]['clarity'],
-                  cartifactNo: valueList[index]['cartifactNo'],
-                ),
-              );
+              // Get.to(
+              //   () => Diamonddetail(
+              //     shape: valueList[index]['shape'],
+              //     careat: valueList[index]['careat'],
+              //     lab: valueList[index]['lab'],
+              //     colorcode: valueList[index]['colorcode'],
+              //     clarity: valueList[index]['clarity'],
+              //     cartifactNo: valueList[index]['cartifactNo'],
+              //   ),
+              // );
             },
             child: Container(
               margin: EdgeInsetsGeometry.symmetric(

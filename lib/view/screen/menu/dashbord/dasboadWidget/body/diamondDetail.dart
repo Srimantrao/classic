@@ -5,9 +5,12 @@ import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_icon.dart';
+import 'package:classic/view/utils/app_json.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:lottie/lottie.dart';
 import '../../../../../utils/widget/button.dart';
 import '../../../../../utils/widget/horizontalpaddind.dart';
 import '../../dashbordExtraWidget/diamondDetailExtraWidget.dart';
@@ -73,22 +76,30 @@ Widget imageAndVideo({
         Stack(
           children: [
             Container(
-              // height: Get.width * 0.85,
-              // width: Get.width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(borderradius.buttonboder),
                 border: Border.all(color: AppColor.secondary),
-                image: (diamonddetail.isSelectImage.value)
+                image: (diamonddetail.isSelectImage.value && image.isNotEmpty)
                     ? DecorationImage(
-                        image: AssetImage(image),
+                        image: NetworkImage(image),
                         fit: BoxFit.cover,
                       )
                     : null,
               ),
               child: AspectRatio(
-                aspectRatio: 1.0,
+                aspectRatio: 0.75,
                 child: (diamonddetail.isSelectImage.value)
-                    ? null
+                    ? (image.isEmpty)
+                        ? Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Lottie.asset(AppJson.noData, height: 100),
+                                const Text("No Image Available"),
+                              ],
+                            ),
+                          )
+                        : null
                     : ClipRRect(
                         borderRadius: BorderRadius.circular(
                           borderradius.buttonboder,
@@ -213,7 +224,7 @@ Widget showDetail({
           leftlable: AppString.fluorescence,
           leftvalue: fluorescence,
           rightlable: AppString.polish,
-          rightvalue: 'Round',
+          rightvalue: polish,
         ),
         grayContainer(
           color: AppColor.gray3,

@@ -98,7 +98,7 @@ Widget shape(GetallparameterController diamondSearch, {required bool isMenu}) {
             );
           }),
           GestureDetector(
-            onTap: () => controller.togleOtherShape(allShapes),
+            onTap: () => controller.toggleOtherShape(allShapes),
             child: Container(
               padding: EdgeInsets.symmetric(
                 horizontal: Get.width * 0.04,
@@ -107,11 +107,11 @@ Widget shape(GetallparameterController diamondSearch, {required bool isMenu}) {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(borderradius.buttonboder),
                 border: Border.all(
-                  color: controller.selecteOtherShape.value
+                  color: controller.selecteOtherShape.isNotEmpty
                       ? AppColor.primary
                       : AppColor.gray3,
                 ),
-                color: controller.selecteOtherShape.value
+                color: controller.selecteOtherShape.isNotEmpty
                     ? AppColor.primary
                     : AppColor.white,
                 boxShadow: kElevationToShadow[2],
@@ -123,7 +123,7 @@ Widget shape(GetallparameterController diamondSearch, {required bool isMenu}) {
                     AppIcon.edit,
                     scale: 25,
                     fit: BoxFit.contain,
-                    color: controller.selecteOtherShape.value
+                    color: controller.selecteOtherShape.isNotEmpty
                         ? AppColor.white
                         : AppColor.gray3,
                   ),
@@ -131,10 +131,10 @@ Widget shape(GetallparameterController diamondSearch, {required bool isMenu}) {
                     'Other',
                     style: TextStyle(
                       fontSize: Textsize.samisubHedding,
-                      color: controller.selecteOtherShape.value
+                      color: controller.selecteOtherShape.isNotEmpty
                           ? AppColor.white
                           : AppColor.black,
-                      fontWeight: controller.selecteOtherShape.value
+                      fontWeight: controller.selecteOtherShape.isNotEmpty
                           ? FontWeight.w500
                           : FontWeight.normal,
                     ),
@@ -144,6 +144,75 @@ Widget shape(GetallparameterController diamondSearch, {required bool isMenu}) {
             ),
           ),
         ],
+      );
+    },
+  );
+}
+
+Widget fancyColor(GetallparameterController diamondSearch) {
+  return GetBuilder<DiamondSearchUIController>(
+    builder: (controller) {
+      final allColors = diamondSearch.getAllParameterData['fancyColor'];
+      if (allColors == null || allColors.isEmpty) {
+        return const SizedBox();
+      }
+      return Wrap(
+        spacing: Get.width * 0.074,
+        runSpacing: Get.height * 0.009,
+        children: List.generate(allColors.length, (index) {
+          final item = allColors[index];
+          final imageUrl = item['image1'];
+          final String paraMtrId = item['paraMtrId'].toString();
+          bool isSelected = controller.selectedFancyColors.contains(paraMtrId);
+          return GestureDetector(
+            onTap: () => controller.toggleFancyColorSelection(paraMtrId),
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: Get.width * 0.04,
+                vertical: Get.height * 0.012,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(borderradius.buttonboder),
+                border: Border.all(
+                  color: isSelected ? AppColor.primary : AppColor.gray3,
+                ),
+                boxShadow: kElevationToShadow[2],
+                color: isSelected ? AppColor.primary : AppColor.white,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (imageUrl != null && imageUrl.isNotEmpty)
+                    Image.network(
+                      imageUrl,
+                      scale: 4,
+                      fit: BoxFit.contain,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return const SizedBox(
+                          height: 24,
+                          width: 24,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        );
+                      },
+                      errorBuilder: (context, error, stackTrace) {
+                        return  Icon(Icons.broken_image, color: AppColor.black);
+                      },
+                    ),
+                  const SizedBox(height: 4),
+                  Text(
+                    item['paraMtrName'],
+                    style: TextStyle(
+                      fontSize: Textsize.samisubHedding,
+                      color: isSelected ? AppColor.white : AppColor.black,
+                      fontWeight: isSelected ? FontWeight.w500 : FontWeight.normal,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }),
       );
     },
   );

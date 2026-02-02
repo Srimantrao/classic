@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, unnecessary_import
+// ignore_for_file: file_names, unnecessary_import, non_constant_identifier_names
 
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
@@ -15,6 +15,9 @@ Widget diamondDetailHadder({
   required String colorcode,
   required String clarity,
   required String cartifactNo,
+  String? location,
+  String? PPC,
+  String? total,
 }) {
   return Container(
     decoration: BoxDecoration(
@@ -34,7 +37,7 @@ Widget diamondDetailHadder({
               children: [
                 smallText(shape),
                 varticalDivaders(),
-                smallText(clarity),
+                smallText(careat),
                 varticalDivaders(),
                 smallText(colorcode),
                 varticalDivaders(),
@@ -53,13 +56,14 @@ Widget diamondDetailHadder({
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Column(
-                  children: [smallTextsecond('Location'), smallAanwasr('IN')],
+                  children: [
+                    smallTextsecond('Location'),
+                    smallAanwasr(location),
+                  ],
                 ),
+                Column(children: [smallTextsecond('PPC'), smallAanwasr(PPC)]),
                 Column(
-                  children: [smallTextsecond('PPC'), smallAanwasr('339.05')],
-                ),
-                Column(
-                  children: [smallTextsecond('Total'), smallAanwasr('116.2')],
+                  children: [smallTextsecond('Total'), smallAanwasr(total)],
                 ),
               ],
             ),

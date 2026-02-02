@@ -14,8 +14,9 @@ class DiamondSearchUIController extends GetxController {
   var selectedIndex = 0.obs;
   bool selectedOtherShape = false;
   List<String> selectedShapes = [];
+  List<String> selectedFancyColors = [];
   Set<String> selectedShapeIds = {};
-  RxBool selecteOtherShape = false.obs;
+  List<String> selecteOtherShape = [];
   List<String> selectedCarat = [];
   List<String> selectedClarity = [];
   List<String> selectedClarityIds = [];
@@ -181,19 +182,33 @@ class DiamondSearchUIController extends GetxController {
     update();
   }
 
-  void togleOtherShape(List allShapes) {
-    selecteOtherShape.value = !selecteOtherShape.value;
-    final otherShapes = allShapes.where((e) => e['isMenu'] == false).toList();
-    if (selecteOtherShape.value) {
-      for (var shape in otherShapes) {
-        selectedShapeIds.add(shape['paraMtrId']);
-      }
+  void toggleOtherShape(List allShapes) {
+    final otherIds = allShapes
+        .where((e) => e['isMenu'] == false || e['isMenu'] == "false")
+        .map((e) => e['paraMtrId'])
+        .whereType<String>()
+        .toList();
+    print("Other IDS :- $otherIds");
+    bool isSelected = selecteOtherShape.isNotEmpty;
+    if (isSelected) {
+      selecteOtherShape.clear();
+      selectedShapeIds.removeAll(otherIds);
     } else {
-      for (var shape in otherShapes) {
-        selectedShapeIds.remove(shape['paraMtrId']);
-      }
+      selecteOtherShape = otherIds;
+      selectedShapeIds.addAll(otherIds);
     }
+    print("Selected Shape IDS :- $selectedShapeIds");
     update();
+  }
+
+  //selectFency Color
+  void toggleFancyColorSelection(String paraMtrId) {
+    if (selectedFancyColors.contains(paraMtrId)) {
+      selectedFancyColors.remove(paraMtrId);
+    } else {
+      selectedFancyColors.add(paraMtrId);
+    }
+    update(); // Refresh UI
   }
 
   //Multiple selection carat
@@ -303,6 +318,9 @@ class DiamondSearchUIController extends GetxController {
     selectTreatment.clear();
     selectedFluorescence.clear();
     selectedEyeClean.clear();
+    selectShortcut.clear();
+    selecteOtherShape.clear();
+    selectedFancyColors.clear();
     update();
   }
 
@@ -314,14 +332,25 @@ class DiamondSearchUIController extends GetxController {
 
   bool get isColored => selectedIndex.value == 1;
 
-  Future<void> searchDiamond() async{
-   await diamondSearchAPI.diamondSearching(
-      pageSize: '1',
-      pageNumber: '20',
-      shape: selectedShapes.isEmpty ? null : jsonEncode(selectedShapes),
+  Future<void> searchDiamond() async {
+    final shapeList = {
+      ...selectedShapeIds,
+      ...selecteOtherShape
+    }.toList();
+
+    final currentSelectedColors =
+    selectedIndex == 0 ? selectedColor : selectedFancyColors;
+    final selectedColorJson = currentSelectedColors.isEmpty
+        ? null
+        : jsonEncode(currentSelectedColors);
+
+    await diamondSearchAPI.diamondSearching(
+      pageSize: diamondSearchAPI.pageSize.toString(),
+      pageNumber: diamondSearchAPI.currentPage.toString(),
+      shape: shapeList.isEmpty ? null : jsonEncode(shapeList),
       carat: selectedCarat.isEmpty ? null : jsonEncode(selectedCarat),
       clarity: selectedClarity.isEmpty ? null : jsonEncode(selectedClarity),
-      color: selectedColor.isEmpty ? null : jsonEncode(selectedColor),
+      color: selectedColorJson,
       lab: selectedLAB.isEmpty ? null : jsonEncode(selectedLAB),
       polish: selectedPolish.isEmpty ? null : jsonEncode(selectedPolish),
       symmetry: selectedSymmetry.isEmpty ? null : jsonEncode(selectedSymmetry),
@@ -335,59 +364,59 @@ class DiamondSearchUIController extends GetxController {
       eyeClean: selectedEyeClean.isEmpty ? null : jsonEncode(selectedEyeClean),
       shortcut: selectShortcut.isEmpty ? null : jsonEncode(selectShortcut),
       length:
-      (lengthMinController.text.isEmpty && lengthMaxController.text.isEmpty)
+          (lengthMinController.text.isEmpty && lengthMaxController.text.isEmpty)
           ? null
           : jsonEncode({
-        'min': lengthMinController.text,
-        'max': lengthMaxController.text,
-      }),
+              'min': lengthMinController.text,
+              'max': lengthMaxController.text,
+            }),
       width: (widthMinController.text.isEmpty)
           ? null
           : jsonEncode({
-        'min': widthMinController.text,
-        'max': widthMaxController.text,
-      }),
+              'min': widthMinController.text,
+              'max': widthMaxController.text,
+            }),
       depth: (depthMinController.text.isEmpty)
           ? null
           : jsonEncode({
-        'min': depthMinController.text,
-        'max': depthMaxController.text,
-      }),
+              'min': depthMinController.text,
+              'max': depthMaxController.text,
+            }),
       table: (tableMinController.text.isEmpty)
           ? null
           : jsonEncode({
-        'min': tableMinController.text,
-        'max': tableMaxController.text,
-      }),
+              'min': tableMinController.text,
+              'max': tableMaxController.text,
+            }),
       crownHeight: (crownHeightMinController.text.isEmpty)
           ? null
           : jsonEncode({
-        'min': crownHeightMinController.text,
-        'max': crownHeightMaxController.text,
-      }),
+              'min': crownHeightMinController.text,
+              'max': crownHeightMaxController.text,
+            }),
       crownAngle: (crownAngleMinController.text.isEmpty)
           ? null
           : jsonEncode({
-        'min': crownAngleMinController.text,
-        'max': crownAngleMaxController.text,
-      }),
+              'min': crownAngleMinController.text,
+              'max': crownAngleMaxController.text,
+            }),
       pavilionDepth: (pavilionDepthMinController.text.isEmpty)
           ? null
           : jsonEncode({
-        'min': pavilionDepthMinController.text,
-        'max': pavilionDepthMaxController.text,
-      }),
+              'min': pavilionDepthMinController.text,
+              'max': pavilionDepthMaxController.text,
+            }),
       pavilionAngle: (pavilionAngleMinController.text.isEmpty)
           ? null
           : jsonEncode({
-        'min': pavilionAngleMinController.text,
-        'max': pavilionAngleMaxController.text,
-      }),
+              'min': pavilionAngleMinController.text,
+              'max': pavilionAngleMaxController.text,
+            }),
     );
-    print("Shape :- ${jsonEncode(selectedShapes)}");
+    print("Shape :- ${jsonEncode(shapeList)}");
     print("Carat :- ${jsonEncode(selectedCarat)}");
     print("Clarity :- ${jsonEncode(selectedClarity)}");
-    print("Color :- ${jsonEncode(selectedColor)}");
+    print("Color :- ${jsonEncode(selectedColorJson)}");
     print("LAB :- ${jsonEncode(selectedLAB)}");
     print("Polish :- ${jsonEncode(selectedPolish)}");
     print("Symmetry :- ${jsonEncode(selectedSymmetry)}");
@@ -397,22 +426,10 @@ class DiamondSearchUIController extends GetxController {
     print("Eye Clean :- ${jsonEncode(selectedEyeClean)}");
     print("Shortcut :- ${jsonEncode(selectShortcut)}");
     print(
-        "Length :- ${(
-            lengthMinController.text.isEmpty &&
-                lengthMaxController.text.isEmpty
-        )
-            ? null
-            : jsonEncode({
-          'min': lengthMinController.text,
-          'max': lengthMaxController.text,
-        })}"
+      "Length :- ${(lengthMinController.text.isEmpty && lengthMaxController.text.isEmpty) ? null : jsonEncode({'min': lengthMinController.text, 'max': lengthMaxController.text})}",
     );
     print(
-        "Width :- ${(widthMinController.text.isEmpty &&
-            widthMaxController.text.isEmpty) ? null : jsonEncode({
-      'min': widthMinController.text,
-      'max': widthMaxController.text,
-    })}"
+      "Width :- ${(widthMinController.text.isEmpty && widthMaxController.text.isEmpty) ? null : jsonEncode({'min': widthMinController.text, 'max': widthMaxController.text})}",
     );
   }
 }

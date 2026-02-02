@@ -7,7 +7,11 @@ import 'package:get/get.dart';
 class DiamondSearchController extends GetxController {
   final diamondSearch = DiamondSearchService();
   var isLoading = false.obs;
+  var isPaginationLoading = false.obs;
   var diamondSearchData = {}.obs;
+  var diamondList = <dynamic>[].obs;
+  int currentPage = 1;
+  final int pageSize = 25;
 
   Future<void> diamondSearching({
     required String pageSize,
@@ -35,12 +39,20 @@ class DiamondSearchController extends GetxController {
     String? crownAngle,
     String? pavilionDepth,
     String? pavilionAngle,
+    bool isPagination = false,
   }) async {
-    isLoading.value = true;
+    if (isPagination) {
+      isPaginationLoading.value = true;
+    } else {
+      isLoading.value = true;
+      currentPage = 1;
+      diamondList.clear();
+    }
+
     try {
       final response = await diamondSearch.diamondSearchService(
-        pageSize: '20',
-        pageNumber: '1',
+        pageSize: pageSize,
+        pageNumber: pageNumber,
         shape: shape,
         carat: carat,
         clarity: clarity,
@@ -56,36 +68,36 @@ class DiamondSearchController extends GetxController {
         sym: sym,
         location: location,
         stoneIdCertNo: stoneIdCertNo,
-        length: length,
-        width: width,
-        depth: depth,
-        table: table,
-        crownHeight: crownHeight,
-        crownAngle: crownAngle,
-        pavilionDepth: pavilionDepth,
-        pavilionAngle: pavilionAngle,
       );
+
       if (response.statusCode == 200) {
-        successMesssess(
-          response: response,
-          callAPI: 'diamondSearch',
-          data: diamondSearchData,
-          messages: true,
-          showSnackbarSuccess: true,
-        );
+        diamondSearchData.value = response.data;
+        final List newData = response.data['data'] ?? [];
+        if (isPagination) {
+          diamondList.addAll(newData);
+        } else {
+          diamondList.assignAll(newData);
+        }
+
+        if (!isPagination) {
+          successMesssess(
+            response: response,
+            callAPI: 'diamondSearch',
+            data: diamondSearchData,
+            messages: false,
+            showSnackbarSuccess: false,
+          );
+        }
       } else {
         if (kDebugMode) {
           print('Request failed with status: ${response.statusCode}');
         }
       }
     } on DioException catch (e) {
-      errorMesssess(
-        e: e,
-        callAPI: 'diamondSearch',
-        showSnackbarErorr: true,
-      );
+      errorMesssess(e: e, callAPI: 'diamondSearch', showSnackbarErorr: true);
     } finally {
       isLoading.value = false;
+      isPaginationLoading.value = false;
     }
   }
 }

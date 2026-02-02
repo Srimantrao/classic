@@ -1,39 +1,34 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, avoid_print
 
 import 'package:classic/controller/user_Interface/menu/dashboard/diamondDetail_Controller.dart';
 import 'package:classic/view/screen/menu/dashbord/dasboadWidget/body/diamondDetail.dart';
 import 'package:classic/view/screen/menu/dashbord/dasboadWidget/header/diamondDetail.dart';
 import 'package:classic/view/utils/app_Color.dart';
-import 'package:classic/view/utils/app_Image.dart';
 import 'package:classic/view/utils/app_String.dart';
-import 'package:classic/view/utils/app_video.dart';
 import 'package:classic/view/utils/widget/button.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
-import 'package:classic/view/utils/widget/video/video.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
+import '../../../../../controller/application_Programing_interface/apiController/menu/diamondSearch/diamondShow_Controller.dart';
+import '../../../../utils/app_json.dart';
 import '../../../../utils/widget/bottomNavigationButton.dart';
+import '../../../../utils/widget/image/productVideo.dart';
 
-class Diamonddetail extends StatelessWidget {
-  final diamonddetail = Get.put(DiamondDetailUIController());
-  final String shape;
-  final String careat;
-  final String lab;
-  final String colorcode;
-  final String clarity;
-  final String cartifactNo;
-  Diamonddetail({
-    super.key,
-    required this.shape,
-    required this.careat,
-    required this.lab,
-    required this.colorcode,
-    required this.clarity,
-    required this.cartifactNo,
-  });
+class DiamondDetail extends StatelessWidget {
+  final diamondShow = Get.put(DiamondShowController());
+  final diamondDetail = Get.put(DiamondDetailUIController());
+  final String id;
+  final String? image;
+  final String? video;
+  DiamondDetail({super.key, required this.id, required this.image, this.video});
   @override
   Widget build(BuildContext context) {
+    diamondShow.diamondShowData(id);
+    print("ID: $id");
+    print("Image URL: $image");
+    print("Video URL: $video");
     return Fullscreen(
       appBar: allOtherScreen(AppString.diamondDetail, cart: true),
       bottomNavigationBar: buttonNavigation(
@@ -44,16 +39,35 @@ class Diamonddetail extends StatelessWidget {
         ),
       ),
       child: Obx(() {
+        final api = diamondShow;
+        if (api.isLoading.value) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        final diamond = api.diamondSearchData;
+        if (diamond['data'] == null || (diamond['data'] as List).isEmpty) {
+          return Center(child: Lottie.asset(AppJson.noData));
+        }
+        final diamondData = diamond['data'][0];
+        if (diamondData == null) {
+          return Center(child: Lottie.asset(AppJson.noData));
+        }
         return Column(
           children: [
             //Hadder
             diamondDetailHadder(
-              shape: shape,
-              careat: careat,
-              lab: lab,
-              colorcode: colorcode,
-              clarity: clarity,
-              cartifactNo: cartifactNo,
+              shape: diamondData['shape']?.toString() ?? '',
+              careat: diamondData['carat']?.toString() ?? '',
+              lab: diamondData['lab']?.toString() ?? '',
+              colorcode: diamondData['countryCode']?.toString() ?? '',
+              clarity: diamondData['clarity']?.toString() ?? '',
+              cartifactNo:
+                  (diamondData['certno'] == null ||
+                      diamondData['certno'] == '-')
+                  ? ''
+                  : diamondData['certno'].toString(),
+              location: diamondData['country']?.toString() ?? '',
+              PPC: diamondData['polish']?.toString() ?? '',
+              total: diamondData['finalamount']?.toString() ?? '',
             ),
 
             Expanded(
@@ -61,63 +75,67 @@ class Diamonddetail extends StatelessWidget {
                 child: Column(
                   children: [
                     //Image & Video Button
-                    selectButton(diamonddetail),
+                    selectButton(diamondDetail),
 
                     //Image & Video
                     imageAndVideo(
-                      diamonddetail: diamonddetail,
-                      video: Video(videoUrl: AppVideo.addVideo),
-                      image: AppImage.pandant1,
+                      diamonddetail: diamondDetail,
+                      video: videoLink(video),
+                      image:
+                          (image == null || image == 'null' || image!.isEmpty)
+                          ? ''
+                          : image!,
                     ),
 
-                    SizedBox(height: Get.height * 0.03),
+                    angelPadding(),
                     Divider(color: AppColor.secondary, thickness: 3),
-                    SizedBox(height: Get.height * 0.03),
+                    angelPadding(),
 
                     //Select Detail Button
-                    selectedDetails(diamonddetail),
-                    SizedBox(height: Get.height * 0.03),
+                    selectedDetails(diamondDetail),
+                    angelPadding(),
 
                     //Show Detail
-                    (diamonddetail.isSelectDetails.value)
+                    (diamondDetail.isSelectDetails.value)
                         ? showDetail(
-                            carat: '0.30',
-                            cut: 'EX',
-                            shape: 'Round',
-                            lab: 'IGI',
-                            colorCode: 'D',
-                            clarity: 'IF',
-                            fluorescence: 'NONE',
-                            polish: 'EX',
-                            symmetry: 'EX',
-                            location: '',
+                            carat: diamondData['carat']?.toString() ?? '',
+                            cut: diamondData['cut']?.toString() ?? '',
+                            shape: diamondData['shape']?.toString() ?? '',
+                            lab: diamondData['lab']?.toString() ?? '',
+                            colorCode: diamondData['color']?.toString() ?? '',
+                            clarity: diamondData['clarity']?.toString() ?? '',
+                            fluorescence: diamondData['flo']?.toString() ?? '',
+                            polish: diamondData['polish']?.toString() ?? '',
+                            symmetry: diamondData['sym']?.toString() ?? '',
+                            location: diamondData['country']?.toString() ?? '',
                           )
                         : SizedBox(),
 
                     //Show Measurements
-                    (diamonddetail.isSelectMeasurements.value)
+                    (diamondDetail.isSelectMeasurements.value)
                         ? showMeasurements(
-                            measure: '4.33 X 4.35 X 2.63',
-                            table: '58 %',
+                            measure:
+                                diamondData['measurement']?.toString() ?? '',
+                            table: '${diamondData['tablepercent'] ?? ''} %',
                             crheight: '',
                             crandwidth: '',
-                            depth: '60.6 %',
+                            depth: '${diamondData['depth'] ?? ''} %',
                             pavAngle: '',
-                            girdle: 'Medium To Slightly Thick',
+                            girdle: diamondData['girdle']?.toString() ?? '',
                           )
                         : SizedBox(),
 
                     //Show Inclusion
-                    (diamonddetail.isSelectInclusion.value)
+                    (diamondDetail.isSelectInclusion.value)
                         ? showInclusion(
-                            brown: 'YES',
+                            brown: diamondData['brown']?.toString() ?? '',
                             openT: '',
-                            blaclkT: 'YES',
-                            tableInc: 'YES',
-                            DTLEligble: 'YES',
-                            culetSize: 'YES',
+                            blaclkT: diamondData['black']?.toString() ?? '',
+                            tableInc: '',
+                            DTLEligble: '',
+                            culetSize: '',
                             openc: '',
-                            blaclkS: 'YES',
+                            blaclkS: '',
                             openp: '',
                             openg: '',
                             laser: '',
@@ -128,7 +146,7 @@ class Diamonddetail extends StatelessWidget {
                           )
                         : SizedBox(),
 
-                    SizedBox(height: Get.height * 0.03),
+                    angelPadding(),
                   ],
                 ),
               ),
@@ -138,4 +156,8 @@ class Diamonddetail extends StatelessWidget {
       }),
     );
   }
+}
+
+Widget angelPadding() {
+  return Padding(padding: EdgeInsetsGeometry.only(top: Get.height * 0.03));
 }

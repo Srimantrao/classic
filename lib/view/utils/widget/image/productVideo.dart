@@ -23,7 +23,7 @@ class ProductVideo extends StatelessWidget {
             Padding(
               padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.02),
             ),
-            videoLink(videoUrl),
+            Expanded(child: videoLink(videoUrl)),
           ],
         ),
       ),
@@ -32,15 +32,13 @@ class ProductVideo extends StatelessWidget {
 }
 
 Widget videoLink(videoUrl) {
-  return Expanded(
-    child: videoUrl == null || videoUrl!.isEmpty
-        ? const Center(
-            child: Text('Video not available', style: TextStyle(fontSize: 16)),
-          )
-        : WebViewWidget(
-            controller: WebViewController()
-              ..setJavaScriptMode(JavaScriptMode.unrestricted)
-              ..loadRequest(Uri.parse(videoUrl!)),
-          ),
-  );
+  return videoUrl == null || videoUrl!.isEmpty
+      ? const Center(
+          child: Text('Video not available', style: TextStyle(fontSize: 16)),
+        )
+      : WebViewWidget(
+          controller: WebViewController()
+            ..setJavaScriptMode(JavaScriptMode.unrestricted)
+            ..loadRequest(Uri.parse(videoUrl!)),
+        );
 }

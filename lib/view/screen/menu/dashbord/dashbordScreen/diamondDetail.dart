@@ -12,6 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import '../../../../../controller/application_Programing_interface/apiController/menu/diamondSearch/diamondShow_Controller.dart';
+import '../../../../../controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createCart_Controller.dart';
+import '../../../../../controller/application_Programing_interface/callApi/callAPI.dart';
+import '../../../../utils/app_cricularProgrssIndicator.dart';
 import '../../../../utils/app_json.dart';
 import '../../../../utils/widget/bottomNavigationButton.dart';
 import '../../../../utils/widget/image/productVideo.dart';
@@ -20,6 +23,7 @@ import '../dashbordExtraWidget/diamondDetailExtraWidget.dart';
 class DiamondDetail extends StatelessWidget {
   final diamondShow = Get.put(DiamondShowController());
   final diamondDetail = Get.put(DiamondDetailUIController());
+  final cartAPICallAPI = Get.put(CartAPICall());
   final String id;
   final String? image;
   final String? video;
@@ -39,7 +43,14 @@ class DiamondDetail extends StatelessWidget {
         }
         return buttonNavigation(
           child: button(
+            loadingWait: (diamondDetail.adToCart.isLoading.value)
+                ? customCircular()
+                : null,
             AppString.addtoCart,
+            onTap: () {
+              diamondDetail.addToCart();
+              cartAPICallAPI.cartAPI.filterCart();
+            },
             isLowercase: true,
             bottomBottonFontSize: true,
           ),

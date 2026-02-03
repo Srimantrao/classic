@@ -1,9 +1,16 @@
 // ignore_for_file: must_be_immutable, file_names, use_key_in_widget_constructors
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
+import '../../../application_Programing_interface/apiController/menu/diamondSearch/diamondShow_Controller.dart';
+import '../../../application_Programing_interface/apiController/menu/jewellery/productDetail/createCart_Controller.dart';
+
 class DiamondDetailUIController extends GestureDetector {
+  final adToCart = Get.put(CreateCartController());
+  final diamondShow = Get.put(DiamondShowController());
+
   //select Image & Video
   var isSelectImage = true.obs;
   var isSelectVideo = false.obs;
@@ -41,5 +48,17 @@ class DiamondDetailUIController extends GestureDetector {
     isSelectDetails.value = false;
     isSelectMeasurements.value = false;
     isSelectInclusion.value = true;
+  }
+
+  void addToCart() {
+    adToCart.createCart(
+      DiamondId: diamondShow.diamondSearchData['data'][0]['_id'].toString(),
+      qty: '1',
+    );
+    if (kDebugMode) {
+      print(
+        'DiamondId :- ${diamondShow.diamondSearchData['data'][0]['_id'].toString()}',
+      );
+    }
   }
 }

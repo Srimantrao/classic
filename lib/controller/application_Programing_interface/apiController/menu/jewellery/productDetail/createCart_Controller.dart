@@ -12,11 +12,11 @@ class CreateCartController extends GetxController {
 
   Future<void> createCart({
     String? qty,
-    required String price,
+    String? price,
     String? ringSize,
     String? engravingText,
     String? sizeRemark,
-    required String productId,
+    String? productId,
     String? DiamondId,
   }) async {
     isLoading.value = true;
@@ -28,6 +28,7 @@ class CreateCartController extends GetxController {
         engravingText: engravingText,
         sizeRemark: sizeRemark,
         productId: productId,
+        DiamondId: DiamondId,
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
         successMesssess(

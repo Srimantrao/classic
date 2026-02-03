@@ -7,11 +7,11 @@ import 'package:dio/dio.dart';
 class CreateCartService {
   Future<Response<dynamic>> createCart({
     String? qty,
-    required String price,
+    String? price,
     String? ringSize,
     String? engravingText,
     String? sizeRemark,
-    required String productId,
+    String? productId,
     String? DiamondId,
   }) {
     final Future<Response<dynamic>> response = ApiService.post(
@@ -23,7 +23,7 @@ class CreateCartService {
         "engravingText": engravingText,
         "sizeRemark": sizeRemark,
         "productId": productId,
-        "DiamondId": DiamondId,
+        "diamondId": DiamondId,
       },
     );
     print(AppUrl.createCart);

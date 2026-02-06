@@ -1,9 +1,9 @@
 // ignore_for_file: must_be_immutable, file_names, use_key_in_widget_constructors
 
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-
 import '../../../application_Programing_interface/apiController/menu/diamondSearch/diamondShow_Controller.dart';
 import '../../../application_Programing_interface/apiController/menu/jewellery/productDetail/createCart_Controller.dart';
 
@@ -51,14 +51,13 @@ class DiamondDetailUIController extends GestureDetector {
   }
 
   void addToCart() {
+    final diamondId = diamondShow.diamondSearchData['data'][0]['_id'];
     adToCart.createCart(
-      DiamondId: diamondShow.diamondSearchData['data'][0]['_id'].toString(),
+      DiamondId: jsonEncode([diamondId]),
       qty: '1',
     );
     if (kDebugMode) {
-      print(
-        'DiamondId :- ${diamondShow.diamondSearchData['data'][0]['_id'].toString()}',
-      );
+      print('DiamondId :- ${jsonEncode([diamondId])}');
     }
   }
 }

@@ -16,15 +16,36 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 import '../../../../../../controller/user_Interface/menu/home/home_Controller.dart';
+import '../../../../../utils/app_Borderradius.dart';
 import '../../../jewelry/jewelryScreen/product.dart';
 
-Widget sliderImages(image) {
+// Widget sliderImages(image) {
+//   return AspectRatio(
+//     aspectRatio: 10 / 9,
+//     child: Container(
+//       width: double.infinity,
+//       decoration: BoxDecoration(
+//         image: DecorationImage(image: NetworkImage(image), fit: BoxFit.cover),
+//       ),
+//     ),
+//   );
+// }
+
+Widget sliderImages(String? image) {
   return AspectRatio(
-    aspectRatio: 10 / 9, // Adjust as you want (4/3, 2/1, etc.)
-    child: Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        image: DecorationImage(image: NetworkImage(image), fit: BoxFit.cover),
+    aspectRatio: 10 / 9,
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(borderradius.buttonboder),
+      child: Image.network(
+        image ?? '',
+        width: double.infinity,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return Image.asset(
+            AppImage.spalsh_background,
+            fit: BoxFit.cover,
+          );
+        },
       ),
     ),
   );

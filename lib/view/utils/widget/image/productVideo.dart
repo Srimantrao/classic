@@ -10,9 +10,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class ProductVideo extends StatelessWidget {
   final String? videoUrl;
-
   const ProductVideo({super.key, this.videoUrl});
-
   @override
   Widget build(BuildContext context) {
     return Fullscreen(

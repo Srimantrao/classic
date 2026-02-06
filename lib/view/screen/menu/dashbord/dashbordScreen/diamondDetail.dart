@@ -82,8 +82,7 @@ class DiamondDetail extends StatelessWidget {
               colorcode: diamondData['countryCode']?.toString() ?? '',
               clarity: diamondData['clarity']?.toString() ?? '',
               cartifactNo:
-                  (diamondData['certno'] == null ||
-                      diamondData['certno'] == '-')
+              (diamondData['certno'] == null || diamondData['certno'] == '-')
                   ? ''
                   : diamondData['certno'].toString(),
               location: diamondData['country']?.toString() ?? '',

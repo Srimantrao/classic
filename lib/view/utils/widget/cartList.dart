@@ -132,6 +132,7 @@ Widget listHeddind({
   required String clarity,
   required String cartifactNo,
   required String cartifactIcon,
+  void Function()? idOnTop,
 }) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -149,18 +150,25 @@ Widget listHeddind({
           listHeadingText(lab),
         ],
       ),
-      Row(
-        children: [
-          Image.asset(cartifactIcon, scale: 27, color: AppColor.primary),
-          listHeadingText(cartifactNo),
-        ],
+      GestureDetector(
+        onTap: idOnTop,
+        child: Row(
+          children: [
+            Image.asset(cartifactIcon, scale: 27, color: AppColor.primary),
+            listHeadingText(cartifactNo),
+          ],
+        ),
       ),
     ],
   );
 }
 
 Widget listImage(icon) {
-  return Image.asset(icon, scale: 4.5, color: AppColor.primary);
+  return SizedBox(
+    width: Get.width * 0.05,
+    height: Get.height * 0.025,
+    child: Image.asset(icon, scale: 4.5, color: AppColor.primary),
+  );
 }
 
 Widget fristrow({

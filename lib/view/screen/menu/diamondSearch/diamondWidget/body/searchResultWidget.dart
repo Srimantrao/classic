@@ -111,9 +111,12 @@ Widget listDiamond({
   bool isCart = false,
   bool camara = false,
   bool video = false,
+  bool link = false,
   void Function()? camaraOnTap,
   void Function()? videoOnTap,
   void Function()? cartOnTap,
+  void Function()? linkOnTap,
+  void Function()? idOnTop,
 }) {
   return horizontalPadding(
     child: GestureDetector(
@@ -142,6 +145,7 @@ Widget listDiamond({
                 clarity: clarity,
                 cartifactNo: cartifactNo,
                 cartifactIcon: cartifactIcon.toString(),
+                idOnTop: idOnTop
               ),
               Divider(color: AppColor.gray3),
               Row(
@@ -167,9 +171,11 @@ Widget listDiamond({
                 isCart: isCart,
                 camara: camara,
                 video: video,
+                link: link,
                 cartOnTap: cartOnTap,
                 camaraOnTap: camaraOnTap,
                 videoOnTap: videoOnTap,
+                linkOnTap: linkOnTap
               ),
             ],
           ),
@@ -184,9 +190,11 @@ Widget buttonOnList({
   bool isCart = false,
   bool camara = false,
   bool video = false,
+  bool link = false,
   void Function()? camaraOnTap,
   void Function()? videoOnTap,
   void Function()? cartOnTap,
+  void Function()? linkOnTap,
 }) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -205,6 +213,8 @@ Widget buttonOnList({
         ),
       if (video)
         GestureDetector(onTap: videoOnTap, child: listImage(AppIcon.video)),
+      if(link)
+        GestureDetector(onTap: linkOnTap,child: listImage(AppIcon.diamondId),)
     ],
   );
 }

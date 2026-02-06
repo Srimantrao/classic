@@ -212,9 +212,16 @@ Widget overCollectionItems(item,{required void Function() onTap}){
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Image.network(
-              item['image'],
+              item['image'] ?? '',
               width: Get.width * 0.25,
               fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Image.asset(
+                  AppImage.logo,
+                  width: Get.width * 0.25,
+                  fit: BoxFit.cover,
+                );
+              },
             ),
           ),
           SizedBox(height: Get.width * 0.01),

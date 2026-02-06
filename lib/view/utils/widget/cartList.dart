@@ -55,6 +55,7 @@ Widget valueList({
                       colorcode: valueList[index]['colorcode'],
                       clarity: valueList[index]['clarity'],
                       cartifactNo: valueList[index]['cartifactNo'],
+                      cartifactIcon: '',
                     ),
                     Divider(color: AppColor.gray3),
                     Row(
@@ -89,16 +90,15 @@ Widget valueList({
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        ?
-                        (isWishlist == true)
-                            ? GestureDetector(child: listImage(AppIcon.wishlist))
+                        ?(isWishlist == true)
+                            ? GestureDetector(
+                                child: listImage(AppIcon.wishlist),
+                              )
                             : null,
-                        ?
-                        (isCart == true)
+                        ?(isCart == true)
                             ? GestureDetector(child: listImage(AppIcon.newcart))
                             : null,
-                        ?
-                        (camara == true)
+                        ?(camara == true)
                             ? GestureDetector(
                                 child: Image.asset(
                                   AppIcon.camera,
@@ -107,8 +107,7 @@ Widget valueList({
                                 ),
                               )
                             : null,
-                        ?
-                        (video == true)
+                        ?(video == true)
                             ? GestureDetector(child: listImage(AppIcon.video))
                             : null,
                       ],
@@ -132,7 +131,7 @@ Widget listHeddind({
   required String colorcode,
   required String clarity,
   required String cartifactNo,
-  String? cartifactIcon,
+  required String cartifactIcon,
 }) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -150,10 +149,12 @@ Widget listHeddind({
           listHeadingText(lab),
         ],
       ),
-      Row(children: [
-        Image.asset(cartifactIcon!,scale: 27,color: AppColor.primary),
-        listHeadingText(cartifactNo),
-      ]),
+      Row(
+        children: [
+          Image.asset(cartifactIcon, scale: 27, color: AppColor.primary),
+          listHeadingText(cartifactNo),
+        ],
+      ),
     ],
   );
 }

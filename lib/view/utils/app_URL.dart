@@ -3,8 +3,14 @@
 class AppUrl {
 
   //base url
-  static const String baseUrl = "https://node.weingenious.in/classic/api/v1/";
+
+  //Staging
+  // static const String baseUrl = "https://node.weingenious.in/classic/api/v1/";
   static const String imagebaseUrl = "https://node.weingenious.in/classic/uploads/photos/";
+
+  //Local
+  static const String baseUrl = "http://192.168.1.222:4000/api/v1/";
+
   static const String application = "${baseUrl}App/auth/";
 
   //Other
@@ -47,5 +53,4 @@ class AppUrl {
     //diamond Sarch
       static const String filterDiamond = "${baseUrl}App/diamond/filterDiamond";
       static const String diamondDetails = "${baseUrl}App/diamond/diamondDetails";
-
 }

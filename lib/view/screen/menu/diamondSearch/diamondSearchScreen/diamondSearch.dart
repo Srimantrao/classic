@@ -1,4 +1,6 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers
+// ignore_for_file: file_names, avoid_unnecessary_containers, unused_import
+
+import 'dart:convert';
 
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productList/filter/getAllParameter_Controller.dart';
 import 'package:classic/controller/user_Interface/menu/diamondSearch/diamondSearch_Controller.dart';
@@ -10,11 +12,13 @@ import 'package:classic/view/screen/menu/diamondSearch/diamondWidget/header/appb
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_icon.dart';
+import 'package:classic/view/utils/app_json.dart';
 import 'package:classic/view/utils/widget/button.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import '../../../../utils/app_cricularProgrssIndicator.dart';
 import '../diamondWidget/body/diamondSearchWidget.dart';
 
@@ -23,9 +27,7 @@ class Diamondsearch extends StatelessWidget {
   final getAllPeraMeter = Get.put(GetallparameterController());
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final diamondList = DiamondList();
-
   Diamondsearch({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
@@ -41,6 +43,9 @@ class Diamondsearch extends StatelessWidget {
               Obx(() {
                 final api = diamondSearch.diamondSearchAPI;
                 final loading = api.isLoading.value;
+                if(getAllPeraMeter.getAllParameterData.isEmpty){
+                  return SizedBox();
+                }
                 return button(
                   AppString.searchdiamond,
                   onTap: () {
@@ -68,6 +73,9 @@ class Diamondsearch extends StatelessWidget {
         prefixOnTap: diamondSearch.clearSelections,
       ),
       child: Obx(() {
+        if(getAllPeraMeter.getAllParameterData.isEmpty){
+          return Center(child: Lottie.asset(AppJson.noData));
+        }
         return SingleChildScrollView(
           child: Column(
             children: [

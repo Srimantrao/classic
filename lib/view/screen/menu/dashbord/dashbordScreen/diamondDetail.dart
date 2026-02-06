@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import '../../../../../controller/application_Programing_interface/apiController/menu/diamondSearch/diamondShow_Controller.dart';
-import '../../../../../controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createCart_Controller.dart';
 import '../../../../../controller/application_Programing_interface/callApi/callAPI.dart';
 import '../../../../utils/app_cricularProgrssIndicator.dart';
 import '../../../../utils/app_json.dart';
@@ -39,6 +38,10 @@ class DiamondDetail extends StatelessWidget {
       bottomNavigationBar: Obx(() {
         final api = diamondShow;
         if (api.isLoading.value) {
+          return SizedBox();
+        }
+        final diamond = api.diamondSearchData;
+        if (diamond['data'] == null || (diamond['data'] as List).isEmpty) {
           return SizedBox();
         }
         return buttonNavigation(

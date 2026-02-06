@@ -1,5 +1,5 @@
 //Silder Section Start
-// ignore_for_file: file_names, avoid_unnecessary_containers, strict_top_level_inference, avoid_print
+// ignore_for_file: file_names, avoid_unnecessary_containers, strict_top_level_inference, avoid_print, deprecated_member_use
 
 import 'package:classic/view/screen/menu/home/homeExtraWidget/homeconnectingWideget.dart';
 import 'package:classic/view/utils/app_Color.dart';

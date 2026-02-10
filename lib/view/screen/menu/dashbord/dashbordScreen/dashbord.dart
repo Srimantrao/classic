@@ -30,9 +30,12 @@ import '../../diamondSearch/diamondWidget/body/searchResultWidget.dart';
 class Dashbord extends StatelessWidget {
   final dashbord_UI = Get.put(DashboardUIController());
   final dashbord_API = Get.put(DashBordAPICall());
+  final cartAPICallAPI = Get.put(CartAPICall());
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final value = Listviwe();
+
   Dashbord({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
@@ -48,11 +51,9 @@ class Dashbord extends StatelessWidget {
       child: Obx(() {
         final totalRecored = dashbord_API.totalRecored;
         final totalRecordData = totalRecored.totalRecordData['data'];
-
         if (totalRecordData == null) {
           return Center(child: Lottie.asset(AppJson.noData));
         }
-
         final diamondCounts = totalRecordData['diamondCount'];
         final diamondOrderCounts = totalRecordData['diamondOrderCount'];
         final diamondHoldCounts = totalRecordData['diamondHoldCount'];
@@ -116,31 +117,7 @@ class Dashbord extends StatelessWidget {
               if (dashbord_UI.selectedTab.value == 0)
                 recentviwe(dashbord_API)
               else if (dashbord_UI.selectedTab.value == 1)
-                Expanded(
-                  child: ListView.builder(
-                    itemBuilder: (BuildContext context, int index) {
-                      return listDiamond(
-                        ids: '',
-                        images: '',
-                        videos: 'xb',
-                        shape: 'xfg',
-                        careat: 'xg',
-                        lab: '',
-                        colorcode: '',
-                        clarity: '',
-                        cartifactNo: '',
-                        cps: '',
-                        meas: '',
-                        refNo: '',
-                        T: '',
-                        D: '',
-                        loc: '',
-                        ct: '',
-                        total: '',
-                      );
-                    },
-                  ),
-                ),
+                myCartDiamond(cartAPICallAPI),
             ]
             // Jewelry Section
             else if (dashbord_UI.selectedIndex.value == 1) ...[
@@ -169,13 +146,17 @@ class Dashbord extends StatelessWidget {
               if (dashbord_UI.selectedTab.value == 0)
                 dashbordValueList(
                   list: jewelryListViwe(
-                    jewelryList: value.jewellweryListProduct,
+                    jewelryList: dashbord_API
+                        .recentView
+                        .recentViewData['data'][0]['productDetail'],
                   ),
                 )
               else if (dashbord_UI.selectedTab.value == 1)
                 dashbordValueList(
-                  list: jewelryListViwe(
-                    jewelryList: value.jewellweryListMyCartProduct,
+                  list: cartJewelryList(
+                    jewelryList: cartAPICallAPI
+                          .cartAPI
+                          .cartData['data'][0]['productLookup'],
                   ),
                 ),
             ],
@@ -184,107 +165,4 @@ class Dashbord extends StatelessWidget {
       }),
     );
   }
-}
-
-Widget recentviwe(dashbord_API) {
-  return Expanded(
-    child: Builder(
-      builder: (_) {
-        final recentView = dashbord_API.recentView.recentViewData;
-        if (recentView == null) {
-          return const SizedBox();
-        }
-        final dataList = recentView['data'] as List?;
-        if (dataList == null || dataList.isEmpty) {
-          return const SizedBox();
-        }
-        final diamondList = dataList.first?['diamondList'] as List?;
-        if (diamondList == null || diamondList.isEmpty) {
-          return const SizedBox();
-        }
-        final adToCart = Get.put(CreateCartController());
-        return ListView.builder(
-          padding: EdgeInsets.only(bottom: Get.width * 0.20),
-          itemCount: diamondList.length,
-          itemBuilder: (_, index) {
-            final diamond = diamondList[index] as Map?;
-            final details = diamond?['diamondDetails'] as Map? ?? {};
-            return listDiamond(
-              idOnTop: (){
-                final String? link = details['certurl']?.toString();
-                if (link == null || link.isEmpty) {
-                  if (kDebugMode) {
-                    print("No Link");
-                  }
-                  return;
-                } else {
-                  productLink(link);
-                }
-              },
-              cartifactIcon:
-                  (diamond?['certno'] == null || diamond?['certno'] == '-')
-                  ? AppIcon.documant
-                  : AppIcon.edit,
-              isWishlist: true,
-              camara: true,
-              isCart: true,
-              link: true,
-              ids: diamond?['diamondId']?.toString() ?? '',
-              images: details['imageurl1']?.toString() ?? '',
-              videos: details['videourl']?.toString() ?? '',
-              shape: details['shape']?.toString() ?? '',
-              careat: details['carat']?.toString() ?? '',
-              lab: details['lab']?.toString() ?? '',
-              colorcode: details['color']?.toString() ?? '',
-              clarity: details['clarity']?.toString() ?? '',
-              cartifactNo:
-                  (details['certno'] == null || details['certno'] == '-')
-                  ? ''
-                  : details['certno'].toString(),
-              cps: details['polish']?.toString() ?? '',
-              meas: details['measurement']?.toString() ?? '',
-              refNo: details['stockId']?.toString() ?? '',
-              T: details['tablepercent']?.toString() ?? '',
-              D: details['depth']?.toString() ?? '',
-              loc: details['county']?.toString() ?? '',
-              ct: details['carat']?.toString() ?? '',
-              total: details['finalamount'] != null
-                  ? (details['finalamount'] as num).toDouble().toStringAsFixed(
-                      2,
-                    )
-                  : '0.00',
-              cartOnTap: () {
-                adToCart.createCart(
-                  price: details['finalamount']?.toString() ?? '',
-                  productId: details['_id']?.toString() ?? '',
-                  DiamondId: details['dimCountryId']?.toString() ?? '',
-                );
-              },
-              camaraOnTap: () {
-                final String? image = details['imageurl1']?.toString();
-                if (image == null || image.isEmpty) {
-                  if (kDebugMode) {
-                    print("No Image");
-                  }
-                  return;
-                }
-                Get.to(() => ProductImage(images: image));
-              },
-              linkOnTap: () {
-                final String? link = details['certurl']?.toString();
-                if (link == null || link.isEmpty) {
-                  if (kDebugMode) {
-                    print("No Link");
-                  }
-                  return;
-                } else {
-                  productLink(link);
-                }
-              },
-            );
-          },
-        );
-      },
-    ),
-  );
 }

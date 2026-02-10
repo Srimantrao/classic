@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, strict_top_level_inference
 
 import 'package:classic/view/screen/menu/dashbord/dashbordExtraWidget/dashbordExtraWidget.dart';
+import 'package:classic/view/screen/menu/jewelry/jewelryScreen/productDetail.dart';
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_Image.dart';
@@ -9,6 +10,9 @@ import 'package:classic/view/utils/app_TextSize.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
+
+import '../../../../../utils/app_json.dart';
 
 Widget diamondSection({
   bool? isDiamond,
@@ -46,7 +50,7 @@ Widget diamondSection({
                       informationContainerHoldValue == '')
                   ? SizedBox()
                   : informationOfProduct(
-                isDiamond: isDiamond ?? false,
+                      isDiamond: isDiamond ?? false,
                       informationContainerHoldText,
                       informationContainerHoldValue,
                     ),
@@ -85,65 +89,128 @@ Widget jewelryListViwe({required List jewelryList}) {
     child: ListView.builder(
       itemCount: jewelryList.length,
       itemBuilder: (BuildContext context, int index) {
-        return horizontalPadding(
-          child: Container(
-            margin: EdgeInsets.symmetric(vertical: Get.height * 0.009),
-            decoration: BoxDecoration(
-              border: Border.all(color: AppColor.gray5),
-              borderRadius: BorderRadius.circular(borderradius.buttonboder),
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(Get.width * 0.03),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(AppImage.pandant1, scale: 25),
-                  SizedBox(width: Get.width * 0.03),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          jewelryList[index]['product'],
-                          style: TextStyle(
-                            fontSize: Textsize.small,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                        Text(
-                          jewelryList[index]['price'],
-                          style: TextStyle(
-                            fontSize: Get.width * 0.05,
-                            color: AppColor.primary,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        valueShow('SKU: ', jewelryList[index]['SKU']),
-                        valueShow('Metal: ', jewelryList[index]['Metal']),
-                        valueShow(
-                          'Weight(Apx): ',
-                          jewelryList[index]['Weight(Apx)'],
-                        ),
-                        valueShow(
-                          'Engriving: ',
-                          jewelryList[index]['Engriving'],
-                        ),
-                        valueShow('Shape: ', jewelryList[index]['Shape']),
-                        valueShow('Color: ', jewelryList[index]['Color']),
-                        valueShow('Clarity: ', jewelryList[index]['Clarity']),
-                        valueShow(
-                          'Total Weight: ',
-                          jewelryList[index]['TotalWeight'],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+        final item = jewelryList[index]['productDetails'] ?? {};
+        final imageList = item['images'] ?? [];
+        final imageUrl = imageList.isNotEmpty ? imageList[0]['zoom'] : '';
+        if(item == null){
+          return Center(child: Lottie.asset(AppJson.noData));
+        }
+        return jeawellweryList(
+          imageUrl: imageUrl,
+          productTitle: item['productTitle'] ?? '',
+          finalPrice:
+              '\$${(double.tryParse(item['finalPrice']?.toString() ?? '0') ?? 0).toStringAsFixed(2)}',
+          itemCode: item['itemCode'] ?? '',
+          metalType: item['metalType'] ?? '',
+          appxMetalWgt: item['appxMetalWgt'].toString(),
+          totalWgt: item['totalWgt'].toString(),
+          categoryId: item['categoryId'] ?? '',
+          slug: item['slug'] ?? '',
         );
       },
+    ),
+  );
+}
+
+Widget cartJewelryList({required List jewelryList}) {
+  return Expanded(
+    child: ListView.builder(
+      itemCount: jewelryList.length,
+      itemBuilder: (BuildContext context, int index) {
+        final item = jewelryList[index]['productDetails'];
+        final imageList = item['images'] ?? [];
+        final imageUrl = imageList.isNotEmpty ? imageList[0]['zoom'] : '';
+        if(item == null){
+          return Center(child: Lottie.asset(AppJson.noData));
+        }
+        return jeawellweryList(
+          imageUrl: imageUrl,
+          productTitle: item['productTitle'] ?? '',
+          finalPrice:
+              '\$${(double.tryParse(item['finalPrice']?.toString() ?? '0') ?? 0).toStringAsFixed(2)}',
+          itemCode: item['itemCode'] ?? '',
+          metalType: item['metalType'] ?? '',
+          appxMetalWgt: item['appxMetalWgt'].toString(),
+          totalWgt: item['totalWgt'].toString(),
+          categoryId: item['categoryId'] ?? '',
+          slug: item['slug'] ?? '',
+        );
+      },
+    ),
+  );
+}
+
+Widget jeawellweryList({
+  required String imageUrl,
+  required String productTitle,
+  required String finalPrice,
+  required String itemCode,
+  required String metalType,
+  required String appxMetalWgt,
+  required String totalWgt,
+  required String categoryId,
+  required String slug,
+}) {
+  return horizontalPadding(
+    child: GestureDetector(
+      onTap: () {
+        Get.to(() => ProductDetail(slug: slug, categoryId: categoryId));
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: Get.height * 0.009),
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColor.gray),
+          borderRadius: BorderRadius.circular(borderradius.buttonboder),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(Get.width * 0.03),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              imageUrl.isNotEmpty
+                  ? Image.network(
+                      imageUrl,
+                      width: 70,
+                      height: 70,
+                      fit: BoxFit.cover,
+                    )
+                  : Image.asset(AppImage.pandant1, scale: 25),
+
+              SizedBox(width: Get.width * 0.03),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      productTitle,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: Textsize.small,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                    Text(
+                      finalPrice,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: Get.width * 0.04,
+                        color: AppColor.primary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    valueShow('SKU: ', itemCode),
+                    valueShow('Metal: ', metalType),
+                    valueShow('Weight(Apx): ', appxMetalWgt),
+                    valueShow('Total Weight: ', totalWgt),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     ),
   );
 }

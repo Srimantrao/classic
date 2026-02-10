@@ -18,9 +18,7 @@ class AddCustomJewellery extends StatelessWidget {
   final addCustom = Get.put(AddcustomjewelleryUIController());
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final diamondList = DiamondList();
-
   AddCustomJewellery({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Fullscreen(

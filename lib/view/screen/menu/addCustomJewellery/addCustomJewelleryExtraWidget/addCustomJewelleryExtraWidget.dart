@@ -422,7 +422,11 @@ void openBottomSheet() {
                         await stoneUpdate.selectAllData();
                         Get.back();
                       },
-                      child: button('Add', isLowercase: true),
+                      child: button(
+                        '+Add',
+                        isLowercase: true,
+                        bottomBottonFontSize: true,
+                      ),
                     ),
                   ],
                 ),

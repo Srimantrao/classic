@@ -15,6 +15,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 
+import '../../../../../../controller/application_Programing_interface/apiController/menu/jewellery/productList/filter/getAllParameter_Controller.dart';
+
 Widget productType({
   required List<DropdownMenuItem<String>> list,
   required String value,
@@ -176,7 +178,7 @@ Widget metalDetails({
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.start,
     children: [
-      addCustomJewelleryHeddingText(AppString.productType),
+      addCustomJewelleryHeddingText(AppString.metalDetails),
       SizedBox(height: Get.height * 0.02),
 
       //Metal Type
@@ -243,11 +245,11 @@ Widget diamondAndGemstoneDetails({
   required String colorText,
   required bool isCenterColorvalue,
   required void Function(bool?) isSideColorChanged,
-  required AddcustomjewelleryUIController diamondSearch,
+  required GetallparameterController diamondSearch,
   required String shapetext,
-  required AddcustomjewelleryUIController colorSearch,
+  required GetallparameterController colorSearch,
   required String colortext,
-  required AddcustomjewelleryUIController claritySearch,
+  required GetallparameterController claritySearch,
   required String claritytext,
   required AddcustomjewelleryUIController stoneUpdate,
 }) {
@@ -332,15 +334,24 @@ Widget contactInformation({
   );
 }
 
-Widget submitButton(text, {void Function()? onTab}) {
+Widget submitButton(
+    text,
+    {
+      void Function()? onTab,
+      Widget? loadingWait,
+    }) {
   return Column(
     children: [
       SizedBox(height: Get.height * 0.05),
       GestureDetector(
         onTap: onTab,
-        child: button(text, bottomBottonFontSize: true),
+        child: button(
+          text,
+          bottomBottonFontSize: true,
+          loadingWait: loadingWait,
+        ),
       ),
-      SizedBox(height: Get.height * 0.09),
+      Padding(padding: EdgeInsets.only(bottom: Get.height * 0.09)),
     ],
   );
 }

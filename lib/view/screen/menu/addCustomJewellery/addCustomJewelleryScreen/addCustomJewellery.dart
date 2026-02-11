@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, avoid_print
 
 import 'package:classic/controller/user_Interface/menu/addCustomJewellery/addCustomJewellery_Controller.dart';
 import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';
@@ -13,9 +13,16 @@ import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../../controller/application_Programing_interface/apiController/menu/addCustomJewellery/addCustomJewellery_Controller.dart';
+import '../../../../../controller/application_Programing_interface/apiController/menu/jewellery/productList/filter/getAllParameter_Controller.dart';
+import '../../../../../controller/application_Programing_interface/callApi/callAPI.dart';
+import '../../../../utils/app_cricularProgrssIndicator.dart';
 
 class AddCustomJewellery extends StatelessWidget {
   final addCustom = Get.put(AddcustomjewelleryUIController());
+  final addCustomJewellery = Get.put(AddCustomJewelleryController());
+  final getAllPeraMeter = Get.put(GetallparameterController());
+  final jewellry = Get.put(JewelleryAPICall());
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final diamondList = DiamondList();
   AddCustomJewellery({super.key});
@@ -77,7 +84,9 @@ class AddCustomJewellery extends StatelessWidget {
                                 addCustom.yourCommentsController,
                             addCustomJewellery: addCustom,
                           ),
-                          SizedBox(height: Get.height * 0.02),
+                          Padding(
+                            padding: EdgeInsets.only(bottom: Get.height * 0.02),
+                          ),
                         ],
                       )
                     : SizedBox(),
@@ -94,7 +103,9 @@ class AddCustomJewellery extends StatelessWidget {
                                 addCustom.yourCommentsController,
                             addCustomJewellery: addCustom,
                           ),
-                          SizedBox(height: Get.height * 0.02),
+                          Padding(
+                            padding: EdgeInsets.only(bottom: Get.height * 0.02),
+                          ),
                         ],
                       )
                     : SizedBox(),
@@ -110,7 +121,9 @@ class AddCustomJewellery extends StatelessWidget {
                             yourCommentsController:
                                 addCustom.yourCommentsController,
                           ),
-                          SizedBox(height: Get.height * 0.02),
+                          Padding(
+                            padding: EdgeInsets.only(bottom: Get.height * 0.02),
+                          ),
                         ],
                       )
                     : SizedBox(),
@@ -127,8 +140,7 @@ class AddCustomJewellery extends StatelessWidget {
                   ringSizeOnChanged: addCustom.selectRingSizeValueChange,
                   ringSizeList: addCustom.getSelectRingSizeItems(),
                   ringSizeValue: addCustom.ringSize.value,
-                  appxMetalWeightController:
-                      addCustom.appxMetalWeightController,
+                  appxMetalWeightController: addCustom.appxMetalWeightController,
                   budgetController: addCustom.budgetController,
                   engravingController: addCustom.engravingController,
                 ),
@@ -151,16 +163,17 @@ class AddCustomJewellery extends StatelessWidget {
                   isSideColorChanged: (value) {
                     addCustom.toggleIsColor(value);
                   },
-                  diamondSearch: addCustom,
+                  diamondSearch: getAllPeraMeter,
                   shapetext: AppString.shape,
-                  colorSearch: addCustom,
+                  colorSearch: getAllPeraMeter,
                   colortext: AppString.color,
-                  claritySearch: addCustom,
+                  claritySearch: getAllPeraMeter,
                   claritytext: AppString.clarity,
                   stoneUpdate: addCustom,
                 ),
-
                 //Diamond And Gemstone Detail End
+
+                //Contact Information Start
                 contactInformation(
                   fristNameText: AppString.fristname,
                   fristNameController: addCustom.fristNameController,
@@ -178,8 +191,51 @@ class AddCustomJewellery extends StatelessWidget {
                   referredNumbarhintText: AppString.refereddby_hint,
                   referredController: addCustom.referredController,
                 ),
+                //Contact Information End
 
-                submitButton(AppString.submit),
+                submitButton(
+                  loadingWait: addCustomJewellery.isLoading.value
+                      ? customCircular()
+                      : null,
+                  onTab: () {
+                    addCustomJewellery.addCustomJewelleryInformation(
+                      Category: 'dfg',
+                      MediaType: 'df',
+                      metalType: '14',
+                      metalStamp: 'dfg',
+                      AppxMetalWgt: '45',
+                      Budget: '545',
+                      FirstName: 'xfg',
+                      LastName: 'xf',
+                      Email: 'x',
+                      Phone: 'xxc',
+                      diamond: 'hujk,',
+                      Engraving: 'fcgj',
+                      EngravingText: 'cfj',
+                      filesORMediaUrl: 'fgj',
+                      ReferredBy: 'cfg',
+                      Size: 'ffgj',
+                    );
+
+                    print('Category:dfg');
+                    print('MediaType:df');
+                    print('metalType:14');
+                    print('metalStamp:dfg');
+                    print('AppxMetalWgt:45');
+                    print('Budget:545');
+                    print('FirstName:xfg');
+                    print('LastName:xf');
+                    print('Email:x');
+                    print('Phone:xxc');
+                    print('diamond:hujk,');
+                    print('Engraving:fcgj');
+                    print('EngravingText:cfj');
+                    print('filesORMediaUrl:fgj');
+                    print('ReferredBy:cfg');
+                    print('Size:ffgj');
+                  },
+                  AppString.submit,
+                ),
               ],
             );
           }),

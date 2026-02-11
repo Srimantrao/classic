@@ -2,8 +2,66 @@
 
 import 'package:classic/view/utils/widget/pop.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
+
+void successMesssess({
+  required Response response,
+  dynamic data,
+  String? callAPI,
+  bool messages = false,
+  bool showSnackbar = false,
+  bool showSnackbarMessages = false,
+  bool showSnackbarSuccess = false,
+}) {
+  // Check if data is RxMap
+  if (data is RxMap) {
+    data.value = response.data;
+  }
+  // Or if data is Rx variable
+  else if (data is Rx) {
+    data.value = response.data;
+  }
+
+  print("✅$callAPI Status: ${response.statusCode}");
+  if (messages) {
+    print("⚠️$callAPI Status :- ${response.data["message"]}");
+  }
+
+  if (showSnackbarMessages) {
+    ToastificationSuccess.Success(
+      "$callAPI Message :- ${response.data?['message'] ?? 'Success'}",
+    );
+  }
+
+  if (showSnackbarSuccess) {
+    ToastificationSuccess.Success(response.data?["message"]?.toString() ?? 'Success');
+  }
+  // log(" ✅$callAPI Data: ${response.data}");
+  return;
+}
+
+void errorMesssess({
+  required DioException e,
+  required String callAPI,
+  bool showSnackbar = false,
+  bool showSnackbarMessages = false,
+  bool showSnackbarErorr = false,
+}) {
+  print("❌ $callAPI Status: ${e.response?.statusCode}");
+  print("❌ $callAPI Status Data: ${e.response?.data}");
+  
+  if (showSnackbarMessages) {
+    ToastificationError.Error(
+      "$callAPI Message :-  ${e.response?.data?["message"] ?? 'Something went wrong'}",
+    );
+  }
+  
+  if (showSnackbarErorr) {
+    ToastificationError.Error("Error, ${e.response?.data?["message"] ?? 'Something went wrong'}");
+  }
+  return;
+}
+
 
 // void successMesssess({
 //   required Response response,
@@ -31,56 +89,56 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 //   return;
 // }
 
-void successMesssess({
-  required Response response,
-  dynamic data, // Change from RxMap to dynamic
-  String? callAPI,
-  bool messages = false,
-  bool showSnackbar = false,
-  bool showSnackbarMessages = false,
-  bool showSnackbarSuccess = false,
-}) {
-  // Check if data is RxMap
-  if (data is RxMap) {
-    data.value = response.data;
-  }
-  // Or if data is Rx variable
-  else if (data is Rx) {
-    data.value = response.data;
-  }
-
-  print("✅$callAPI Status: ${response.statusCode}");
-  (messages)
-      ? print("⚠️$callAPI Status :- ${response.data["message"]}")
-      : SizedBox();
-  (showSnackbarMessages)
-      ? ToastificationSuccess.Success(
-    "$callAPI Message :- ${response.data?['message'] ?? 'Success'}",
-  )
-      : SizedBox();
-  (showSnackbarSuccess)
-      ? ToastificationSuccess.Success(response.data["message"])
-      : SizedBox();
-  // log(" ✅$callAPI Data: ${response.data}");
-  return;
-}
-
-void errorMesssess({
-  required DioException e,
-  required String callAPI,
-  bool showSnackbar = false,
-  bool showSnackbarMessages = false,
-  bool showSnackbarErorr = false,
-}) {
-  print("❌ $callAPI Status: ${e.response!.statusCode}");
-  print("❌ $callAPI Status Data: ${e.response!.data}");
-  (showSnackbarMessages)
-      ? ToastificationError.Error(
-          "$callAPI Message :-  ${e.response?.data["message"]}",
-        )
-      : SizedBox();
-  (showSnackbarErorr)
-      ? ToastificationError.Error("Error, ${e.response?.data["message"]}")
-      : SizedBox();
-  return;
-}
+// void successMesssess({
+//   required Response response,
+//   dynamic data, // Change from RxMap to dynamic
+//   String? callAPI,
+//   bool messages = false,
+//   bool showSnackbar = false,
+//   bool showSnackbarMessages = false,
+//   bool showSnackbarSuccess = false,
+// }) {
+//   // Check if data is RxMap
+//   if (data is RxMap) {
+//     data.value = response.data;
+//   }
+//   // Or if data is Rx variable
+//   else if (data is Rx) {
+//     data.value = response.data;
+//   }
+//
+//   print("✅$callAPI Status: ${response.statusCode}");
+//   (messages)
+//       ? print("⚠️$callAPI Status :- ${response.data["message"]}")
+//       : SizedBox();
+//   (showSnackbarMessages)
+//       ? ToastificationSuccess.Success(
+//     "$callAPI Message :- ${response.data?['message'] ?? 'Success'}",
+//   )
+//       : SizedBox();
+//   (showSnackbarSuccess)
+//       ? ToastificationSuccess.Success(response.data["message"])
+//       : SizedBox();
+//   // log(" ✅$callAPI Data: ${response.data}");
+//   return;
+// }
+//
+// void errorMesssess({
+//   required DioException e,
+//   required String callAPI,
+//   bool showSnackbar = false,
+//   bool showSnackbarMessages = false,
+//   bool showSnackbarErorr = false,
+// }) {
+//   print("❌ $callAPI Status: ${e.response!.statusCode}");
+//   print("❌ $callAPI Status Data: ${e.response!.data}");
+//   (showSnackbarMessages)
+//       ? ToastificationError.Error(
+//     "$callAPI Message :-  ${e.response?.data["message"]}",
+//   )
+//       : SizedBox();
+//   (showSnackbarErorr)
+//       ? ToastificationError.Error("Error, ${e.response?.data["message"]}")
+//       : SizedBox();
+//   return;
+// }

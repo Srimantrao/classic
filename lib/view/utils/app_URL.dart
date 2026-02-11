@@ -53,4 +53,9 @@ class AppUrl {
     //diamond Sarch
       static const String filterDiamond = "${baseUrl}App/diamond/filterDiamond";
       static const String diamondDetails = "${baseUrl}App/diamond/diamondDetails";
+
+    //add Custom Jewellery
+      static const String addCustomJewellery = "${baseUrl}App/customProduct/createCustomProduct";
+      static const String getAllStoneGroupList = "${baseUrl}admin/product/getAllStoneGroupList";
+
 }

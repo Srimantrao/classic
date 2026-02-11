@@ -3,11 +3,18 @@
 import 'package:classic/modal/menu/addCustomJewellery/addCustomJewellery.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../application_Programing_interface/apiController/menu/jewellery/productList/filter/getAllParameter_Controller.dart';
+import '../../../application_Programing_interface/callApi/callAPI.dart';
 
 class AddcustomjewelleryUIController extends GetxController {
+  final jewellry = Get.put(JewelleryAPICall());
+  final getAllPeraMeter = Get.put(GetallparameterController());
+
   final yourCommentsController = TextEditingController();
   final addURlTextController = TextEditingController();
   final appxMetalWeightController = TextEditingController();
@@ -37,30 +44,65 @@ class AddcustomjewelleryUIController extends GetxController {
 
   var allSelectdata = [];
 
-  //List
   List<DropdownMenuItem<String>> getProductTypeItems() {
-    return addcustomjewelleryItems.productTypeItem.entries.map((entry) {
-      return DropdownMenuItem<String>(
-        value: entry.key,
-        child: Text(entry.value, style: TextStyle(color: AppColor.black)),
-      );
-    }).toList();
+    final List<dynamic> categories =
+        jewellry.categoryAPI.catagoryData['data'] ?? [];
+    final List<DropdownMenuItem<String>> items = [];
+
+    // Add only categories that have subcategories
+    for (final dynamic category in categories) {
+      if (category is Map<String, dynamic>) {
+        // Check if subCategory exists and is not empty
+        final hasSubCategories =
+            category['subCategory'] != null &&
+            category['subCategory'] is List &&
+            (category['subCategory'] as List).isNotEmpty;
+
+        if (hasSubCategories) {
+          final categoryId = category['_id']?.toString() ?? '';
+          final categoryName = category['categoryName']?.toString() ?? '';
+
+          items.add(
+            DropdownMenuItem<String>(
+              value: categoryId,
+              child: Text(
+                categoryName,
+                style: TextStyle(color: AppColor.black),
+              ),
+            ),
+          );
+        }
+      }
+    }
+
+    return items;
   }
 
   List<DropdownMenuItem<String>> getMetalTypeItems() {
-    return addcustomjewelleryItems.metalTypeItem.entries.map((entry) {
+    final List<dynamic> metalTypes =
+        getAllPeraMeter.getAllParameterData['metalType'] ?? [];
+
+    return metalTypes.whereType<Map<String, dynamic>>().map((metal) {
       return DropdownMenuItem<String>(
-        value: entry.key,
-        child: Text(entry.value, style: TextStyle(color: AppColor.black)),
+        value: (metal['paraMtrId'] ?? metal['_id'] ?? '').toString(),
+        child: Text(
+          metal['paraMtrName']?.toString() ?? '',
+          style: TextStyle(color: AppColor.black),
+        ),
       );
     }).toList();
   }
 
   List<DropdownMenuItem<String>> getMetalStampItems() {
-    return addcustomjewelleryItems.metalStampItem.entries.map((entry) {
+    final List<dynamic> metalTypes =
+        getAllPeraMeter.getAllParameterData['metalStamp'] ?? [];
+    return metalTypes.whereType<Map<String, dynamic>>().map((metal) {
       return DropdownMenuItem<String>(
-        value: entry.key,
-        child: Text(entry.value, style: TextStyle(color: AppColor.black)),
+        value: (metal['paraMtrId'] ?? metal['_id'] ?? '').toString(),
+        child: Text(
+          metal['paraMtrName']?.toString() ?? '',
+          style: TextStyle(color: AppColor.black),
+        ),
       );
     }).toList();
   }
@@ -102,10 +144,16 @@ class AddcustomjewelleryUIController extends GetxController {
   }
 
   List<DropdownMenuItem<String>> getSize() {
-    return addcustomjewelleryItems.size.entries.map((entry) {
+    final List<dynamic> metalTypes =
+        getAllPeraMeter.getAllParameterData['ringSize'] ?? [];
+
+    return metalTypes.whereType<Map<String, dynamic>>().map((metal) {
       return DropdownMenuItem<String>(
-        value: entry.key,
-        child: Text(entry.value, style: TextStyle(color: AppColor.black)),
+        value: (metal['paraMtrId'] ?? metal['_id'] ?? '').toString(),
+        child: Text(
+          metal['paraMtrName']?.toString() ?? '',
+          style: TextStyle(color: AppColor.black),
+        ),
       );
     }).toList();
   }
@@ -146,31 +194,120 @@ class AddcustomjewelleryUIController extends GetxController {
         .key;
   }
 
-  //onChnage Value of Dropdown
+  //onChange Value of Dropdown
   void productTypeValueChange(String? newValue) {
-    productType.value = newValue!;
-    print(
-      'Selected value: ${addcustomjewelleryItems.productTypeItem[newValue]}',
-    );
+    if (newValue != null) {
+      productType.value = newValue;
+
+      // Find the selected category in the list
+      final List<dynamic> categories =
+          jewellry.categoryAPI.catagoryData['data'] ?? [];
+
+      // Search in main categories
+      for (final dynamic category in categories) {
+        if (category is Map<String, dynamic>) {
+          final categoryId = category['_id']?.toString() ?? '';
+
+          if (categoryId == newValue) {
+            final categoryName = category['categoryName']?.toString() ?? '';
+            print('Selected ID: $newValue');
+            print('Selected Name: $categoryName');
+            break;
+          }
+
+          // Also check in subcategories if needed
+          if (category['subCategory'] != null &&
+              category['subCategory'] is List) {
+            final List subCategories = category['subCategory'];
+            for (final dynamic subCategory in subCategories) {
+              if (subCategory is Map<String, dynamic>) {
+                final subCategoryId = subCategory['_id']?.toString() ?? '';
+
+                if (subCategoryId == newValue) {
+                  final subCategoryName =
+                      subCategory['categoryName']?.toString() ?? '';
+                  print('Selected Subcategory ID: $newValue');
+                  print('Selected Subcategory Name: $subCategoryName');
+                  break;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   void metalTypeValueChange(String? newValue) {
-    metalType.value = newValue!;
-    print('Selected value: ${addcustomjewelleryItems.metalTypeItem[newValue]}');
+    if (newValue != null) {
+      metalType.value = newValue;
+
+      // Print selected paraMtrId
+      print('Selected paraMtrId: $newValue');
+
+      // Find and print the paraMtrName
+      final metalTypes = getAllPeraMeter.getAllParameterData['metalType'];
+
+      // Assuming metalTypeItem is List<Map<String, dynamic>>
+      for (final metal in metalTypes) {
+        if (metal is Map<String, dynamic>) {
+          final metalId =
+              metal['paraMtrId']?.toString() ?? metal['_id']?.toString() ?? '';
+
+          if (metalId == newValue) {
+            final metalName = metal['paraMtrName']?.toString() ?? '';
+            print('Selected paraMtrName: $metalName');
+            print('Selected Metal Type: $metalName (ID: $newValue)');
+            break;
+          }
+        }
+      }
+    }
   }
 
   void metalStampValueChange(String? newValue) {
-    metalStamp.value = newValue!;
-    print(
-      'Selected value: ${addcustomjewelleryItems.metalStampItem[newValue]}',
-    );
+    if (newValue != null) {
+      metalStamp.value = newValue;
+
+      // Print selected paraMtrId
+      print('Selected paraMtrId: $newValue');
+
+      // Find and print the paraMtrName
+      final metalStamps = getAllPeraMeter.getAllParameterData['metalStamp'];
+
+      // Assuming metalStamp is List<Map<String, dynamic>>
+      for (final metal in metalStamps) {
+        if (metal is Map<String, dynamic>) {
+          final metalId =
+              metal['paraMtrId']?.toString() ?? metal['_id']?.toString() ?? '';
+          if (metalId == newValue) {
+            final metalStamps = metal['paraMtrName']?.toString() ?? '';
+            print('Selected paraMtrName: $metalStamps');
+            print('Selected metalStamp Type: $metalStamps (ID: $newValue)');
+            break;
+          }
+        }
+      }
+    }
   }
 
   void selectRingSizeValueChange(String? newValue) {
-    ringSize.value = newValue!;
-    print(
-      'Selected value: ${addcustomjewelleryItems.selectRingSizeItem[newValue]}',
+    if (newValue == null) return;
+    ringSize.value = newValue;
+    print('Selected paraMtrId: $newValue');
+    final List ringSizeList =
+        getAllPeraMeter.getAllParameterData['ringSize'] ?? [];
+    final selectedRing = ringSizeList.firstWhere(
+      (element) =>
+          (element['paraMtrId']?.toString() ?? element['_id']?.toString()) ==
+          newValue,
+      orElse: () => null,
     );
+    if (selectedRing != null) {
+      final selectedName = selectedRing['paraMtrName']?.toString() ?? '';
+      print('Selected paraMtrName: $selectedName');
+      print('Selected ringSize Type: $selectedName (ID: $newValue)');
+    }
   }
 
   void selectShapeDrop(String? newValue) {
@@ -198,6 +335,7 @@ class AddcustomjewelleryUIController extends GetxController {
   }
 
   int? editingIndex;
+
   Future<void> updateingValue(index) async {
     editingIndex = index;
     final data = allSelectdata[index];

@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, deprecated_member_use, collection_methods_unrelated_type, avoid_unnecessary_containers, unused_local_variable, strict_top_level_inference
 
+import 'package:classic/controller/application_Programing_interface/apiController/menu/addCustomJewellery/getAllStoneGroupList_Controller.dart';
 import 'package:classic/controller/user_Interface/menu/addCustomJewellery/addCustomJewellery_Controller.dart';
 import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';
 import 'package:classic/view/screen/menu/diamondSearch/diamondSearchExtraWidget/diamondExtraWidget.dart';
@@ -17,6 +18,8 @@ import 'package:classic/view/utils/widget/inputfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+
+import '../../../../../controller/application_Programing_interface/apiController/menu/jewellery/productList/filter/getAllParameter_Controller.dart';
 
 Widget addCustomJewelleryHeddingText(
   text, {
@@ -209,11 +212,11 @@ Widget checkBoxWidget({
   required String colorText,
   required bool isCenterColorvalue,
   required void Function(bool?) isSideColorChanged,
-  required AddcustomjewelleryUIController diamondSearch,
+  required GetallparameterController diamondSearch,
   required String shapetext,
-  required AddcustomjewelleryUIController colorSearch,
+  required GetallparameterController colorSearch,
   required String colortext,
-  required AddcustomjewelleryUIController claritySearch,
+  required GetallparameterController claritySearch,
   required String claritytext,
   required AddcustomjewelleryUIController stoneUpdate,
 }) {
@@ -255,21 +258,31 @@ Widget centerStoneContainer({
   required String text,
   required bool value,
   required Function(bool?) onChanged,
-  required AddcustomjewelleryUIController diamondSearch,
+  required GetallparameterController diamondSearch,
   required String shapetext,
-  required AddcustomjewelleryUIController colorSearch,
+  required GetallparameterController colorSearch,
   required String colortext,
-  required AddcustomjewelleryUIController claritySearch,
+  required GetallparameterController claritySearch,
   required String claritytext,
 }) {
   return cartConatiner(
-    child: Column(
-      children: [
-        tabCheck(text: text, value: value, onChanged: onChanged),
-        shapeViweDimondShape(diamondSearch, shapetext),
-        shapeViweDimondColor(colorSearch, colortext),
-        shapeViweClarity(diamondSearch, text),
-      ],
+    child: Align(
+      alignment: AlignmentGeometry.topLeft,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          tabCheck(text: text, value: value, onChanged: onChanged),
+          shapeViweDimondShape(diamondSearch, shapetext),
+          Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.015)),
+          shapeHedding(AppString.color),
+          Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.015)),
+          whiteColor(colorSearch),
+          Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.015)),
+          shapeHedding(AppString.clarity),
+          Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.015)),
+          clarity(claritySearch),
+        ],
+      ),
     ),
   );
 }
@@ -322,6 +335,10 @@ Widget addButton() {
 }
 
 void openBottomSheet() {
+  final stoneGroupList = Get.put(GetAllStoneGroupListController());
+  Widget padding() {
+    return Padding(padding: EdgeInsets.symmetric(vertical: Get.height * 0.010));
+  }
   Get.bottomSheet(
     GetBuilder<AddcustomjewelleryUIController>(
       builder: (AddcustomjewelleryUIController stoneUpdate) {
@@ -346,14 +363,14 @@ void openBottomSheet() {
                         child: Column(
                           children: [
                             bottomWidget(),
-                            SizedBox(height: Get.height * 0.02),
+                            padding(),
 
                             chekISGem(
                               value: stoneUpdate.isGemValue.value,
                               onChanged: stoneUpdate.toggleIsGam,
                             ),
 
-                            SizedBox(height: Get.height * 0.02),
+                            padding(),
 
                             dropdowns(
                               AppString.shape,
@@ -395,7 +412,11 @@ void openBottomSheet() {
                                     ],
                                   ),
                                 ),
-                                SizedBox(width: Get.width * 0.02),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: Get.width * 0.03,
+                                  ),
+                                ),
                                 Expanded(
                                   child: Inputfield(
                                     color: AppColor.gray5,
@@ -598,32 +619,26 @@ Widget chekISGem({required bool value, void Function(bool?)? onChanged}) {
 }
 
 Widget shapeViweDimondShape(diamondSearch, text) {
-  return SizedBox(
-    height: Get.height / 3.5,
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(height: Get.height * 0.02),
-        shapeHedding(text),
-        SizedBox(height: Get.height * 0.01),
-        shapeDimaond(diamondSearch),
-      ],
-    ),
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.015)),
+      shapeHedding(text),
+      Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.015)),
+      shape(diamondSearch, isMenu: true),
+    ],
   );
 }
 
 Widget shapeViweDimondColor(diamondSearch, text) {
-  return SizedBox(
-    height: Get.height / 7,
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(height: Get.height * 0.02),
-        shapeHedding(text),
-        SizedBox(height: Get.height * 0.01),
-        colorDimaond(diamondSearch),
-      ],
-    ),
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.015)),
+      shapeHedding(text),
+      Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.015)),
+      shape(diamondSearch, isMenu: true),
+    ],
   );
 }
 
@@ -642,59 +657,59 @@ Widget shapeViweClarity(diamondSearch, text) {
   );
 }
 
-Widget shapeDimaond(AddcustomjewelleryUIController diamondSearch) {
-  final diamondList = DiamondList();
-  return GetBuilder<AddcustomjewelleryUIController>(
-    builder: (controller) {
-      return Expanded(
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
-            crossAxisSpacing: Get.width * 0.02,
-            mainAxisSpacing: Get.height * 0.009,
-            childAspectRatio: 1.7,
-          ),
-          itemCount: diamondList.shapes.length,
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            bool isSelected =
-                controller.selectedShapes.contains(index) ||
-                controller.selectedShapes.contains(diamondList.shapes[index]);
-            return GestureDetector(
-              onTap: () => controller.toggleShapeSelection(index),
-              child: Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.all(Get.width * 0.03),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(borderradius.buttonboder),
-                  border: Border.all(
-                    color: isSelected ? AppColor.primary : AppColor.gray5,
-                    width: 1.0,
-                  ),
-                  color: isSelected
-                      ? AppColor.primary.withOpacity(0.1)
-                      : Colors.transparent,
-                ),
-                child: Text(
-                  diamondList.shapes[index],
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: Textsize.samisubHedding,
-                    color: isSelected ? AppColor.primary : AppColor.black,
-                    fontWeight: isSelected
-                        ? FontWeight.w500
-                        : FontWeight.normal,
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
-      );
-    },
-  );
-}
+// Widget shapeDimaond(AddcustomjewelleryUIController diamondSearch) {
+//   final diamondList = DiamondList();
+//   return GetBuilder<AddcustomjewelleryUIController>(
+//     builder: (controller) {
+//       return Expanded(
+//         child: GridView.builder(
+//           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+//             crossAxisCount: 4,
+//             crossAxisSpacing: Get.width * 0.02,
+//             mainAxisSpacing: Get.height * 0.009,
+//             childAspectRatio: 1.7,
+//           ),
+//           itemCount: diamondList.shapes.length,
+//           physics: NeverScrollableScrollPhysics(),
+//           shrinkWrap: true,
+//           itemBuilder: (context, index) {
+//             bool isSelected =
+//                 controller.selectedShapes.contains(index) ||
+//                 controller.selectedShapes.contains(diamondList.shapes[index]);
+//             return GestureDetector(
+//               onTap: () => controller.toggleShapeSelection(index),
+//               child: Container(
+//                 alignment: Alignment.center,
+//                 padding: EdgeInsets.all(Get.width * 0.03),
+//                 decoration: BoxDecoration(
+//                   borderRadius: BorderRadius.circular(borderradius.buttonboder),
+//                   border: Border.all(
+//                     color: isSelected ? AppColor.primary : AppColor.gray5,
+//                     width: 1.0,
+//                   ),
+//                   color: isSelected
+//                       ? AppColor.primary.withOpacity(0.1)
+//                       : Colors.transparent,
+//                 ),
+//                 child: Text(
+//                   diamondList.shapes[index],
+//                   textAlign: TextAlign.center,
+//                   style: TextStyle(
+//                     fontSize: Textsize.samisubHedding,
+//                     color: isSelected ? AppColor.primary : AppColor.black,
+//                     fontWeight: isSelected
+//                         ? FontWeight.w500
+//                         : FontWeight.normal,
+//                   ),
+//                 ),
+//               ),
+//             );
+//           },
+//         ),
+//       );
+//     },
+//   );
+// }
 
 Widget colorDimaond(AddcustomjewelleryUIController diamondSearch) {
   final diamondList = DiamondList();
@@ -851,6 +866,11 @@ Widget contactInformationWidet({
           text: mobileNumbarText,
           controller: mobileNumbarhController,
           hinttext: mobileNumbarhintText,
+          keyboardType: TextInputType.number,
+          inputFormatters: [
+            FilteringTextInputFormatter.digitsOnly,
+            LengthLimitingTextInputFormatter(10),
+          ],
         ),
         inputTyaping(
           text: referredmobileNumbarText,

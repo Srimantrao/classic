@@ -84,8 +84,8 @@ class DiamondSearchController extends GetxController {
             response: response,
             callAPI: 'diamondSearch',
             data: diamondSearchData,
-            messages: false,
-            showSnackbarSuccess: false,
+            messages: true,
+            showSnackbarSuccess: true,
           );
         }
       } else {

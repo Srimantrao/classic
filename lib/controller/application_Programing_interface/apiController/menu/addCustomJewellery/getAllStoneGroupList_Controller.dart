@@ -10,11 +10,20 @@ class GetAllStoneGroupListController extends GetxController {
   final isLoading = false.obs;
   final getAllStoneGroupList = {}.obs;
 
-  Future<void> getAllStoneGroupListService() async {
+  Future<void> getAllStoneGroupListSelect({
+    bool? isGem,
+    String? shape,
+    String? color,
+    String? clarity,
+  }) async {
     try {
       isLoading.value = true;
-      final response = await stoneGroupListService
-          .getAllStoneGroupListService();
+      final response = await stoneGroupListService.getAllStoneGroupListService(
+        isGem: isGem,
+        shape: shape,
+        color: color,
+        clarity: clarity,
+      );
       if (response.statusCode == 200) {
         successMesssess(
           response: response,

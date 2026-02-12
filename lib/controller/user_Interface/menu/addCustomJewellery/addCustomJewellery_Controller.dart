@@ -8,12 +8,14 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../application_Programing_interface/apiController/menu/addCustomJewellery/getAllStoneGroupList_Controller.dart';
 import '../../../application_Programing_interface/apiController/menu/jewellery/productList/filter/getAllParameter_Controller.dart';
 import '../../../application_Programing_interface/callApi/callAPI.dart';
 
 class AddcustomjewelleryUIController extends GetxController {
   final jewellry = Get.put(JewelleryAPICall());
   final getAllPeraMeter = Get.put(GetallparameterController());
+  final stoneGroupList = Get.put(GetAllStoneGroupListController());
 
   final yourCommentsController = TextEditingController();
   final addURlTextController = TextEditingController();
@@ -44,24 +46,32 @@ class AddcustomjewelleryUIController extends GetxController {
 
   var allSelectdata = [];
 
+  //Side Stone BottemValue
+  var shapValue = false.obs;
+  var colorValue = false.obs;
+  var clarityValue = false.obs;
+  var sizeValue = false.obs;
+
+  var shapValueID = ''.obs;
+  var colorVlaueID = ''.obs;
+  var clarityValueID = ''.obs;
+  var sizeValueID = ''.obs;
+
+  List clariyNewValue = [];
+
   List<DropdownMenuItem<String>> getProductTypeItems() {
     final List<dynamic> categories =
         jewellry.categoryAPI.catagoryData['data'] ?? [];
     final List<DropdownMenuItem<String>> items = [];
-
-    // Add only categories that have subcategories
     for (final dynamic category in categories) {
       if (category is Map<String, dynamic>) {
-        // Check if subCategory exists and is not empty
         final hasSubCategories =
             category['subCategory'] != null &&
             category['subCategory'] is List &&
             (category['subCategory'] as List).isNotEmpty;
-
         if (hasSubCategories) {
           final categoryId = category['_id']?.toString() ?? '';
           final categoryName = category['categoryName']?.toString() ?? '';
-
           items.add(
             DropdownMenuItem<String>(
               value: categoryId,
@@ -74,7 +84,6 @@ class AddcustomjewelleryUIController extends GetxController {
         }
       }
     }
-
     return items;
   }
 
@@ -117,28 +126,40 @@ class AddcustomjewelleryUIController extends GetxController {
   }
 
   List<DropdownMenuItem<String>> getShape() {
-    return addcustomjewelleryItems.shape.entries.map((entry) {
+    final List<dynamic> shapeList =
+        getAllPeraMeter.getAllParameterData['shape'] ?? [];
+    return shapeList.map<DropdownMenuItem<String>>((item) {
       return DropdownMenuItem<String>(
-        value: entry.key,
-        child: Text(entry.value, style: TextStyle(color: AppColor.black)),
+        value: item["paraMtrId"]?.toString(),
+        child: Text(
+          item["paraMtrName"]?.toString() ?? '',
+          style: TextStyle(color: AppColor.black),
+        ),
       );
     }).toList();
   }
 
   List<DropdownMenuItem<String>> getColor() {
-    return addcustomjewelleryItems.color.entries.map((entry) {
+    final List data = stoneGroupList.getAllStoneGroupList['data'] ?? [];
+
+    return data.map<DropdownMenuItem<String>>((entry) {
       return DropdownMenuItem<String>(
-        value: entry.key,
-        child: Text(entry.value, style: TextStyle(color: AppColor.black)),
+        value: entry.toString(),
+        child: Text(entry.toString(), style: TextStyle(color: AppColor.black)),
       );
     }).toList();
   }
 
   List<DropdownMenuItem<String>> getClarity() {
-    return addcustomjewelleryItems.clarity.entries.map((entry) {
+    final List data = stoneGroupList.getAllStoneGroupList['data'] ?? [];
+
+    return data.map<DropdownMenuItem<String>>((entry) {
       return DropdownMenuItem<String>(
-        value: entry.key,
-        child: Text(entry.value, style: TextStyle(color: AppColor.black)),
+        value: entry.toString(),
+        child: Text(
+          entry.toString(),
+          style: TextStyle(color: AppColor.black),
+        ),
       );
     }).toList();
   }
@@ -146,7 +167,6 @@ class AddcustomjewelleryUIController extends GetxController {
   List<DropdownMenuItem<String>> getSize() {
     final List<dynamic> metalTypes =
         getAllPeraMeter.getAllParameterData['ringSize'] ?? [];
-
     return metalTypes.whereType<Map<String, dynamic>>().map((metal) {
       return DropdownMenuItem<String>(
         value: (metal['paraMtrId'] ?? metal['_id'] ?? '').toString(),
@@ -198,12 +218,8 @@ class AddcustomjewelleryUIController extends GetxController {
   void productTypeValueChange(String? newValue) {
     if (newValue != null) {
       productType.value = newValue;
-
-      // Find the selected category in the list
       final List<dynamic> categories =
           jewellry.categoryAPI.catagoryData['data'] ?? [];
-
-      // Search in main categories
       for (final dynamic category in categories) {
         if (category is Map<String, dynamic>) {
           final categoryId = category['_id']?.toString() ?? '';
@@ -214,15 +230,12 @@ class AddcustomjewelleryUIController extends GetxController {
             print('Selected Name: $categoryName');
             break;
           }
-
-          // Also check in subcategories if needed
           if (category['subCategory'] != null &&
               category['subCategory'] is List) {
             final List subCategories = category['subCategory'];
             for (final dynamic subCategory in subCategories) {
               if (subCategory is Map<String, dynamic>) {
                 final subCategoryId = subCategory['_id']?.toString() ?? '';
-
                 if (subCategoryId == newValue) {
                   final subCategoryName =
                       subCategory['categoryName']?.toString() ?? '';
@@ -241,14 +254,8 @@ class AddcustomjewelleryUIController extends GetxController {
   void metalTypeValueChange(String? newValue) {
     if (newValue != null) {
       metalType.value = newValue;
-
-      // Print selected paraMtrId
       print('Selected paraMtrId: $newValue');
-
-      // Find and print the paraMtrName
       final metalTypes = getAllPeraMeter.getAllParameterData['metalType'];
-
-      // Assuming metalTypeItem is List<Map<String, dynamic>>
       for (final metal in metalTypes) {
         if (metal is Map<String, dynamic>) {
           final metalId =
@@ -268,14 +275,8 @@ class AddcustomjewelleryUIController extends GetxController {
   void metalStampValueChange(String? newValue) {
     if (newValue != null) {
       metalStamp.value = newValue;
-
-      // Print selected paraMtrId
       print('Selected paraMtrId: $newValue');
-
-      // Find and print the paraMtrName
       final metalStamps = getAllPeraMeter.getAllParameterData['metalStamp'];
-
-      // Assuming metalStamp is List<Map<String, dynamic>>
       for (final metal in metalStamps) {
         if (metal is Map<String, dynamic>) {
           final metalId =
@@ -311,14 +312,42 @@ class AddcustomjewelleryUIController extends GetxController {
   }
 
   void selectShapeDrop(String? newValue) {
-    shape.value = newValue!;
-    print('Selected value: ${addcustomjewelleryItems.shape[newValue]}');
+    if (newValue == null) return;
+    shape.value = newValue;
+    final List<dynamic> shapeList =
+        getAllPeraMeter.getAllParameterData['shape'] ?? [];
+    final selectedItem = shapeList.firstWhere(
+      (item) => item["paraMtrId"]?.toString() == newValue,
+      orElse: () => null,
+    );
+    if (selectedItem != null) {
+      print('Selected paraMtrId: ${selectedItem["paraMtrId"]}');
+      print('Selected paraMtrName: ${selectedItem["paraMtrName"]}');
+    }
+    shapValue.value = true;
+    shapValueID.value = newValue!;
+    stoneGroupList.getAllStoneGroupListSelect(shape: shapValueID.value);
+    stoneGroupList.update();
     update();
   }
 
   void selectColorDrop(String? newValue) {
-    color.value = newValue!;
-    print('Selected value: ${addcustomjewelleryItems.color[newValue]}');
+    if (newValue == null) return;
+    color.value = newValue;
+    final List data = stoneGroupList.getAllStoneGroupList['data'] ?? [];
+    final selectedItem = data.firstWhere((item) => item.toString() == newValue,
+      orElse: () => null,
+    );
+    colorValue.value = true;
+    colorVlaueID.value = newValue;
+    stoneGroupList.getAllStoneGroupListSelect(
+      shape: shapValueID.value,
+      color: colorVlaueID.value,
+    );
+    if (selectedItem != null) {
+      print('Selected color: ${selectedItem}');
+    }
+    stoneGroupList.update();
     update();
   }
 
@@ -470,6 +499,9 @@ class AddcustomjewelleryUIController extends GetxController {
   }
 
   void toggleIsGam(bool? value) {
+    stoneGroupList.getAllStoneGroupListSelect(
+      isGem: isGemValue.value = value ?? false,
+    );
     isGemValue.value = value ?? false;
     update();
   }
@@ -537,7 +569,6 @@ class AddcustomjewelleryUIController extends GetxController {
 
   @override
   void onClose() {
-    // Dispose all TextEditingControllers to avoid notifying listeners after dispose
     yourCommentsController.dispose();
     addURlTextController.dispose();
     appxMetalWeightController.dispose();
@@ -545,13 +576,11 @@ class AddcustomjewelleryUIController extends GetxController {
     engravingController.dispose();
     piecessController.dispose();
     weightController.dispose();
-
     fristNameController.dispose();
     lastNameController.dispose();
     emailController.dispose();
     mobileController.dispose();
     referredController.dispose();
-
     super.onClose();
   }
 }

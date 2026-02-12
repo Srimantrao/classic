@@ -335,10 +335,10 @@ Widget addButton() {
 }
 
 void openBottomSheet() {
-  final stoneGroupList = Get.put(GetAllStoneGroupListController());
   Widget padding() {
     return Padding(padding: EdgeInsets.symmetric(vertical: Get.height * 0.010));
   }
+
   Get.bottomSheet(
     GetBuilder<AddcustomjewelleryUIController>(
       builder: (AddcustomjewelleryUIController stoneUpdate) {
@@ -364,39 +364,39 @@ void openBottomSheet() {
                           children: [
                             bottomWidget(),
                             padding(),
-
                             chekISGem(
                               value: stoneUpdate.isGemValue.value,
                               onChanged: stoneUpdate.toggleIsGam,
                             ),
-
                             padding(),
-
                             dropdowns(
                               AppString.shape,
                               value: stoneUpdate.shape.value,
                               list: stoneUpdate.getShape(),
                               onChanged: stoneUpdate.selectShapeDrop,
                             ),
-                            dropdowns(
-                              AppString.color,
-                              value: stoneUpdate.color.value,
-                              list: stoneUpdate.getColor(),
-                              onChanged: stoneUpdate.selectColorDrop,
-                            ),
-                            dropdowns(
-                              AppString.clarity,
-                              value: stoneUpdate.clarity.value,
-                              list: stoneUpdate.getClarity(),
-                              onChanged: stoneUpdate.selectClarityDrop,
-                            ),
+                            (stoneUpdate.shapValue.value == true)
+                                ? dropdowns(
+                                    AppString.color,
+                                    value: stoneUpdate.color.value,
+                                    list: stoneUpdate.getColor(),
+                                    onChanged: stoneUpdate.selectColorDrop,
+                                  )
+                                : SizedBox(),
+                            (stoneUpdate.colorValue.value == true)
+                                ? dropdowns(
+                                    AppString.clarity,
+                                    value: stoneUpdate.clarity.value,
+                                    list: stoneUpdate.getClarity(),
+                                    onChanged: stoneUpdate.selectClarityDrop,
+                                  )
+                                : SizedBox(),
                             dropdowns(
                               AppString.size,
                               value: stoneUpdate.size.value,
                               list: stoneUpdate.getSize(),
                               onChanged: stoneUpdate.selectSizeDrop,
                             ),
-
                             Row(
                               children: [
                                 Expanded(

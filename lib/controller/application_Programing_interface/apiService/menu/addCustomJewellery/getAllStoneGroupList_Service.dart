@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 
 class StoneGroupListService {
   Future<Response<dynamic>> getAllStoneGroupListService({
-    String? isGem,
+    bool? isGem,
     String? shape,
     String? color,
     String? clarity,

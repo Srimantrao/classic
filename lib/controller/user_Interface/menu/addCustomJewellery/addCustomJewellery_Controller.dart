@@ -142,14 +142,11 @@ class AddcustomjewelleryUIController extends GetxController {
   List<DropdownMenuItem<String>> getColor() {
     final List data = stoneGroupList.getAllStoneGroupList['data'] ?? [];
     final Set<String> seenValues = {};
-    
     final items = <DropdownMenuItem<String>>[];
     for (int i = 0; i < data.length; i++) {
       final String value = data[i]?.toString() ?? '';
-      // Skip duplicates
       if (value.isEmpty || seenValues.contains(value)) continue;
       seenValues.add(value);
-      
       items.add(
         DropdownMenuItem<String>(
           value: value,
@@ -161,16 +158,13 @@ class AddcustomjewelleryUIController extends GetxController {
   }
 
   List<DropdownMenuItem<String>> getClarity() {
-    final List data = stoneGroupList.getAllStoneGroupList['data'] ?? [];
+    final List data = clariyNewValue;
     final Set<String> seenValues = {};
-    
     final items = <DropdownMenuItem<String>>[];
     for (int i = 0; i < data.length; i++) {
       final String value = data[i]?.toString() ?? '';
-      // Skip duplicates
       if (value.isEmpty || seenValues.contains(value)) continue;
       seenValues.add(value);
-      
       items.add(
         DropdownMenuItem<String>(
           value: value,
@@ -328,7 +322,7 @@ class AddcustomjewelleryUIController extends GetxController {
     }
   }
 
-  Future<void> selectShapeDrop(String? newValue) async{
+  Future<void> selectShapeDrop(String? newValue) async {
     if (newValue == null) return;
     shape.value = newValue;
     final List<dynamic> shapeList =
@@ -348,20 +342,20 @@ class AddcustomjewelleryUIController extends GetxController {
     update();
   }
 
-  void selectColorDrop(String? newValue) {
+  Future<void> selectColorDrop(String? newValue) async {
     if (newValue == null || newValue.isEmpty) return;
     final List data = stoneGroupList.getAllStoneGroupList['data'] ?? [];
-    
-    // Only set value if it exists in the data list
     if (data.map((e) => e.toString()).contains(newValue)) {
       color.value = newValue;
       colorValue.value = true;
       colorVlaueID.value = newValue;
-      stoneGroupList.getAllStoneGroupListSelect(
+      await stoneGroupList.getAllStoneGroupListSelect(
         shape: shapValueID.value,
         color: colorVlaueID.value,
       );
-      print('Selected color: $newValue');
+      final List newClarity = stoneGroupList.getAllStoneGroupList['data'] ?? [];
+      clariyNewValue = newClarity;
+      print("Updated clariyNewValue: $clariyNewValue");
       stoneGroupList.update();
       update();
     }
@@ -370,8 +364,6 @@ class AddcustomjewelleryUIController extends GetxController {
   void selectClarityDrop(String? newValue) {
     if (newValue == null || newValue.isEmpty) return;
     final List data = stoneGroupList.getAllStoneGroupList['data'] ?? [];
-    
-    // Only set value if it exists in the data list
     if (data.map((e) => e.toString()).contains(newValue)) {
       clarity.value = newValue;
       print('Selected clarity: $newValue');
@@ -391,23 +383,17 @@ class AddcustomjewelleryUIController extends GetxController {
     editingIndex = index;
     final data = allSelectdata[index];
     print('Editing data: $data');
-
     isGemValue.value = data['gemType'];
-
-    // Convert display text to keys
     final shapeKey = getShapeKeyFromDisplayText(data['shape']);
     final colorKey = getColorKeyFromDisplayText(data['color']);
     final clarityKey = getClarityKeyFromDisplayText(data['clarity']);
     final sizeKey = getSizeKeyFromDisplayText(data['size']);
-
     shape.value = shapeKey;
     color.value = colorKey;
     clarity.value = clarityKey;
     size.value = sizeKey;
-
     piecessController.text = data['pieces'];
     weightController.text = data['weight'];
-
     update();
   }
 
@@ -442,17 +428,12 @@ class AddcustomjewelleryUIController extends GetxController {
       'pieces': piecessController.text,
       'weight': weightController.text,
     };
-
-    // UPDATE EXISTING
     if (editingIndex != null) {
       allSelectdata[editingIndex!] = stoneData;
-      editingIndex = null; // reset editing mode
-    }
-    // ADD NEW
-    else {
+      editingIndex = null;
+    } else {
       allSelectdata.add(stoneData);
     }
-
     update();
   }
 

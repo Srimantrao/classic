@@ -1,6 +1,5 @@
 // ignore_for_file: file_names, deprecated_member_use, collection_methods_unrelated_type, avoid_unnecessary_containers, unused_local_variable, strict_top_level_inference
 
-import 'package:classic/controller/application_Programing_interface/apiController/menu/addCustomJewellery/getAllStoneGroupList_Controller.dart';
 import 'package:classic/controller/user_Interface/menu/addCustomJewellery/addCustomJewellery_Controller.dart';
 import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';
 import 'package:classic/view/screen/menu/diamondSearch/diamondSearchExtraWidget/diamondExtraWidget.dart';
@@ -335,6 +334,10 @@ Widget addButton() {
 }
 
 void openBottomSheet() {
+  // Get the controller and reset form
+  final controller = Get.find<AddcustomjewelleryUIController>();
+  controller.resetStoneForm();
+
   Widget padding() {
     return Padding(padding: EdgeInsets.symmetric(vertical: Get.height * 0.010));
   }

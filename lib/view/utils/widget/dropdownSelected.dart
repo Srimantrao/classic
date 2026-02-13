@@ -47,7 +47,7 @@ Widget dropdowns(
             iconStyleData: IconStyleData(
               icon: Icon(Icons.keyboard_arrow_down, size: 18),
             ),
-            value: value.isEmpty ? null : value,
+            value: value.isEmpty ? null : (list.any((item) => item.value == value) ? value : null),
             underline: SizedBox(),
             isExpanded: true,
             hint: Text(

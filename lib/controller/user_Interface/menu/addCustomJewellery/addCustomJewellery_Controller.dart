@@ -141,27 +141,44 @@ class AddcustomjewelleryUIController extends GetxController {
 
   List<DropdownMenuItem<String>> getColor() {
     final List data = stoneGroupList.getAllStoneGroupList['data'] ?? [];
-
-    return data.map<DropdownMenuItem<String>>((entry) {
-      return DropdownMenuItem<String>(
-        value: entry.toString(),
-        child: Text(entry.toString(), style: TextStyle(color: AppColor.black)),
+    final Set<String> seenValues = {};
+    
+    final items = <DropdownMenuItem<String>>[];
+    for (int i = 0; i < data.length; i++) {
+      final String value = data[i]?.toString() ?? '';
+      // Skip duplicates
+      if (value.isEmpty || seenValues.contains(value)) continue;
+      seenValues.add(value);
+      
+      items.add(
+        DropdownMenuItem<String>(
+          value: value,
+          child: Text(value, style: TextStyle(color: AppColor.black)),
+        ),
       );
-    }).toList();
+    }
+    return items;
   }
 
   List<DropdownMenuItem<String>> getClarity() {
     final List data = stoneGroupList.getAllStoneGroupList['data'] ?? [];
-
-    return data.map<DropdownMenuItem<String>>((entry) {
-      return DropdownMenuItem<String>(
-        value: entry.toString(),
-        child: Text(
-          entry.toString(),
-          style: TextStyle(color: AppColor.black),
+    final Set<String> seenValues = {};
+    
+    final items = <DropdownMenuItem<String>>[];
+    for (int i = 0; i < data.length; i++) {
+      final String value = data[i]?.toString() ?? '';
+      // Skip duplicates
+      if (value.isEmpty || seenValues.contains(value)) continue;
+      seenValues.add(value);
+      
+      items.add(
+        DropdownMenuItem<String>(
+          value: value,
+          child: Text(value, style: TextStyle(color: AppColor.black)),
         ),
       );
-    }).toList();
+    }
+    return items;
   }
 
   List<DropdownMenuItem<String>> getSize() {
@@ -311,7 +328,7 @@ class AddcustomjewelleryUIController extends GetxController {
     }
   }
 
-  void selectShapeDrop(String? newValue) {
+  Future<void> selectShapeDrop(String? newValue) async{
     if (newValue == null) return;
     shape.value = newValue;
     final List<dynamic> shapeList =
@@ -325,36 +342,41 @@ class AddcustomjewelleryUIController extends GetxController {
       print('Selected paraMtrName: ${selectedItem["paraMtrName"]}');
     }
     shapValue.value = true;
-    shapValueID.value = newValue!;
-    stoneGroupList.getAllStoneGroupListSelect(shape: shapValueID.value);
+    shapValueID.value = newValue;
+    await stoneGroupList.getAllStoneGroupListSelect(shape: shapValueID.value);
     stoneGroupList.update();
     update();
   }
 
   void selectColorDrop(String? newValue) {
-    if (newValue == null) return;
-    color.value = newValue;
+    if (newValue == null || newValue.isEmpty) return;
     final List data = stoneGroupList.getAllStoneGroupList['data'] ?? [];
-    final selectedItem = data.firstWhere((item) => item.toString() == newValue,
-      orElse: () => null,
-    );
-    colorValue.value = true;
-    colorVlaueID.value = newValue;
-    stoneGroupList.getAllStoneGroupListSelect(
-      shape: shapValueID.value,
-      color: colorVlaueID.value,
-    );
-    if (selectedItem != null) {
-      print('Selected color: ${selectedItem}');
+    
+    // Only set value if it exists in the data list
+    if (data.map((e) => e.toString()).contains(newValue)) {
+      color.value = newValue;
+      colorValue.value = true;
+      colorVlaueID.value = newValue;
+      stoneGroupList.getAllStoneGroupListSelect(
+        shape: shapValueID.value,
+        color: colorVlaueID.value,
+      );
+      print('Selected color: $newValue');
+      stoneGroupList.update();
+      update();
     }
-    stoneGroupList.update();
-    update();
   }
 
   void selectClarityDrop(String? newValue) {
-    clarity.value = newValue!;
-    print('Selected value: ${addcustomjewelleryItems.clarity[newValue]}');
-    update();
+    if (newValue == null || newValue.isEmpty) return;
+    final List data = stoneGroupList.getAllStoneGroupList['data'] ?? [];
+    
+    // Only set value if it exists in the data list
+    if (data.map((e) => e.toString()).contains(newValue)) {
+      clarity.value = newValue;
+      print('Selected clarity: $newValue');
+      update();
+    }
   }
 
   void selectSizeDrop(String? newValue) {
@@ -386,6 +408,26 @@ class AddcustomjewelleryUIController extends GetxController {
     piecessController.text = data['pieces'];
     weightController.text = data['weight'];
 
+    update();
+  }
+
+  void resetStoneForm() {
+    shape.value = '';
+    color.value = '';
+    clarity.value = '';
+    size.value = '';
+    isGemValue.value = false;
+    shapValue.value = false;
+    colorValue.value = false;
+    clarityValue.value = false;
+    sizeValue.value = false;
+    shapValueID.value = '';
+    colorVlaueID.value = '';
+    clarityValueID.value = '';
+    sizeValueID.value = '';
+    piecessController.clear();
+    weightController.clear();
+    editingIndex = null;
     update();
   }
 

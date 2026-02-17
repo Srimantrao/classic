@@ -8,6 +8,7 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../application_Programing_interface/apiController/menu/addCustomJewellery/addCustomJewellery_Controller.dart';
 import '../../../application_Programing_interface/apiController/menu/addCustomJewellery/getAllStoneGroupList_Controller.dart';
 import '../../../application_Programing_interface/apiController/menu/jewellery/productList/filter/getAllParameter_Controller.dart';
 import '../../../application_Programing_interface/callApi/callAPI.dart';
@@ -16,6 +17,7 @@ class AddcustomjewelleryUIController extends GetxController {
   final jewellry = Get.put(JewelleryAPICall());
   final getAllPeraMeter = Get.put(GetallparameterController());
   final stoneGroupList = Get.put(GetAllStoneGroupListController());
+  final addCustomJewellery = Get.put(AddCustomJewelleryController());
 
   final yourCommentsController = TextEditingController();
   final addURlTextController = TextEditingController();
@@ -748,6 +750,45 @@ class AddcustomjewelleryUIController extends GetxController {
     selectedShapes.clear();
     selectWhiteColor.clear();
     update();
+  }
+
+  void onSubmit(){
+    addCustomJewellery.addCustomJewelleryInformation(
+      Category: productType.value,
+      MediaType: '',
+      metalType: metalType.value,
+      metalStamp: metalStamp.value,
+      AppxMetalWgt: appxMetalWeightController.text,
+      Budget: budgetController.text,
+      Engraving: engravingController.text,
+      FirstName: fristNameController.text,
+      LastName: lastNameController.text,
+      Email: emailController.text,
+      Phone: mobileController.text,
+      diamond: selectedShapes.join(', '),
+      EngravingText: engravingController.text,
+      filesORMediaUrl: selectedFilePath.value,
+      ReferredBy: referredController.text,
+      Size: ringSize.value,
+    );
+
+    print('Product Type: ${productType.value}');
+    print('Metal Type: ${metalType.value}');
+    print('Metal Stamp: ${metalStamp.value}');
+    print('Appx Metal Weight: ${appxMetalWeightController.text}');
+    print('Budget: ${budgetController.text}');
+    print('SelectedFilePath: ${selectedFilePath.value}');
+    print('Engraving: ${engravingController.text}');
+    print('Engraving Text: ${engravingController.text}');
+    print('First Name: ${fristNameController.text}');
+    print('Last Name: ${lastNameController.text}');
+    print('Email: ${emailController.text}');
+    print('Mobile: ${mobileController.text}');
+    print('Referred By: ${referredController.text}');
+    print('Ring Size: ${ringSize.value}');
+    print('Pieces: ${piecessController.text}');
+    print('Weight: ${weightController.text}');
+    print('Selected Shapes: ${selectedShapes.join(', ')}');
   }
 
   @override

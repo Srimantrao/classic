@@ -309,8 +309,12 @@ Widget sideStoneContainer(AddcustomjewelleryUIController stoneUpdate) {
 }
 
 Widget addButton() {
+  final controller = Get.find<AddcustomjewelleryUIController>();
   return GestureDetector(
-    onTap: openBottomSheet,
+    onTap: (){
+      controller.resetStoneForm();
+      openBottomSheet();
+    },
     child: Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(borderradius.buttonboder),
@@ -334,8 +338,6 @@ Widget addButton() {
 }
 
 void openBottomSheet() {
-  final controller = Get.find<AddcustomjewelleryUIController>();
-  controller.resetStoneForm();
   Widget padding() {
     return Padding(
       padding: EdgeInsets.symmetric(

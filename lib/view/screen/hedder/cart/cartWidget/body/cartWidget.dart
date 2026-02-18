@@ -7,13 +7,21 @@ import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
-
+import '../../../../../../controller/application_Programing_interface/apiController/hedder/cart/deleteCart_Controller.dart';
+import '../../../../../../controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createCart_Controller.dart';
+import '../../../../../../controller/application_Programing_interface/callApi/callAPI.dart';
 import '../../../../../../controller/user_Interface/hedder/cart/cartUI_Controller.dart';
 import '../../../../../../controller/user_Interface/menu/jewelry/productDetailUI_Controller.dart';
+import '../../../../../utils/app_icon.dart';
+import '../../../../../utils/widget/image/productImage.dart';
+import '../../../../../utils/widget/link/productLink.dart';
+import '../../../../menu/diamondSearch/diamondWidget/body/searchResultWidget.dart';
 import '../../../../menu/jewelry/jewelryScreen/productDetail.dart';
 
 Widget cartProductItem(cartUI, cartProduct, productDetail) {
@@ -21,25 +29,114 @@ Widget cartProductItem(cartUI, cartProduct, productDetail) {
     id: 'cartList',
     initState: (_) => cartUI.initQty(cartProduct),
     builder: (cartUI) {
-      return Expanded(
-        child: ListView.builder(
-          itemCount: cartProduct.length,
-          itemBuilder: (context, index) {
-            final product = cartProduct[index];
-            final images = product['productDetails']?['images'] as List?;
-            final productImage = (images != null && images.isNotEmpty)
-                ? images.first
-                : null;
-            return cartShow(
+      return ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: cartProduct.length,
+        itemBuilder: (context, index) {
+          final product = cartProduct[index];
+          final images = product['productDetails']?['images'] as List?;
+          final productImage = (images != null && images.isNotEmpty)
+              ? images.first
+              : null;
+          return horizontalPadding(
+            child: cartShow(
               product,
               productImage,
               cartUI,
               index,
               cartProduct,
               productDetail,
-            );
-          },
-        ),
+            ),
+          );
+        },
+      );
+    },
+  );
+}
+
+Widget diamondProductItem(diamondProduct) {
+  final adToCart = Get.put(CreateCartController());
+  final removeItem = Get.put(DeleteCartController());
+  final cartAPICallAPI = Get.put(CartAPICall());
+  return ListView.builder(
+    shrinkWrap: true,
+    physics: const NeverScrollableScrollPhysics(),
+    itemCount: diamondProduct.length,
+    itemBuilder: (BuildContext context, int index) {
+      final diamond = diamondProduct[index]['diamondDetails'];
+      return listDiamond(
+        idOnTop: () {
+          final String? link = diamond['certurl']?.toString();
+          if (link == null || link.isEmpty) {
+            if (kDebugMode) {
+              print("No Link");
+            }
+            return;
+          } else {
+            productLink(link);
+          }
+        },
+        cartifactIcon: (diamond?['certno'] == null || diamond?['certno'] == '-')
+            ? AppIcon.documant
+            : AppIcon.edit,
+        ids: diamondProduct[index]['diamondId']?.toString() ?? '',
+        images: diamond['imageurl1']?.toString() ?? '',
+        videos: diamond['videourl']?.toString() ?? '',
+        shape: diamond['shape']?.toString() ?? '',
+        careat: diamond['carat']?.toString() ?? '',
+        lab: diamond['lab']?.toString() ?? '',
+        colorcode: diamond['countryCode']?.toString() ?? '',
+        clarity: diamond['clarity']?.toString() ?? '',
+        cartifactNo: (diamond['certno'] == null || diamond['certno'] == '-')
+            ? ''
+            : diamond['certno'].toString(),
+        cps: diamond['polish']?.toString() ?? 'NONE-Undefined-U',
+        meas: diamond['measurement']?.toString() ?? 'undefined',
+        refNo: diamond['stockId']?.toString() ?? '',
+        T: diamond['depth']?.toString() ?? '0%',
+        D: diamond['tablepercent']?.toString() ?? 'NaN%',
+        loc: diamond['country']?.toString() ?? '',
+        ct: diamond['parcarat']?.toString() ?? '',
+        total: diamond['finalamount']?.toString() ?? '',
+        isWishlist: true,
+        isCart: true,
+        camara: true,
+        link: true,
+        deletdiamond: true,
+        deleteDiamond: () {
+          removeItem.deleteCart(diamondProduct[index]['_id']?.toString() ?? '');
+          diamondProduct.removeAt(index);
+          cartAPICallAPI.cartAPI.filterCart();
+        },
+        cartOnTap: () {
+          adToCart.createCart(
+            price: diamond['finalamount']?.toString() ?? '',
+            productId: diamondProduct[index]['_id']?.toString() ?? '',
+            DiamondId: diamondProduct[index]['dimCountryId']?.toString() ?? '',
+          );
+        },
+        camaraOnTap: () {
+          final String? image = diamond['imageurl1']?.toString();
+          if (image == null || image.isEmpty) {
+            if (kDebugMode) {
+              print("No Image");
+            }
+            return;
+          }
+          Get.to(() => ProductImage(images: image));
+        },
+        linkOnTap: () {
+          final String? link = diamond['certurl']?.toString();
+          if (link == null || link.isEmpty) {
+            if (kDebugMode) {
+              print("No Link");
+            }
+            return;
+          } else {
+            productLink(link);
+          }
+        },
       );
     },
   );

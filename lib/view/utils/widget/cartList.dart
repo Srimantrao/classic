@@ -133,6 +133,8 @@ Widget listHeddind({
   required String cartifactNo,
   required String cartifactIcon,
   void Function()? idOnTop,
+  bool deletdiamond = false,
+  void Function()? deleteDiamond,
 }) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -156,6 +158,17 @@ Widget listHeddind({
           children: [
             Image.asset(cartifactIcon, scale: 27, color: AppColor.primary),
             listHeadingText(cartifactNo),
+            Padding(padding: EdgeInsetsGeometry.only(right: Get.width * 0.020)),
+            (deletdiamond)
+                ? GestureDetector(
+                    onTap: deleteDiamond,
+                    child: Icon(
+                      Icons.delete_outlined,
+                      size: 20,
+                      color: AppColor.red,
+                    ),
+                  )
+                : SizedBox(),
           ],
         ),
       ),

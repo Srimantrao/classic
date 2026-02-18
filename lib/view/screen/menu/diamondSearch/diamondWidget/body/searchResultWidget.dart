@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createCart_Controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import '../../../../../../controller/application_Programing_interface/callApi/callAPI.dart';
 import '../../../../../utils/app_Borderradius.dart';
 import '../../../../../utils/app_Color.dart';
 import '../../../../../utils/app_icon.dart';
@@ -22,6 +25,7 @@ Widget valueListDiamond({
   ScrollController? scrollController,
 }) {
   final adToCart = Get.put(CreateCartController());
+  final cartAPICallAPI = Get.put(CartAPICall());
   return Expanded(
     child: ListView.builder(
       controller: scrollController,
@@ -56,10 +60,11 @@ Widget valueListDiamond({
           total: valueList[index]['finalamount']?.toString() ?? '',
           cartOnTap: () {
             adToCart.createCart(
-              price: valueList[index]['finalamount']?.toString() ?? '',
-              productId: valueList[index]['_id']?.toString() ?? '',
-              DiamondId: valueList[index]['dimCountryId']?.toString() ?? '',
+              price: jsonEncode([valueList[index]['finalamount']]),
+              DiamondId: jsonEncode([valueList[index]['_id']]),
+              qty: '1',
             );
+            cartAPICallAPI.cartAPI.filterCart();
           },
           camaraOnTap: () {
             final String? image = valueList[index]['imageurl1']?.toString();
@@ -117,6 +122,8 @@ Widget listDiamond({
   void Function()? cartOnTap,
   void Function()? linkOnTap,
   void Function()? idOnTop,
+  void Function()? deleteDiamond,
+  bool deletdiamond = false,
 }) {
   return horizontalPadding(
     child: GestureDetector(
@@ -145,7 +152,9 @@ Widget listDiamond({
                 clarity: clarity,
                 cartifactNo: cartifactNo,
                 cartifactIcon: cartifactIcon.toString(),
-                idOnTop: idOnTop
+                idOnTop: idOnTop,
+                deletdiamond: deletdiamond,
+                deleteDiamond: deleteDiamond,
               ),
               Divider(color: AppColor.gray3),
               Row(

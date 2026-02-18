@@ -33,9 +33,7 @@ class Dashbord extends StatelessWidget {
   final cartAPICallAPI = Get.put(CartAPICall());
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final value = Listviwe();
-
   Dashbord({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Fullscreen(

@@ -8,6 +8,7 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../application_Programing_interface/apiController/menu/addCustomJewellery/addCustomJewellery_Controller.dart';
 import '../../../application_Programing_interface/apiController/menu/addCustomJewellery/getAllStoneGroupList_Controller.dart';
 import '../../../application_Programing_interface/apiController/menu/jewellery/productList/filter/getAllParameter_Controller.dart';
 import '../../../application_Programing_interface/callApi/callAPI.dart';
@@ -16,6 +17,7 @@ class AddcustomjewelleryUIController extends GetxController {
   final jewellry = Get.put(JewelleryAPICall());
   final getAllPeraMeter = Get.put(GetallparameterController());
   final stoneGroupList = Get.put(GetAllStoneGroupListController());
+  final addCustomJewellery = Get.put(AddCustomJewelleryController());
 
   final yourCommentsController = TextEditingController();
   final addURlTextController = TextEditingController();
@@ -40,6 +42,7 @@ class AddcustomjewelleryUIController extends GetxController {
   var metalStamp = ''.obs;
   var ringSize = ''.obs;
   var shape = ''.obs;
+  var shapeName = ''.obs;
   var color = ''.obs;
   var clarity = ''.obs;
   var size = ''.obs;
@@ -51,6 +54,7 @@ class AddcustomjewelleryUIController extends GetxController {
   var colorValue = false.obs;
   var clarityValue = false.obs;
   var sizeValue = false.obs;
+  var isGemValue = false.obs;
 
   var shapValueID = ''.obs;
   var colorVlaueID = ''.obs;
@@ -58,6 +62,8 @@ class AddcustomjewelleryUIController extends GetxController {
   var sizeValueID = ''.obs;
 
   List clariyNewValue = [];
+  List colorNewValue = [];
+  List newSIZEValue = [];
 
   List<DropdownMenuItem<String>> getProductTypeItems() {
     final List<dynamic> categories =
@@ -140,16 +146,25 @@ class AddcustomjewelleryUIController extends GetxController {
   }
 
   List<DropdownMenuItem<String>> getColor() {
-    final List data = stoneGroupList.getAllStoneGroupList['data'] ?? [];
+    final List data = colorNewValue;
     final Set<String> seenValues = {};
-    
     final items = <DropdownMenuItem<String>>[];
+    
+    // Add current color to seen if not empty to prevent crash
+    if (color.value.isNotEmpty) {
+      seenValues.add(color.value);
+      items.add(
+        DropdownMenuItem<String>(
+          value: color.value,
+          child: Text(color.value, style: TextStyle(color: AppColor.black)),
+        ),
+      );
+    }
+
     for (int i = 0; i < data.length; i++) {
       final String value = data[i]?.toString() ?? '';
-      // Skip duplicates
       if (value.isEmpty || seenValues.contains(value)) continue;
       seenValues.add(value);
-      
       items.add(
         DropdownMenuItem<String>(
           value: value,
@@ -161,20 +176,31 @@ class AddcustomjewelleryUIController extends GetxController {
   }
 
   List<DropdownMenuItem<String>> getClarity() {
-    final List data = stoneGroupList.getAllStoneGroupList['data'] ?? [];
+    final List data = clariyNewValue;
     final Set<String> seenValues = {};
-    
     final items = <DropdownMenuItem<String>>[];
+
+    if (clarity.value.isNotEmpty) {
+      seenValues.add(clarity.value);
+      items.add(
+        DropdownMenuItem<String>(
+          value: clarity.value,
+          child: Text(clarity.value, style: TextStyle(color: AppColor.black)),
+        ),
+      );
+    }
+
     for (int i = 0; i < data.length; i++) {
       final String value = data[i]?.toString() ?? '';
-      // Skip duplicates
       if (value.isEmpty || seenValues.contains(value)) continue;
       seenValues.add(value);
-      
       items.add(
         DropdownMenuItem<String>(
           value: value,
-          child: Text(value, style: TextStyle(color: AppColor.black)),
+          child: Text(
+            value,
+            style: TextStyle(color: AppColor.black),
+          ),
         ),
       );
     }
@@ -182,26 +208,56 @@ class AddcustomjewelleryUIController extends GetxController {
   }
 
   List<DropdownMenuItem<String>> getSize() {
-    final List<dynamic> metalTypes =
-        getAllPeraMeter.getAllParameterData['ringSize'] ?? [];
-    return metalTypes.whereType<Map<String, dynamic>>().map((metal) {
-      return DropdownMenuItem<String>(
-        value: (metal['paraMtrId'] ?? metal['_id'] ?? '').toString(),
-        child: Text(
-          metal['paraMtrName']?.toString() ?? '',
-          style: TextStyle(color: AppColor.black),
+    final List data = newSIZEValue;
+    final Set<String> seenValues = {};
+    final items = <DropdownMenuItem<String>>[];
+
+    if (size.value.isNotEmpty) {
+      seenValues.add(size.value);
+      items.add(
+        DropdownMenuItem<String>(
+          value: size.value,
+          child: Text(size.value, style: TextStyle(color: AppColor.black)),
         ),
       );
-    }).toList();
+    }
+
+    for (int i = 0; i < data.length; i++) {
+      final String value = data[i]?.toString() ?? '';
+      if (value.isEmpty || seenValues.contains(value)) continue;
+      seenValues.add(value);
+      items.add(
+        DropdownMenuItem<String>(
+          value: value,
+          child: Text(
+            value,
+            style: TextStyle(color: AppColor.black),
+          ),
+        ),
+      );
+    }
+    return items;
   }
 
   String getShapeKeyFromDisplayText(String displayText) {
-    return addcustomjewelleryItems.shape.entries
+    // Try to find in hardcoded list first
+    final key = addcustomjewelleryItems.shape.entries
         .firstWhere(
           (entry) => entry.value == displayText,
           orElse: () => MapEntry('', ''),
         )
         .key;
+    if (key.isNotEmpty) return key;
+
+    // Try to find in API data
+    final List<dynamic> shapeList =
+        getAllPeraMeter.getAllParameterData['shape'] ?? [];
+    for (var item in shapeList) {
+      if (item["paraMtrName"]?.toString() == displayText) {
+        return item["paraMtrId"]?.toString() ?? '';
+      }
+    }
+    return '';
   }
 
   String getColorKeyFromDisplayText(String displayText) {
@@ -328,9 +384,16 @@ class AddcustomjewelleryUIController extends GetxController {
     }
   }
 
-  Future<void> selectShapeDrop(String? newValue) async{
+  Future<void> selectShapeDrop(String? newValue) async {
     if (newValue == null) return;
     shape.value = newValue;
+    color.value = '';
+    clarity.value = '';
+    size.value = '';
+    colorValue.value = false;
+    clarityValue.value = false;
+    sizeValue.value = false;
+    
     final List<dynamic> shapeList =
         getAllPeraMeter.getAllParameterData['shape'] ?? [];
     final selectedItem = shapeList.firstWhere(
@@ -340,48 +403,77 @@ class AddcustomjewelleryUIController extends GetxController {
     if (selectedItem != null) {
       print('Selected paraMtrId: ${selectedItem["paraMtrId"]}');
       print('Selected paraMtrName: ${selectedItem["paraMtrName"]}');
+      shapeName.value = selectedItem["paraMtrName"]?.toString() ?? '';
     }
     shapValue.value = true;
     shapValueID.value = newValue;
-    await stoneGroupList.getAllStoneGroupListSelect(shape: shapValueID.value);
+    
+    update(); // Update immediately to show selected shape
+    
+    await stoneGroupList.getAllStoneGroupListSelect(
+      shape: shapValueID.value,
+      isGem: isGemValue.value,
+    );
+    colorNewValue = stoneGroupList.getAllStoneGroupList['data'] ?? [];
     stoneGroupList.update();
     update();
   }
 
-  void selectColorDrop(String? newValue) {
+  Future<void> selectColorDrop(String? newValue) async {
     if (newValue == null || newValue.isEmpty) return;
-    final List data = stoneGroupList.getAllStoneGroupList['data'] ?? [];
+    color.value = newValue;
+    clarity.value = '';
+    size.value = '';
+    clarityValue.value = false;
+    sizeValue.value = false;
     
-    // Only set value if it exists in the data list
-    if (data.map((e) => e.toString()).contains(newValue)) {
-      color.value = newValue;
-      colorValue.value = true;
-      colorVlaueID.value = newValue;
-      stoneGroupList.getAllStoneGroupListSelect(
-        shape: shapValueID.value,
-        color: colorVlaueID.value,
-      );
-      print('Selected color: $newValue');
-      stoneGroupList.update();
-      update();
-    }
+    colorValue.value = true;
+    colorVlaueID.value = newValue;
+    
+    update(); // Update immediately to show selected color
+    
+    await stoneGroupList.getAllStoneGroupListSelect(
+      shape: shapValueID.value,
+      color: colorVlaueID.value,
+      isGem: isGemValue.value,
+    );
+    final List newClarity = stoneGroupList.getAllStoneGroupList['data'] ?? [];
+    clariyNewValue = newClarity;
+    print("Updated clariyNewValue: $clariyNewValue");
+    stoneGroupList.update();
+    update();
   }
 
-  void selectClarityDrop(String? newValue) {
+  Future<void>  selectClarityDrop(String? newValue) async{
     if (newValue == null || newValue.isEmpty) return;
-    final List data = stoneGroupList.getAllStoneGroupList['data'] ?? [];
+    clarity.value = newValue;
+    clarityValue.value = true;
+    size.value = '';
+    sizeValue.value = false;
     
-    // Only set value if it exists in the data list
-    if (data.map((e) => e.toString()).contains(newValue)) {
-      clarity.value = newValue;
-      print('Selected clarity: $newValue');
-      update();
-    }
+    clarityValueID.value = newValue;
+
+    update();
+
+    await stoneGroupList.getAllStoneGroupListSelect(
+      shape: shapValueID.value,
+      color: colorVlaueID.value,
+      clarity: clarityValueID.value,
+      isGem: isGemValue.value,
+    );
+    final List newSIZE = stoneGroupList.getAllStoneGroupList['data'] ?? [];
+    newSIZEValue = newSIZE;
+    print('Selected newSIZE: $newSIZEValue');
+    stoneGroupList.update();
+    update();
   }
 
   void selectSizeDrop(String? newValue) {
-    size.value = newValue!;
-    print('Selected value: ${addcustomjewelleryItems.size[newValue]}');
+    if (newValue == null || newValue.isEmpty) return;
+    size.value = newValue;
+    sizeValue.value = true;
+    sizeValueID.value = newValue;
+    print('Selected size ID: $newValue');
     update();
   }
 
@@ -392,27 +484,75 @@ class AddcustomjewelleryUIController extends GetxController {
     final data = allSelectdata[index];
     print('Editing data: $data');
 
-    isGemValue.value = data['gemType'];
+    // Synchronously update initial state so UI can show it immediately
+    isGemValue.value = data['gemType'] ?? false;
+    shapeName.value = data['shape'] ?? '';
 
-    // Convert display text to keys
-    final shapeKey = getShapeKeyFromDisplayText(data['shape']);
-    final colorKey = getColorKeyFromDisplayText(data['color']);
-    final clarityKey = getClarityKeyFromDisplayText(data['clarity']);
-    final sizeKey = getSizeKeyFromDisplayText(data['size']);
-
+    // Priority: data['shapeId'] (if saved) > getShapeKeyFromDisplayText
+    final shapeKey = data['shapeId'] ?? getShapeKeyFromDisplayText(data['shape'] ?? '');
+    
     shape.value = shapeKey;
-    color.value = colorKey;
-    clarity.value = clarityKey;
-    size.value = sizeKey;
+    shapValueID.value = shapeKey;
+    shapValue.value = shapeKey.isNotEmpty;
 
-    piecessController.text = data['pieces'];
-    weightController.text = data['weight'];
+    // Reset and set IDs for color/clarity/size if they are stored as names
+    colorVlaueID.value = data['color'] ?? '';
+    clarityValueID.value = data['clarity'] ?? '';
+    sizeValueID.value = data['size'] ?? '';
+
+    // Notify UI immediately to show Is Gem and Shape correctly in the BottomSheet
+    update();
+
+    // Fetch colors for this shape
+    if (shapValueID.value.isNotEmpty) {
+      await stoneGroupList.getAllStoneGroupListSelect(
+        shape: shapValueID.value,
+        isGem: isGemValue.value,
+      );
+      colorNewValue = stoneGroupList.getAllStoneGroupList['data'] ?? [];
+    }
+    
+    color.value = data['color'] ?? ''; 
+    colorValue.value = color.value.isNotEmpty;
+    update();
+
+    // Fetch clarities for this shape and color
+    if (shapValueID.value.isNotEmpty && colorVlaueID.value.isNotEmpty) {
+      await stoneGroupList.getAllStoneGroupListSelect(
+        shape: shapValueID.value,
+        color: colorVlaueID.value,
+        isGem: isGemValue.value,
+      );
+      clariyNewValue = stoneGroupList.getAllStoneGroupList['data'] ?? [];
+    }
+
+    clarity.value = data['clarity'] ?? '';
+    clarityValue.value = clarity.value.isNotEmpty;
+    update();
+
+    // Fetch sizes for this shape, color and clarity
+    if (shapValueID.value.isNotEmpty && colorVlaueID.value.isNotEmpty && clarityValueID.value.isNotEmpty) {
+      await stoneGroupList.getAllStoneGroupListSelect(
+        shape: shapValueID.value,
+        color: colorVlaueID.value,
+        clarity: clarityValueID.value,
+        isGem: isGemValue.value,
+      );
+      newSIZEValue = stoneGroupList.getAllStoneGroupList['data'] ?? [];
+    }
+
+    size.value = data['size'] ?? '';
+    sizeValue.value = size.value.isNotEmpty;
+
+    piecessController.text = data['pieces']?.toString() ?? '';
+    weightController.text = data['weight']?.toString() ?? '';
 
     update();
   }
 
   void resetStoneForm() {
     shape.value = '';
+    shapeName.value = '';
     color.value = '';
     clarity.value = '';
     size.value = '';
@@ -425,6 +565,9 @@ class AddcustomjewelleryUIController extends GetxController {
     colorVlaueID.value = '';
     clarityValueID.value = '';
     sizeValueID.value = '';
+    colorNewValue = [];
+    clariyNewValue = [];
+    newSIZEValue = [];
     piecessController.clear();
     weightController.clear();
     editingIndex = null;
@@ -435,10 +578,11 @@ class AddcustomjewelleryUIController extends GetxController {
     // allSelectdata.clear();
     final stoneData = {
       'gemType': isGemValue.value,
-      'shape': addcustomjewelleryItems.shape[shape.value],
-      'color': addcustomjewelleryItems.color[color.value],
-      'clarity': addcustomjewelleryItems.clarity[clarity.value],
-      'size': addcustomjewelleryItems.size[size.value],
+      'shapeId': shape.value,        // ✅ ID (optional but recommended)
+      'shape': shapeName.value,      // ✅ Name show karne ke liye
+      'color': color.value,
+      'clarity': clarity.value,
+      'size': size.value,
       'pieces': piecessController.text,
       'weight': weightController.text,
     };
@@ -526,7 +670,6 @@ class AddcustomjewelleryUIController extends GetxController {
   var isCenterStone = false.obs;
   var isSideStone = false.obs;
   var isColor = false.obs;
-  var isGemValue = false.obs;
 
   void toggleCenterStone(bool? value) {
     isCenterStone.value = value ?? false;
@@ -607,6 +750,45 @@ class AddcustomjewelleryUIController extends GetxController {
     selectedShapes.clear();
     selectWhiteColor.clear();
     update();
+  }
+
+  void onSubmit(){
+    addCustomJewellery.addCustomJewelleryInformation(
+      Category: productType.value,
+      MediaType: '',
+      metalType: metalType.value,
+      metalStamp: metalStamp.value,
+      AppxMetalWgt: appxMetalWeightController.text,
+      Budget: budgetController.text,
+      Engraving: engravingController.text,
+      FirstName: fristNameController.text,
+      LastName: lastNameController.text,
+      Email: emailController.text,
+      Phone: mobileController.text,
+      diamond: selectedShapes.join(', '),
+      EngravingText: engravingController.text,
+      filesORMediaUrl: selectedFilePath.value,
+      ReferredBy: referredController.text,
+      Size: ringSize.value,
+    );
+
+    print('Product Type: ${productType.value}');
+    print('Metal Type: ${metalType.value}');
+    print('Metal Stamp: ${metalStamp.value}');
+    print('Appx Metal Weight: ${appxMetalWeightController.text}');
+    print('Budget: ${budgetController.text}');
+    print('SelectedFilePath: ${selectedFilePath.value}');
+    print('Engraving: ${engravingController.text}');
+    print('Engraving Text: ${engravingController.text}');
+    print('First Name: ${fristNameController.text}');
+    print('Last Name: ${lastNameController.text}');
+    print('Email: ${emailController.text}');
+    print('Mobile: ${mobileController.text}');
+    print('Referred By: ${referredController.text}');
+    print('Ring Size: ${ringSize.value}');
+    print('Pieces: ${piecessController.text}');
+    print('Weight: ${weightController.text}');
+    print('Selected Shapes: ${selectedShapes.join(', ')}');
   }
 
   @override

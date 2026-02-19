@@ -10,17 +10,26 @@ import 'package:classic/view/utils/widget/button.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../../../controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createCart_Controller.dart';
 import '../../../../../controller/user_Interface/menu/jewelry/productDetailUI_Controller.dart';
+import '../../../../utils/app_icon.dart';
+import '../../../../utils/widget/image/productImage.dart';
+import '../../../../utils/widget/link/productLink.dart';
+import '../../../menu/diamondSearch/diamondWidget/body/searchResultWidget.dart';
 
 class Cart extends StatelessWidget {
   final cartAPICallAPI = Get.put(CartAPICall());
   final cartUI = Get.put(CartUiController());
   final productDetail = Get.put(ProductDetailUIController());
+  final adToCart = Get.put(CreateCartController());
+
   Cart({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
@@ -32,40 +41,50 @@ class Cart extends StatelessWidget {
           isLowercase: true,
         ),
       ),
-      child: horizontalPadding(
-        child: Obx(() {
-          final api = cartAPICallAPI.cartAPI;
-          final cartData = api.cartData;
-          if (cartData.isEmpty) {
-            return const SizedBox();
-          }
-          final dataList = cartData['data'];
-          if (dataList == null || dataList.isEmpty) {
-            return Center(child: Lottie.asset(AppJson.noData));
-          }
-          final cartProduct = dataList[0]['productLookup'] as List? ?? [];
-          if (cartProduct.isEmpty) {
-            return Center(child: Lottie.asset(AppJson.noData));
-          }
-          final _ = cartProduct.fold<double>(
-            0.0, (sum, product) => sum + (product['grandTotalPrice'] ?? 0.0),
-          );
-          return Column(
+      child: Obx(() {
+        final api = cartAPICallAPI.cartAPI;
+        final cartData = api.cartData;
+        if (cartData.isEmpty) {
+          return const SizedBox();
+        }
+        final dataList = cartData['data'];
+        if (dataList == null || dataList.isEmpty) {
+          return Center(child: Lottie.asset(AppJson.noData));
+        }
+        final cartProduct = dataList[0]['productLookup'] as List? ?? [];
+        final diamondProduct = dataList[0]['diamondLookup'] as List? ?? [];
+
+        if (cartProduct.isEmpty && diamondProduct.isEmpty) {
+          return Center(child: Lottie.asset(AppJson.noData));
+        }
+
+        return SingleChildScrollView(
+          child: Column(
             children: [
-              //List
-              cartProductItem(cartUI, cartProduct,productDetail),
+              //Product List
+              if (cartProduct.isNotEmpty)
+                cartProductItem(cartUI, cartProduct, productDetail),
+
+              //Diamond List
+              if (diamondProduct.isNotEmpty) diamondProductItem(diamondProduct),
+
               //Price
-              // total(totalPrice.toStringAsFixed(2)),
               GetBuilder<CartUiController>(
                 id: 'grand_total',
                 builder: (cartUI) {
-                  return total(cartUI.grandTotal.toStringAsFixed(2));
+                  return horizontalPadding(
+                    child: total(cartUI.grandTotal.toStringAsFixed(2)),
+                  );
                 },
-              )
+              ),
+
+              Padding(
+                padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.025),
+              ),
             ],
-          );
-        }),
-      ),
+          ),
+        );
+      }),
     );
   }
 }

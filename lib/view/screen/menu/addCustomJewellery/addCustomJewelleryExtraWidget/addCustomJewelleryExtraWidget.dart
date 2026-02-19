@@ -309,8 +309,12 @@ Widget sideStoneContainer(AddcustomjewelleryUIController stoneUpdate) {
 }
 
 Widget addButton() {
+  final controller = Get.find<AddcustomjewelleryUIController>();
   return GestureDetector(
-    onTap: openBottomSheet,
+    onTap: (){
+      controller.resetStoneForm();
+      openBottomSheet();
+    },
     child: Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(borderradius.buttonboder),
@@ -334,14 +338,13 @@ Widget addButton() {
 }
 
 void openBottomSheet() {
-  // Get the controller and reset form
-  final controller = Get.find<AddcustomjewelleryUIController>();
-  controller.resetStoneForm();
-
   Widget padding() {
-    return Padding(padding: EdgeInsets.symmetric(vertical: Get.height * 0.010));
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        vertical: Get.height * 0.010,
+      ),
+    );
   }
-
   Get.bottomSheet(
     GetBuilder<AddcustomjewelleryUIController>(
       builder: (AddcustomjewelleryUIController stoneUpdate) {
@@ -385,7 +388,12 @@ void openBottomSheet() {
                                     list: stoneUpdate.getColor(),
                                     onChanged: stoneUpdate.selectColorDrop,
                                   )
-                                : SizedBox(),
+                                : dropdowns(
+                                    AppString.color,
+                                    value: stoneUpdate.color.value,
+                                    list: stoneUpdate.getColor(),
+                                    onChanged: stoneUpdate.selectColorDrop,
+                                  ),
                             (stoneUpdate.colorValue.value == true)
                                 ? dropdowns(
                                     AppString.clarity,
@@ -393,7 +401,12 @@ void openBottomSheet() {
                                     list: stoneUpdate.getClarity(),
                                     onChanged: stoneUpdate.selectClarityDrop,
                                   )
-                                : SizedBox(),
+                                : dropdowns(
+                                    AppString.clarity,
+                                    value: stoneUpdate.clarity.value,
+                                    list: stoneUpdate.getClarity(),
+                                    onChanged: stoneUpdate.selectClarityDrop,
+                                  ),
                             dropdowns(
                               AppString.size,
                               value: stoneUpdate.size.value,

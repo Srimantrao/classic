@@ -140,7 +140,8 @@ class AddCustomJewellery extends StatelessWidget {
                   ringSizeOnChanged: addCustom.selectRingSizeValueChange,
                   ringSizeList: addCustom.getSelectRingSizeItems(),
                   ringSizeValue: addCustom.ringSize.value,
-                  appxMetalWeightController: addCustom.appxMetalWeightController,
+                  appxMetalWeightController:
+                      addCustom.appxMetalWeightController,
                   budgetController: addCustom.budgetController,
                   engravingController: addCustom.engravingController,
                 ),
@@ -191,49 +192,13 @@ class AddCustomJewellery extends StatelessWidget {
                   referredNumbarhintText: AppString.refereddby_hint,
                   referredController: addCustom.referredController,
                 ),
-                //Contact Information End
 
+                //Contact Information End
                 submitButton(
                   loadingWait: addCustomJewellery.isLoading.value
                       ? customCircular()
                       : null,
-                  onTab: () {
-                    addCustomJewellery.addCustomJewelleryInformation(
-                      Category: 'dfg',
-                      MediaType: 'df',
-                      metalType: '14',
-                      metalStamp: 'dfg',
-                      AppxMetalWgt: '45',
-                      Budget: '545',
-                      FirstName: 'xfg',
-                      LastName: 'xf',
-                      Email: 'x',
-                      Phone: 'xxc',
-                      diamond: 'hujk,',
-                      Engraving: 'fcgj',
-                      EngravingText: 'cfj',
-                      filesORMediaUrl: 'fgj',
-                      ReferredBy: 'cfg',
-                      Size: 'ffgj',
-                    );
-
-                    print('Category:dfg');
-                    print('MediaType:df');
-                    print('metalType:14');
-                    print('metalStamp:dfg');
-                    print('AppxMetalWgt:45');
-                    print('Budget:545');
-                    print('FirstName:xfg');
-                    print('LastName:xf');
-                    print('Email:x');
-                    print('Phone:xxc');
-                    print('diamond:hujk,');
-                    print('Engraving:fcgj');
-                    print('EngravingText:cfj');
-                    print('filesORMediaUrl:fgj');
-                    print('ReferredBy:cfg');
-                    print('Size:ffgj');
-                  },
+                  onTab: addCustom.onSubmit,
                   AppString.submit,
                 ),
               ],

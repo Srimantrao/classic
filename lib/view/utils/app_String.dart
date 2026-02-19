@@ -30,7 +30,7 @@ class AppString {
   static const weddingbands = 'WEDDING BANDS';
   static const Jewelry = 'JEWELRY';
   static const Diamond = 'DIAMONDS';
-  static const shopebymetal = 'SHOPE BY METAL';
+  static const shopbymetal = 'SHOP BY METAL';
   static const show = 'SHOW';
   static const findstore = 'Find Store';
   static const logout = 'LOGOUT';
@@ -192,7 +192,7 @@ class AppString {
 
   //DashBoard Scrren
   static const diamond = 'Diamonds';
-  static const jewellwery = 'Jewellwery';
+  static const jewelry = 'jewelry';
   static const Orders = 'Orders';
   static const Hold = 'Hold';
   static const recentViwe = 'Recent View';

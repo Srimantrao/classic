@@ -1,67 +1,34 @@
+// ignore_for_file: strict_top_level_inference
+
+import 'package:classic/controller/user_Interface/hedder/drawer/show_Controller.dart';
+import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/show/showWidget/body/showWidget.dart';
 import 'package:classic/view/screen/menu/home/homeWidget/body/homeBody.dart';
-import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
-import 'package:classic/view/utils/app_TextSize.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
-import 'package:classic/view/utils/widget/horizontalpaddind.dart';
-import 'package:classic/view/utils/widget/inputTyping.dart';
-import 'package:classic/view/utils/widget/inputfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
-import '../../../../../../../../utils/widget/cartcontainer.dart';
 
 class Show extends StatelessWidget {
-  const Show({super.key});
+  final showUI = Get.put(ShowControllerUI());
+  final String? imageShow;
+  Show({super.key, this.imageShow});
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
       appBar: allOtherScreen(AppString.show),
-      body: Column(
-        children: [
-          Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.020)),
-          fillTheForm(),
-          whatClassic(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            if (imageShow != null && imageShow!.isNotEmpty)
+              showImage(imageShow!),
+            height(),
+            Obx(() => fillTheForm(showUI)),
+            whatClassic(),
+            height(),
+          ],
+        ),
       ),
     );
   }
-}
-
-Widget fillTheForm() {
-  return horizontalPadding(
-    child: cartConatiner(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Please Fill The Form !',
-            style: TextStyle(
-              color: AppColor.primary,
-              fontSize: Get.width * 0.050,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.020)),
-          inputTyaping(
-            text: AppString.fristname,
-            hinttext: AppString.fristname,
-            controller: TextEditingController(),
-          ),
-          inputTyaping(
-            text: AppString.lastname,
-            hinttext: AppString.lastname,
-            controller: TextEditingController(),
-          ),
-          inputTyaping(
-            text: AppString.emailId,
-            hinttext: AppString.emailId,
-            controller: TextEditingController(),
-          ),
-        ],
-      ),
-    ),
-  );
 }

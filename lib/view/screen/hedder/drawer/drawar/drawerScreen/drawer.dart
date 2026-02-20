@@ -29,6 +29,7 @@ class Drawers extends StatelessWidget {
             final jewelry = jewelryData['data'];
             final shopByMetalList = shopByMetalListData['metalType'];
             final showList = showListApi.showListData['data'];
+            final shapList = parameter.getAllParameterData['shape'];
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,9 +71,40 @@ class Drawers extends StatelessWidget {
                 ),
                 //Diamond
                 iconDrawer(
+                  onTap: drawerUI.showDiamonds,
                   text: AppString.diamond,
                   icon: AppIcon.diamond,
                   dot: true,
+                ),
+                //Diamond List
+                Visibility(
+                  visible: drawerUI.diamonds.value,
+                  child: Column(
+                    children: [
+                      listColltion(
+                        onTap: drawerUI.showShape,
+                        datalist: AppString.naturalDiamond,
+                      ),
+                      Visibility(
+                        visible: drawerUI.shape.value,
+                        child: Padding(
+                          padding: EdgeInsets.only(left: Get.width * 0.040),
+                          child: diamondList(list: shapList),
+                        ),
+                      ),
+                      listColltion(
+                        datalist: AppString.coloredDiamond,
+                        onTap: drawerUI.showShape2,
+                      ),
+                      Visibility(
+                        visible: drawerUI.shape2.value,
+                        child: Padding(
+                          padding: EdgeInsets.only(left: Get.width * 0.040),
+                          child: diamondList(list: shapList),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 //Metaphysical
                 iconDrawer(

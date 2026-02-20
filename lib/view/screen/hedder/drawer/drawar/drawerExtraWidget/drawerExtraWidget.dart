@@ -82,9 +82,9 @@ Widget iconDrawer({
 }
 
 Widget listColltion({
-  required int index,
+  int? index,
   required String datalist,
-  required void Function() onTap,
+  void Function()? onTap,
 }) {
   return GestureDetector(
     onTap: onTap,

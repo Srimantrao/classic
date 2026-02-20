@@ -179,7 +179,7 @@ Widget inputtype({
               hinttext: AppString.countryCode,
             ),
           ),
-          SizedBox(width: Get.width * 0.02),
+          Padding(padding: EdgeInsetsGeometry.only(right: Get.width * 0.02)),
 
           //Mobile Number
           Flexible(

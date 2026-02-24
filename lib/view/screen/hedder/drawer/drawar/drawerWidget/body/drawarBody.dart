@@ -65,7 +65,10 @@ Widget showListValue({required List list}) {
         index: index,
         datalist: list[index]['venue'],
         onTap: () {
-          Get.to(() => Show(imageShow: list[index]['descriptionImage']));
+          Get.to(() => Show(
+            imageShow: list[index]['descriptionImage'],
+            ),
+          );
         },
       );
     },

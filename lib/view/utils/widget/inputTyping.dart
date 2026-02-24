@@ -32,7 +32,7 @@ Widget inputTyaping({
           fontWeight: FontWeight.w500,
         ),
       ),
-      SizedBox(height: Get.height * 0.01),
+      Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.01)),
       Inputfield(
         hinttext: hinttext,
         controller: controller,

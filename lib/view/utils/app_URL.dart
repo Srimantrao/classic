@@ -21,10 +21,12 @@ class AppUrl {
   static const String signup = "${application}signup";
 
   //hedder
-  //cart
-  static const String filterCart = "${baseUrl}App/cart/filterCart";
-  static const String updateCart = "${baseUrl}App/cart/updateCart";
-  static const String deleteCart ="${baseUrl}App/cart/deleteCart";
+    //cart
+      static const String filterCart = "${baseUrl}App/cart/filterCart";
+      static const String updateCart = "${baseUrl}App/cart/updateCart";
+      static const String deleteCart ="${baseUrl}App/cart/deleteCart";
+    //drawer
+      static const String showList = "${baseUrl}app/shows/list";
 
   //Menu
     //home
@@ -57,5 +59,4 @@ class AppUrl {
     //add Custom Jewellery
       static const String addCustomJewellery = "${baseUrl}App/customProduct/createCustomProduct";
       static const String getAllStoneGroupList = "${baseUrl}admin/product/getAllStoneGroupList";
-
 }

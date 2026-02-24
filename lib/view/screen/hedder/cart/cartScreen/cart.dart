@@ -10,26 +10,19 @@ import 'package:classic/view/utils/widget/button.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../../controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createCart_Controller.dart';
 import '../../../../../controller/user_Interface/menu/jewelry/productDetailUI_Controller.dart';
-import '../../../../utils/app_icon.dart';
-import '../../../../utils/widget/image/productImage.dart';
-import '../../../../utils/widget/link/productLink.dart';
-import '../../../menu/diamondSearch/diamondWidget/body/searchResultWidget.dart';
 
 class Cart extends StatelessWidget {
   final cartAPICallAPI = Get.put(CartAPICall());
   final cartUI = Get.put(CartUiController());
   final productDetail = Get.put(ProductDetailUIController());
   final adToCart = Get.put(CreateCartController());
-
   Cart({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Fullscreen(

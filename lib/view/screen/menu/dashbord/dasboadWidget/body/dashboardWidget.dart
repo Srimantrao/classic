@@ -38,7 +38,7 @@ Widget indexButtons({
         Expanded(
           child: indexButton(
             onTap: onTapJewellwery,
-            text: AppString.jewellwery,
+            text: AppString.jewelry,
             color: (isSelectJewellwery) ? AppColor.primary : AppColor.white,
             textColor: (isSelectJewellwery) ? AppColor.white : AppColor.black,
             borderColor: (isSelectJewellwery)

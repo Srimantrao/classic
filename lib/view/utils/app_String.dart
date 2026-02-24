@@ -30,10 +30,13 @@ class AppString {
   static const weddingbands = 'WEDDING BANDS';
   static const Jewelry = 'JEWELRY';
   static const Diamond = 'DIAMONDS';
-  static const shopebymetal = 'SHOPE BY METAL';
+  static const shopbymetal = 'SHOP BY METAL';
   static const show = 'SHOW';
   static const findstore = 'Find Store';
   static const logout = 'LOGOUT';
+  static const naturalDiamond = 'Natural Diamond';
+  static const coloredDiamond = 'Colored Diamond';
+
     //FindStore Screen
     static const check = 'Check';
     static const findSotre = 'Find Store';
@@ -65,6 +68,8 @@ class AppString {
         static const removeAddress = 'Remove Address';
         static const changeBillingAddress = 'Change Billing Address';
         static const setasDefault = 'Set as Default Address';
+        //Show Screen
+        static const pleaseFillTheForm = 'Please Fill The Form !';
 
 
   //cart Screen
@@ -81,6 +86,10 @@ class AppString {
   //Sign Up Screen
   static const personalInformation = 'Personal Information';
   static const fristname = 'First Name';
+  static const fullname = 'Full Name';
+  static const fullname_hint = 'Enter Full Name';
+  static const message = 'Message';
+  static const message_hint = 'Enter Message';
   static const lastname = 'Last Name';
   static const emailId = 'Email Id';
   static const password = 'Password';
@@ -192,7 +201,7 @@ class AppString {
 
   //DashBoard Scrren
   static const diamond = 'Diamonds';
-  static const jewellwery = 'Jewellwery';
+  static const jewelry = 'jewelry';
   static const Orders = 'Orders';
   static const Hold = 'Hold';
   static const recentViwe = 'Recent View';
@@ -222,7 +231,6 @@ class AppString {
 
   //Dimaond Search Screen
   static const whiteDiamond = 'White Diamond';
-  static const coloredDiamond = 'Colored Diamond';
   static const shape = 'Shape';
   static const carat = 'Carat';
   static const clarity = 'Clarity';

@@ -41,10 +41,7 @@ Widget sliderImages(String? image) {
         width: double.infinity,
         fit: BoxFit.cover,
         errorBuilder: (context, error, stackTrace) {
-          return Image.asset(
-            AppImage.spalsh_background,
-            fit: BoxFit.cover,
-          );
+          return Image.asset(AppImage.spalsh_background, fit: BoxFit.cover);
         },
       ),
     ),
@@ -153,21 +150,13 @@ Widget adImage() {
     width: Get.width,
     child: Stack(
       children: [
-
         /// Background Image
         Positioned.fill(
-          child: Image.asset(
-            AppImage.adImage,
-            fit: BoxFit.cover,
-          ),
+          child: Image.asset(AppImage.adImage, fit: BoxFit.cover),
         ),
 
         /// Optional Dark Overlay
-        Positioned.fill(
-          child: Container(
-            color: Colors.black.withOpacity(0.3),
-          ),
-        ),
+        Positioned.fill(child: Container(color: Colors.black.withOpacity(0.3))),
 
         /// Center Content
         Center(
@@ -263,7 +252,7 @@ Widget collectonList(homeAPI, homeUI) {
 Widget whatClassic() {
   return Column(
     children: [
-      SizedBox(height: Get.height * 0.02),
+      Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.02)),
       Padding(
         padding: EdgeInsets.symmetric(horizontal: Get.width * 0.09),
         child: SizedBox(
@@ -272,7 +261,7 @@ Widget whatClassic() {
         ),
       ),
       homeScreenSubheddingText(AppString.classicGrownJewelry),
-      SizedBox(height: Get.height * 0.03),
+      Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.03)),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [

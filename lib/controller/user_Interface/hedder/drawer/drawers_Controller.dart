@@ -1,6 +1,10 @@
+// ignore_for_file: avoid_print
+
 import 'package:get/get.dart';
 
 class DrawersUIController extends GetxController {
+  var engagement = false.obs;
+  var weddingbands = false.obs;
   var jewellery = false.obs;
   var shopByMetal = false.obs;
   var show = false.obs;
@@ -8,6 +12,39 @@ class DrawersUIController extends GetxController {
   var shape = false.obs;
   var shape2 = false.obs;
 
+  //Engagement Rings
+  void showEngagement() {
+    engagement.value = !engagement.value;
+    String categoryId;
+    String categoryName;
+    if (engagement.value == true) {
+      categoryId = '67ee85d43c2ae60318a28998';
+      categoryName = 'Engagement Rings';
+      print({'categoryId': categoryId, 'categoryName': categoryName});
+    }
+    if (engagement.value == false) {
+      categoryId = '';
+      categoryName = '';
+    }
+    update();
+  }
+
+  //Wedding bands
+  void showWeddingbands() {
+    weddingbands.value = !weddingbands.value;
+    String categoryId;
+    String categoryName;
+    if (weddingbands.value == true) {
+      categoryId = '682181561353060d79b6e480';
+      categoryName = 'Wedding Bands';
+      print({'categoryId': categoryId, 'categoryName': categoryName});
+    }
+    if (weddingbands.value == false) {
+      categoryId = '';
+      categoryName = '';
+    }
+    update();
+  }
 
   //Jewellery
   void showJewellery() {

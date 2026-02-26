@@ -14,7 +14,9 @@ class Drawers extends StatelessWidget {
   final drawerUI = Get.put(DrawersUIController());
   final jewelryUI = Get.put(JewelleryAPICall());
   final cartAPICallAPI = Get.put(CartAPICall());
+
   Drawers({super.key});
+
   @override
   Widget build(BuildContext context) {
     return allDrawersBody(
@@ -45,17 +47,29 @@ class Drawers extends StatelessWidget {
                   text: AppString.myAccount,
                   icon: AppIcon.user1,
                 ),
-                //Engagement
+                //Engagement Rings
                 iconDrawer(
+                  onTap: drawerUI.showEngagement,
                   text: AppString.enagagement,
                   icon: AppIcon.weddingRing,
                   dot: true,
                 ),
+                //Engagement Rings List
+                Visibility(
+                  visible: drawerUI.engagement.value,
+                  child: engagementRingsList(),
+                ),
                 //Wedding bands
                 iconDrawer(
+                  onTap: drawerUI.showWeddingbands,
                   text: AppString.weddingbands,
                   icon: AppIcon.weddingRing,
                   dot: true,
+                ),
+                //Wedding bands List
+                Visibility(
+                  visible: drawerUI.weddingbands.value,
+                  child: weddingBandsList(),
                 ),
                 //jewellwery
                 iconDrawer(

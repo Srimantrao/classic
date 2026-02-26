@@ -4,6 +4,7 @@ import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:marquee/marquee.dart';
 import '../../../../../utils/app_TextSize.dart';
 import '../../../../../utils/widget/logo.dart';
 
@@ -31,7 +32,7 @@ Widget iconDrawer({
   required String text,
   required String icon,
   bool? dot = false,
-  void Function()? onTap
+  void Function()? onTap,
 }) {
   final double size = 16;
   return GestureDetector(
@@ -105,7 +106,37 @@ Widget listColltion({
               Padding(
                 padding: EdgeInsetsGeometry.only(right: Get.width * 0.02),
               ),
-              Text(datalist.toString()),
+              Expanded(
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    final textStyle = TextStyle(
+                      fontSize: Get.width * 0.038,
+                    );
+                    final textSpan = TextSpan(text: datalist, style: textStyle);
+                    final textPainter = TextPainter(
+                      text: textSpan,
+                      maxLines: 1,
+                      textDirection: TextDirection.ltr,
+                    )..layout(maxWidth: constraints.maxWidth);
+                    if (textPainter.didExceedMaxLines) {
+                      return SizedBox(
+                        height: textStyle.fontSize! * 1.4,
+                        child: Marquee(
+                          text: datalist,
+                          style: textStyle,
+                          scrollAxis: Axis.horizontal,
+                          velocity: Get.width * 0.08,
+                          blankSpace: Get.width * 0.2,
+                          pauseAfterRound: Duration(seconds: 1),
+                          startPadding: Get.width * 0.02,
+                        ),
+                      );
+                    } else {
+                      return Text(datalist, style: textStyle, maxLines: 1);
+                    }
+                  },
+                ),
+              ),
             ],
           ),
           Divider(color: AppColor.gray),

@@ -49,6 +49,7 @@ dependencies:
   toastification:
   flutter_html:
   url_launcher:
+  marquee:
 
 dev_dependencies:
   flutter_test:

@@ -63,6 +63,7 @@ Widget myCartDiamond(cartAPICallAPI) {
       }
       final adToCart = Get.put(CreateCartController());
       return ListView.builder(
+        padding: EdgeInsets.only(bottom: Get.width * 0.20),
         itemCount: cartData.length,
         itemBuilder: (_, index) {
           final item = cartData[index];

@@ -63,7 +63,7 @@ class Product extends StatelessWidget {
       canPop: false,
       onPopInvoked: (didPop) {
         filter.reset(categoryId, categoryName);
-        Get.back(); // or Navigator.pop(context)
+        Get.back();
       },
       child: Fullscreen(
         appBar: allOtherScreen(

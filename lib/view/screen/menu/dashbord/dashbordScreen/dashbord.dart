@@ -75,7 +75,7 @@ class Dashbord extends StatelessWidget {
 
         return Column(
           children: [
-            SizedBox(height: Get.height * 0.02),
+            spacing(),
 
             // TOP TABS
             indexButtons(
@@ -85,7 +85,7 @@ class Dashbord extends StatelessWidget {
               onTapJewellwery: () => dashbord_UI.selectTab(1),
             ),
 
-            SizedBox(height: Get.height * 0.02),
+            spacing(),
 
             // MAIN CONTENT
             if (dashbord_UI.selectedIndex.value == 0) ...[
@@ -153,8 +153,8 @@ class Dashbord extends StatelessWidget {
                 dashbordValueList(
                   list: cartJewelryList(
                     jewelryList: cartAPICallAPI
-                          .cartAPI
-                          .cartData['data'][0]['productLookup'],
+                        .cartAPI
+                        .cartData['data'][0]['productLookup'],
                   ),
                 ),
             ],
@@ -163,4 +163,13 @@ class Dashbord extends StatelessWidget {
       }),
     );
   }
+}
+
+
+Widget spacing(){
+  return Padding(
+    padding: EdgeInsetsGeometry.only(
+      bottom: Get.height * 0.02,
+    ),
+  );
 }

@@ -1,5 +1,6 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, avoid_print
 
+import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
 import 'package:classic/controller/user_Interface/hedder/drawer/drawers_Controller.dart';
 import 'package:classic/controller/user_Interface/widget/bottaomBar/bottombar_Controller.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerExtraWidget/drawerExtraWidget.dart';
@@ -11,6 +12,77 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import '../../../../../../../controller/user_Interface/menu/diamondSearch/diamondSearch_Controller.dart';
 import '../../../../../menu/jewelry/jewelryScreen/product.dart';
+
+//Engagement Rings List
+Widget engagementRingsList() {
+  final jewellry = Get.find<JewelleryAPICall>();
+  final List categoryList = jewellry.categoryAPI.catagoryData['data'];
+  final engagementCategory = categoryList.firstWhere(
+    (element) => element['categoryName'] == "Engagement Rings",
+  );
+  final List subCategories = engagementCategory['subCategory'];
+  final engagement = '67ee85d43c2ae60318a28998';
+  return ListView.builder(
+    shrinkWrap: true,
+    physics: NeverScrollableScrollPhysics(),
+    itemCount: subCategories.length,
+    itemBuilder: (context, index) {
+      return listColltion(
+        index: index,
+        datalist: subCategories[index]['categoryName'],
+        onTap: () {
+          Get.to(
+            () => Product(
+              categoryId: engagement,
+              subCategoryId: subCategories[index]['_id'],
+              categoryName: subCategories[index]['categoryName'],
+            ),
+          );
+          print({
+            'categoryId': categoryList[index]['_id'],
+            'subCategoryId': subCategories[index]['_id'],
+            'categoryName': subCategories[index]['categoryName'],
+          });
+        },
+      );
+    },
+  );
+}
+
+//Wedding Bands List
+Widget weddingBandsList() {
+  final jewellry = Get.find<JewelleryAPICall>();
+  final List categoryList = jewellry.categoryAPI.catagoryData['data'];
+  final weddingBand = categoryList.firstWhere(
+    (element) => element['categoryName'] == "Wedding Bands",
+  );
+  final List subCategories = weddingBand['subCategory'];
+  return ListView.builder(
+    shrinkWrap: true,
+    physics: NeverScrollableScrollPhysics(),
+    itemCount: subCategories.length,
+    itemBuilder: (BuildContext context, int index) {
+      return listColltion(
+        index: index,
+        datalist: subCategories[index]['categoryName'],
+        onTap: () {
+          Get.to(
+            () => Product(
+              categoryId: weddingBand['_id'],
+              subCategoryId: subCategories[index]['_id'],
+              categoryName: subCategories[index]['categoryName'],
+            ),
+          );
+          print({
+            'categoryId': weddingBand['_id'],
+            'subCategoryId': subCategories[index]['_id'],
+            'categoryName': subCategories[index]['categoryName'],
+          });
+        },
+      );
+    },
+  );
+}
 
 //Jewellery List
 Widget jewelryList({required List list}) {
@@ -65,10 +137,7 @@ Widget showListValue({required List list}) {
         index: index,
         datalist: list[index]['venue'],
         onTap: () {
-          Get.to(() => Show(
-            imageShow: list[index]['descriptionImage'],
-            ),
-          );
+          Get.to(() => Show(imageShow: list[index]['descriptionImage']));
         },
       );
     },

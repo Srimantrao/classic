@@ -11,6 +11,7 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 import '../apiController/hedder/cart/cart_Controller.dart';
+import '../apiController/hedder/drawer/myAccount/profile/profileDetail_Controller.dart';
 import '../apiController/hedder/drawer/showList_Controller.dart';
 import '../apiController/menu/dashbord/recentView_Controller.dart';
 
@@ -19,12 +20,14 @@ import '../apiController/menu/dashbord/recentView_Controller.dart';
 class CartAPICall extends GetxController {
   final cartAPI = Get.put(CartController());
   final show = Get.put(ShowListController());
+  final profileDetail = Get.put(ProfileDetailController());
 
   @override
   void onInit() {
     Future.microtask(() {
       cartAPI.filterCart();
       show.showListView();
+      profileDetail.profileDetail();
     });
   }
 }

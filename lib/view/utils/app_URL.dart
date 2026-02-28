@@ -27,6 +27,10 @@ class AppUrl {
       static const String deleteCart ="${baseUrl}App/cart/deleteCart";
     //drawer
       static const String showList = "${baseUrl}app/shows/list";
+          //myAccount
+              //profile
+                static const String profile = "${baseUrl}App/myaccount/profileDetail";
+                static const String editProfile = "${baseUrl}App/myaccount/updateProfile";
 
   //Menu
     //home

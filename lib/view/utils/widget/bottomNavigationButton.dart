@@ -13,12 +13,16 @@ Widget buttonNavigation({required Widget child}) {
         height: Get.height * 0.08,
         child: Column(
           children: [
-            SizedBox(height: Get.height * 0.01),
+            Padding(
+              padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.01),
+            ),
             Container(
               decoration: BoxDecoration(color: AppColor.white),
               child: horizontalPadding(child: child),
             ),
-            SizedBox(height: Get.height * 0.01),
+            Padding(
+              padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.01),
+            ),
           ],
         ),
       ),

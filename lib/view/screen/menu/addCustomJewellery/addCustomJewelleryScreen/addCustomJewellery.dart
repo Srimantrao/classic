@@ -80,8 +80,7 @@ class AddCustomJewellery extends StatelessWidget {
                           chooseFile(
                             onTap: () => addCustom.pickImageFile(),
                             buttonText: AppString.chooseFile,
-                            yourCommentsController:
-                                addCustom.yourCommentsController,
+                            yourCommentsController: addCustom.yourCommentsController,
                             addCustomJewellery: addCustom,
                           ),
                           Padding(
@@ -99,8 +98,7 @@ class AddCustomJewellery extends StatelessWidget {
                           chooseFile(
                             onTap: () => addCustom.pickVideoFile(),
                             buttonText: AppString.chooseFile,
-                            yourCommentsController:
-                                addCustom.yourCommentsController,
+                            yourCommentsController: addCustom.yourCommentsController,
                             addCustomJewellery: addCustom,
                           ),
                           Padding(
@@ -116,10 +114,8 @@ class AddCustomJewellery extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           addURL(
-                            addURlTextController:
-                                addCustom.addURlTextController,
-                            yourCommentsController:
-                                addCustom.yourCommentsController,
+                            addURlTextController: addCustom.addURlTextController,
+                            yourCommentsController: addCustom.yourCommentsController,
                           ),
                           Padding(
                             padding: EdgeInsets.only(bottom: Get.height * 0.02),
@@ -140,8 +136,7 @@ class AddCustomJewellery extends StatelessWidget {
                   ringSizeOnChanged: addCustom.selectRingSizeValueChange,
                   ringSizeList: addCustom.getSelectRingSizeItems(),
                   ringSizeValue: addCustom.ringSize.value,
-                  appxMetalWeightController:
-                      addCustom.appxMetalWeightController,
+                  appxMetalWeightController: addCustom.appxMetalWeightController,
                   budgetController: addCustom.budgetController,
                   engravingController: addCustom.engravingController,
                 ),

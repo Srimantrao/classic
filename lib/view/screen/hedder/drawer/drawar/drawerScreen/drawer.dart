@@ -7,16 +7,16 @@ import 'package:classic/view/screen/hedder/drawer/drawar/drawerWidget/body/drawa
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_icon.dart';
+import 'package:classic/view/utils/app_json.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 class Drawers extends StatelessWidget {
   final drawerUI = Get.put(DrawersUIController());
   final jewelryUI = Get.put(JewelleryAPICall());
   final cartAPICallAPI = Get.put(CartAPICall());
-
   Drawers({super.key});
-
   @override
   Widget build(BuildContext context) {
     return allDrawersBody(
@@ -32,6 +32,33 @@ class Drawers extends StatelessWidget {
             final shopByMetalList = shopByMetalListData['metalType'];
             final showList = showListApi.showListData['data'];
             final shapList = parameter.getAllParameterData['shape'];
+            if(jewelryData.isEmpty){
+              return Lottie.asset(AppJson.noData);
+            }
+            if(shopByMetalListData.isEmpty){
+              return Lottie.asset(AppJson.noData);
+            }
+            if(parameter.getAllParameterData.isEmpty){
+              return Lottie.asset(AppJson.noData);
+            }
+            if(showListApi.showListData.isEmpty){
+              return Lottie.asset(AppJson.noData);
+            }
+            if(parameter.getAllParameterData.isEmpty){
+              return Lottie.asset(AppJson.noData);
+            }
+            if(jewelryData['data'].isEmpty){
+              return Lottie.asset(AppJson.noData);
+            }
+            if(shopByMetalListData['metalType'].isEmpty){
+              return Lottie.asset(AppJson.noData);
+            }
+            if(showListApi.showListData['data'].isEmpty){
+              return Lottie.asset(AppJson.noData);
+            }
+            if(parameter.getAllParameterData['shape'].isEmpty){
+              return Lottie.asset(AppJson.noData);
+            }
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,

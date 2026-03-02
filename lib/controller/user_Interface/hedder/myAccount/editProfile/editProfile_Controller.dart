@@ -1,5 +1,7 @@
 // ignore_for_file: unnecessary_null_comparison, file_names, non_constant_identifier_names, avoid_print
 
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/editProfile/editProfile_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/other/country_Controller.dart';
 import 'package:classic/modal/credentials/signUp.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +22,10 @@ class EditprofileUIController extends GetxController {
 
   final countryDropdown = Get.put(CountryDropdownContoller());
   final signUpDropdown = Get.put(SignupDropdownContoller());
+  final editprofileButton = Get.put(EditProfileController());
+  final Country = Get.put(CountryController());
+
+  var country = ''.obs;
 
   //value
   var country_PersonalInformation = ''.obs;
@@ -37,12 +43,32 @@ class EditprofileUIController extends GetxController {
   var stateColor = false.obs;
   var cityColor = false.obs;
 
+  //Country
+  void countryValueChange(String? newValue) {
+    if (newValue == null) return;
+    final data = Country.countryData['data'];
+    if (data == null || data is! List) return;
+    final selectedCountry = data.firstWhere(
+      (item) => item['_id'] == newValue,
+      orElse: () => null,
+    );
+    if (selectedCountry == null) return;
+    country.value = newValue;
+    print("Selected country ID: ${country.value}");
+    print("Selected country Name: ${selectedCountry['name']}");
+  }
+
   //List
   List<DropdownMenuItem<String>> getDropdownCountry() {
-    return countryDropdown.dropdownCountry.entries.map((entry) {
+    final data = Country.countryData['data'];
+    if (data == null || data is! List) return [];
+    return data.map<DropdownMenuItem<String>>((item) {
       return DropdownMenuItem<String>(
-        value: entry.key,
-        child: Text(entry.value, style: TextStyle(color: AppColor.black)),
+        value: item['_id']?.toString() ?? '',
+        child: Text(
+          item['name']?.toString() ?? '',
+          style: TextStyle(color: AppColor.black),
+        ),
       );
     }).toList();
   }
@@ -166,5 +192,37 @@ class EditprofileUIController extends GetxController {
     } else {
       mobileNoColor.value = false;
     }
+  }
+
+  void editProfile_edit() {
+    editprofileButton.editProfile(
+      firstName: firstNameController.text,
+      lastName: lastNameController.text,
+      email: emailIdController.text,
+      mobileno: mobileController.text,
+      code: country_PersonalInformation.value,
+      businessType: selectedValueIAM.value,
+      companyName: companyController.text,
+      countryId: country.value,
+      city: cityController.text,
+      state: stateController.text,
+      address: addressController.text,
+      memberOf: selectedValueMemberof.value,
+      howDidYouHearAboutUs: selectedValueHowdidyourhear.value,
+    );
+
+    print('Fristname: - ${firstNameController.text}');
+    print('Lastname: - ${lastNameController.text}');
+    print('Email: - ${emailIdController.text}');
+    print('Mobile: - ${mobileController.text}');
+    print('Code: - ${country_PersonalInformation.value}');
+    print('Business Type: - ${selectedValueIAM.value}');
+    print('Company Name: - ${companyController.text}');
+    print('Country: - ${country.value}');
+    print('City: - ${cityController.text}');
+    print('State: - ${stateController.text}');
+    print('Address: - ${addressController.text}');
+    print('Member Of: - ${selectedValueMemberof.value}');
+    print('How Did You Hear About Us: - ${selectedValueHowdidyourhear.value}');
   }
 }

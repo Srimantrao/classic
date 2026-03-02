@@ -33,14 +33,17 @@ class Signup extends StatelessWidget {
                       lastnameController: signupUi.lastNameController,
                       mobileController: signupUi.mobileController,
                       emailIdController: signupUi.emailIdController,
-                      confirmPasswordController: signupUi.confirmPasswordController,
+                      confirmPasswordController:
+                          signupUi.confirmPasswordController,
                       passwordController: signupUi.passwordController,
                       valueIAM: signupUi.selectedValueIAM.value,
                       listIAm: signupUi.getDropdownItems(),
                       onChangedIAM: signupUi.iamvalueChange,
-                      valuehowdidyouhear: signupUi.selectedValueHowdidyourhear.value,
+                      valuehowdidyouhear:
+                          signupUi.selectedValueHowdidyourhear.value,
                       listhowdidyouhear: signupUi.getDropdownItems2(),
-                      onChangedhowdidyouhear: signupUi.howdidyourhearvalueChange,
+                      onChangedhowdidyouhear:
+                          signupUi.howdidyourhearvalueChange,
                       valuememberof: signupUi.selectedValueMemberof.value,
                       listmemberof: signupUi.getDropdownItems3(),
                       onChangedmemberof: signupUi.memberoflueChange,
@@ -49,8 +52,8 @@ class Signup extends StatelessWidget {
                       country: signupUi.country.value,
                       listcountry: signupUi.getDropdownCountry(),
                       onChangedcountry: signupUi.countryValueChange,
-                      //Country end
 
+                      //Country end
                       fristnameColor: signupUi.fristnameColor.value
                           ? AppColor.red
                           : AppColor.white,
@@ -72,7 +75,8 @@ class Signup extends StatelessWidget {
                       onChanged_fristname: signupUi.onChanged_fristname,
                       onChanged_lastname: signupUi.onChanged_lastname,
                       onChanged_password: signupUi.onChanged_password,
-                      onChanged_confirmPassword: signupUi.onChanged_confirmPassword,
+                      onChanged_confirmPassword:
+                          signupUi.onChanged_confirmPassword,
                       onChanged_emailId: signupUi.onChanged_emailId,
                       onChanged_mobile: signupUi.onChanged_mobile,
                     ),
@@ -81,7 +85,7 @@ class Signup extends StatelessWidget {
                       onTapBack: Get.back,
                       onTapNext: () {
                         signupUi.allDoneGotonextPage(Businessinformation());
-                      }
+                      },
                     ),
                   ],
                 );

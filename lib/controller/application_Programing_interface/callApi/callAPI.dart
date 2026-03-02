@@ -1,5 +1,6 @@
 // ignore_for_file: must_call_super, file_names, unused_import
 
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/orderHistory/orderHistory_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/dashbord/totalRecored_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/home/filterSlider_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/home/homeCollctionAPIController.dart';
@@ -21,6 +22,7 @@ class CartAPICall extends GetxController {
   final cartAPI = Get.put(CartController());
   final show = Get.put(ShowListController());
   final profileDetail = Get.put(ProfileDetailController());
+  final orderHistory = Get.put(OrderHistoryController());
 
   @override
   void onInit() {
@@ -28,6 +30,7 @@ class CartAPICall extends GetxController {
       cartAPI.filterCart();
       show.showListView();
       profileDetail.profileDetail();
+      orderHistory.oderHistory();
     });
   }
 }
@@ -63,7 +66,7 @@ class JewelleryAPICall extends GetxController {
 }
 
 //dashbord Screen
-class DashBordAPICall extends GetxController{
+class DashBordAPICall extends GetxController {
   final totalRecored = Get.put(TotalRecordedController());
   final recentView = Get.put(RecentViewController());
 

@@ -20,9 +20,6 @@ Widget buttonNavigation({required Widget child}) {
               decoration: BoxDecoration(color: AppColor.white),
               child: horizontalPadding(child: child),
             ),
-            Padding(
-              padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.01),
-            ),
           ],
         ),
       ),

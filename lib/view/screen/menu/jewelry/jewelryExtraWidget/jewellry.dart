@@ -39,14 +39,14 @@ Widget product({
                     return Center(
                       child: Icon(
                         Icons.broken_image,
-                        size: 40,
+                        size: Get.width * 0.2,
                         color: Colors.grey,
                       ),
                     );
                   },
                 )
               : SizedBox(),
-          SizedBox(height: Get.height * 0.01),
+          Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.01)),
           Text(
             text,
             style: TextStyle(

@@ -16,9 +16,7 @@ import 'package:get/get.dart';
 
 class Editprofile extends StatelessWidget {
   final editProfileUI = Get.put(EditprofileUIController());
-
   Editprofile({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Fullscreen(

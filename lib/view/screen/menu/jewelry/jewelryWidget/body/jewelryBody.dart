@@ -15,7 +15,7 @@ Widget listOfItem({required List list}) {
     child: GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        mainAxisExtent: Get.height * 0.25,
+        mainAxisExtent: Get.height * 0.30,
         mainAxisSpacing: Get.height * 0.015,
         crossAxisSpacing: Get.width * 0.03,
       ),

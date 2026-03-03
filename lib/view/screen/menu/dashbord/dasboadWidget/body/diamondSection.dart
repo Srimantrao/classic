@@ -85,6 +85,9 @@ Widget selectIndexText({
 
 //Jewellwery List
 Widget jewelryListViwe({required List jewelryList}) {
+  if(jewelryList == null || jewelryList.isEmpty){
+    return Center(child: Lottie.asset(AppJson.noData));
+  }
   return Expanded(
     child: ListView.builder(
       itemCount: jewelryList.length,
@@ -92,9 +95,6 @@ Widget jewelryListViwe({required List jewelryList}) {
         final item = jewelryList[index]['productDetails'] ?? {};
         final imageList = item['images'] ?? [];
         final imageUrl = imageList.isNotEmpty ? imageList[0]['zoom'] : '';
-        if(item == null){
-          return Center(child: Lottie.asset(AppJson.noData));
-        }
         return jeawellweryList(
           imageUrl: imageUrl,
           productTitle: item['productTitle'] ?? '',
@@ -113,25 +113,28 @@ Widget jewelryListViwe({required List jewelryList}) {
 }
 
 Widget cartJewelryList({required List jewelryList}) {
+  if (jewelryList.isEmpty) {
+    return Center(child: Lottie.asset(AppJson.noData));
+  }
+
   return Expanded(
     child: ListView.builder(
       itemCount: jewelryList.length,
       itemBuilder: (BuildContext context, int index) {
-        final item = jewelryList[index]['productDetails'];
+        final item = jewelryList[index]['productDetails'] ?? {};
         final imageList = item['images'] ?? [];
-        final imageUrl = imageList.isNotEmpty ? imageList[0]['zoom'] : '';
-        if(item == null){
-          return Center(child: Lottie.asset(AppJson.noData));
-        }
+        final imageUrl =
+        imageList.isNotEmpty ? imageList.first['zoom'] ?? '' : '';
+
         return jeawellweryList(
           imageUrl: imageUrl,
           productTitle: item['productTitle'] ?? '',
           finalPrice:
-              '\$${(double.tryParse(item['finalPrice']?.toString() ?? '0') ?? 0).toStringAsFixed(2)}',
+          '\$${(double.tryParse(item['finalPrice']?.toString() ?? '0') ?? 0).toStringAsFixed(2)}',
           itemCode: item['itemCode'] ?? '',
           metalType: item['metalType'] ?? '',
-          appxMetalWgt: item['appxMetalWgt'].toString(),
-          totalWgt: item['totalWgt'].toString(),
+          appxMetalWgt: item['appxMetalWgt']?.toString() ?? '',
+          totalWgt: item['totalWgt']?.toString() ?? '',
           categoryId: item['categoryId'] ?? '',
           slug: item['slug'] ?? '',
         );

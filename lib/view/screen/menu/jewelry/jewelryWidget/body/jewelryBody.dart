@@ -14,10 +14,10 @@ Widget listOfItem({required List list}) {
   return Expanded(
     child: GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisExtent: Get.height * 0.30,
-        mainAxisSpacing: Get.height * 0.015,
-        crossAxisSpacing: Get.width * 0.03,
+        crossAxisCount: Get.width < 350 ? 1 : 2,
+        childAspectRatio: Get.width < 350 ? 1 : 0.85,
+        mainAxisSpacing: 12,
+        crossAxisSpacing: 12,
       ),
       shrinkWrap: true,
       itemCount: newList.length,
@@ -39,3 +39,9 @@ void callProductList(newList, index) {
   print("categoryId :- $categoryId");
   print("categoryId :- $categoryName");
 }
+
+
+//  crossAxisCount: 2,
+//         mainAxisExtent: Get.height * 0.30,
+//         mainAxisSpacing: Get.height * 0.015,
+//         crossAxisSpacing: Get.width * 0.03,  //

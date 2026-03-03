@@ -1,11 +1,19 @@
 // ignore_for_file: file_names
 
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createCart_Controller.dart';
+import 'package:classic/view/screen/menu/diamondSearch/diamondWidget/body/searchResultWidget.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
+import 'package:classic/view/utils/app_icon.dart';
+import 'package:classic/view/utils/app_json.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
+import 'package:classic/view/utils/widget/image/productImage.dart';
 import 'package:classic/view/utils/widget/indexButton.dart';
+import 'package:classic/view/utils/widget/link/productLink.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 Widget indexButtons({
   required bool isSelectDiamond,
@@ -39,6 +47,102 @@ Widget indexButtons({
           ),
         ),
       ],
+    ),
+  );
+}
+
+Widget diamondListWish(header) {
+  final wishlist = header.fitterWish.fitterWishData;
+  if (wishlist.isEmpty) {
+    return Expanded(child: Center(child: Lottie.asset(AppJson.noData)));
+  }
+  final dataList = wishlist['data'] as List?;
+  if (dataList == null || dataList.isEmpty) {
+    return Expanded(child: Center(child: Lottie.asset(AppJson.noData)));
+  }
+  final diamondList = dataList.first?['diamondList'] as List?;
+  if (diamondList == null || diamondList.isEmpty) {
+    return Expanded(child: Center(child: Lottie.asset(AppJson.noData)));
+  }
+  final adToCart = Get.put(CreateCartController());
+  return Expanded(
+    child: ListView.builder(
+      shrinkWrap: true,
+      itemCount: diamondList.length,
+      itemBuilder: (BuildContext context, int index) {
+        final diamond = diamondList[index] as Map?;
+        final details = diamond?['diamondDetails'] as Map? ?? {};
+        return listDiamond(
+          idOnTop: () {
+            final String? link = details['certurl']?.toString();
+            if (link == null || link.isEmpty) {
+              if (kDebugMode) {
+                print("No Link");
+              }
+              return;
+            } else {
+              productLink(link);
+            }
+          },
+          cartifactIcon:
+              (diamond?['certno'] == null || diamond?['certno'] == '-')
+              ? AppIcon.documant
+              : AppIcon.edit,
+          isWishlist: true,
+          camara: true,
+          isCart: true,
+          link: true,
+          ids: diamond?['diamondId']?.toString() ?? '',
+          images: details['imageurl1']?.toString() ?? '',
+          videos: details['videourl']?.toString() ?? '',
+          shape: details['shape']?.toString() ?? '',
+          careat: details['carat']?.toString() ?? '',
+          lab: details['lab']?.toString() ?? '',
+          colorcode: details['color']?.toString() ?? '',
+          clarity: details['clarity']?.toString() ?? '',
+          cartifactNo: (details['certno'] == null || details['certno'] == '-')
+              ? ''
+              : details['certno'].toString(),
+          cps: details['polish']?.toString() ?? '',
+          meas: details['measurement']?.toString() ?? '',
+          refNo: details['stockId']?.toString() ?? '',
+          T: details['tablepercent']?.toString() ?? '',
+          D: details['depth']?.toString() ?? '',
+          loc: details['county']?.toString() ?? '',
+          ct: details['carat']?.toString() ?? '',
+          total: details['finalamount'] != null
+              ? (details['finalamount'] as num).toDouble().toStringAsFixed(2)
+              : '0.00',
+          cartOnTap: () {
+            adToCart.createCart(
+              price: details['finalamount']?.toString() ?? '',
+              productId: details['_id']?.toString() ?? '',
+              DiamondId: details['dimCountryId']?.toString() ?? '',
+            );
+          },
+          camaraOnTap: () {
+            final String? image = details['imageurl1']?.toString();
+            if (image == null || image.isEmpty) {
+              if (kDebugMode) {
+                print("No Image");
+              }
+              return;
+            }
+            Get.to(() => ProductImage(images: image));
+          },
+          linkOnTap: () {
+            final String? link = details['certurl']?.toString();
+            if (link == null || link.isEmpty) {
+              if (kDebugMode) {
+                print("No Link");
+              }
+              return;
+            } else {
+              productLink(link);
+            }
+          },
+        );
+      },
     ),
   );
 }

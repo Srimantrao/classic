@@ -2,13 +2,15 @@
 
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/orderHistory/orderHistoryExtraWidget/orderHistroryExtraWidget.dart';
 import 'package:classic/view/utils/app_Color.dart';
+import 'package:classic/view/utils/app_json.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 Widget orderHistory() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      orderHistoryhedding('Order ID'),
+      orderHistoryhedding('Order'),
       orderHistoryhedding('Order Date'),
       orderHistoryhedding('Total'),
       orderHistoryhedding('Status'),
@@ -17,6 +19,10 @@ Widget orderHistory() {
 }
 
 Widget orderHistoryValue(orderList) {
+  if (orderList == null || orderList.isEmpty) {
+    return Center(child: Lottie.asset(AppJson.noData));
+  }
+
   color(status) {
     switch (status) {
       case 'Cancel':
@@ -29,18 +35,25 @@ Widget orderHistoryValue(orderList) {
         return AppColor.black;
     }
   }
+
   return Expanded(
     child: ListView.builder(
       itemCount: orderList.length,
       itemBuilder: (BuildContext context, int index) {
         final order = orderList[index];
-        final status = order['Status'];
+        final status = order['orderStatus'];
+        if (order == null || order.isEmpty) {
+          return Center(child: Lottie.asset(AppJson.noData));
+        }
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            orderHistoryvalue(order['Order ID']),
-            orderHistoryvalue(order['Order Date']),
-            orderHistoryvalue(order['Total']),
+            orderHistoryvalue(order['orderNo']),
+            orderHistoryvalue(order['date']),
+            orderHistoryvalue(
+              (double.tryParse(order['netAmount']?.toString() ?? '0') ?? 0)
+                  .toStringAsFixed(2),
+            ),
             orderHistoryvalue(status, color: color(status)),
           ],
         );

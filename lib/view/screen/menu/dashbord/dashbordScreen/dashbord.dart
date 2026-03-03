@@ -150,13 +150,19 @@ class Dashbord extends StatelessWidget {
                   ),
                 )
               else if (dashbord_UI.selectedTab.value == 1)
-                dashbordValueList(
-                  list: cartJewelryList(
-                    jewelryList: cartAPICallAPI
-                        .cartAPI
-                        .cartData['data'][0]['productLookup'],
-                  ),
-                ),
+                Obx(() {
+                  final cartData = cartAPICallAPI.cartAPI.cartData;
+                  if (cartData == null ||
+                      cartData['data'] == null ||
+                      cartData['data'].isEmpty) {
+                    return Expanded(child: Center(child: Lottie.asset(AppJson.noData)));
+                  }
+                  final productLookup =
+                      cartData['data'][0]['productLookup'] ?? [];
+                  return dashbordValueList(
+                    list: cartJewelryList(jewelryList: productLookup),
+                  );
+                }),
             ],
           ],
         );
@@ -165,11 +171,6 @@ class Dashbord extends StatelessWidget {
   }
 }
 
-
-Widget spacing(){
-  return Padding(
-    padding: EdgeInsetsGeometry.only(
-      bottom: Get.height * 0.02,
-    ),
-  );
+Widget spacing() {
+  return Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.02));
 }

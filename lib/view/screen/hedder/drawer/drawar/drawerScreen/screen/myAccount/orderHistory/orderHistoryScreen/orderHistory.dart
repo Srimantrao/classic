@@ -1,6 +1,6 @@
-
 // ignore_for_file: prefer_const_constructors_in_immutables, file_names
 
+import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
 import 'package:classic/modal/headder/myAccount/orderHistory.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/orderHistory/orderHistoryExtraWidget/orderHistroryExtraWidget.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/orderHistory/orderHistoryWidget/body/orderHistoryWidget.dart';
@@ -14,9 +14,12 @@ import 'package:get/get.dart';
 
 class Orderhistory extends StatelessWidget {
   final orderList = OrderhistoryList();
+  final hedder = Get.put(CartAPICall());
   Orderhistory({super.key});
   @override
   Widget build(BuildContext context) {
+    final api = hedder.orderHistory;
+    final apiData = api.orderHistoryData['data'];
     return Fullscreen(
       appBar: allOtherScreen(AppString.orderHistory),
       child: horizontalPadding(
@@ -31,7 +34,7 @@ class Orderhistory extends StatelessWidget {
                   children: [
                     orderHistory(),
                     Divider(color: AppColor.secondary),
-                    orderHistoryValue(orderList.orderHistoryList),
+                    orderHistoryValue(apiData),
                   ],
                 ),
               ),
@@ -42,5 +45,3 @@ class Orderhistory extends StatelessWidget {
     );
   }
 }
-
-

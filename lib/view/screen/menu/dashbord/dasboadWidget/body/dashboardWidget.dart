@@ -2,11 +2,13 @@
 
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
+import 'package:classic/view/utils/app_json.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:classic/view/utils/widget/indexButton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../../../../controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createCart_Controller.dart';
 import '../../../../../utils/app_icon.dart';
@@ -54,12 +56,12 @@ Widget indexButtons({
 Widget myCartDiamond(cartAPICallAPI) {
   return Expanded(
     child: Obx(() {
-      final cartData =
-          (cartAPICallAPI.cartAPI.cartData.value['data']?[0]?['diamondLookup']
-              as List?) ??
-          [];
+      final dataList = cartAPICallAPI.cartAPI.cartData.value['data'] as List?;
+      final cartData = (dataList != null && dataList.isNotEmpty)
+          ? (dataList[0]['diamondLookup'] as List? ?? [])
+          : [];
       if (cartData.isEmpty) {
-        return const Center(child: Text("No Diamonds Found"));
+        return Center(child: Lottie.asset(AppJson.noData));
       }
       final adToCart = Get.put(CreateCartController());
       return ListView.builder(
@@ -150,11 +152,11 @@ Widget recentviwe(dashbord_API) {
         }
         final dataList = recentView['data'] as List?;
         if (dataList == null || dataList.isEmpty) {
-          return const SizedBox();
+          return Center(child: Lottie.asset(AppJson.noData));
         }
         final diamondList = dataList.first?['diamondList'] as List?;
         if (diamondList == null || diamondList.isEmpty) {
-          return const SizedBox();
+          return Center(child: Lottie.asset(AppJson.noData));
         }
         final adToCart = Get.put(CreateCartController());
         return ListView.builder(

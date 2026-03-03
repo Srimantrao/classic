@@ -8,7 +8,7 @@ class FitterWishController extends GetxController {
   var fitterWishData = {}.obs;
   var isLoading = false.obs;
 
-  Future<void> fitterWishService() async {
+  Future<void> fitterWishList() async {
     try {
       isLoading(true);
       final response = await fitterWish.fitterWish();

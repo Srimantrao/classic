@@ -1,18 +1,26 @@
 // ignore_for_file: file_names
 
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createCart_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
 import 'package:classic/controller/user_Interface/hedder/myAccount/wishlist/wishlist_Controller.dart';
 import 'package:classic/modal/headder/myAccount/wishlist.dart';
+import 'package:classic/view/screen/menu/dashbord/dasboadWidget/body/diamondSection.dart';
+import 'package:classic/view/screen/menu/dashbord/dashbordExtraWidget/dashbordExtraWidget.dart';
+import 'package:classic/view/screen/menu/diamondSearch/diamondWidget/body/searchResultWidget.dart';
 import 'package:classic/view/utils/app_String.dart';
-import 'package:classic/view/utils/widget/cartList.dart';
+import 'package:classic/view/utils/app_icon.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
+import 'package:classic/view/utils/widget/image/productImage.dart';
+import 'package:classic/view/utils/widget/link/productLink.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../wishlistWidget/body/wishlistWidget.dart';
 
 class Wishlist extends StatelessWidget {
   final wishlistUI = Get.put(WishlistUIController());
+  final header = Get.put(CartAPICall());
   final value = WishlistList();
   Wishlist({super.key});
   @override
@@ -22,7 +30,7 @@ class Wishlist extends StatelessWidget {
       child: Obx(() {
         return Column(
           children: [
-            SizedBox(height: Get.height * 0.02),
+            Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.02)),
 
             //Select Button
             indexButtons(
@@ -32,19 +40,14 @@ class Wishlist extends StatelessWidget {
               onTapJewellwery: () => wishlistUI.selectTab(1),
             ),
 
-            if (wishlistUI.selectedIndex.value == 0)
-              valueList(
-                valueList: value.diamondList,
-                isCart: true,
-                camara: true,
-                video: true,
-              ),
+            if (wishlistUI.selectedIndex.value == 0) diamondListWish(header),
             if (wishlistUI.selectedIndex.value == 1)
-              valueList(
-                valueList: value.JewellweryList,
-                isCart: true,
-                camara: true,
-                video: true,
+              dashbordValueList(
+                list: jewelryListViwe(
+                  jewelryList: header
+                      .fitterWish
+                      .fitterWishData['data'][0]['productLookup'],
+                ),
               ),
           ],
         );

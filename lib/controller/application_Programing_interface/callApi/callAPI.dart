@@ -1,5 +1,6 @@
 // ignore_for_file: must_call_super, file_names, unused_import
 
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/fitterWish/fitterWish_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/orderHistory/orderHistory_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/dashbord/totalRecored_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/home/filterSlider_Controller.dart';
@@ -10,7 +11,6 @@ import 'package:classic/controller/application_Programing_interface/apiControlle
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-
 import '../apiController/hedder/cart/cart_Controller.dart';
 import '../apiController/hedder/drawer/myAccount/profile/profileDetail_Controller.dart';
 import '../apiController/hedder/drawer/showList_Controller.dart';
@@ -23,6 +23,7 @@ class CartAPICall extends GetxController {
   final show = Get.put(ShowListController());
   final profileDetail = Get.put(ProfileDetailController());
   final orderHistory = Get.put(OrderHistoryController());
+  final fitterWish = Get.put(FitterWishController());
 
   @override
   void onInit() {
@@ -31,6 +32,7 @@ class CartAPICall extends GetxController {
       show.showListView();
       profileDetail.profileDetail();
       orderHistory.oderHistory();
+      fitterWish.fitterWishList();
     });
   }
 }

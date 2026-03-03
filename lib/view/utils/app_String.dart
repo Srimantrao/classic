@@ -48,6 +48,7 @@ class AppString {
         //My Account Screen
         static const editProfile = 'Edit Profile';
         static const orderHistory = 'Order History';
+        static const orderDetail = 'Order Detail';
         static const wishlist = 'Wishlist';
         static const holdDiamond = 'Hold Diamond';
         static const changePassword = 'Change Password';

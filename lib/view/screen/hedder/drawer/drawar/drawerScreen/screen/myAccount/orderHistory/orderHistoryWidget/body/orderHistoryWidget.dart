@@ -18,11 +18,10 @@ Widget orderHistory() {
   );
 }
 
-Widget orderHistoryValue(orderList) {
+Widget orderHistoryValue(orderList,{void Function()? onTap}) {
   if (orderList == null || orderList.isEmpty) {
     return Center(child: Lottie.asset(AppJson.noData));
   }
-
   color(status) {
     switch (status) {
       case 'Cancel':
@@ -35,7 +34,6 @@ Widget orderHistoryValue(orderList) {
         return AppColor.black;
     }
   }
-
   return Expanded(
     child: ListView.builder(
       itemCount: orderList.length,
@@ -45,17 +43,20 @@ Widget orderHistoryValue(orderList) {
         if (order == null || order.isEmpty) {
           return Center(child: Lottie.asset(AppJson.noData));
         }
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            orderHistoryvalue(order['orderNo']),
-            orderHistoryvalue(order['date']),
-            orderHistoryvalue(
-              (double.tryParse(order['netAmount']?.toString() ?? '0') ?? 0)
-                  .toStringAsFixed(2),
-            ),
-            orderHistoryvalue(status, color: color(status)),
-          ],
+        return GestureDetector(
+          onTap: onTap,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              orderHistoryvalue(order['orderNo']),
+              orderHistoryvalue(order['date']),
+              orderHistoryvalue(
+                (double.tryParse(order['netAmount']?.toString() ?? '0') ?? 0)
+                    .toStringAsFixed(2),
+              ),
+              orderHistoryvalue(status, color: color(status)),
+            ],
+          ),
         );
       },
     ),

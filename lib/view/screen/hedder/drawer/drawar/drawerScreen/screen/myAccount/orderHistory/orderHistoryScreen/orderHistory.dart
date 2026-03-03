@@ -3,6 +3,7 @@
 import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
 import 'package:classic/modal/headder/myAccount/orderHistory.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/orderHistory/orderHistoryExtraWidget/orderHistroryExtraWidget.dart';
+import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/orderHistory/orderHistoryScreen/orderDetail.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/orderHistory/orderHistoryWidget/body/orderHistoryWidget.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
@@ -34,7 +35,12 @@ class Orderhistory extends StatelessWidget {
                   children: [
                     orderHistory(),
                     Divider(color: AppColor.secondary),
-                    orderHistoryValue(apiData),
+                    orderHistoryValue(
+                      apiData,
+                      onTap: () {
+                        Get.to(() => OrderDetail());
+                      },
+                    ),
                   ],
                 ),
               ),

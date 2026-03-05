@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, implementation_imports
 
 import 'package:classic/view/utils/app_URL.dart';
 import 'package:classic/view/utils/widget/apiService.dart';

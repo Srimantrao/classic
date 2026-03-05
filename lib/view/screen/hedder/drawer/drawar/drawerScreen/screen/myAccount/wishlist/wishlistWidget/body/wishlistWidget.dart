@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, strict_top_level_inference
 
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createCart_Controller.dart';
 import 'package:classic/view/screen/menu/diamondSearch/diamondWidget/body/searchResultWidget.dart';

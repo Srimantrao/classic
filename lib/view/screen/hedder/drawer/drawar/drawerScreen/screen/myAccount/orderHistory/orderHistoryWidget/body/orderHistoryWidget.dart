@@ -1,9 +1,12 @@
-// ignore_for_file: file_names, strict_top_level_inference
+// ignore_for_file: file_names, strict_top_level_inference, avoid_print
 
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/orderHistory/orderHistoryExtraWidget/orderHistroryExtraWidget.dart';
+import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/orderHistory/orderHistoryScreen/orderDetail.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_json.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:lottie/lottie.dart';
 
 Widget orderHistory() {
@@ -44,7 +47,11 @@ Widget orderHistoryValue(orderList,{void Function()? onTap}) {
           return Center(child: Lottie.asset(AppJson.noData));
         }
         return GestureDetector(
-          onTap: onTap,
+          onTap: (){
+            print('Order ID :- ${order['_id']}');
+            print('orderNo:- ${order['orderNo']}');
+            Get.to(() => OrderDetail(orderID: order['_id']));
+          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

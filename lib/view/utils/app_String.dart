@@ -71,7 +71,18 @@ class AppString {
         static const setasDefault = 'Set as Default Address';
         //Show Screen
         static const pleaseFillTheForm = 'Please Fill The Form !';
-
+        // Order Detail Screen
+        static const orderDetails = 'Order Details';
+        static const billingAddress = 'Billing Address';
+        static const orderItems = 'Order Items';
+        static const totalPrice = 'Total Price';
+        static const orderid = 'Order Id';
+        static const orderDate = 'Order Added';
+        static const sku = 'SKU';
+        static const subTotal = 'Sub Total';
+        static const shipping = 'Shipping & handling';
+        static const grandTotal = 'Grand Total';
+        static const amount = 'Amount';
 
   //cart Screen
   static const total = 'Total';

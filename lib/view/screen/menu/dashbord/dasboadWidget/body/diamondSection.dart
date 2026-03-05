@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, strict_top_level_inference
+// ignore_for_file: file_names, strict_top_level_inference, unnecessary_null_comparison
 
 import 'package:classic/view/screen/menu/dashbord/dashbordExtraWidget/dashbordExtraWidget.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/productDetail.dart';

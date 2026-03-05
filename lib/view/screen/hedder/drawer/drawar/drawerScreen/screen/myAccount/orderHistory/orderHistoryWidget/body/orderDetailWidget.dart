@@ -92,6 +92,7 @@ Widget orderItem(order) {
         final item = order['OrderProductList'][index];
         return Container(
           padding: EdgeInsets.all(10),
+          margin: EdgeInsetsGeometry.symmetric(vertical: Get.height * 0.008),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(borderradius.buttonboder),
             border: Border.all(color: AppColor.gray),

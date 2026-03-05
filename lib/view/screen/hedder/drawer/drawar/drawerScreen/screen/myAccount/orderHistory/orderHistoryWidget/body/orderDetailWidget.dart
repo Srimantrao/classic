@@ -90,63 +90,61 @@ Widget orderItem(order) {
       padding: EdgeInsets.zero,
       itemBuilder: (context, index) {
         final item = order['OrderProductList'][index];
-        return Expanded(
-          child: Container(
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(borderradius.buttonboder),
-              border: Border.all(color: AppColor.gray),
-              boxShadow: kElevationToShadow[1],
-              color: AppColor.white,
-            ),
-            child: Row(
-              children: [
-                Image.network(item['images'][0]['MediaLocation'], scale: 3),
-                Padding(
-                  padding: EdgeInsetsGeometry.only(right: Get.width * 0.02),
+        return Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(borderradius.buttonboder),
+            border: Border.all(color: AppColor.gray),
+            boxShadow: kElevationToShadow[1],
+            color: AppColor.white,
+          ),
+          child: Row(
+            children: [
+              Image.network(item['images'][0]['MediaLocation'], scale: 3),
+              Padding(
+                padding: EdgeInsetsGeometry.only(right: Get.width * 0.02),
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(item['productTitle']),
+                    detailShowing(
+                      orderID: AppString.qty,
+                      orderValue: item['itemCode'],
+                    ),
+                    detailShowing(
+                      orderID: AppString.metal,
+                      orderValue: item['metalStampName'],
+                      value3: item['metalTypeName'],
+                    ),
+                    detailShowing(
+                      orderID: AppString.wgt,
+                      orderValue: item['productStone'][0]['wgt'].toString(),
+                    ),
+                    detailShowing(
+                      orderID: AppString.qty,
+                      orderValue: item['qty'].toString(),
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: colorStats(order['orderStatus'].toString()),
+                        ),
+                      ],
+                    ),
+                    detailShowing(
+                      orderID: AppString.amount,
+                      orderValue: (item['finalPrice'] ?? 0)
+                          .toDouble()
+                          .toStringAsFixed(2),
+                    ),
+                  ],
                 ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(item['productTitle']),
-                      detailShowing(
-                        orderID: AppString.qty,
-                        orderValue: item['itemCode'],
-                      ),
-                      detailShowing(
-                        orderID: AppString.metal,
-                        orderValue: item['metalStampName'],
-                        value3: item['metalTypeName'],
-                      ),
-                      detailShowing(
-                        orderID: AppString.wgt,
-                        orderValue: item['productStone'][0]['wgt'].toString(),
-                      ),
-                      detailShowing(
-                        orderID: AppString.qty,
-                        orderValue: item['qty'].toString(),
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            child: colorStats(order['orderStatus'].toString()),
-                          ),
-                        ],
-                      ),
-                      detailShowing(
-                        orderID: AppString.amount,
-                        orderValue: (item['finalPrice'] ?? 0)
-                            .toDouble()
-                            .toStringAsFixed(2),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },

@@ -23,7 +23,7 @@ Widget orderHistory() {
 
 Widget orderHistoryValue(orderList,{void Function()? onTap}) {
   if (orderList == null || orderList.isEmpty) {
-    return Center(child: Lottie.asset(AppJson.noData));
+    return Expanded(child: Center(child: Lottie.asset(AppJson.noData)));
   }
   color(status) {
     switch (status) {

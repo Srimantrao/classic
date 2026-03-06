@@ -20,38 +20,51 @@ class OrderDetail extends StatelessWidget {
       appBar: allOtherScreen(AppString.orderDetail),
       child: Obx(() {
         if (orderDetail.isLoading.value) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
         final apdata = orderDetail.orderDetailData;
         if (apdata == null ||
             apdata['data'] == null ||
             apdata['data'].isEmpty) {
-          return Center(child: Text("No Data Found"));
+          return const Center(child: Text("No Data Found"));
+        }
+        if (apdata['data'][0] == null) {
+          return const Center(child: Text("Order data is invalid"));
         }
         final order = apdata['data'][0];
+        if (order['biilingAddress'] == null ||
+            order['biilingAddress'].isEmpty) {
+          return const Center(child: Text("Billing address not found"));
+        }
         final billing = order['biilingAddress'][0];
+        if (order['OrderProductList'] == null ||
+            order['OrderProductList'].isEmpty) {
+          return const Center(child: Text("Order items not found"));
+        }
         final orderProduct = order['OrderProductList'];
         final item = orderProduct[0];
         return SingleChildScrollView(
-          child: horizontalPadding(
-            child: Column(
-              children: [
-                //Order Details Start
-                orderDetailPop(order),
-                // //Order Details End
+          child: SafeArea(
+            child: horizontalPadding(
+              child: Column(
+                children: [
+                  //Order Details Start
+                  orderDetailPop(order),
+                  // //Order Details End
 
-                //Billing Address Start
-                billingAddressPop(billing),
-                //Billing Address End
+                  //Billing Address Start
+                  billingAddressPop(billing),
+                  //Billing Address End
 
-                //Order Items Start
-                orderItem(order),
-                //Order Items End
+                  //Order Items Start
+                  orderItem(order),
+                  //Order Items End
 
-                //Total Price Start
-                totalPricePointPop(item),
-                //Total Price End
-              ],
+                  //Total Price Start
+                  totalPricePointPop(item),
+                  //Total Price End
+                ],
+              ),
             ),
           ),
         );

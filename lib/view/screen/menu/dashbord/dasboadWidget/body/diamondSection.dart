@@ -86,7 +86,7 @@ Widget selectIndexText({
 //Jewellwery List
 Widget jewelryListViwe({required List jewelryList}) {
   if(jewelryList == null || jewelryList.isEmpty){
-    return Center(child: Lottie.asset(AppJson.noData));
+    return Expanded(child: Center(child: Lottie.asset(AppJson.noData)));
   }
   return Expanded(
     child: ListView.builder(
@@ -114,7 +114,7 @@ Widget jewelryListViwe({required List jewelryList}) {
 
 Widget cartJewelryList({required List jewelryList}) {
   if (jewelryList.isEmpty) {
-    return Center(child: Lottie.asset(AppJson.noData));
+    return Expanded(child: Center(child: Lottie.asset(AppJson.noData)));
   }
 
   return Expanded(

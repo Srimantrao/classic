@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 PreferredSizeWidget appBar({
   void Function()? drawerOntap,
   void Function()? newcartOntap,
+  void Function()? wishlistOntap,
 }) {
   final topPadding = Get.mediaQuery.padding.top;
   final double extraRowHeight = 56;
@@ -37,6 +38,7 @@ PreferredSizeWidget appBar({
                 child: setLogoIcon(
                   newcartOntap: newcartOntap,
                   drawerOntap: drawerOntap,
+                  wishlistOntap: wishlistOntap,
                 ),
               ),
             ),

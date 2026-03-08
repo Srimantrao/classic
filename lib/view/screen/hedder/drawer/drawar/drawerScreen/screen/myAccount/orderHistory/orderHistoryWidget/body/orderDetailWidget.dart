@@ -4,10 +4,67 @@ import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myA
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
+import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer/shimmer.dart';
+
+Widget seletaonWatting() {
+  return Shimmer.fromColors(
+    baseColor: Colors.grey.shade300,
+    highlightColor: Colors.grey.shade100,
+    child: horizontalPadding(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.008),
+            ),
+            Container(
+              height: Get.height * 0.15,
+              decoration: BoxDecoration(
+                color: AppColor.gray,
+                borderRadius: BorderRadius.circular(Get.height * 0.005),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.015),
+            ),
+            Container(
+              height: Get.height * 0.15,
+              decoration: BoxDecoration(
+                color: AppColor.gray,
+                borderRadius: BorderRadius.circular(Get.height * 0.005),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.015),
+            ),
+            Container(
+              height: Get.height * 0.35,
+              decoration: BoxDecoration(
+                color: AppColor.gray,
+                borderRadius: BorderRadius.circular(Get.height * 0.005),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.015),
+            ),
+            Container(
+              height: Get.height * 0.15,
+              decoration: BoxDecoration(
+                color: AppColor.gray,
+                borderRadius: BorderRadius.circular(Get.height * 0.005),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
 
 Widget showOrderDetailContainer({
   required String heddingValue,
@@ -181,4 +238,5 @@ Widget totalPricePointPop(item) {
     ),
   );
 }
+
 //Total Price End

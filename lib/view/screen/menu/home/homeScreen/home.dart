@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, unused_import
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, unused_import, non_constant_identifier_names, must_be_immutable
 
 import 'package:classic/controller/application_Programing_interface/apiController/menu/home/filterSlider_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/home/homeCollctionAPIController.dart';
@@ -7,6 +7,7 @@ import 'package:classic/controller/user_Interface/menu/home/home_Controller.dart
 import 'package:classic/modal/menu/home/our_collection.dart';
 import 'package:classic/view/screen/hedder/cart/cartScreen/cart.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/drawer.dart';
+import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/wishlist/wishlistScreen/wishlistScreen.dart';
 import 'package:classic/view/screen/menu/home/homeWidget/body/homeBody.dart';
 import 'package:classic/view/screen/menu/home/homeWidget/fotter/homeFotter.dart';
 import 'package:classic/view/screen/menu/home/homeWidget/header/appbar.dart';
@@ -30,14 +31,27 @@ class Home extends StatelessWidget {
   final homeUI = Get.put(HomeUIController());
   final homeAPI = Get.put(HomeAPICall());
   final cartAPICallAPI = Get.put(CartAPICall());
+  final dashbord_API = Get.put(DashBordAPICall());
+  final jewellry = Get.put(JewelleryAPICall());
+  static bool apiCalled = false;
   Home({super.key});
   @override
   Widget build(BuildContext context) {
+    if (!apiCalled) {
+      apiCalled = true;
+      Future.microtask(() {
+        homeAPI.onInit();
+        cartAPICallAPI.onInit();
+        dashbord_API.onInit();
+        jewellry.onInit();
+      });
+    }
     return Fullscreen(
       scaffoldKey: scaffoldKey,
       endDrawer: Drawers(),
       appBar: appBar(
         newcartOntap: () => Get.to(() => Cart()),
+        wishlistOntap: () => Get.to(() => Wishlist()),
         drawerOntap: () => scaffoldKey.currentState?.openEndDrawer(),
       ),
       child: CustomScrollView(

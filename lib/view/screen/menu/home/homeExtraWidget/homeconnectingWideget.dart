@@ -23,6 +23,7 @@ Widget addText(text) {
 Widget setLogoIcon({
   void Function()? drawerOntap,
   void Function()? newcartOntap,
+  void Function()? wishlistOntap,
 }) {
   return Row(
     children: [
@@ -31,14 +32,17 @@ Widget setLogoIcon({
       Row(
         children: [
           homeScreenIcon(AppIcon.search),
-          SizedBox(width: Get.width * 0.03),
-          homeScreenIcon(AppIcon.wishlist),
-          SizedBox(width: Get.width * 0.03),
+          Padding(padding: EdgeInsetsGeometry.only(left: Get.width * 0.03)),
+          GestureDetector(
+            onTap: wishlistOntap,
+            child: homeScreenIcon(AppIcon.wishlist),
+          ),
+          Padding(padding: EdgeInsetsGeometry.only(left: Get.width * 0.03)),
           GestureDetector(
             onTap: newcartOntap,
             child: homeScreenIcon(AppIcon.newcart),
           ),
-          SizedBox(width: Get.width * 0.03),
+          Padding(padding: EdgeInsetsGeometry.only(left: Get.width * 0.03)),
           GestureDetector(
             onTap: drawerOntap,
             child: homeScreenIcon(AppIcon.drawer),

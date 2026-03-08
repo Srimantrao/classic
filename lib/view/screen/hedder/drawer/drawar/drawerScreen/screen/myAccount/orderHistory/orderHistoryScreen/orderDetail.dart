@@ -2,11 +2,13 @@
 
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/orderHistory/orderDetail_Controller.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/orderHistory/orderHistoryWidget/body/orderDetailWidget.dart';
+import 'package:classic/view/utils/app_json.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import '../../../../../../../../../utils/app_String.dart';
 
 class OrderDetail extends StatelessWidget {
@@ -20,7 +22,7 @@ class OrderDetail extends StatelessWidget {
       appBar: allOtherScreen(AppString.orderDetail),
       child: Obx(() {
         if (orderDetail.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
+          return seletaonWatting();
         }
         final apdata = orderDetail.orderDetailData;
         if (apdata == null ||
@@ -34,12 +36,12 @@ class OrderDetail extends StatelessWidget {
         final order = apdata['data'][0];
         if (order['biilingAddress'] == null ||
             order['biilingAddress'].isEmpty) {
-          return const Center(child: Text("Billing address not found"));
+          return Center(child: Lottie.asset(AppJson.noData));
         }
         final billing = order['biilingAddress'][0];
         if (order['OrderProductList'] == null ||
             order['OrderProductList'].isEmpty) {
-          return const Center(child: Text("Order items not found"));
+          return Center(child: Lottie.asset(AppJson.noData));
         }
         final orderProduct = order['OrderProductList'];
         final item = orderProduct[0];
@@ -72,3 +74,5 @@ class OrderDetail extends StatelessWidget {
     );
   }
 }
+
+

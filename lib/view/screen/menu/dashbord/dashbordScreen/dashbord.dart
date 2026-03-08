@@ -155,7 +155,9 @@ class Dashbord extends StatelessWidget {
                   if (cartData == null ||
                       cartData['data'] == null ||
                       cartData['data'].isEmpty) {
-                    return Expanded(child: Center(child: Lottie.asset(AppJson.noData)));
+                    return Expanded(
+                      child: Center(child: Lottie.asset(AppJson.noData)),
+                    );
                   }
                   final productLookup =
                       cartData['data'][0]['productLookup'] ?? [];

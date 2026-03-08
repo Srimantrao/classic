@@ -1,5 +1,8 @@
 // ignore_for_file: file_names, strict_top_level_inference, non_constant_identifier_names
 
+import 'dart:convert';
+
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/cart/cart_Controller.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_json.dart';
@@ -210,11 +213,13 @@ Widget recentviwe(dashbord_API) {
                     )
                   : '0.00',
               cartOnTap: () {
+                final cartAPI = Get.put(CartController());
                 adToCart.createCart(
-                  price: details['finalamount']?.toString() ?? '',
-                  productId: details['_id']?.toString() ?? '',
-                  DiamondId: details['dimCountryId']?.toString() ?? '',
+                  price: jsonEncode(details['finalamount'] ?? 0).toString(),
+                  DiamondId: jsonEncode([diamond!['diamondId']]),
+                  qty: '1',
                 );
+                cartAPI.filterCart();
               },
               camaraOnTap: () {
                 final String? image = details['imageurl1']?.toString();

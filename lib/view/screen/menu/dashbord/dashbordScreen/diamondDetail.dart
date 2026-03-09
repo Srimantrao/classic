@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, avoid_print
 
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createWishList_Controller.dart';
 import 'package:classic/controller/user_Interface/menu/dashboard/diamondDetail_Controller.dart';
 import 'package:classic/view/screen/menu/dashbord/dasboadWidget/body/diamondDetail.dart';
 import 'package:classic/view/screen/menu/dashbord/dasboadWidget/header/diamondDetail.dart';
@@ -22,6 +23,7 @@ import '../dashbordExtraWidget/diamondDetailExtraWidget.dart';
 class DiamondDetail extends StatelessWidget {
   final diamondShow = Get.put(DiamondShowController());
   final diamondDetail = Get.put(DiamondDetailUIController());
+  final addWishList = Get.put(CreateWishlistController());
   final cartAPICallAPI = Get.put(CartAPICall());
   final String id;
   final String? image;
@@ -82,7 +84,8 @@ class DiamondDetail extends StatelessWidget {
               colorcode: diamondData['countryCode']?.toString() ?? '',
               clarity: diamondData['clarity']?.toString() ?? '',
               cartifactNo:
-              (diamondData['certno'] == null || diamondData['certno'] == '-')
+                  (diamondData['certno'] == null ||
+                      diamondData['certno'] == '-')
                   ? ''
                   : diamondData['certno'].toString(),
               location: diamondData['country']?.toString() ?? '',
@@ -105,6 +108,7 @@ class DiamondDetail extends StatelessWidget {
                           (image == null || image == 'null' || image!.isEmpty)
                           ? ''
                           : image!,
+                      wishlistOnTap: diamondDetail.addToWishListCart,
                     ),
 
                     angelPadding(),

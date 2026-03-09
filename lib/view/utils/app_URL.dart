@@ -50,6 +50,8 @@ class AppUrl {
             static const String braceletPrice = "${baseUrl}App/product/braceletPrice";
             static const String ringsizePrice = "${baseUrl}app/product/ringsizePrice";
             static const String createCart = "${baseUrl}App/cart/createCart";
+            static const String createWishlist = "${baseUrl}App/wishlist/createWishlist";
+
           //Filter
             static const String getProductFilterList = "${baseUrl}App/product/getProductFilterList";
             static const String getAllParameter = "${baseUrl}admin/parameter/getAllParameter";

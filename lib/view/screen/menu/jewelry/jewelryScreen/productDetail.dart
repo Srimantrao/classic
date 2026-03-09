@@ -79,11 +79,3 @@ class ProductDetail extends StatelessWidget {
     );
   }
 }
-
-// youMayLikeControllerAPI.getYouMayLike(
-//   shape: productListAPI.productListData[0]['stoneDetails'][0]['shape']['_id'].toString(),
-//   carat: productListAPI.productListData[0]['totalWgt'].toString(),
-//   AppWeight: productListAPI.productListData[0]['appxMetalWgt'].toString(),
-//   metalType: productListAPI.productListData[0]['metalType'][0]['_id'],
-//   metalStamp: productListAPI.productListData[0]['metalStamp'][0]['_id'],
-// );

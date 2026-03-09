@@ -1,8 +1,9 @@
-// ignore_for_file: file_names, strict_top_level_inference, non_constant_identifier_names
+// ignore_for_file: file_names, strict_top_level_inference, non_constant_identifier_names, avoid_print
 
 import 'dart:convert';
-
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/cart/cart_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/fitterWish/fitterWish_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createWishList_Controller.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_json.dart';
@@ -12,7 +13,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-
 import '../../../../../../controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createCart_Controller.dart';
 import '../../../../../utils/app_icon.dart';
 import '../../../../../utils/widget/image/productImage.dart';
@@ -146,6 +146,8 @@ Widget myCartDiamond(cartAPICallAPI) {
 }
 
 Widget recentviwe(dashbord_API) {
+  final addWishListCart = Get.put(CreateWishlistController());
+  final fitterWish = Get.put(FitterWishController());
   return Expanded(
     child: Builder(
       builder: (_) {
@@ -241,6 +243,14 @@ Widget recentviwe(dashbord_API) {
                 } else {
                   productLink(link);
                 }
+              },
+              isWishlistOnTap: (){
+                addWishListCart.createWishlist(
+                  DiamondId: jsonEncode([diamond!['_id']]),
+                  qty: '1',
+                );
+                print("Add WhisList :- ${[diamond['_id']]}");
+                fitterWish.fitterWishList();
               },
             );
           },

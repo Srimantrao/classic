@@ -53,25 +53,25 @@ Widget indexButtons({
 
 Widget diamondListWish(header) {
   final wishlist = header.fitterWish.fitterWishData;
-  if (wishlist.isEmpty) {
+  if (wishlist.isEmpty || wishlist['data'] == null) {
     return Expanded(child: Center(child: Lottie.asset(AppJson.noData)));
   }
   final dataList = wishlist['data'] as List?;
   if (dataList == null || dataList.isEmpty) {
     return Expanded(child: Center(child: Lottie.asset(AppJson.noData)));
   }
-  final diamondList = dataList.first?['diamondList'] as List?;
+  final diamondList = dataList[0]['diamondLookup'] as List?;
   if (diamondList == null || diamondList.isEmpty) {
     return Expanded(child: Center(child: Lottie.asset(AppJson.noData)));
   }
   final adToCart = Get.put(CreateCartController());
   return Expanded(
     child: ListView.builder(
-      shrinkWrap: true,
       itemCount: diamondList.length,
-      itemBuilder: (BuildContext context, int index) {
+      itemBuilder: (context, index) {
         final diamond = diamondList[index] as Map?;
         final details = diamond?['diamondDetails'] as Map? ?? {};
+
         return listDiamond(
           idOnTop: () {
             final String? link = details['certurl']?.toString();
@@ -100,24 +100,17 @@ Widget diamondListWish(header) {
           lab: details['lab']?.toString() ?? '',
           colorcode: details['color']?.toString() ?? '',
           clarity: details['clarity']?.toString() ?? '',
-          cartifactNo: (details['certno'] == null || details['certno'] == '-')
-              ? ''
-              : details['certno'].toString(),
-          cps: details['polish']?.toString() ?? '',
-          meas: details['measurement']?.toString() ?? '',
           refNo: details['stockId']?.toString() ?? '',
-          T: details['tablepercent']?.toString() ?? '',
-          D: details['depth']?.toString() ?? '',
-          loc: details['county']?.toString() ?? '',
-          ct: details['carat']?.toString() ?? '',
+          loc: details['location']?.toString() ?? '',
           total: details['finalamount'] != null
               ? (details['finalamount'] as num).toDouble().toStringAsFixed(2)
               : '0.00',
+
           cartOnTap: () {
             adToCart.createCart(
               price: details['finalamount']?.toString() ?? '',
               productId: details['_id']?.toString() ?? '',
-              DiamondId: details['dimCountryId']?.toString() ?? '',
+              DiamondId: diamond?['diamondId']?.toString() ?? '',
             );
           },
           camaraOnTap: () {
@@ -141,6 +134,14 @@ Widget diamondListWish(header) {
               productLink(link);
             }
           },
+          cartifactNo: (details['certno'] == null || details['certno'] == '-')
+              ? ''
+              : details['certno'].toString(),
+          cps: details['polish']?.toString() ?? '',
+          meas: details['measurement']?.toString() ?? '',
+          T: details['tablepercent']?.toString() ?? '',
+          D: details['depth']?.toString() ?? '',
+          ct: details['carat']?.toString() ?? '',
         );
       },
     ),

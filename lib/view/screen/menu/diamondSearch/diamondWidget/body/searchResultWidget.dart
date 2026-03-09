@@ -44,10 +44,14 @@ Widget valueListDiamond({
           lab: valueList[index]['lab']?.toString() ?? '',
           colorcode: valueList[index]['countryCode']?.toString() ?? '',
           clarity: valueList[index]['clarity']?.toString() ?? '',
-          cartifactIcon: (valueList[index]['certno'] == null || valueList[index]['certno'] == '-')
+          cartifactIcon:
+              (valueList[index]['certno'] == null ||
+                  valueList[index]['certno'] == '-')
               ? AppIcon.user1
               : AppIcon.diamondId,
-          cartifactNo: (valueList[index]['certno'] == null || valueList[index]['certno'] == '-')
+          cartifactNo:
+              (valueList[index]['certno'] == null ||
+                  valueList[index]['certno'] == '-')
               ? ''
               : valueList[index]['certno'].toString(),
           cps: valueList[index]['polish']?.toString() ?? '',
@@ -124,6 +128,7 @@ Widget listDiamond({
   void Function()? idOnTop,
   void Function()? deleteDiamond,
   bool deletdiamond = false,
+  void Function()? isWishlistOnTap,
 }) {
   return horizontalPadding(
     child: GestureDetector(
@@ -184,7 +189,8 @@ Widget listDiamond({
                 cartOnTap: cartOnTap,
                 camaraOnTap: camaraOnTap,
                 videoOnTap: videoOnTap,
-                linkOnTap: linkOnTap
+                linkOnTap: linkOnTap,
+                isWishlistOnTap: isWishlistOnTap,
               ),
             ],
           ),
@@ -204,11 +210,16 @@ Widget buttonOnList({
   void Function()? videoOnTap,
   void Function()? cartOnTap,
   void Function()? linkOnTap,
+  void Function()? isWishlistOnTap,
 }) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      if (isWishlist) GestureDetector(child: listImage(AppIcon.wishlist)),
+      if (isWishlist)
+        GestureDetector(
+          onTap: isWishlistOnTap,
+          child: listImage(AppIcon.wishlist),
+        ),
       if (isCart)
         GestureDetector(onTap: cartOnTap, child: listImage(AppIcon.newcart)),
       if (camara)
@@ -222,125 +233,8 @@ Widget buttonOnList({
         ),
       if (video)
         GestureDetector(onTap: videoOnTap, child: listImage(AppIcon.video)),
-      if(link)
-        GestureDetector(onTap: linkOnTap,child: listImage(AppIcon.diamondId),)
+      if (link)
+        GestureDetector(onTap: linkOnTap, child: listImage(AppIcon.diamondId)),
     ],
   );
 }
-
-// horizontalPadding(
-//           child: GestureDetector(
-//             onTap: () {
-//               final String id = valueList[index]['_id']?.toString() ?? '';
-//               final String image =
-//                   valueList[index]['imageurl1']?.toString() ?? '';
-//               final String video =
-//                   valueList[index]['videourl']?.toString() ?? '';
-//               Get.to(() => DiamondDetail(id: id, image: image, video: video));
-//             },
-//             child: Container(
-//               margin: EdgeInsets.symmetric(vertical: Get.height * 0.009),
-//               decoration: BoxDecoration(
-//                 boxShadow: kElevationToShadow[2],
-//                 color: AppColor.white,
-//                 borderRadius: BorderRadius.circular(borderradius.boder),
-//               ),
-//               child: Padding(
-//                 padding: EdgeInsets.all(Get.width * 0.03),
-//                 child: Column(
-//                   children: [
-//                     listHeddind(
-//                       shape: valueList[index]['shape']?.toString() ?? '',
-//                       careat: valueList[index]['carat']?.toString() ?? '',
-//                       lab: valueList[index]['lab']?.toString() ?? '',
-//                       colorcode:
-//                           valueList[index]['countryCode']?.toString() ?? '',
-//                       clarity: valueList[index]['clarity']?.toString() ?? '',
-//                       cartifactNo:
-//                           (valueList[index]['certno'] == null ||
-//                               valueList[index]['certno'] == '-')
-//                           ? ''
-//                           : valueList[index]['certno'].toString(),
-//                       cartifactIcon:
-//                           (valueList[index]['certno'] == null ||
-//                               valueList[index]['certno'] == '-')
-//                           ? AppIcon.user1
-//                           : AppIcon.diamondId,
-//                     ),
-//                     Divider(color: AppColor.gray3),
-//                     Row(
-//                       children: [
-//                         fristrow(
-//                           cps: valueList[index]['polish']?.toString() ?? '',
-//                           meas:
-//                               valueList[index]['measurement']?.toString() ?? '',
-//                           refNo: valueList[index]['stockId']?.toString() ?? '',
-//                         ),
-//                         secondrow(
-//                           T: valueList[index]['depth']?.toString() ?? '',
-//                           D: valueList[index]['tablepercent']?.toString() ?? '',
-//                           loc: valueList[index]['country']?.toString() ?? '',
-//                         ),
-//                         SizedBox(width: Get.width * 0.01),
-//                         SizedBox(
-//                           height: Get.height * 0.06,
-//                           child: VerticalDivider(
-//                             color: AppColor.gray3,
-//                             thickness: Get.width * 0.002,
-//                             width: Get.width * 0.01,
-//                           ),
-//                         ),
-//                         SizedBox(width: Get.width * 0.01),
-//                         thardrow(
-//                           ct: valueList[index]['parcarat']?.toString() ?? '',
-//                           total:
-//                               valueList[index]['finalamount']?.toString() ?? '',
-//                         ),
-//                       ],
-//                     ),
-//                     Divider(color: AppColor.gray3),
-//                     buttonOnList(
-//                       isWishlist: isWishlist,
-//                       isCart: isCart,
-//                       camara: camara,
-//                       video: video,
-//                       cartOnTap: () {
-//                         adToCart.createCart(
-//                           price:
-//                               valueList[index]['finalamount']?.toString() ?? '',
-//                           productId: valueList[index]['_id']?.toString() ?? '',
-//                           DiamondId:
-//                               valueList[index]['dimCountryId']?.toString() ??
-//                               '',
-//                         );
-//                       },
-//                       camaraOnTap: () {
-//                         final String? image = valueList[index]['imageurl1']
-//                             ?.toString();
-//                         if (image == null || image.isEmpty) {
-//                           if (kDebugMode) {
-//                             print("No Image");
-//                           }
-//                           return;
-//                         }
-//                         Get.to(() => ProductImage(images: image));
-//                       },
-//                       videoOnTap: () {
-//                         final String? video = valueList[index]['videourl']
-//                             ?.toString();
-//                         if (video == null || video.isEmpty) {
-//                           if (kDebugMode) {
-//                             print("No Video");
-//                           }
-//                           return;
-//                         } else {
-//                           Get.to(() => ProductVideo(videoUrl: video));
-//                         }
-//                       },
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ),
-//           ),
-//         );   //

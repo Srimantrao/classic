@@ -68,6 +68,7 @@ Widget imageAndVideo({
   required DiamondDetailUIController diamonddetail,
   required Widget video,
   required String image,
+  required void Function() wishlistOnTap,
 }) {
   return horizontalPadding(
     child: Column(
@@ -90,16 +91,16 @@ Widget imageAndVideo({
                 aspectRatio: 0.75,
                 child: (diamonddetail.isSelectImage.value)
                     ? (image.isEmpty)
-                        ? Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Lottie.asset(AppJson.noData, height: 100),
-                                const Text("No Image Available"),
-                              ],
-                            ),
-                          )
-                        : null
+                          ? Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Lottie.asset(AppJson.noData, height: 100),
+                                  const Text("No Image Available"),
+                                ],
+                              ),
+                            )
+                          : null
                     : ClipRRect(
                         borderRadius: BorderRadius.circular(
                           borderradius.buttonboder,
@@ -111,11 +112,14 @@ Widget imageAndVideo({
             Positioned(
               top: Get.height * 0.02,
               right: Get.width * 0.04,
-              child: Image.asset(
-                AppIcon.wishlist,
-                width: Get.width * 0.065,
-                height: Get.width * 0.065,
-                color: AppColor.gray,
+              child: GestureDetector(
+                onTap: wishlistOnTap,
+                child: Image.asset(
+                  AppIcon.wishlist,
+                  width: Get.width * 0.065,
+                  height: Get.width * 0.065,
+                  color: AppColor.gray,
+                ),
               ),
             ),
           ],

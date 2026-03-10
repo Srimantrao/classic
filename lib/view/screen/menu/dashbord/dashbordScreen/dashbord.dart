@@ -174,5 +174,9 @@ class Dashbord extends StatelessWidget {
 }
 
 Widget spacing() {
-  return Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.02));
+  return Padding(
+    padding: EdgeInsetsGeometry.only(
+      bottom: Get.height * 0.02,
+    ),
+  );
 }

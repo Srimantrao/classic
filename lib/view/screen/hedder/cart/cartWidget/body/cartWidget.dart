@@ -100,7 +100,7 @@ Widget diamondProductItem(diamondProduct) {
         ct: diamond['parcarat']?.toString() ?? '',
         total: diamond['finalamount']?.toString() ?? '',
         isWishlist: true,
-        isCart: true,
+        video: true,
         camara: true,
         link: true,
         deletdiamond: true,

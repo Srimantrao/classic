@@ -1,5 +1,7 @@
 // ignore_for_file: file_names, strict_top_level_inference
 
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/fitterWish/deletWish_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/fitterWish/fitterWish_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createCart_Controller.dart';
 import 'package:classic/view/screen/menu/diamondSearch/diamondWidget/body/searchResultWidget.dart';
 import 'package:classic/view/utils/app_Color.dart';
@@ -71,8 +73,14 @@ Widget diamondListWish(header) {
       itemBuilder: (context, index) {
         final diamond = diamondList[index] as Map?;
         final details = diamond?['diamondDetails'] as Map? ?? {};
-
         return listDiamond(
+          deletdiamond: true,
+          deleteDiamond: () {
+            final deletWish = Get.put(DeletWishController());
+            final fitterWish = Get.put(FitterWishController());
+            deletWish.deleWishList(diamond!['_id']);
+            fitterWish.fitterWishList();
+          },
           idOnTop: () {
             final String? link = details['certurl']?.toString();
             if (link == null || link.isEmpty) {
@@ -88,10 +96,10 @@ Widget diamondListWish(header) {
               (diamond?['certno'] == null || diamond?['certno'] == '-')
               ? AppIcon.documant
               : AppIcon.edit,
-          isWishlist: true,
           camara: true,
           isCart: true,
           link: true,
+          video: true,
           ids: diamond?['diamondId']?.toString() ?? '',
           images: details['imageurl1']?.toString() ?? '',
           videos: details['videourl']?.toString() ?? '',
@@ -105,7 +113,6 @@ Widget diamondListWish(header) {
           total: details['finalamount'] != null
               ? (details['finalamount'] as num).toDouble().toStringAsFixed(2)
               : '0.00',
-
           cartOnTap: () {
             adToCart.createCart(
               price: details['finalamount']?.toString() ?? '',

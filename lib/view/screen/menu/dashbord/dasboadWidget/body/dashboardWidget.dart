@@ -8,6 +8,7 @@ import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_json.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
+import 'package:classic/view/utils/widget/image/productVideo.dart';
 import 'package:classic/view/utils/widget/indexButton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -78,6 +79,7 @@ Widget myCartDiamond(cartAPICallAPI) {
             camara: true,
             isCart: true,
             link: true,
+            video: true,
             idOnTop: () {
               final String? link = diamond['certurl']?.toString();
               if (link == null || link.isEmpty) {
@@ -116,6 +118,17 @@ Widget myCartDiamond(cartAPICallAPI) {
                 productId: diamond['_id']?.toString() ?? '',
                 DiamondId: diamond['dimCountryId']?.toString() ?? '',
               );
+            },
+            videoOnTap: () {
+              final String? video = diamond['videourl']?.toString();
+              if (video == null || video.isEmpty) {
+                if (kDebugMode) {
+                  print("No Video");
+                }
+                return;
+              } else {
+                Get.to(() => ProductVideo(videoUrl: video));
+              }
             },
             camaraOnTap: () {
               final String? image = diamond['imageurl1']?.toString();
@@ -182,6 +195,17 @@ Widget recentviwe(dashbord_API) {
                   productLink(link);
                 }
               },
+              videoOnTap: () {
+                final String? video = details['videourl']?.toString();
+                if (video == null || video.isEmpty) {
+                  if (kDebugMode) {
+                    print("No Video");
+                  }
+                  return;
+                } else {
+                  Get.to(() => ProductVideo(videoUrl: video));
+                }
+              },
               cartifactIcon:
                   (diamond?['certno'] == null || diamond?['certno'] == '-')
                   ? AppIcon.documant
@@ -190,6 +214,7 @@ Widget recentviwe(dashbord_API) {
               camara: true,
               isCart: true,
               link: true,
+              video: true,
               ids: diamond?['diamondId']?.toString() ?? '',
               images: details['imageurl1']?.toString() ?? '',
               videos: details['videourl']?.toString() ?? '',

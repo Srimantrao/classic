@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, file_names, use_key_in_widget_constructors
 
 import 'dart:convert';
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/fitterWish/fitterWish_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createWishList_Controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -64,6 +65,7 @@ class DiamondDetailUIController extends GestureDetector {
   }
 
   void addToWishListCart(){
+    final fitterWish = Get.put(FitterWishController());
     final diamondId = diamondShow.diamondSearchData['data'][0]['_id'];
     addWishListCart.createWishlist(
       DiamondId: jsonEncode([diamondId]),
@@ -72,5 +74,6 @@ class DiamondDetailUIController extends GestureDetector {
     if (kDebugMode) {
       print('DiamondId :- ${jsonEncode([diamondId])}');
     }
+    fitterWish.fitterWishList();
   }
 }

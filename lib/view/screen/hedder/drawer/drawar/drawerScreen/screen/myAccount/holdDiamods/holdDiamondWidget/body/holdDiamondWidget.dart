@@ -141,7 +141,10 @@ Widget holdDiamondListViwe({
   );
 }
 
-Widget floatingActionButton() {
+Widget floatingActionButton({
+  bool addHold = false,
+  void Function()? addToHoldonPress,
+}) {
   return GetBuilder<HolddiamodUIController>(
     init: HolddiamodUIController(),
     builder: (c) {
@@ -181,6 +184,23 @@ Widget floatingActionButton() {
             ),
             onPress: () {
               print("Edit pressed");
+              c.toggle();
+            },
+          ),
+
+          //Add To Hold
+          if(addHold)
+          Bubble(
+            title: AppString.addtohold,
+            iconColor: Colors.white,
+            bubbleColor: AppColor.primary,
+            icon: Icons.card_travel_rounded,
+            titleStyle: TextStyle(
+              fontSize: Get.width * 0.028,
+              color: Colors.white,
+            ),
+            onPress: () {
+              addToHoldonPress?.call();
               c.toggle();
             },
           ),

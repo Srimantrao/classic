@@ -1,4 +1,5 @@
 import 'package:classic/controller/user_Interface/menu/diamondSearch/searchResult_Controller.dart';
+import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/holdDiamods/holdDiamondWidget/body/holdDiamondWidget.dart';
 import 'package:classic/view/utils/app_json.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
@@ -9,7 +10,9 @@ import '../diamondWidget/body/searchResultWidget.dart';
 
 class SearchResult extends StatelessWidget {
   final searchResult = Get.put(SearchResultController());
+
   SearchResult({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -18,6 +21,10 @@ class SearchResult extends StatelessWidget {
       final totalCount = faechApi['totalCount'];
       return Fullscreen(
         appBar: allOtherScreen('Search Result (${totalCount ?? 0})'),
+        floatingActionButton: floatingActionButton(
+          addHold: true,
+          addToHoldonPress: searchResult.addHoldDiamond,
+        ),
         child: Column(
           children: [
             if (searchResult.diamondSearchAPI.isLoading.value && data.isEmpty)
@@ -26,23 +33,31 @@ class SearchResult extends StatelessWidget {
               Expanded(child: Center(child: Lottie.asset(AppJson.noData)))
             else
               Expanded(
-                child: Column(
-                  children: [
-                    valueListDiamond(
-                      valueList: data,
-                      video: true,
-                      camara: true,
-                      isCart: true,
-                      isWishlist: true,
-                      scrollController: searchResult.scrollController,
-                    ),
-                    if (searchResult.diamondSearchAPI.isPaginationLoading.value)
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: CircularProgressIndicator(),
+                child: Obx(() {
+                  return Column(
+                    children: [
+                      if (searchResult.holdDiamondList.contains(true))
+                        checkvaluehedding(searchResult, data),
+                      valueListDiamond(
+                        valueList: data,
+                        video: true,
+                        camara: true,
+                        isCart: true,
+                        isWishlist: true,
+                        holdDiamond: true,
+                        scrollController: searchResult.scrollController,
                       ),
-                  ],
-                ),
+                      if (searchResult
+                          .diamondSearchAPI
+                          .isPaginationLoading
+                          .value)
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: CircularProgressIndicator(),
+                        ),
+                    ],
+                  );
+                }),
               ),
           ],
         ),

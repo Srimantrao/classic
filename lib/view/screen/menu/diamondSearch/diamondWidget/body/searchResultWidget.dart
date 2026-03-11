@@ -1,6 +1,11 @@
-import 'dart:convert';
+// ignore_for_file: avoid_unnecessary_containers
 
+import 'dart:convert';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createCart_Controller.dart';
+import 'package:classic/controller/user_Interface/menu/diamondSearch/searchResult_Controller.dart';
+import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/holdDiamods/holdDiamodsExtraWidget/holdDiamodsExtraWidget.dart';
+import 'package:classic/view/utils/app_String.dart';
+import 'package:classic/view/utils/widget/checkbox.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -16,26 +21,81 @@ import '../../../../../utils/widget/image/productImage.dart';
 import '../../../../../utils/widget/image/productVideo.dart';
 import '../../../dashbord/dashbordScreen/diamondDetail.dart';
 
+Widget checkvaluehedding(
+  SearchResultController holdcontroller,
+  List valueList,
+) {
+  return Container(
+    padding: EdgeInsets.symmetric(vertical: Get.height * 0.020),
+    decoration: BoxDecoration(color: AppColor.secondary),
+    child: horizontalPadding(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            children: [
+              chakhedding(AppString.pcs),
+              chakValue(holdcontroller.selectedDiamondCount.toString()),
+            ],
+          ),
+          Column(
+            children: [
+              chakhedding(AppString.cts),
+              chakValue(
+                holdcontroller.getTotalCts(valueList).toStringAsFixed(2),
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              chakhedding(AppString.price),
+              chakValue(
+                holdcontroller.getTotalCarat(valueList).toStringAsFixed(2),
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              chakhedding(AppString.amount.toUpperCase()),
+              chakValue(
+                "\$${holdcontroller.getTotalAmount(valueList).toStringAsFixed(2)}",
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
 Widget valueListDiamond({
   required List valueList,
   bool isWishlist = false,
   bool isCart = false,
   bool camara = false,
   bool video = false,
+  bool holdDiamond = false,
   ScrollController? scrollController,
 }) {
   final adToCart = Get.put(CreateCartController());
   final cartAPICallAPI = Get.put(CartAPICall());
+  final searchResult = Get.find<SearchResultController>();
+  if (searchResult.holdDiamondList.length != valueList.length) {
+    searchResult.initHoldDiamond(valueList.length);
+  }
   return Expanded(
     child: ListView.builder(
       controller: scrollController,
       itemCount: valueList.length,
       itemBuilder: (BuildContext context, int index) {
         return listDiamond(
+          holdDiamond: holdDiamond,
+          isHoldDiamondChecked: searchResult.holdDiamondList[index],
           isCart: isCart,
           camara: camara,
           video: video,
           isWishlist: isWishlist,
+          link: true,
           ids: valueList[index]['_id']?.toString() ?? '',
           images: valueList[index]['imageurl1']?.toString() ?? '',
           videos: valueList[index]['videourl']?.toString() ?? '',
@@ -69,6 +129,19 @@ Widget valueListDiamond({
               qty: '1',
             );
             cartAPICallAPI.cartAPI.filterCart();
+          },
+          holdDiamondChanged: (value) {
+            searchResult.holdDiamondValue(index, value!);
+          },
+          linkOnTap: (){
+            final String? image = valueList[index]['certurl']?.toString();
+            if (image == null || image.isEmpty) {
+              if (kDebugMode) {
+                print("no Certurl");
+              }
+              return;
+            }
+            Get.to(() => ProductImage(images: image));
           },
           camaraOnTap: () {
             final String? image = valueList[index]['imageurl1']?.toString();
@@ -121,6 +194,8 @@ Widget listDiamond({
   bool camara = false,
   bool video = false,
   bool link = false,
+  bool holdDiamond = false,
+  bool isHoldDiamondChecked = false,
   void Function()? camaraOnTap,
   void Function()? videoOnTap,
   void Function()? cartOnTap,
@@ -129,6 +204,7 @@ Widget listDiamond({
   void Function()? deleteDiamond,
   bool deletdiamond = false,
   void Function()? isWishlistOnTap,
+  Function(bool?)? holdDiamondChanged,
 }) {
   return horizontalPadding(
     child: GestureDetector(
@@ -191,6 +267,9 @@ Widget listDiamond({
                 videoOnTap: videoOnTap,
                 linkOnTap: linkOnTap,
                 isWishlistOnTap: isWishlistOnTap,
+                holdDiamond: holdDiamond,
+                isHoldDiamondChecked: isHoldDiamondChecked,
+                holdDiamondChanged: holdDiamondChanged,
               ),
             ],
           ),
@@ -206,11 +285,14 @@ Widget buttonOnList({
   bool camara = false,
   bool video = false,
   bool link = false,
+  bool holdDiamond = false,
+  bool isHoldDiamondChecked = false,
   void Function()? camaraOnTap,
   void Function()? videoOnTap,
   void Function()? cartOnTap,
   void Function()? linkOnTap,
   void Function()? isWishlistOnTap,
+  Function(bool?)? holdDiamondChanged,
 }) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -235,6 +317,12 @@ Widget buttonOnList({
         GestureDetector(onTap: videoOnTap, child: listImage(AppIcon.video)),
       if (link)
         GestureDetector(onTap: linkOnTap, child: listImage(AppIcon.diamondId)),
+      if (holdDiamond)
+        checkBox(
+          isHoldDiamondChecked,
+          holdDiamondChanged,
+          boderColor: AppColor.primary,
+        ),
     ],
   );
 }

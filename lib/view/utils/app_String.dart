@@ -61,6 +61,7 @@ class AppString {
         //HoldDimaond Screen
         static const holdDimaond = 'Hold Dimaond';
         static const removetohold = 'Remove To Hold';
+        static const addtohold = 'Add To Hold';
         static const addnewAddress = 'Add new Address';
         //Adress Screen
         static const addAddress = 'Add Address';
@@ -269,6 +270,9 @@ class AppString {
   static const crownAngle = 'Crown Angle %';
   static const pavilionDepth = 'Pavilion Depth %';
   static const pavilionAngle = 'Pavilion Angle %';
+  static const pcs = 'PCS';
+  static const cts = 'CTS';
+  static const price = 'PRICE/CT';
 
   //Add Custom Jewellery Screen
   static const addCustomJewellery = 'Add Custom Jewellery';

@@ -1,10 +1,9 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, deprecated_member_use
 
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 
 class HolddiamodUIController extends GetxController
-    // ignore: deprecated_member_use
     with SingleGetTickerProviderMixin {
   @override
   void onInit() {

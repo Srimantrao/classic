@@ -31,9 +31,14 @@ class AppUrl {
               //profile
                 static const String profile = "${baseUrl}App/myaccount/profileDetail";
                 static const String editProfile = "${baseUrl}App/myaccount/updateProfile";
+              //order History
                 static const String orderHistory = "${baseUrl}App/myaccount/orderList";
                 static const String orderDetail = "${baseUrl}App/myaccount/orderDetail";
+              //wishlist
                 static const String filterWish = "${baseUrl}App/wishlist/filteraWishList";
+              //hold Diamond
+                static const String holdDiamond = "${baseUrl}App/diamond/addTohold";
+
   //Menu
     //home
       static const String filterSlider = "${baseUrl}App/slider/filterSlider/1";

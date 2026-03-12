@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable, file_names, use_key_in_widget_constructors
 
 import 'dart:convert';
-import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/fitterWish/fitterWish_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/fitterWish/fitterWish_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createWishList_Controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';

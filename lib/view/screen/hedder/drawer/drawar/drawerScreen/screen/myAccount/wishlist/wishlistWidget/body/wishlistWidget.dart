@@ -1,7 +1,6 @@
 // ignore_for_file: file_names, strict_top_level_inference
-
-import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/fitterWish/deletWish_Controller.dart';
-import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/fitterWish/fitterWish_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/fitterWish/deletWish_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/fitterWish/fitterWish_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createCart_Controller.dart';
 import 'package:classic/view/screen/menu/diamondSearch/diamondWidget/body/searchResultWidget.dart';
 import 'package:classic/view/utils/app_Color.dart';

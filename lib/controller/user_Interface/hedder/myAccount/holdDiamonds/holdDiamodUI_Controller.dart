@@ -1,10 +1,16 @@
-// ignore_for_file: file_names, deprecated_member_use
+// ignore_for_file: file_names, deprecated_member_use, unnecessary_null_comparison
 
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/holdDiamond/holdDiamond_Controller.dart';
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 
 class HolddiamodUIController extends GetxController
     with SingleGetTickerProviderMixin {
+  final getholdDiamond = Get.put(HoldDiamondController());
+
+  late AnimationController animationController;
+  late Animation<double> animation;
+
   @override
   void onInit() {
     super.onInit();
@@ -17,6 +23,13 @@ class HolddiamodUIController extends GetxController
       parent: animationController,
       curve: Curves.easeInOut,
     );
+
+    // Automatically initialize the list when data is loaded
+    ever(getholdDiamond.getHoldDimaondData, (data) {
+      if (data != null && data['data'] is List) {
+        initializeHoldDiamondList((data['data'] as List).length);
+      }
+    });
   }
 
   @override
@@ -29,9 +42,6 @@ class HolddiamodUIController extends GetxController
   RxList<int> selectedIndices = <int>[].obs;
 
   //Flotting Action Button
-  late AnimationController animationController;
-  late Animation<double> animation;
-
   //Flotting Action Button
   void toggle() {
     if (animationController.isCompleted) {
@@ -51,66 +61,62 @@ class HolddiamodUIController extends GetxController
     update();
   }
 
-  double calculateTotalCarats(List<Map<String, dynamic>> diamondList) {
-    double totalCarats = 0.0;
-    for (int index in selectedIndices) {
-      if (index < diamondList.length) {
-        final diamond = diamondList[index];
-        totalCarats += double.tryParse(diamond['Carat'].toString()) ?? 0.0;
-      }
+  RxList<bool> holdDiamondList = <bool>[].obs;
+
+  void initHoldDiamond(int length) {
+    if (holdDiamondList.length != length) {
+      holdDiamondList.value = List.generate(length, (index) => false);
     }
-    return totalCarats;
   }
 
-  double calculateTotalAmount(List<Map<String, dynamic>> diamondList) {
-    double totalAmount = 0.0;
-    int count = selectedIndices.length;
-
-    if (count == 0) return 0.0;
-
-    for (int index in selectedIndices) {
-      if (index < diamondList.length) {
-        final diamond = diamondList[index];
-        final priceString = diamond['price'].toString();
-        final cleanedPrice = priceString.replaceAll(RegExp(r'[^\d.]'), '');
-
-        totalAmount += double.tryParse(cleanedPrice) ?? 0.0;
-      }
+  void initializeHoldDiamondList(int length) {
+    if (holdDiamondList.length != length) {
+      holdDiamondList.value = List.generate(length, (index) => false);
     }
-    return totalAmount;
   }
 
-  double calculateRapTotalAmount(List<Map<String, dynamic>> diamondList) {
-    double totalAmount = 0.0;
-    for (int index in selectedIndices) {
-      if (index < diamondList.length) {
-        final diamond = diamondList[index];
-        final priceString = diamond['Rap Price'].toString();
-        final cleanedPrice = priceString.replaceAll(RegExp(r'[^\d.]'), '');
-        totalAmount += double.tryParse(cleanedPrice) ?? 0.0;
-      }
+  void holdDiamondValue(int index, bool value) {
+    if (index < holdDiamondList.length) {
+      holdDiamondList[index] = value;
+      holdDiamondList.refresh();
     }
-    return totalAmount;
   }
 
-  double calculateTotalTotalAmount(List<Map<String, dynamic>> diamondList) {
-    double totalAmount = 0.0;
-    for (int index in selectedIndices) {
-      if (index < diamondList.length) {
-        final diamond = diamondList[index];
-        final priceString = diamond['price'].toString();
-        final cleanedPrice = priceString.replaceAll(RegExp(r'[^\d.]'), '');
-        totalAmount += double.tryParse(cleanedPrice) ?? 0.0;
-      }
-    }
-    return totalAmount;
+  int get selectedDiamondCount {
+    return holdDiamondList.where((e) => e == true).length;
   }
 
-  double calculatePricePerCarat(List<Map<String, dynamic>> diamondList) {
-    double totalCarats = calculateTotalCarats(diamondList);
-    double totalAmount = calculateTotalTotalAmount(diamondList);
+  double getTotalCts(List valueList) {
+    double total = 0.0;
+    for (int i = 0; i < holdDiamondList.length; i++) {
+      if (i < valueList.length && holdDiamondList[i]) {
+        total +=
+            double.tryParse(valueList[i]['parcarat']?.toString() ?? '0') ?? 0.0;
+      }
+    }
+    return total;
+  }
 
-    if (totalCarats == 0) return 0.0;
-    return totalAmount / totalCarats;
+  double getTotalCarat(List valueList) {
+    double total = 0.0;
+    for (int i = 0; i < holdDiamondList.length; i++) {
+      if (i < valueList.length && holdDiamondList[i]) {
+        total +=
+            double.tryParse(valueList[i]['carat']?.toString() ?? '0') ?? 0.0;
+      }
+    }
+    return total;
+  }
+
+  double getTotalAmount(List valueList) {
+    double total = 0.0;
+    for (int i = 0; i < holdDiamondList.length; i++) {
+      if (i < valueList.length && holdDiamondList[i]) {
+        total +=
+            double.tryParse(valueList[i]['finalamount']?.toString() ?? '0') ??
+            0.0;
+      }
+    }
+    return total;
   }
 }

@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, unused_import, non_constant_identifier_names, must_be_immutable
 
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/holdDiamond/holdDiamond_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/home/filterSlider_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/home/homeCollctionAPIController.dart';
 import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
@@ -33,6 +34,7 @@ class Home extends StatelessWidget {
   final cartAPICallAPI = Get.put(CartAPICall());
   final dashbord_API = Get.put(DashBordAPICall());
   final jewellry = Get.put(JewelleryAPICall());
+  final getholdDiamond = Get.put(HoldDiamondController());
   static bool apiCalled = false;
   Home({super.key});
   @override
@@ -44,6 +46,7 @@ class Home extends StatelessWidget {
         cartAPICallAPI.onInit();
         dashbord_API.onInit();
         jewellry.onInit();
+        getholdDiamond.getHoldDimaond();
       });
     }
     return Fullscreen(

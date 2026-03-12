@@ -37,7 +37,8 @@ class AppUrl {
               //wishlist
                 static const String filterWish = "${baseUrl}App/wishlist/filteraWishList";
               //hold Diamond
-                static const String holdDiamond = "${baseUrl}App/diamond/addTohold";
+                static const String getHoldDiamond = "${baseUrl}App/hold/getallHold";
+                static const String removeholdDiamond = "${baseUrl}App/hold/removeFromhold";
 
   //Menu
     //home
@@ -69,6 +70,7 @@ class AppUrl {
       static const String filterDiamond = "${baseUrl}App/diamond/filterDiamond";
       static const String diamondDetails = "${baseUrl}App/diamond/diamondDetails";
       static const String wishListDelet = "${baseUrl}App/wishlist/deleteWishList";
+      static const String holdDiamond = "${baseUrl}App/diamond/addTohold";
 
     //add Custom Jewellery
       static const String addCustomJewellery = "${baseUrl}App/customProduct/createCustomProduct";

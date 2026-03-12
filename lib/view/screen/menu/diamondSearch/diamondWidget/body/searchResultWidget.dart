@@ -25,6 +25,20 @@ Widget checkvaluehedding(
   SearchResultController holdcontroller,
   List valueList,
 ) {
+  return holdDiamondValueList(
+    pcs: holdcontroller.selectedDiamondCount.toString(),
+    cts: holdcontroller.getTotalCts(valueList).toStringAsFixed(2),
+    price: holdcontroller.getTotalCarat(valueList).toStringAsFixed(2),
+    amount: holdcontroller.getTotalAmount(valueList).toStringAsFixed(2),
+  );
+}
+
+Widget holdDiamondValueList({
+  required String pcs,
+  required String cts,
+  required String price,
+  required String amount,
+}) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: Get.height * 0.020),
     decoration: BoxDecoration(color: AppColor.secondary),
@@ -32,34 +46,13 @@ Widget checkvaluehedding(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            children: [
-              chakhedding(AppString.pcs),
-              chakValue(holdcontroller.selectedDiamondCount.toString()),
-            ],
-          ),
-          Column(
-            children: [
-              chakhedding(AppString.cts),
-              chakValue(
-                holdcontroller.getTotalCts(valueList).toStringAsFixed(2),
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              chakhedding(AppString.price),
-              chakValue(
-                holdcontroller.getTotalCarat(valueList).toStringAsFixed(2),
-              ),
-            ],
-          ),
+          Column(children: [chakhedding(AppString.pcs), chakValue(pcs)]),
+          Column(children: [chakhedding(AppString.cts), chakValue(cts)]),
+          Column(children: [chakhedding(AppString.price), chakValue(price)]),
           Column(
             children: [
               chakhedding(AppString.amount.toUpperCase()),
-              chakValue(
-                "\$${holdcontroller.getTotalAmount(valueList).toStringAsFixed(2)}",
-              ),
+              chakValue("\$$amount"),
             ],
           ),
         ],
@@ -133,7 +126,7 @@ Widget valueListDiamond({
           holdDiamondChanged: (value) {
             searchResult.holdDiamondValue(index, value!);
           },
-          linkOnTap: (){
+          linkOnTap: () {
             final String? image = valueList[index]['certurl']?.toString();
             if (image == null || image.isEmpty) {
               if (kDebugMode) {

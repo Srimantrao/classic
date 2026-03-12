@@ -63,6 +63,8 @@ class AppString {
         static const removetohold = 'Remove To Hold';
         static const addtohold = 'Add To Hold';
         static const addnewAddress = 'Add new Address';
+        static const parcarat = 'parcarat';
+        static const discount = 'Discount';
         //Adress Screen
         static const addAddress = 'Add Address';
         static const addNewAddress = 'Add New Address';

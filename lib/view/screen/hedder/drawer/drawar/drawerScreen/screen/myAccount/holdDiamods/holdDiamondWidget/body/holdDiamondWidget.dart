@@ -1,12 +1,9 @@
 // ignore_for_file: file_names, avoid_unnecessary_containers, avoid_print
 
 import 'package:classic/controller/user_Interface/hedder/myAccount/holdDiamonds/holdDiamodUI_Controller.dart';
-import 'package:classic/modal/headder/myAccount/holdDiamonds.dart';
-import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/holdDiamods/holdDiamodsExtraWidget/holdDiamodsExtraWidget.dart';
 import 'package:classic/view/screen/menu/dashbord/dasboadWidget/body/diamondSection.dart';
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
-import 'package:classic/view/utils/app_Image.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
 import 'package:classic/view/utils/widget/checkbox.dart';
@@ -15,66 +12,29 @@ import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-Widget chekhValueeadder({
-  required HolddiamondsListViwe value,
-  required HolddiamodUIController holdDiamondUI,
-}) {
-  final double totalCarats = holdDiamondUI.calculateTotalCarats(
-    value.holdDiamond,
-  );
-  final double totalTotalAmount = holdDiamondUI.calculateTotalTotalAmount(
-    value.holdDiamond,
-  );
-  final double pricePerCarat = holdDiamondUI.calculateRapTotalAmount(
-    value.holdDiamond,
-  );
-  return Container(
-    padding: EdgeInsets.symmetric(vertical: Get.height * 0.020),
-    decoration: BoxDecoration(color: AppColor.secondary),
-    child: horizontalPadding(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            children: [
-              chakhedding('PCS'),
-              chakValue(holdDiamondUI.selectedIndices.length.toString()),
-            ],
-          ),
-          Column(
-            children: [
-              chakhedding('CTS'),
-              chakValue(totalCarats.toStringAsFixed(2)),
-            ],
-          ),
-          Column(
-            children: [
-              chakhedding('PRICE/CT'),
-              chakValue(pricePerCarat.toStringAsFixed(2)),
-            ],
-          ),
-          Column(
-            children: [
-              chakhedding('AMOUNT'),
-              chakValue(totalTotalAmount.toStringAsFixed(2)),
-            ],
-          ),
-        ],
-      ),
-    ),
+import '../../../../../../../../../menu/diamondSearch/diamondWidget/body/searchResultWidget.dart';
+
+Widget chekhValueeadder(HolddiamodUIController holdcontroller, List valueList) {
+  return holdDiamondValueList(
+    pcs: holdcontroller.selectedDiamondCount.toString(),
+    cts: holdcontroller.getTotalCts(valueList).toStringAsFixed(2),
+    price: holdcontroller.getTotalCarat(valueList).toStringAsFixed(2),
+    amount: holdcontroller.getTotalAmount(valueList).toStringAsFixed(2),
   );
 }
 
-Widget holdDiamondListViwe({
-  required List jewelryList,
-  required List<int> selectedIndices,
-  required void Function(int) onChanged,
-}) {
+Widget holdDiamondListViwe({required List<dynamic> jewelryList}) {
+  final holdDiamondUI = Get.find<HolddiamodUIController>();
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    if (holdDiamondUI.holdDiamondList.length != jewelryList.length) {
+      holdDiamondUI.initializeHoldDiamondList(jewelryList.length);
+    }
+  });
   return Expanded(
     child: ListView.builder(
       itemCount: jewelryList.length,
       itemBuilder: (BuildContext context, int index) {
-        final bool isSelected = selectedIndices.contains(index);
+        final holdDiamondUI = Get.put(HolddiamodUIController());
         final jewelry = jewelryList[index];
         return horizontalPadding(
           child: Container(
@@ -86,10 +46,38 @@ Widget holdDiamondListViwe({
             child: Padding(
               padding: EdgeInsets.all(Get.width * 0.03),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.asset(AppImage.pandant1, scale: 25),
-                  SizedBox(width: Get.width * 0.03),
+                  SizedBox(
+                    width: Get.width * 0.12,
+                    height: Get.width * 0.12,
+                    child:
+                        (jewelry['imageurl1'] != null &&
+                            jewelry['imageurl1'].toString().isNotEmpty)
+                        ? Image.network(
+                            jewelry['imageurl1'],
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                color: Colors.grey[300],
+                                child: Icon(
+                                  Icons.broken_image,
+                                  color: Colors.grey[600],
+                                ),
+                              );
+                            },
+                          )
+                        : Container(
+                            color: Colors.grey[300],
+                            child: Icon(
+                              Icons.image_not_supported,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsGeometry.only(left: Get.width * 0.03),
+                  ),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,36 +86,85 @@ Widget holdDiamondListViwe({
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              '# LLA276A-31',
+                              jewelry['stockId'],
                               style: TextStyle(
                                 fontSize: Textsize.normal,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            checkBox(isSelected, (newValue) {
-                              onChanged(index);
-                            }),
+                            checkBox(
+                              boderColor: AppColor.primary,
+                              index < holdDiamondUI.holdDiamondList.length
+                                  ? holdDiamondUI.holdDiamondList[index]
+                                  : false,
+                              (value) {
+                                if (index <
+                                    holdDiamondUI.holdDiamondList.length) {
+                                  holdDiamondUI.holdDiamondValue(index, value!);
+                                }
+                              },
+                            ),
                           ],
                         ),
-                        valueShow('Shape: ', jewelry['shape']),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            valueShow('color: ', jewelry['color']),
-                            valueShow('clarity: ', jewelry['clarity']),
-                            valueShow('Carat: ', jewelry['Carat']),
-                            valueShow('cut: ', jewelry['cut']),
-                          ],
+                        valueShow(AppString.shape, jewelry['shape'] ?? ''),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              valueShow(
+                                AppString.color,
+                                jewelry['color'] ?? '',
+                              ),
+                              Padding(
+                                padding: EdgeInsetsGeometry.only(
+                                  left: Get.width * 0.015,
+                                ),
+                              ),
+                              valueShow(
+                                AppString.clarity,
+                                jewelry['clarity'] ?? '',
+                              ),
+                              Padding(
+                                padding: EdgeInsetsGeometry.only(
+                                  left: Get.width * 0.015,
+                                ),
+                              ),
+                              valueShow(
+                                AppString.carat,
+                                jewelry['carat'] ?? '',
+                              ),
+                              Padding(
+                                padding: EdgeInsetsGeometry.only(
+                                  left: Get.width * 0.015,
+                                ),
+                              ),
+                              valueShow(AppString.cut, jewelry['cut'] ?? ''),
+                            ],
+                          ),
                         ),
-                        valueShow('Lab: ', jewelry['Lab']),
-                        Row(
-                          children: [
-                            valueShow('Rap Price: ', jewelry['Rap Price']),
-                            SizedBox(width: Get.width * 0.02),
-                            valueShow('Desc: ', jewelry['Desc']),
-                          ],
+                        valueShow(AppString.lab, jewelry['lab'] ?? ''),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              valueShow(
+                                AppString.parcarat,
+                                jewelry['parcarat']?.toString() ?? '',
+                              ),
+                              SizedBox(width: 8),
+                              valueShow(
+                                AppString.discount,
+                                jewelry['CustomeJewellerDiscountAmount']
+                                        ?.toString() ??
+                                    '',
+                              ),
+                            ],
+                          ),
                         ),
-                        valueShow('Amount: ', jewelry['price']),
+                        valueShow(
+                          AppString.amount,
+                          jewelry['finalamount']?.toString() ?? '',
+                        ),
                       ],
                     ),
                   ),
@@ -155,7 +192,6 @@ Widget floatingActionButton({
         iconColor: AppColor.white,
         backGroundColor: AppColor.primary,
         items: [
-
           //Download
           Bubble(
             title: AppString.diamond,
@@ -189,21 +225,21 @@ Widget floatingActionButton({
           ),
 
           //Add To Hold
-          if(addHold)
-          Bubble(
-            title: AppString.addtohold,
-            iconColor: Colors.white,
-            bubbleColor: AppColor.primary,
-            icon: Icons.card_travel_rounded,
-            titleStyle: TextStyle(
-              fontSize: Get.width * 0.028,
-              color: Colors.white,
+          if (addHold)
+            Bubble(
+              title: AppString.addtohold,
+              iconColor: Colors.white,
+              bubbleColor: AppColor.primary,
+              icon: Icons.card_travel_rounded,
+              titleStyle: TextStyle(
+                fontSize: Get.width * 0.028,
+                color: Colors.white,
+              ),
+              onPress: () {
+                addToHoldonPress?.call();
+                c.toggle();
+              },
             ),
-            onPress: () {
-              addToHoldonPress?.call();
-              c.toggle();
-            },
-          ),
 
           //Remove to Hold
           Bubble(

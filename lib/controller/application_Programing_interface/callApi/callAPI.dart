@@ -1,7 +1,8 @@
 // ignore_for_file: must_call_super, file_names, unused_import, avoid_print
 
-import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/fitterWish/fitterWish_Controller.dart';
-import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/orderHistory/orderHistory_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/fitterWish/fitterWish_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/holdDiamond/holdDiamond_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/orderHistory/orderHistory_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/dashbord/totalRecored_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/home/filterSlider_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/home/homeCollctionAPIController.dart';
@@ -25,6 +26,7 @@ class CartAPICall extends GetxController {
   final profileDetail = Get.put(ProfileDetailController());
   final orderHistory = Get.put(OrderHistoryController());
   final fitterWish = Get.put(FitterWishController());
+  final getholdDiamond = Get.put(HoldDiamondController());
 
   @override
   void onInit() {
@@ -35,6 +37,7 @@ class CartAPICall extends GetxController {
         profileDetail.profileDetail();
         orderHistory.oderHistory();
         fitterWish.fitterWishList();
+        getholdDiamond.getHoldDimaond();
       });
     } else {
       print('No Login in Hedder');

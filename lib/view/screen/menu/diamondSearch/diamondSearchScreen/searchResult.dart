@@ -10,9 +10,7 @@ import '../diamondWidget/body/searchResultWidget.dart';
 
 class SearchResult extends StatelessWidget {
   final searchResult = Get.put(SearchResultController());
-
   SearchResult({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Obx(() {

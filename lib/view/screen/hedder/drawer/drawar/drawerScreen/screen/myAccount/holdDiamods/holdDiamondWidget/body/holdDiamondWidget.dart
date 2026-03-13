@@ -180,7 +180,11 @@ Widget holdDiamondListViwe({required List<dynamic> jewelryList}) {
 
 Widget floatingActionButton({
   bool addHold = false,
+  bool removeToHold = false,
   void Function()? addToHoldonPress,
+  void Function()? removeToHoldonPress,
+  void Function()? addToCart,
+  void Function()? addToWishList,
 }) {
   return GetBuilder<HolddiamodUIController>(
     init: HolddiamodUIController(),
@@ -219,7 +223,7 @@ Widget floatingActionButton({
               color: Colors.white,
             ),
             onPress: () {
-              print("Edit pressed");
+              addToCart?.call();
               c.toggle();
             },
           ),
@@ -242,6 +246,7 @@ Widget floatingActionButton({
             ),
 
           //Remove to Hold
+          if(removeToHold)
           Bubble(
             title: AppString.removetohold,
             iconColor: Colors.white,
@@ -252,7 +257,7 @@ Widget floatingActionButton({
               color: Colors.white,
             ),
             onPress: () {
-              print("Edit pressed");
+              removeToHoldonPress?.call();
               c.toggle();
             },
           ),
@@ -268,7 +273,7 @@ Widget floatingActionButton({
               color: Colors.white,
             ),
             onPress: () {
-              print("Edit pressed");
+              addToWishList?.call();
               c.toggle();
             },
           ),

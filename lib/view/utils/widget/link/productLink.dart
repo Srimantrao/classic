@@ -3,27 +3,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-// class ProductLink extends StatelessWidget {
-//   final String? link;
-//   const ProductLink({super.key, this.link});
-//   @override
-//   Widget build(BuildContext context) {
-//     return Fullscreen(
-//       child: horizontalPadding(
-//         child: Column(
-//           children: [
-//             backButton(),
-//             Padding(
-//               padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.02),
-//             ),
-//             Expanded(child: dimaondlink(link)),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 Widget productLink(link) {
   return dimaondlink(link);
 }

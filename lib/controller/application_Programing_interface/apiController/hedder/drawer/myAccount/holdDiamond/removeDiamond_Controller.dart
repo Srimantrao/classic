@@ -17,10 +17,17 @@ class RemoveDiamondController extends GetxController {
           response: response,
           callAPI: 'removeDiamondData',
           data: removeDiamondData,
+          messages: true,
+          showSnackbarSuccess: true,
         );
       }
     } on DioException catch (e) {
-      errorMesssess(e: e, callAPI: 'removeDiamondData');
+      errorMesssess(
+        e: e,
+        callAPI: 'removeDiamondData',
+        showSnackbar: true,
+        showSnackbarErorr: true,
+      );
     } finally {
       iaLoading(false);
     }

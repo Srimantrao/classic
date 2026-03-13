@@ -1,6 +1,7 @@
 
 // ignore_for_file: file_names
 
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/customProduct/customProduct_Controller.dart';
 import 'package:classic/modal/headder/myAccount/customProduct.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/customProduct/customProductWidget/body/customProduct.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/orderHistory/orderHistoryExtraWidget/orderHistroryExtraWidget.dart';
@@ -13,6 +14,7 @@ import 'package:get/get.dart';
 
 class Customproduct extends StatelessWidget {
   final customList = CustomproductList();
+  final customProduct = Get.put(CustomProductController());
   Customproduct({super.key});
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class Customproduct extends StatelessWidget {
                   children: [
                     custumProduct(),
                     Divider(color: AppColor.secondary),
-                    customProductValue(customList.customproductList),
+                    customProductValue(customProduct.customProductData['data']),
                   ],
                 ),
               ),

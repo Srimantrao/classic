@@ -2,10 +2,12 @@
 import 'package:classic/controller/user_Interface/hedder/myAccount/holdDiamonds/holdDiamodUI_Controller.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/holdDiamods/holdDiamondWidget/body/holdDiamondWidget.dart';
 import 'package:classic/view/utils/app_String.dart';
+import 'package:classic/view/utils/app_json.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 class Holddimaond extends StatelessWidget {
   const Holddimaond({super.key});
@@ -14,12 +16,21 @@ class Holddimaond extends StatelessWidget {
     final holdDiamondUI = Get.put(HolddiamodUIController());
     return Fullscreen(
       appBar: allOtherScreen(AppString.holdDimaond, cart: true),
-      floatingActionButton: floatingActionButton(),
+      floatingActionButton: floatingActionButton(
+        removeToHoldonPress: holdDiamondUI.removeHoldDiamond,
+        addToCart: holdDiamondUI.addToCart,
+        addToWishList: holdDiamondUI.addToWishListCart,
+      ),
       child: Obx(() {
-        final api = holdDiamondUI;
-        final apiData = api.getholdDiamond.getHoldDimaondData;
-        final apidataList = apiData['data'] as List?;
-        final data = apidataList ?? [];
+        final api = holdDiamondUI.getholdDiamond;
+        final apiData = api.getHoldDimaondData;
+        final apidataList = apiData['data'] as List? ?? [];
+        if (apidataList.isEmpty) {
+          return Center(
+            child: Lottie.asset(AppJson.noData),
+          );
+        }
+        final data = apidataList;
         return Column(
           children: [
             if (holdDiamondUI.holdDiamondList.contains(true))

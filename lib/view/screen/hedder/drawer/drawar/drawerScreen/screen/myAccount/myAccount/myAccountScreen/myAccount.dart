@@ -16,27 +16,27 @@ import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get.dart';
 
 class Myaccount extends StatelessWidget {
   final hedder = Get.put(CartAPICall());
   Myaccount({super.key});
   @override
   Widget build(BuildContext context) {
-    final api = hedder.profileDetail.profileDetailData;
-    final apiData = api['data'];
     return Fullscreen(
       appBar: allOtherScreen(AppString.myAccount),
       child: Column(
         children: [
           //Edit Profile
-          editNameEmail(
-            name: apiData['firstName'],
-            email: apiData['email'],
-            onTap: () => Get.to(() => Editprofile()),
-          ),
+          Obx((){
+            final api = hedder.profileDetail.profileDetailData;
+            final apiData = api['data'];
+            return editNameEmail(
+              name: apiData['firstName'],
+              email: apiData['email'],
+              onTap: () => Get.to(() => Editprofile()),
+            );
+          }),
 
           //Show Your  Activity
           showActivity(

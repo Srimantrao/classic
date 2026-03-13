@@ -3,6 +3,7 @@
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/orderHistory/orderHistoryExtraWidget/orderHistroryExtraWidget.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 Widget custumProduct() {
   return Row(
@@ -28,6 +29,11 @@ Widget customProductValue(customList) {
     }
   }
 
+  String formatDate(String date) {
+    DateTime parsedDate = DateTime.parse(date);
+    return DateFormat('dd/MMM/yy').format(parsedDate);
+  }
+
   return Expanded(
     child: ListView.builder(
       itemCount: customList.length,
@@ -37,10 +43,14 @@ Widget customProductValue(customList) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            orderHistoryvalue(order['Order ID']),
-            orderHistoryvalue(order['Order Date']),
-            orderHistoryvalue(order['Budget']),
-            orderHistoryvalue(status, color: color(status)),
+            orderHistoryvalue(order['OrderNo']),
+            orderHistoryvalue(formatDate(order['updatedAt'])),
+            orderHistoryvalue(order['Budget'].toString()),
+            orderHistoryvalue(
+              status,
+              color: color(status),
+              fontWeight: FontWeight.w600,
+            ),
           ],
         );
       },

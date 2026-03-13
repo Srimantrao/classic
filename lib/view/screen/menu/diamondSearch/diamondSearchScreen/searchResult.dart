@@ -21,7 +21,10 @@ class SearchResult extends StatelessWidget {
         appBar: allOtherScreen('Search Result (${totalCount ?? 0})'),
         floatingActionButton: floatingActionButton(
           addHold: true,
+          removeToHold: false,
           addToHoldonPress: searchResult.addHoldDiamond,
+          addToWishList: searchResult.addToWishListCart,
+          addToCart: searchResult.addToCart,
         ),
         child: Column(
           children: [

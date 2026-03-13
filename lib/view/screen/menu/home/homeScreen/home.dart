@@ -1,6 +1,14 @@
 // ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, unused_import, non_constant_identifier_names, must_be_immutable
 
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/cart/cart_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/customProduct/customProduct_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/fitterWish/fitterWish_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/holdDiamond/holdDiamond_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/orderHistory/orderHistory_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/profile/profileDetail_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/showList_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/menu/dashbord/recentView_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/menu/dashbord/totalRecored_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/home/filterSlider_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/home/homeCollctionAPIController.dart';
 import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
@@ -23,7 +31,6 @@ import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
-
 import '../../jewelry/jewelryScreen/product.dart';
 import '../homeExtraWidget/homeconnectingWideget.dart';
 
@@ -34,20 +41,18 @@ class Home extends StatelessWidget {
   final cartAPICallAPI = Get.put(CartAPICall());
   final dashbord_API = Get.put(DashBordAPICall());
   final jewellry = Get.put(JewelleryAPICall());
-  final getholdDiamond = Get.put(HoldDiamondController());
   static bool apiCalled = false;
   Home({super.key});
   @override
   Widget build(BuildContext context) {
     if (!apiCalled) {
       apiCalled = true;
-      Future.microtask(() {
-        homeAPI.onInit();
-        cartAPICallAPI.onInit();
-        dashbord_API.onInit();
-        jewellry.onInit();
-        getholdDiamond.getHoldDimaond();
-      });
+      Future.wait([
+        homeAPI.onInit(),
+        cartAPICallAPI.onInit(),
+        dashbord_API.onInit(),
+        jewellry.onInit(),
+      ]);
     }
     return Fullscreen(
       scaffoldKey: scaffoldKey,

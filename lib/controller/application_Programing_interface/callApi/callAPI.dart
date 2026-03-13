@@ -1,5 +1,6 @@
 // ignore_for_file: must_call_super, file_names, unused_import, avoid_print
 
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/customProduct/customProduct_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/fitterWish/fitterWish_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/holdDiamond/holdDiamond_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/orderHistory/orderHistory_Controller.dart';
@@ -27,20 +28,24 @@ class CartAPICall extends GetxController {
   final orderHistory = Get.put(OrderHistoryController());
   final fitterWish = Get.put(FitterWishController());
   final getholdDiamond = Get.put(HoldDiamondController());
+  final customProduct = Get.put(CustomProductController());
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    super.onInit();
+
     if (isLogin == true) {
-      Future.microtask(() {
-        cartAPI.filterCart();
-        show.showListView();
-        profileDetail.profileDetail();
-        orderHistory.oderHistory();
-        fitterWish.fitterWishList();
-        getholdDiamond.getHoldDimaond();
-      });
+      await Future.wait([
+        cartAPI.filterCart(),
+        show.showListView(),
+        profileDetail.profileDetail(),
+        orderHistory.oderHistory(),
+        fitterWish.fitterWishList(),
+        getholdDiamond.getHoldDimaond(),
+        customProduct.getCustomProduct(),
+      ]);
     } else {
-      print('No Login in Hedder');
+      print('No Login in Header');
     }
   }
 }
@@ -51,12 +56,14 @@ class HomeAPICall extends GetxController {
   final homeCollectionAPI = Get.put(HomeCollctionapiController());
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    super.onInit();
+
     if (isLogin == true) {
-      Future.microtask(() {
-        filterSilderAPI.filterSlider();
-        homeCollectionAPI.homeCollectionApi();
-      });
+      await Future.wait([
+        filterSilderAPI.filterSlider(),
+        homeCollectionAPI.homeCollectionApi(),
+      ]);
     } else {
       print('No Login in HomeAPI');
     }
@@ -70,15 +77,17 @@ class JewelleryAPICall extends GetxController {
   final getAllParameter = Get.put(GetallparameterController());
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    super.onInit();
+
     if (isLogin == true) {
-      Future.microtask(() {
-        categoryAPI.getCategory();
-        filter.filterAPI();
-        getAllParameter.getAllParameterAPI();
-      });
+      await Future.wait([
+        categoryAPI.getCategory(),
+        filter.filterAPI(),
+        getAllParameter.getAllParameterAPI(),
+      ]);
     } else {
-      print('No Login in JwelleryAPI');
+      print('No Login in JewelleryAPI');
     }
   }
 }
@@ -89,14 +98,16 @@ class DashBordAPICall extends GetxController {
   final recentView = Get.put(RecentViewController());
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    super.onInit();
+
     if (isLogin == true) {
-      Future.microtask(() {
-        totalRecored.totalRecord();
-        recentView.recentViewdata();
-      });
+      await Future.wait([
+        totalRecored.totalRecord(),
+        recentView.recentViewdata(),
+      ]);
     } else {
-      print('No Login in DashbordAPI');
+      print('No Login in DashboardAPI');
     }
   }
 }

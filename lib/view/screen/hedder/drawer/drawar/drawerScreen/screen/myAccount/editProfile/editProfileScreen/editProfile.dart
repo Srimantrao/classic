@@ -27,7 +27,7 @@ class Editprofile extends StatelessWidget {
           final apiLoading = api.isLoading.value;
           return button(
             loadingWait: (apiLoading) ? customCircular() : null,
-            onTap: () => editProfileUI.editProfile_edit(),
+            onTap: editProfileUI.editProfile_edit,
             AppString.saveAddress,
             isLowercase: true,
             bottomBottonFontSize: true,

@@ -16,21 +16,18 @@ BoxDecoration orderHistoyDecoration() {
 Widget orderHistoryhedding(text) {
   return Text(
     text,
-    style: TextStyle(
-      fontSize: Get.width * 0.04,
-      fontWeight: FontWeight.w500,
-    ),
+    style: TextStyle(fontSize: Get.width * 0.04, fontWeight: FontWeight.w500),
   );
 }
 
-Widget orderHistoryvalue(text, {Color? color}) {
+Widget orderHistoryvalue(text, {Color? color, fontWeight}) {
   return Column(
     children: [
       Text(
         text,
         style: TextStyle(
           fontSize: Get.width * 0.033,
-          fontWeight: FontWeight.w400,
+          fontWeight: fontWeight ?? FontWeight.w400,
           color: color,
         ),
       ),

@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_null_comparison, file_names, non_constant_identifier_names, avoid_print
 
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/editProfile/editProfile_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/profile/profileDetail_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/other/country_Controller.dart';
 import 'package:classic/modal/credentials/signUp.dart';
 import 'package:classic/view/utils/app_Color.dart';
@@ -23,6 +24,7 @@ class EditprofileUIController extends GetxController {
   final countryDropdown = Get.put(CountryDropdownContoller());
   final signUpDropdown = Get.put(SignupDropdownContoller());
   final editprofileButton = Get.put(EditProfileController());
+  final profileDetail = Get.put(ProfileDetailController());
   final Country = Get.put(CountryController());
 
   var country = ''.obs;
@@ -194,8 +196,8 @@ class EditprofileUIController extends GetxController {
     }
   }
 
-  void editProfile_edit() {
-    editprofileButton.editProfile(
+  void editProfile_edit() async{
+    await editprofileButton.editProfile(
       firstName: firstNameController.text,
       lastName: lastNameController.text,
       email: emailIdController.text,
@@ -210,6 +212,8 @@ class EditprofileUIController extends GetxController {
       memberOf: selectedValueMemberof.value,
       howDidYouHearAboutUs: selectedValueHowdidyourhear.value,
     );
+    profileDetail.profileDetail();
+    Get.back();
 
     print('Fristname: - ${firstNameController.text}');
     print('Lastname: - ${lastNameController.text}');

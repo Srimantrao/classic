@@ -1,14 +1,25 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/fitterWish/fitterWish_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/holdDiamond/holdDiamond_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/diamondSearch/diamondHold_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createCart_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createWishList_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import '../../../application_Programing_interface/apiController/menu/diamondSearch/diamondSearch_Controller.dart';
 
 class SearchResultController extends GetxController {
   final diamondSearchAPI = Get.find<DiamondSearchController>();
   final addholdToDimaonds = Get.put(DiamondHoldController());
+  final getholdDiamond = Get.put(HoldDiamondController());
+  final adToCart = Get.put(CreateCartController());
+  final cartAPICallAPI = Get.put(CartAPICall());
+  final fitterWish = Get.put(FitterWishController());
+  final addWishListCart = Get.put(CreateWishlistController());
   final ScrollController scrollController = ScrollController();
 
   RxList<bool> holdDiamondList = <bool>[].obs;
@@ -53,7 +64,7 @@ class SearchResultController extends GetxController {
     return total;
   }
 
-  double getTotalCarat(List valueList){
+  double getTotalCarat(List valueList) {
     double total = 0.0;
     for (int i = 0; i < holdDiamondList.length; i++) {
       if (holdDiamondList[i]) {
@@ -63,7 +74,7 @@ class SearchResultController extends GetxController {
     return total;
   }
 
-  double getTotalAmount(List valueList){
+  double getTotalAmount(List valueList) {
     double total = 0.0;
     for (int i = 0; i < holdDiamondList.length; i++) {
       if (holdDiamondList[i]) {
@@ -78,7 +89,7 @@ class SearchResultController extends GetxController {
     holdDiamondList.refresh();
   }
 
-  void addHoldDiamond() {
+  void addHoldDiamond() async {
     final apiData = diamondSearchAPI.diamondSearchData;
     final List apiloadData = apiData['data'] ?? [];
     List<String> selectedIds = [];
@@ -88,12 +99,58 @@ class SearchResultController extends GetxController {
       }
     }
     if (selectedIds.isNotEmpty) {
-      addholdToDimaonds.holdDiamond(
-        ids: jsonEncode(selectedIds),
-      );
+      await addholdToDimaonds.holdDiamond(ids: jsonEncode(selectedIds));
+      getholdDiamond.getHoldDimaond();
       print('Selected diamond IDs: ${[selectedIds]}');
     } else {
       print("Please select at least one diamond");
+    }
+  }
+
+  void addToCart() async {
+    final apiData = diamondSearchAPI.diamondSearchData;
+    final List apiloadData = apiData['data'] ?? [];
+    List<String> selectedIds = [];
+    for (int i = 0; i < holdDiamondList.length && i < apiloadData.length; i++) {
+      if (holdDiamondList[i]) {
+        selectedIds.add(apiloadData[i]["_id"]);
+      }
+    }
+    if (selectedIds.isNotEmpty) {
+      await adToCart.createCart(DiamondId: jsonEncode(selectedIds), qty: '1');
+      if (kDebugMode) {
+        print('DiamondId :- ${jsonEncode(selectedIds)}');
+      }
+      cartAPICallAPI.cartAPI.filterCart();
+    } else {
+      if (kDebugMode) {
+        print("Please select at least one diamond");
+      }
+    }
+  }
+
+  void addToWishListCart() async {
+    final apiData = diamondSearchAPI.diamondSearchData;
+    final List apiloadData = apiData['data'] ?? [];
+    List<String> selectedIds = [];
+    for (int i = 0; i < holdDiamondList.length && i < apiloadData.length; i++) {
+      if (holdDiamondList[i]) {
+        selectedIds.add(apiloadData[i]["_id"]);
+      }
+    }
+    if (selectedIds.isNotEmpty) {
+      await addWishListCart.createWishlist(
+        DiamondId: jsonEncode(selectedIds),
+        qty: '1',
+      );
+      if (kDebugMode) {
+        print('DiamondId :- ${jsonEncode(selectedIds)}');
+      }
+      fitterWish.fitterWishList();
+    } else {
+      if (kDebugMode) {
+        print("Please select at least one diamond");
+      }
     }
   }
 

@@ -22,11 +22,13 @@ Future<void> main() async {
   userName = pref!.getString('username') ?? '';
   password = pref!.getString('password') ?? '';
   token = pref!.getString('token') ?? '';
+  userID = pref!.getString('userId') ?? '';
 
   print('isLogin $isLogin');
   print('userName $userName');
   print('password $password');
   print('token $token');
+  print('userID $userID');
 
   //Sinup
   firstName = pref!.getString('FristName') ?? '';

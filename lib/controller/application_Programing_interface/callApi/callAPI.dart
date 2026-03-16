@@ -1,5 +1,6 @@
 // ignore_for_file: must_call_super, file_names, unused_import, avoid_print
 
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/address/getAddress_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/customProduct/customProduct_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/fitterWish/fitterWish_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/holdDiamond/holdDiamond_Controller.dart';
@@ -29,6 +30,7 @@ class CartAPICall extends GetxController {
   final fitterWish = Get.put(FitterWishController());
   final getholdDiamond = Get.put(HoldDiamondController());
   final customProduct = Get.put(CustomProductController());
+  final getAddress = Get.put(GetAddressController());
 
   @override
   Future<void> onInit() async {
@@ -43,6 +45,7 @@ class CartAPICall extends GetxController {
         fitterWish.fitterWishList(),
         getholdDiamond.getHoldDimaond(),
         customProduct.getCustomProduct(),
+        getAddress.getAddress(userID),
       ]);
     } else {
       print('No Login in Header');

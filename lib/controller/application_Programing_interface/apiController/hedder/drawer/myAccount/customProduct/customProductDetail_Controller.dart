@@ -1,10 +1,12 @@
+// ignore_for_file: strict_top_level_inference
+
 import 'package:classic/controller/application_Programing_interface/apiService/hedder/drawer/myAccount/customProduct/customProductDetailService.dart';
 import 'package:classic/view/utils/api_Message.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
 class CustomProductDetailController extends GetxController {
-  final customProductDetailService = Get.put(CustomProductDetailService());
+  final customProductDetailService = CustomProductDetailService();
   var isLoading = false.obs;
   var customProductDetail = {}.obs;
 

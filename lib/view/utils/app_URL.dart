@@ -42,6 +42,9 @@ class AppUrl {
               //CustomProduct
                 static const String customProduct = "${baseUrl}App/customProduct/getCustomProductList";
                 static const String detailCustomProduct = "${baseUrl}app/customProduct/getCustomProductDetails";
+              //Address
+                static const String getAddress = "${baseUrl}App/order/customerAddress";
+                static const String addAddress = "${baseUrl}App/myaccount/addMyAddress";
 
   //Menu
     //home

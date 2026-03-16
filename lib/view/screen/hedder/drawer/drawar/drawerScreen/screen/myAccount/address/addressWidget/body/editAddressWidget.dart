@@ -50,11 +50,6 @@ Widget editAdress({
           onChanged: countryOnChanged,
         ),
         typeInputEdit(
-          controller: addressnameController,
-          text: AppString.address,
-          hinttext: AppString.address,
-        ),
-        typeInputEdit(
           controller: cityController,
           text: AppString.city,
           hinttext: AppString.city,
@@ -68,6 +63,8 @@ Widget editAdress({
           controller: zipCodeController,
           text: AppString.zipCode,
           hinttext: AppString.zipCode,
+          maxLength: 6,
+          keyboardType: TextInputType.number,
         ),
         typeInputEdit(
           controller: emailController,
@@ -78,6 +75,8 @@ Widget editAdress({
           controller: phoneController,
           text: AppString.mobileNo,
           hinttext: AppString.mobile_hint,
+          maxLength: 10,
+          keyboardType: TextInputType.number,
         ),
         SizedBox(height: Get.height * 0.02),
       ],

@@ -1,26 +1,16 @@
 // ignore_for_file: avoid_print
 
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/customProduct/customProductDetail_Controller.dart';
-import 'package:classic/view/utils/app_Borderradius.dart';
-import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_json.dart';
-import 'package:classic/view/utils/widget/button.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
-import 'package:shimmer/shimmer.dart';
 
-import '../../orderHistory/orderHistoryExtraWidget/orderDetailExtraWidget.dart';
-import '../../orderHistory/orderHistoryExtraWidget/orderHistroryExtraWidget.dart';
-import '../../orderHistory/orderHistoryWidget/body/orderDetailWidget.dart';
 import '../customProductWidget/body/customProductDetailWidget.dart';
 
 class CustomShowDetailProduct extends StatelessWidget {

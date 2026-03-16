@@ -29,22 +29,22 @@ Widget addressListText(text) {
 }
 
 Widget chageBillingAddressText(text) {
-  return Text(
-    text,
-    style: TextStyle(decoration: TextDecoration.underline),
-  );
+  return Text(text, style: TextStyle(decoration: TextDecoration.underline));
 }
 
 Widget typeInputEdit({
   required TextEditingController controller,
   required String text,
   required String hinttext,
+  int? maxLength,
+  TextInputType? keyboardType,
 }) {
   return inputTyaping(
     text: text,
     controller: controller,
     color: AppColor.gray,
-    hinttext:hinttext,
+    hinttext: hinttext,
+    maxLength: maxLength,
+    keyboardType: keyboardType,
   );
 }
-

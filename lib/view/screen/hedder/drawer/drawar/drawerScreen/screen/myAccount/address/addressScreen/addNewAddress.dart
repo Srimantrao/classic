@@ -3,6 +3,7 @@
 import 'package:classic/controller/user_Interface/hedder/myAccount/address/addNewAddress.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/address/addressWidget/body/editAddressWidget.dart';
 import 'package:classic/view/utils/app_String.dart';
+import 'package:classic/view/utils/app_cricularProgrssIndicator.dart';
 import 'package:classic/view/utils/widget/bottomNavigationButton.dart';
 import 'package:classic/view/utils/widget/button.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
@@ -18,11 +19,17 @@ class Addnewaddress extends StatelessWidget {
     return Fullscreen(
       appBar: allOtherScreen(AppString.addAddress),
       bottomNavigationBar: buttonNavigation(
-        child: button(
-          AppString.addNewAddress,
-          bottomBottonFontSize: true,
-          isLowercase: true,
-        ),
+        child: Obx(() {
+          final api = AddnewaddressUI.addnewAddress;
+          final apiLoading = api.isLoading.value;
+          return button(
+            AppString.addNewAddress,
+            bottomBottonFontSize: true,
+            isLowercase: true,
+            loadingWait: (apiLoading) ? customCircular() : null,
+            onTap: AddnewaddressUI.addNewAddress,
+          );
+        }),
       ),
       child: Obx(() {
         return SingleChildScrollView(

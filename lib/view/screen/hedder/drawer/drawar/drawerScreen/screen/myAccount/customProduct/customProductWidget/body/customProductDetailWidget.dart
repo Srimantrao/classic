@@ -1,3 +1,5 @@
+// ignore_for_file: strict_top_level_inference
+
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/orderHistory/orderHistoryExtraWidget/orderDetailExtraWidget.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/orderHistory/orderHistoryWidget/body/orderDetailWidget.dart';
 import 'package:classic/view/utils/app_Color.dart';

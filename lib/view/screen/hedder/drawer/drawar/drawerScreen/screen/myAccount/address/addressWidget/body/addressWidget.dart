@@ -38,13 +38,13 @@ Widget addressList({
                     ),
                   ],
                 ),
-                addressListText(show['name']),
+                addressListText(show['firstName']),
                 addressListText(show['address']),
                 addressListText(show['city']),
                 Row(
                   children: [
                     addressListText('Mobile No : '),
-                    addressListText('${'+91'}${show['mobile']}'),
+                    addressListText('${'+91'}${show['phone'].toString()}'),
                   ],
                 ),
                 SizedBox(height: Get.height * 0.025),

@@ -1,8 +1,12 @@
 // ignore_for_file: file_names, unused_import
 
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/address/getAddress_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/address/removeAddress_Controller.dart';
 import 'package:classic/controller/user_Interface/hedder/myAccount/address/showAddress.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/address/addressExtraWidget/addressExtraWidget.dart';
+import 'package:classic/view/utils/app_Constants.dart';
 import 'package:classic/view/utils/app_String.dart';
+import 'package:classic/view/utils/app_icon.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,7 +16,10 @@ Widget addressList({
   void Function()? onTap,
   required ShowaddressUIController stateUpdate,
   void Function()? editAddresonTap,
+  void Function()? removeAddresonTap,
 }) {
+  final getAddress = Get.put(GetAddressController());
+  final removeAddress = Get.put(RemoveAddressController());
   return horizontalPadding(
     child: ListView.builder(
       itemCount: addressList.length,
@@ -35,6 +42,16 @@ Widget addressList({
                       child: chageBillingAddressText(
                         AppString.changeBillingAddress,
                       ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsGeometry.only(left: Get.width * 0.02),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        removeAddress.removeAddressPost(show['_id']);
+                        getAddress.getAddress(userID);
+                      },
+                      child: Icon(Icons.delete, color: Colors.red),
                     ),
                   ],
                 ),

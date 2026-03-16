@@ -45,6 +45,7 @@ class AppUrl {
               //Address
                 static const String getAddress = "${baseUrl}App/order/customerAddress";
                 static const String addAddress = "${baseUrl}App/myaccount/addMyAddress";
+                static const String removeAddress = "${baseUrl}app/myaccount/deleteMyAddress";
 
   //Menu
     //home

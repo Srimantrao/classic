@@ -86,6 +86,10 @@ class AppString {
         static const shipping = 'Shipping & handling';
         static const grandTotal = 'Grand Total';
         static const amount = 'Amount';
+        //custom Product Screen
+        static const personalDetails = 'Personal Details';
+        static const productDetails = 'Product Details';
+        static const buttonName = 'show Quotation';
 
   //cart Screen
   static const total = 'Total';
@@ -130,6 +134,7 @@ class AppString {
   static const country = 'Country';
   static const country_hint = 'Select Country';
   static const state = 'State';
+  static const status = 'Status';
   static const state_hint = 'Enter State';
   static const city = 'City';
   static const city_hint = 'Enter City';

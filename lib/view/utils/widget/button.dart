@@ -17,28 +17,31 @@ Widget button(
   bool isLowercase = false,
   bool bottomBottonFontSize = false,
   double? fontSize,
+  double? width,
 }) {
   return GestureDetector(
     onTap: onTap,
     child: Container(
       padding: EdgeInsets.all(10),
-      width: Get.width,
+      width: width ?? Get.width,
       decoration: BoxDecoration(
         border: Border.all(color: borderColor ?? Colors.transparent),
         borderRadius: BorderRadius.circular(borderradius.buttonboder),
         color: backgroundColor ?? AppColor.primary,
       ),
       child: Center(
-        child: loadingWait ?? Text(
-          isLowercase ? capitalizeFirst(text) : text.toUpperCase(),
-          style: TextStyle(
-            fontSize: (bottomBottonFontSize)
-                ? Get.width * 0.038
-                : fontSize ?? Get.width * 0.028,
-            color: textColor ?? AppColor.white,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        child:
+            loadingWait ??
+            Text(
+              isLowercase ? capitalizeFirst(text) : text.toUpperCase(),
+              style: TextStyle(
+                fontSize: (bottomBottonFontSize)
+                    ? Get.width * 0.038
+                    : fontSize ?? Get.width * 0.028,
+                color: textColor ?? AppColor.white,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
       ),
     ),
   );

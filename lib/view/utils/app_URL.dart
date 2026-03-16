@@ -41,6 +41,7 @@ class AppUrl {
                 static const String removeholdDiamond = "${baseUrl}App/hold/removeFromhold";
               //CustomProduct
                 static const String customProduct = "${baseUrl}App/customProduct/getCustomProductList";
+                static const String detailCustomProduct = "${baseUrl}app/customProduct/getCustomProductDetails";
 
   //Menu
     //home

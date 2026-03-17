@@ -86,18 +86,18 @@ Widget editAdress({
 
 Widget setDefultButton(editaddressUI) {
   return horizontalPadding(
-    child: Row(
+    child: Obx(()=> Row(
       children: [
         checkBox(
           boderColor: AppColor.primary,
           editaddressUI.isDefaultAddress.value,
-          (value) {
+              (value) {
             editaddressUI.isDefaultAddressChange(value);
           },
         ),
         SizedBox(width: Get.width * 0.02),
         Text(AppString.setasDefault),
       ],
-    ),
+    )),
   );
 }

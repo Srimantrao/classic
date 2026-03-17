@@ -2,6 +2,7 @@
 
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
+import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/widget/inputTyping.dart';
 import 'package:flutter/material.dart';
 
@@ -13,14 +14,20 @@ BoxDecoration listDecoration() {
   );
 }
 
-Widget removeAccountButton() {
-  return Container(
-    padding: EdgeInsets.all(10),
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(borderradius.buttonboder),
-      border: Border.all(color: AppColor.black),
+Widget removeAccountButton(void Function()? onTap) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(borderradius.buttonboder),
+        border: Border.all(color: AppColor.cancel),
+      ),
+      child: Text(
+        AppString.removeAddress,
+        style: TextStyle(color: AppColor.cancel),
+      ),
     ),
-    child: Text('Remove Address'),
   );
 }
 

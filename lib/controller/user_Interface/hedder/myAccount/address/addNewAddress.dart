@@ -1,5 +1,5 @@
 // ignore: file_names
-// ignore_for_file: unnecessary_null_comparison, file_names, duplicate_ignore, avoid_print
+// ignore_for_file: unnecessary_null_comparison, file_names, duplicate_ignore, avoid_print, invalid_use_of_protected_member, non_constant_identifier_names
 
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/address/addAddress_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/address/getAddress_Controller.dart';
@@ -65,7 +65,6 @@ class AddnewaddressUIController extends GetxController {
   }
 
   void addNewAddress() async {
-
     await addnewAddress.addAddressPost(
       firstName: firstnameController.text,
       lastName: lastnameController.text,

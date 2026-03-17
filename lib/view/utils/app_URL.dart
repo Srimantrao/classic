@@ -46,7 +46,7 @@ class AppUrl {
                 static const String getAddress = "${baseUrl}App/order/customerAddress";
                 static const String addAddress = "${baseUrl}App/myaccount/addMyAddress";
                 static const String removeAddress = "${baseUrl}app/myaccount/deleteMyAddress";
-
+                static const String editAddress = "${baseUrl}App/myaccount/editMyAddress";
   //Menu
     //home
       static const String filterSlider = "${baseUrl}App/slider/filterSlider/1";

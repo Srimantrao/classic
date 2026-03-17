@@ -1,3 +1,5 @@
+// ignore_for_file: strict_top_level_inference
+
 import 'package:classic/controller/application_Programing_interface/apiService/hedder/drawer/myAccount/address/removeAddressService.dart';
 import 'package:classic/view/utils/api_Message.dart';
 import 'package:dio/dio.dart';

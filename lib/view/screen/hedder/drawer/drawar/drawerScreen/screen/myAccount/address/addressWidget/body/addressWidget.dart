@@ -4,6 +4,7 @@ import 'package:classic/controller/application_Programing_interface/apiControlle
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/address/removeAddress_Controller.dart';
 import 'package:classic/controller/user_Interface/hedder/myAccount/address/showAddress.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/address/addressExtraWidget/addressExtraWidget.dart';
+import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/address/addressScreen/editAddress.dart';
 import 'package:classic/view/utils/app_Constants.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_icon.dart';
@@ -38,20 +39,15 @@ Widget addressList({
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     GestureDetector(
-                      onTap: editAddresonTap,
+                      onTap: () {
+                        Get.to(
+                          () => Editaddress(index: index),
+                          arguments: index,
+                        );
+                      },
                       child: chageBillingAddressText(
                         AppString.changeBillingAddress,
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsGeometry.only(left: Get.width * 0.02),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        removeAddress.removeAddressPost(show['_id']);
-                        getAddress.getAddress(userID);
-                      },
-                      child: Icon(Icons.delete, color: Colors.red),
                     ),
                   ],
                 ),
@@ -67,7 +63,10 @@ Widget addressList({
                 SizedBox(height: Get.height * 0.025),
                 Obx(
                   () => (stateUpdate.selectedDefaultAddressIndex.value == index)
-                      ? removeAccountButton()
+                      ? removeAccountButton(() async {
+                          await removeAddress.removeAddressPost(show['_id']);
+                          getAddress.getAddress(userID);
+                        })
                       : SizedBox(),
                 ),
               ],

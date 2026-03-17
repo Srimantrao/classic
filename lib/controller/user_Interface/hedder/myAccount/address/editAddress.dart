@@ -1,13 +1,22 @@
-// ignore_for_file: avoid_print, unnecessary_null_comparison, file_names
+// ignore_for_file: avoid_print, unnecessary_null_comparison, file_names, non_constant_identifier_names, unnecessary_overrides
 
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/address/addAddress_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/address/editAddress_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/other/country_Controller.dart';
 import 'package:classic/modal/credentials/signUp.dart';
 import 'package:classic/view/utils/app_Color.dart';
+import 'package:classic/view/utils/app_Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../application_Programing_interface/apiController/hedder/drawer/myAccount/address/getAddress_Controller.dart';
 
 class EditaddressUIController extends GetxController {
   final countryDropdown = Get.put(CountryDropdownContoller());
   final signUpDropdown = Get.put(SignupDropdownContoller());
+  final addnewAddress = Get.put(AddaddressController());
+  final Country = Get.put(CountryController());
+  final getAddress = Get.put(GetAddressController());
+  final editAddress = Get.put(EditAddressController());
 
   TextEditingController firstnameController = TextEditingController();
   TextEditingController lastnameController = TextEditingController();
@@ -19,28 +28,111 @@ class EditaddressUIController extends GetxController {
   TextEditingController phoneController = TextEditingController();
 
   var country = ''.obs;
+  var isDataSet = false;
+  var selectedId = ''.obs;
   var isDefaultAddress = false.obs;
+
+  void setDataByIndex(int index) {
+    if (isDataSet) return;
+    final data = getAddress.gerAddress['data'][index];
+    selectedId.value = data['_id'];
+    firstnameController.text = data['firstName'] ?? '';
+    lastnameController.text = data['lastName'] ?? '';
+    emailController.text = data['email'] ?? '';
+    addressnameController.text = data['address'] ?? '';
+    cityController.text = data['city'] ?? '';
+    stateController.text = data['state'] ?? '';
+    phoneController.text = data['phone'] ?? '';
+    country.value = data['countryId'] ?? '';
+    isDefaultAddress.value = data['isDefault'] ?? false;
+    isDataSet = true;
+  }
 
   //List
   List<DropdownMenuItem<String>> getDropdownCountry() {
-    return countryDropdown.dropdownCountry.entries.map((entry) {
+    final data = Country.countryData['data'];
+    if (data == null || data is! List) return [];
+    return data.map<DropdownMenuItem<String>>((item) {
       return DropdownMenuItem<String>(
-        value: entry.key,
-        child: Text(entry.value, style: TextStyle(color: AppColor.black)),
+        value: item['_id']?.toString() ?? '',
+        child: Text(
+          item['name']?.toString() ?? '',
+          style: TextStyle(color: AppColor.black),
+        ),
       );
     }).toList();
   }
 
   //onChnage Value of Dropdown
   void countryValueChange(String? newValue) {
-    country.value = newValue!;
-    if (newValue != null) {
-      print('Selected value: ${signUpDropdown.dropdownOptions[newValue]}');
-    }
+    if (newValue == null) return;
+    final data = Country.countryData['data'];
+    if (data == null || data is! List) return;
+    final selectedCountry = data.firstWhere(
+      (item) => item['_id'] == newValue,
+      orElse: () => null,
+    );
+    if (selectedCountry == null) return;
+    country.value = newValue;
+    print("Selected country ID: ${country.value}");
+    print("Selected country Name: ${selectedCountry['name']}");
   }
 
   //Defult Address
   void isDefaultAddressChange(bool value) {
     isDefaultAddress.value = value;
+  }
+
+  void editValue() async {
+    await editAddress.editAddressPost(
+      selectedId.value,
+      firstName: firstnameController.text,
+      lastName: lastnameController.text,
+      email: emailController.text,
+      address: addressnameController.text,
+      countryId: country.value,
+      state: stateController.text,
+      city: cityController.text,
+      code: zipCodeController.text,
+      phone: phoneController.text,
+      customer: userID,
+      isDefault: isDefaultAddress.value,
+      faxNo: '',
+    );
+    print({
+      "id": selectedId.value,
+      "firstName": firstnameController.text,
+      "lastName": lastnameController.text,
+      "email": emailController.text,
+      "address": addressnameController.text,
+      "countryId": country.value,
+      "state": stateController.text,
+      "city": cityController.text,
+      "code": zipCodeController.text,
+      "phone": phoneController.text,
+      "customer": userID,
+      "isDefault": isDefaultAddress.value,
+    });
+    final errorCode = editAddress.editAddress.value['errorCode'];
+    print("API Response Code: $errorCode");
+    if (errorCode == 200) {
+      getAddress.getAddress(userID);
+      Get.back();
+    } else {
+      print("Something went wrong: $errorCode");
+    }
+  }
+
+  @override
+  void onClose() {
+    firstnameController.dispose();
+    lastnameController.dispose();
+    addressnameController.dispose();
+    stateController.dispose();
+    cityController.dispose();
+    zipCodeController.dispose();
+    emailController.dispose();
+    phoneController.dispose();
+    super.onClose();
   }
 }

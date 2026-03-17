@@ -3,9 +3,7 @@ import 'package:classic/controller/application_Programing_interface/apiControlle
 import 'package:classic/controller/user_Interface/hedder/myAccount/address/showAddress.dart';
 import 'package:classic/modal/headder/myAccount/address.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/address/addressScreen/addNewAddress.dart';
-import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/address/addressScreen/editAddress.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/address/addressWidget/body/addressWidget.dart';
-import 'package:classic/view/utils/app_Constants.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/widget/bottomNavigationButton.dart';
 import 'package:classic/view/utils/widget/button.dart';
@@ -38,7 +36,6 @@ class Address extends StatelessWidget {
         child: addressList(
           addressList: appdata,
           stateUpdate: stateUpdate,
-          editAddresonTap: () => Get.to(() => Editaddress()),
         ),
       );
     });

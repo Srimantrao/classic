@@ -1,5 +1,6 @@
 import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
 import 'package:classic/controller/user_Interface/hedder/drawer/drawers_Controller.dart';
+import 'package:classic/controller/user_Interface/widget/logOut/logOut_Controller.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerExtraWidget/drawerExtraWidget.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/findStore/findStoreScreen/findStore.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/myAccount/myAccountScreen/myAccount.dart';
@@ -16,6 +17,7 @@ class Drawers extends StatelessWidget {
   final drawerUI = Get.put(DrawersUIController());
   final jewelryUI = Get.put(JewelleryAPICall());
   final cartAPICallAPI = Get.put(CartAPICall());
+  final logOutUI = Get.put(LogoutController());
   Drawers({super.key});
   @override
   Widget build(BuildContext context) {
@@ -32,31 +34,31 @@ class Drawers extends StatelessWidget {
             final shopByMetalList = shopByMetalListData['metalType'];
             final showList = showListApi.showListData['data'];
             final shapList = parameter.getAllParameterData['shape'];
-            if(jewelryData.isEmpty){
+            if (jewelryData.isEmpty) {
               return Lottie.asset(AppJson.noData);
             }
-            if(shopByMetalListData.isEmpty){
+            if (shopByMetalListData.isEmpty) {
               return Lottie.asset(AppJson.noData);
             }
-            if(parameter.getAllParameterData.isEmpty){
+            if (parameter.getAllParameterData.isEmpty) {
               return Lottie.asset(AppJson.noData);
             }
-            if(showListApi.showListData.isEmpty){
+            if (showListApi.showListData.isEmpty) {
               return Lottie.asset(AppJson.noData);
             }
-            if(parameter.getAllParameterData.isEmpty){
+            if (parameter.getAllParameterData.isEmpty) {
               return Lottie.asset(AppJson.noData);
             }
-            if(jewelryData['data'].isEmpty){
+            if (jewelryData['data'].isEmpty) {
               return Lottie.asset(AppJson.noData);
             }
-            if(shopByMetalListData['metalType'].isEmpty){
+            if (shopByMetalListData['metalType'].isEmpty) {
               return Lottie.asset(AppJson.noData);
             }
-            if(showListApi.showListData['data'].isEmpty){
+            if (showListApi.showListData['data'].isEmpty) {
               return Lottie.asset(AppJson.noData);
             }
-            if(parameter.getAllParameterData['shape'].isEmpty){
+            if (parameter.getAllParameterData['shape'].isEmpty) {
               return Lottie.asset(AppJson.noData);
             }
             return Column(
@@ -178,7 +180,11 @@ class Drawers extends StatelessWidget {
                   onTap: () => Get.to(() => Findstore()),
                 ),
                 //logout
-                iconDrawer(text: AppString.logout, icon: AppIcon.logout),
+                iconDrawer(
+                  text: AppString.logout,
+                  icon: AppIcon.logout,
+                  onTap: logOutUI.logout,
+                ),
               ],
             );
           },

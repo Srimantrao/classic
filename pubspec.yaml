@@ -51,6 +51,7 @@ dependencies:
   url_launcher:
   marquee:
   intl:
+  restart_app:
 
 dev_dependencies:
   flutter_test:
@@ -69,7 +70,7 @@ flutter_launcher_icons:
   android: true
   ios: true
 
-  image_path: "assets/images/logo.png"
+  image_path: "assets/images/logo_Icon.png"
 
   # ✅ Adaptive icon (Android 8+)
   adaptive_icon_background: "#FFFFFF"

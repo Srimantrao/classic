@@ -72,6 +72,10 @@ class AppString {
         static const removeAddress = 'Remove Address';
         static const changeBillingAddress = 'Change Billing Address';
         static const setasDefault = 'Set as Default Address';
+        //Change Password
+        static const changeError = 'Current password is incorrect !';
+        static const changeErrorDifferentd = 'New password must be differentd !';
+        static const changeErrorMatch = 'Passwords do not match !';
         //Show Screen
         static const pleaseFillTheForm = 'Please Fill The Form !';
         // Order Detail Screen

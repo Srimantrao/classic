@@ -10,7 +10,7 @@ class LoginuiController extends GetxController {
   final loginAPI = Get.put(LoginAPIController());
 
   final usernameController = TextEditingController(text: 'Khageshsoni98@gmail.com');
-  final passwordController = TextEditingController(text: 'Ilove@2015');
+  final passwordController = TextEditingController(text: 'Ilove@2026');
   var usernameHasError = false.obs;
   var passwordHasError = false.obs;
 

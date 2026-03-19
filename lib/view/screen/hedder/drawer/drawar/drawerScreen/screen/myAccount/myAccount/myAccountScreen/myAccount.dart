@@ -1,6 +1,8 @@
 // ignore_for_file: file_names
 
 import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
+import 'package:classic/controller/user_Interface/hedder/myAccount/chnagePassword/changePasswordUI_Controller.dart';
+import 'package:classic/controller/user_Interface/widget/logOut/logOut_Controller.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/address/addressScreen/address.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/customProduct/customProductScreen/customProduct.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/editProfile/editProfileScreen/editProfile.dart';
@@ -20,6 +22,7 @@ import 'package:get/get.dart';
 
 class Myaccount extends StatelessWidget {
   final hedder = Get.put(CartAPICall());
+  final logOutUI = Get.put(LogoutController());
   Myaccount({super.key});
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,7 @@ class Myaccount extends StatelessWidget {
       child: Column(
         children: [
           //Edit Profile
-          Obx((){
+          Obx(() {
             final api = hedder.profileDetail.profileDetailData;
             final apiData = api['data'];
             return editNameEmail(
@@ -46,6 +49,7 @@ class Myaccount extends StatelessWidget {
             customProduct: () => Get.to(() => Customproduct()),
             address: () => Get.to(() => Address()),
             changePassword: () => passwordChange(context),
+            logout: logOutUI.logout,
           ),
         ],
       ),
@@ -54,6 +58,7 @@ class Myaccount extends StatelessWidget {
 }
 
 void passwordChange(BuildContext context) {
+  final changePasswordUI = Get.put(ChangePasswordUiController());
   final oldPasswordController = TextEditingController();
   final newPasswordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
@@ -91,7 +96,14 @@ void passwordChange(BuildContext context) {
                   SizedBox(height: Get.height * 0.01),
                   changePasswordButton(
                     canalOnTap: () => Get.back(),
-                    submitOnTap: () => Get.back(),
+                    submitOnTap: () {
+                      changePasswordUI.changePassword(
+                        currentPassword: oldPasswordController.text,
+                        newPassword: newPasswordController.text,
+                        passwordChange: confirmPasswordController.text,
+                      );
+                      Get.back();
+                    },
                   ),
                   SizedBox(height: Get.height * 0.01),
                 ],

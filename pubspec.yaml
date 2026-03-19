@@ -56,12 +56,34 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  flutter_launcher_icons: ^0.14.4
+
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+
+  image_path: "assets/images/logo.png"
+
+  # ✅ Adaptive icon (Android 8+)
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/images/logo_foreground.png"
+
+  # ✅ iOS fix (important)
+  remove_alpha_ios: true
+
+  #flutter pub get
+  #flutter pub run flutter_launcher_icons:main --android
+  #flutter pub run flutter_launcher_icons:main --ios
+  #flutter pub run flutter_launcher_icons:main --windows
+  #flutter pub run flutter_launcher_icons:main --linux
+  #flutter pub run flutter_launcher_icons:main --macos
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -102,7 +124,7 @@ flutter:
         - asset: assets/fonts/FuturaCyrillicDemi.ttf
         - asset: assets/fonts/FuturaCyrillicLight.ttf
         - asset: assets/fonts/FuturaCyrillicMedium.ttf
-  #         style: italic
+    #         style: italic
     - family: Sans-Bold
       fonts:
         - asset: assets/fonts/IBMPlexSans-Medium.ttf

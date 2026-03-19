@@ -58,6 +58,8 @@ class EditAddressController extends GetxController {
         showSnackbar: true,
         showSnackbarErorr: true,
       );
+    } finally {
+      isLoading(false);
     }
   }
 }

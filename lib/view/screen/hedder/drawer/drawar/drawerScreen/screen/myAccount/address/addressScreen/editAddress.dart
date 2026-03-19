@@ -15,11 +15,8 @@ import 'package:get/get_instance/src/extension_instance.dart';
 
 class Editaddress extends StatelessWidget {
   final int index;
-
   Editaddress({super.key, required this.index});
-
   final editaddressUI = Get.put(EditaddressUIController());
-
   @override
   Widget build(BuildContext context) {
     editaddressUI.setDataByIndex(index);

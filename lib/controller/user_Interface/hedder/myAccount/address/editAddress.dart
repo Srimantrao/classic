@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, unnecessary_null_comparison, file_names, non_constant_identifier_names, unnecessary_overrides
+// ignore_for_file: avoid_print, unnecessary_null_comparison, file_names, non_constant_identifier_names, unnecessary_overrides, invalid_use_of_protected_member
 
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/address/addAddress_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/address/editAddress_Controller.dart';
@@ -36,6 +36,7 @@ class EditaddressUIController extends GetxController {
     if (isDataSet) return;
     final data = getAddress.gerAddress['data'][index];
     selectedId.value = data['_id'];
+    print('selected value :- ${selectedId.value}');
     firstnameController.text = data['firstName'] ?? '';
     lastnameController.text = data['lastName'] ?? '';
     emailController.text = data['email'] ?? '';
@@ -44,6 +45,7 @@ class EditaddressUIController extends GetxController {
     stateController.text = data['state'] ?? '';
     phoneController.text = data['phone'] ?? '';
     country.value = data['countryId'] ?? '';
+    zipCodeController.text = data['code'] ?? '';
     isDefaultAddress.value = data['isDefault'] ?? false;
     isDataSet = true;
   }

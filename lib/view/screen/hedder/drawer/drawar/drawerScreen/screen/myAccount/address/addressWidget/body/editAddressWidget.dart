@@ -90,8 +90,7 @@ Widget setDefultButton(editaddressUI) {
       children: [
         checkBox(
           boderColor: AppColor.primary,
-          editaddressUI.isDefaultAddress.value,
-              (value) {
+          editaddressUI.isDefaultAddress.value,(value) {
             editaddressUI.isDefaultAddressChange(value);
           },
         ),

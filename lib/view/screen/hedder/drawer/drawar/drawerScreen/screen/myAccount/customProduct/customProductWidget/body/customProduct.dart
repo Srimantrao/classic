@@ -4,10 +4,12 @@ import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myA
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/orderHistory/orderHistoryExtraWidget/orderHistroryExtraWidget.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
+import 'package:classic/view/utils/app_json.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 
 Widget custumProduct() {
   return Row(
@@ -22,6 +24,14 @@ Widget custumProduct() {
 }
 
 Widget customProductValue(customList) {
+  if (customList == null || customList.isEmpty) {
+    return Expanded(
+      child: Center(
+        child: Lottie.asset(AppJson.noData),
+      ),
+    );
+  }
+
   color(status) {
     switch (status) {
       case 'INACTIVE':

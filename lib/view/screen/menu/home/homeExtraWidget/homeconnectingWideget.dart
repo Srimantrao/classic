@@ -86,7 +86,7 @@ Widget samiHedding(text) {
           color: AppColor.primary,
           fontSize: Textsize.samiHedding,
           fontFamily: 'FuturaCyrillic',
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w600,
         ),
       ),
       SizedBox(height: Get.height * 0.02),
@@ -99,9 +99,13 @@ Widget samitextvalue(text) {
     children: [
       Text(
         text,
-        style: TextStyle(color: AppColor.primary, fontSize: Textsize.small),
+        style: TextStyle(
+          color: AppColor.primary,
+          fontSize: Textsize.samisubHedding,
+          fontWeight: FontWeight.w500,
+        ),
       ),
-      SizedBox(height: Get.height * 0.02),
+      Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.02)),
     ],
   );
 }
@@ -110,7 +114,7 @@ Widget fotterImage(image) {
   return Row(
     children: [
       Image(image: AssetImage(image), width: 26, height: 26),
-      SizedBox(width: Get.width * 0.02),
+      Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.02)),
     ],
   );
 }
@@ -177,7 +181,7 @@ Widget homeScreenSubheddingText(text, {Color? color, double? fontSize}) {
   );
 }
 
-Widget ouerCollectionTitle(isSelected, data, index){
+Widget ouerCollectionTitle(isSelected, data, index) {
   return Center(
     child: Padding(
       padding: EdgeInsets.symmetric(horizontal: Get.width * 0.01),
@@ -191,14 +195,12 @@ Widget ouerCollectionTitle(isSelected, data, index){
               fontWeight: FontWeight.w500,
               fontSize: Textsize.normal,
               fontFamily: 'FuturaCyrillic',
-              color: isSelected
-                  ? AppColor.primary
-                  : AppColor.gray5,
+              color: isSelected ? AppColor.primary : AppColor.gray5,
             ),
           ),
           if (index != data.length - 1) ...[
             SizedBox(width: Get.width * 0.02),
-            Text('|',style: TextStyle(color: AppColor.gray5)),
+            Text('|', style: TextStyle(color: AppColor.gray5)),
           ],
         ],
       ),
@@ -206,7 +208,7 @@ Widget ouerCollectionTitle(isSelected, data, index){
   );
 }
 
-Widget overCollectionItems(item,{required void Function() onTap}){
+Widget overCollectionItems(item, {required void Function() onTap}) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: Get.width * 0.03),
     child: GestureDetector(

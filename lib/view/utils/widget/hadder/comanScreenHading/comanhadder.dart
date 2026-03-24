@@ -33,7 +33,12 @@ PreferredSizeWidget comanAppBar({
                       prefixOnTap();
                     }
                   },
-                  child: icon(prefix),
+                  child: Container(
+                    padding: EdgeInsetsGeometry.only(right: 35),
+                    decoration: BoxDecoration(
+                      color: AppColor.primary
+                    ),
+                      child: icon(prefix)),
                 ),
                 appbarheddingText(hedding),
                 GestureDetector(
@@ -42,7 +47,12 @@ PreferredSizeWidget comanAppBar({
                       suffixOnTap();
                     }
                   },
-                  child: icon(suffix),
+                  child: Container(
+                      decoration: BoxDecoration(
+                          color: AppColor.primary
+                      ),
+                      padding: EdgeInsetsGeometry.only(left: 35),
+                      child: icon(suffix)),
                 ),
               ],
             ),
@@ -59,7 +69,7 @@ PreferredSizeWidget allOtherScreen(
   bool? filter = false,
   void Function()? onTapLeft,
 }) {
-  final double iconsize = 22;
+  final double iconsize = 33;
   return PreferredSize(
     preferredSize: Size.fromHeight(kToolbarHeight + 0.15),
     child: Container(
@@ -77,20 +87,28 @@ PreferredSizeWidget allOtherScreen(
                         onTap: () {
                           onTapLeft != null ? onTapLeft() : Get.back();
                         },
-                        child: Icon(
-                          Icons.chevron_left,
-                          color: AppColor.secondary,
-                          size: iconsize,
+                        child: Container(
+                          decoration: BoxDecoration(color: AppColor.secondary),
+                          padding: EdgeInsetsGeometry.only(right: 35),
+                          child: Icon(
+                            Icons.chevron_left,
+                            color: AppColor.secondary,
+                            size: iconsize,
+                          ),
                         ),
                       )
                     : GestureDetector(
                         onTap: () {
                           onTapLeft != null ? onTapLeft() : Get.back();
                         },
-                        child: Icon(
-                          Icons.chevron_left,
-                          color: AppColor.primary,
-                          size: iconsize,
+                        child: Container(
+                          decoration: BoxDecoration(color: AppColor.secondary),
+                          padding: EdgeInsetsGeometry.only(right: 35),
+                          child: Icon(
+                            Icons.chevron_left,
+                            color: AppColor.primary,
+                            size: iconsize,
+                          ),
                         ),
                       ),
                 Text(
@@ -104,26 +122,38 @@ PreferredSizeWidget allOtherScreen(
                 (filter == true)
                     ? GestureDetector(
                         onTap: () => Get.back(),
-                        child: Icon(
-                          Icons.cancel_outlined,
-                          color: AppColor.primary,
-                          size: iconsize,
+                        child: Container(
+                          decoration: BoxDecoration(color: AppColor.secondary),
+                          padding: EdgeInsetsGeometry.only(left: 35),
+                          child: Icon(
+                            Icons.cancel_outlined,
+                            color: AppColor.primary,
+                            size: iconsize,
+                          ),
                         ),
                       )
                     : (cart == true)
                     ? GestureDetector(
                         onTap: () => Get.to(() => Cart()),
-                        child: Image(
-                          image: AssetImage(AppIcon.newcart),
-                          height: iconsize,
-                          width: iconsize,
+                        child: Container(
+                          decoration: BoxDecoration(color: AppColor.secondary),
+                          padding: EdgeInsetsGeometry.only(left: 35),
+                          child: Image(
+                            image: AssetImage(AppIcon.newcart),
+                            height: iconsize,
+                            width: iconsize,
+                          ),
                         ),
                       )
                     : GestureDetector(
-                        child: Icon(
-                          Icons.chevron_left,
-                          color: AppColor.secondary,
-                          size: iconsize,
+                        child: Container(
+                          decoration: BoxDecoration(color: AppColor.secondary),
+                          padding: EdgeInsetsGeometry.only(left: 35),
+                          child: Icon(
+                            Icons.chevron_left,
+                            color: AppColor.secondary,
+                            size: iconsize,
+                          ),
                         ),
                       ),
               ],

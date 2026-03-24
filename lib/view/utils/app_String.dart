@@ -1,6 +1,13 @@
 // ignore_for_file: file_names, constant_identifier_names
 
 class AppString {
+  //Error hendling
+  static const noImage = 'In Proesss, No Image';
+  static const noVideo = 'In Proesss, No Video';
+  static const noLink = 'In Proesss, No Link';
+  static const noCerturl = 'In Proesss, No Certurl';
+  static const noCertno = 'In Proesss, No Certno';
+
   //hedding
   static const category = 'Category';
   static const dashboard = 'Dashboard';

@@ -13,7 +13,6 @@ class LogoutController extends GetxController {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   Future<void> logout() async {
     print("Before clear userID: ${pref!.getString('userId')}");
-    // Restart.restartApp();
     await pref!.clear();
     await pref!.setBool('isLogin', false);
 

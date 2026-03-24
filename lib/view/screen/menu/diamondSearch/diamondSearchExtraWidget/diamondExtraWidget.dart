@@ -65,30 +65,36 @@ Widget shape(GetallparameterController diamondSearch, {required bool isMenu}) {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    if (imageUrl != null && imageUrl.isNotEmpty)
-                      Image.network(
-                        imageUrl,
-                        scale: 4,
-                        color: isSelected ? AppColor.white : AppColor.black,
-                        fit: BoxFit.contain,
-                        loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) return child;
-                          return const CircularProgressIndicator();
-                        },
-                        errorBuilder: (context, error, stackTrace) {
-                          return Icon(
-                            Icons.broken_image,
-                            color: isSelected ? AppColor.white : AppColor.black,
-                          );
-                        },
-                      ),
+                    (imageUrl != null && imageUrl.isNotEmpty)
+                        ? Image.network(
+                      imageUrl,
+                      scale: 3,
+                      color: isSelected ? AppColor.white : AppColor.black,
+                      fit: BoxFit.contain,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return const CircularProgressIndicator();
+                      },
+                      errorBuilder: (context, error, stackTrace) {
+                        return Icon(
+                          Icons.broken_image,
+                          size: 35,
+                          color: isSelected ? AppColor.white : AppColor.black,
+                        );
+                      },
+                    )
+                        : Icon(
+                      Icons.broken_image,
+                      size: 35,
+                      color: isSelected ? AppColor.white : AppColor.gray3,
+                    ),
                     Text(
                       shapeList[index]['paraMtrName'],
                       style: TextStyle(
                         fontSize: Textsize.samisubHedding,
                         color: isSelected ? AppColor.white : AppColor.black,
                         fontWeight: isSelected
-                            ? FontWeight.w500
+                            ? FontWeight.w600
                             : FontWeight.normal,
                       ),
                     ),

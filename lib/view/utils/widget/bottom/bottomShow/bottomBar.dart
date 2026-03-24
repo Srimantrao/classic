@@ -45,7 +45,11 @@ class Bottombar extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       horizontalPadding(child: flotingBar(bottomController)),
-                      SizedBox(height: Get.height * 0.008),
+                      Padding(
+                        padding: EdgeInsetsGeometry.only(
+                          bottom: Get.height * 0.008,
+                        ),
+                      ),
                     ],
                   ),
                 ),

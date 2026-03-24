@@ -4,7 +4,6 @@ import 'package:classic/controller/user_Interface/widget/bottaomBar/bottombar_Co
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_icon.dart';
-import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,8 +11,8 @@ Widget flotingBar(BottombarController bottomController) {
   return Container(
     padding: EdgeInsets.only(
       top: Get.height * 0.010,
-      left: Get.width * 0.04,
-      right: Get.width * 0.04,
+      left: Get.width * 0.0001,
+      right: Get.width * 0.0001,
       bottom: Get.height * 0.01,
     ),
     decoration: boxDecoration(),
@@ -22,37 +21,35 @@ Widget flotingBar(BottombarController bottomController) {
 }
 
 Widget iconTabbing(BottombarController bottomController) {
-  return horizontalPadding(
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        actionIconButton(
-          icon: AppIcon.home,
-          color: bottomController.selectindex.value == 0,
-          onTap: () => bottomController.changePage(0),
-        ),
-        actionIconButton(
-          icon: AppIcon.jewelry,
-          color: bottomController.selectindex.value == 1,
-          onTap: () => bottomController.changePage(1),
-        ),
-        actionIconButton(
-          icon: AppIcon.dashboard,
-          color: bottomController.selectindex.value == 2,
-          onTap: () => bottomController.changePage(2),
-        ),
-        actionIconButton(
-          icon: AppIcon.diamond,
-          color: bottomController.selectindex.value == 3,
-          onTap: () => bottomController.changePage(3),
-        ),
-        actionIconButton(
-          icon: AppIcon.custom,
-          color: bottomController.selectindex.value == 4,
-          onTap: () => bottomController.changePage(4),
-        ),
-      ],
-    ),
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      actionIconButton(
+        icon: AppIcon.home,
+        color: bottomController.selectindex.value == 0,
+        onTap: () => bottomController.changePage(0),
+      ),
+      actionIconButton(
+        icon: AppIcon.jewelry,
+        color: bottomController.selectindex.value == 1,
+        onTap: () => bottomController.changePage(1),
+      ),
+      actionIconButton(
+        icon: AppIcon.dashboard,
+        color: bottomController.selectindex.value == 2,
+        onTap: () => bottomController.changePage(2),
+      ),
+      actionIconButton(
+        icon: AppIcon.diamond,
+        color: bottomController.selectindex.value == 3,
+        onTap: () => bottomController.changePage(3),
+      ),
+      actionIconButton(
+        icon: AppIcon.custom,
+        color: bottomController.selectindex.value == 4,
+        onTap: () => bottomController.changePage(4),
+      ),
+    ],
   );
 }
 
@@ -84,11 +81,13 @@ Widget actionIconButton({
       ),
       (color)
           ? Column(
-        children: [
-          SizedBox(height: Get.height * 0.002),
-          dot(),
-        ],
-      )
+              children: [
+                Padding(
+                  padding: EdgeInsetsGeometry.only(top: Get.height * 0.002),
+                ),
+                dot(),
+              ],
+            )
           : SizedBox(),
     ],
   );
@@ -101,17 +100,14 @@ Widget customIcon({
 }) {
   return GestureDetector(
     onTap: onTap,
-    child: Image.asset(
-      icon,
-      scale: 3.2,
-      color: color,
+    child: Container(
+      padding: EdgeInsetsGeometry.symmetric(horizontal: 20, vertical: 5),
+      decoration: BoxDecoration(color: Colors.transparent),
+      child: Image.asset(icon, scale: 2.8, color: color),
     ),
   );
 }
 
 Widget dot() {
-  return CircleAvatar(
-    backgroundColor: AppColor.primary,
-    radius: 2,
-  );
+  return CircleAvatar(backgroundColor: AppColor.primary, radius: 2);
 }

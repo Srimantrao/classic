@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/cart/cart_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/fitterWish/fitterWish_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/menu/dashbord/cardRecord_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createWishList_Controller.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
@@ -10,6 +11,7 @@ import 'package:classic/view/utils/app_json.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:classic/view/utils/widget/image/productVideo.dart';
 import 'package:classic/view/utils/widget/indexButton.dart';
+import 'package:classic/view/utils/widget/pop.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -40,7 +42,7 @@ Widget indexButtons({
             borderColor: (isSelectDiamond) ? AppColor.primary : AppColor.gray3,
           ),
         ),
-        SizedBox(width: Get.width * 0.04),
+        Padding(padding: EdgeInsetsGeometry.only(right: Get.width * 0.04)),
         Expanded(
           child: indexButton(
             onTap: onTapJewellwery,
@@ -57,23 +59,20 @@ Widget indexButtons({
   );
 }
 
-Widget myCartDiamond(cartAPICallAPI) {
+Widget myCartDiamond(CardRecordController cartAPICallAPI) {
   return Expanded(
     child: Obx(() {
-      final dataList = cartAPICallAPI.cartAPI.cartData.value['data'] as List?;
-      final cartData = (dataList != null && dataList.isNotEmpty)
-          ? (dataList[0]['diamondLookup'] as List? ?? [])
-          : [];
-      if (cartData.isEmpty) {
+      final adToCart = Get.put(CreateCartController());
+      final dataList = cartAPICallAPI.cardRecordData;
+      if (dataList.isEmpty) {
         return Center(child: Lottie.asset(AppJson.noData));
       }
-      final adToCart = Get.put(CreateCartController());
       return ListView.builder(
+        shrinkWrap: true,
         padding: EdgeInsets.only(bottom: Get.width * 0.20),
-        itemCount: cartData.length,
+        itemCount: dataList.length,
         itemBuilder: (_, index) {
-          final item = cartData[index];
-          final diamond = item['diamondDetails'] ?? {};
+          final item = dataList[index];
           return listDiamond(
             isWishlist: true,
             camara: true,
@@ -81,7 +80,7 @@ Widget myCartDiamond(cartAPICallAPI) {
             link: true,
             video: true,
             idOnTop: () {
-              final String? link = diamond['certurl']?.toString();
+              final String? link = item['certurl']?.toString();
               if (link == null || link.isEmpty) {
                 if (kDebugMode) {
                   print("No Link");
@@ -92,36 +91,37 @@ Widget myCartDiamond(cartAPICallAPI) {
               }
             },
             cartifactIcon:
-                (diamond?['certno'] == null || diamond?['certno'] == '-')
+                (item?['certno'] == null || item?['certno'] == '-')
                 ? AppIcon.documant
                 : AppIcon.documant,
             ids: item['diamondId'] ?? '',
-            images: diamond['imageurl1'] ?? '',
-            shape: diamond['shape'] ?? '',
-            careat: diamond['carat']?.toString() ?? '',
-            lab: diamond['lab'] ?? '',
-            colorcode: diamond['color'] ?? '',
-            clarity: diamond['clarity'] ?? '',
-            cartifactNo: diamond['certno'] ?? '',
-            cps: diamond['selling_price_per_ct']?.toString() ?? '',
-            refNo: diamond['stockId'] ?? '',
-            loc: diamond['location'] ?? '',
-            ct: diamond['cut'] ?? '',
-            total: (diamond['finalamount'] as num?)?.toStringAsFixed(2) ?? '',
+            images: item['imageurl1'] ?? '',
+            shape: item['shape'] ?? '',
+            careat: item['carat']?.toString() ?? '',
+            lab: item['lab'] ?? '',
+            colorcode: item['color'] ?? '',
+            clarity: item['clarity'] ?? '',
+            cartifactNo: item['certno'] ?? '',
+            cps: item['selling_price_per_ct']?.toString() ?? '',
+            refNo: item['stockId'] ?? '',
+            loc: item['country'] ?? '',
+            ct: item['cut'] ?? '',
+            total: (item['finalamount'] as num?)?.toStringAsFixed(2) ?? '',
             videos: '',
-            meas: diamond['measurement']?.toString() ?? '',
-            T: diamond['tablepercent']?.toString() ?? '',
-            D: diamond['depth']?.toString() ?? '',
+            meas: item['measurement']?.toString() ?? '',
+            T: item['tablepercent']?.toString() ?? '',
+            D: item['depth']?.toString() ?? '',
             cartOnTap: () {
               adToCart.createCart(
-                price: diamond['finalamount']?.toString() ?? '',
-                productId: diamond['_id']?.toString() ?? '',
-                DiamondId: diamond['dimCountryId']?.toString() ?? '',
+                price: item['finalamount']?.toString() ?? '',
+                productId: item['_id']?.toString() ?? '',
+                DiamondId: item['dimCountryId']?.toString() ?? '',
               );
             },
             videoOnTap: () {
-              final String? video = diamond['videourl']?.toString();
+              final String? video = item['videourl']?.toString();
               if (video == null || video.isEmpty) {
+                ToastificationError.Error(AppString.noVideo);
                 if (kDebugMode) {
                   print("No Video");
                 }
@@ -131,8 +131,9 @@ Widget myCartDiamond(cartAPICallAPI) {
               }
             },
             camaraOnTap: () {
-              final String? image = diamond['imageurl1']?.toString();
+              final String? image = item['imageurl1']?.toString();
               if (image == null || image.isEmpty) {
+                ToastificationError.Error(AppString.noImage);
                 if (kDebugMode) {
                   print("No Image");
                 }
@@ -141,8 +142,9 @@ Widget myCartDiamond(cartAPICallAPI) {
               Get.to(() => ProductImage(images: image));
             },
             linkOnTap: () {
-              final String? link = diamond['certurl']?.toString();
+              final String? link = item['certurl']?.toString();
               if (link == null || link.isEmpty) {
+                ToastificationError.Error(AppString.noLink);
                 if (kDebugMode) {
                   print("No Link");
                 }
@@ -187,8 +189,9 @@ Widget recentviwe(dashbord_API) {
               idOnTop: () {
                 final String? link = details['certurl']?.toString();
                 if (link == null || link.isEmpty) {
+                  ToastificationError.Error(AppString.noLink);
                   if (kDebugMode) {
-                    print("No Link");
+                    print(AppString.noLink);
                   }
                   return;
                 } else {
@@ -214,7 +217,7 @@ Widget recentviwe(dashbord_API) {
               camara: true,
               isCart: true,
               link: true,
-              video: true,
+              video: false,
               ids: diamond?['diamondId']?.toString() ?? '',
               images: details['imageurl1']?.toString() ?? '',
               videos: details['videourl']?.toString() ?? '',
@@ -251,8 +254,9 @@ Widget recentviwe(dashbord_API) {
               camaraOnTap: () {
                 final String? image = details['imageurl1']?.toString();
                 if (image == null || image.isEmpty) {
+                  ToastificationError.Error(AppString.noImage);
                   if (kDebugMode) {
-                    print("No Image");
+                    print(AppString.noImage);
                   }
                   return;
                 }
@@ -261,8 +265,9 @@ Widget recentviwe(dashbord_API) {
               linkOnTap: () {
                 final String? link = details['certurl']?.toString();
                 if (link == null || link.isEmpty) {
+                  ToastificationError.Error(AppString.noLink);
                   if (kDebugMode) {
-                    print("No Link");
+                    print(AppString.noLink);
                   }
                   return;
                 } else {

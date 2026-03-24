@@ -18,7 +18,7 @@ Widget appbarheddingText(text) {
 }
 
 Widget icon(dynamic icon) {
-  double size = Get.width * 0.050;
+  double size = Get.width * 0.070;
   if (icon is IconData) {
     return Icon(icon, color: AppColor.white, size: size);
   }

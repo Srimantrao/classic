@@ -103,7 +103,7 @@ class DiamondDetail extends StatelessWidget {
                     //Image & Video
                     imageAndVideo(
                       diamonddetail: diamondDetail,
-                      video: videoLink(video),
+                      video: videoLink(diamondData['videourl']?.toString()),
                       image:
                           (image == null || image == 'null' || image!.isEmpty)
                           ? ''

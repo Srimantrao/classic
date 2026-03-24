@@ -89,6 +89,7 @@ Widget intexText(String text, {void Function()? onTap, Color? color}) {
                 style: TextStyle(
                   color: AppColor.primary,
                   fontWeight: FontWeight.w600,
+                  fontSize: Get.width * 0.040
                 ),
               ),
             ),
@@ -124,7 +125,7 @@ Widget selectIndexViwe({
           color: colorRecentViwe,
           textRecentViwe,
         ),
-        SizedBox(width: Get.width * 0.02),
+        Padding(padding: EdgeInsetsGeometry.only(right: Get.width * 0.02)),
         intexText(
           onTap: onTapMyCartViwe,
           color: colorMyCartViwe,

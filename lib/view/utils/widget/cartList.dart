@@ -139,25 +139,38 @@ Widget listHeddind({
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      Row(
-        children: [
-          listHeadingText(shape),
-          listHeadingText('|'),
-          listHeadingText(careat),
-          listHeadingText('|'),
-          listHeadingText(colorcode),
-          listHeadingText('|'),
-          listHeadingText(clarity),
-          listHeadingText('|'),
-          listHeadingText(lab),
-        ],
+      Expanded(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              listHeadingText(shape),
+              listHeadingText(' | '),
+              listHeadingText(careat),
+              listHeadingText(' | '),
+              listHeadingText(colorcode),
+              listHeadingText(' | '),
+              listHeadingText(clarity),
+              listHeadingText(' | '),
+              listHeadingText(lab),
+            ],
+          ),
+        )
       ),
       GestureDetector(
         onTap: idOnTop,
         child: Row(
           children: [
-            Image.asset(cartifactIcon, scale: 27, color: AppColor.primary),
-            listHeadingText(cartifactNo),
+            Container(
+              color: Colors.white,
+              padding: EdgeInsetsGeometry.only(left: 25, top: 5, bottom: 5),
+              child: Image.asset(
+                cartifactIcon,
+                scale: 22,
+                color: AppColor.primary,
+              ),
+            ),
+            listHeadingText(cartifactNo,fontSize: Get.width * 0.030),
             Padding(padding: EdgeInsetsGeometry.only(right: Get.width * 0.020)),
             (deletdiamond)
                 ? GestureDetector(
@@ -180,7 +193,7 @@ Widget listImage(icon) {
   return SizedBox(
     width: Get.width * 0.05,
     height: Get.height * 0.025,
-    child: Image.asset(icon, scale: 4.5, color: AppColor.primary),
+    child: Image.asset(icon, scale: 3.8, color: AppColor.primary),
   );
 }
 
@@ -200,12 +213,32 @@ Widget fristrow({
 }
 
 Widget valuNameOne(head, value) {
-  return Row(children: [listsubHedding(head), listsubHeddingValue1(value)]);
+  return Row(
+    children: [
+      listsubHedding(head),
+      listsubHeddingValue1(value),
+    ],
+  );
 }
 
 Widget valuNameSeconde(head, value) {
-  return Row(children: [listsubHedding(head), listsubHeddingValue2(value)]);
+  return Row(
+    children: [
+      listsubHedding2(head),
+      listsubHeddingValue2(value),
+    ],
+  );
 }
+
+Widget valuNameThard(head, value) {
+  return Row(
+    children: [
+      listsubHedding3(head),
+      listsubHeddingValue3(value),
+    ],
+  );
+}
+
 
 Widget secondrow({required String T, required String D, required String loc}) {
   return Column(
@@ -219,19 +252,22 @@ Widget secondrow({required String T, required String D, required String loc}) {
 
 Widget thardrow({required String ct, required String total}) {
   return Column(
-    children: [valuNameSeconde('₹/CT', ct), valuNameSeconde('₹/Total', total)],
+    children: [
+      valuNameThard('₹/CT', ct),
+      valuNameThard('₹/Total', total),
+    ],
   );
 }
 
-Widget listHeadingText(text) {
+Widget listHeadingText(text,{double? fontSize}) {
   return Padding(
     padding: EdgeInsets.all(Get.width * 0.003),
     child: Text(
       text,
       style: TextStyle(
         color: AppColor.primary,
-        fontWeight: FontWeight.w600,
-        fontSize: Textsize.small,
+        fontWeight: FontWeight.w700,
+        fontSize: fontSize ?? Get.width * 0.035,
       ),
     ),
   );
@@ -245,14 +281,50 @@ Widget listsubHedding(text) {
       child: Text(
         text,
         style: TextStyle(
-          color: AppColor.gray3,
-          fontWeight: FontWeight.w600,
-          fontSize: Textsize.minismall,
+          color: AppColor.gray5,
+          fontWeight: FontWeight.w700,
+          fontSize: Textsize.small,
         ),
       ),
     ),
   );
 }
+
+Widget listsubHedding2(text) {
+  return Padding(
+    padding: EdgeInsets.only(right: Get.width * 0.01),
+    child: SizedBox(
+      width: Get.width * 0.07,
+      child: Text(
+        text,
+        style: TextStyle(
+          color: AppColor.gray5,
+          fontWeight: FontWeight.w700,
+          fontSize: Textsize.small,
+        ),
+      ),
+    ),
+  );
+}
+
+Widget listsubHedding3(text) {
+  return Padding(
+    padding: EdgeInsets.only(right: Get.width * 0.01),
+    child: SizedBox(
+      width: Get.width * 0.12,
+      child: Text(
+        text,
+        style: TextStyle(
+          color: AppColor.gray5,
+          fontWeight: FontWeight.w700,
+          fontSize: Textsize.small,
+        ),
+      ),
+    ),
+  );
+}
+
+
 
 Widget listsubHeddingValue1(text) {
   return SizedBox(
@@ -260,8 +332,8 @@ Widget listsubHeddingValue1(text) {
     child: Text(
       text,
       style: TextStyle(
-        fontWeight: FontWeight.w500,
-        fontSize: Textsize.minismall,
+        fontWeight: FontWeight.w600,
+        fontSize: Textsize.small,
       ),
     ),
   );
@@ -271,12 +343,29 @@ Widget listsubHeddingValue2(text) {
   return Row(
     children: [
       SizedBox(
+        width: Get.width * 0.09,
+        child: Text(
+          text,
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: Textsize.small,
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+Widget listsubHeddingValue3(text) {
+  return Row(
+    children: [
+      SizedBox(
         width: Get.width * 0.11,
         child: Text(
           text,
           style: TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: Textsize.minismall,
+            fontWeight: FontWeight.w600,
+            fontSize: Textsize.small,
           ),
         ),
       ),

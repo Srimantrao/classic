@@ -112,7 +112,7 @@ Widget valueListDiamond({
           refNo: valueList[index]['stockId']?.toString() ?? '',
           T: valueList[index]['depth']?.toString() ?? '',
           D: valueList[index]['tablepercent']?.toString() ?? '',
-          loc: valueList[index]['country']?.toString() ?? '',
+          loc: valueList[index]['countryCode']?.toString() ?? '',
           ct: valueList[index]['parcarat']?.toString() ?? '',
           total: valueList[index]['finalamount']?.toString() ?? '',
           cartOnTap: () {
@@ -201,12 +201,6 @@ Widget listDiamond({
 }) {
   return horizontalPadding(
     child: GestureDetector(
-      onTap: () {
-        final String id = ids;
-        final String image = images;
-        final String video = videos;
-        Get.to(() => DiamondDetail(id: id, image: image, video: video));
-      },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: Get.height * 0.009),
         decoration: BoxDecoration(
@@ -231,22 +225,43 @@ Widget listDiamond({
                 deleteDiamond: deleteDiamond,
               ),
               Divider(color: AppColor.gray3),
-              Row(
-                children: [
-                  fristrow(cps: cps, meas: meas, refNo: refNo),
-                  secondrow(T: T, D: D, loc: loc),
-                  SizedBox(width: Get.width * 0.01),
-                  SizedBox(
-                    height: Get.height * 0.06,
-                    child: VerticalDivider(
-                      color: AppColor.gray3,
-                      thickness: Get.width * 0.002,
-                      width: Get.width * 0.01,
-                    ),
+              GestureDetector(
+                onTap: () {
+                  final String id = ids;
+                  final String image = images;
+                  final String video = videos;
+                  Get.to(
+                    () => DiamondDetail(id: id, image: image, video: video),
+                  );
+                },
+                child: Container(
+                  decoration: BoxDecoration(color: AppColor.white),
+                  child: Row(
+                    children: [
+                      fristrow(cps: cps, meas: meas, refNo: refNo),
+                      Padding(
+                        padding: EdgeInsetsGeometry.only(
+                          left: Get.width * 0.03,
+                        ),
+                      ),
+                      secondrow(T: T, D: D, loc: loc),
+                      SizedBox(
+                        height: Get.height * 0.06,
+                        child: VerticalDivider(
+                          color: AppColor.gray3,
+                          thickness: Get.width * 0.002,
+                          width: Get.width * 0.01,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsGeometry.only(
+                          left: Get.width * 0.01,
+                        ),
+                      ),
+                      thardrow(ct: ct, total: total),
+                    ],
                   ),
-                  SizedBox(width: Get.width * 0.01),
-                  thardrow(ct: ct, total: total),
-                ],
+                ),
               ),
               Divider(color: AppColor.gray3),
               buttonOnList(
@@ -293,23 +308,67 @@ Widget buttonOnList({
       if (isWishlist)
         GestureDetector(
           onTap: isWishlistOnTap,
-          child: listImage(AppIcon.wishlist),
+          child: Container(
+            padding: EdgeInsetsGeometry.only(right: 22, top: 5, bottom: 5),
+            decoration: BoxDecoration(color: AppColor.white),
+            child: listImage(AppIcon.wishlist),
+          ),
         ),
       if (isCart)
-        GestureDetector(onTap: cartOnTap, child: listImage(AppIcon.newcart)),
+        GestureDetector(
+          onTap: cartOnTap,
+          child: Container(
+            padding: EdgeInsetsGeometry.only(
+              right: 22,
+              left: 22,
+              top: 5,
+              bottom: 5,
+            ),
+            decoration: BoxDecoration(color: AppColor.white),
+            child: listImage(AppIcon.newcart),
+          ),
+        ),
       if (camara)
         GestureDetector(
           onTap: camaraOnTap,
-          child: Image.asset(
-            AppIcon.camera,
-            scale: 28,
-            color: AppColor.primary,
+          child: Container(
+            padding: EdgeInsetsGeometry.only(
+              right: 22,
+              left: 22,
+              top: 5,
+              bottom: 5,
+            ),
+            decoration: BoxDecoration(color: AppColor.white),
+            child: Image.asset(
+              AppIcon.camera,
+              scale: 24,
+              color: AppColor.primary,
+            ),
           ),
         ),
       if (video)
-        GestureDetector(onTap: videoOnTap, child: listImage(AppIcon.video)),
+        GestureDetector(
+          onTap: videoOnTap,
+          child: Container(
+            padding: EdgeInsetsGeometry.only(
+              right: 22,
+              left: 22,
+              top: 5,
+              bottom: 5,
+            ),
+            decoration: BoxDecoration(color: AppColor.white),
+            child: listImage(AppIcon.video),
+          ),
+        ),
       if (link)
-        GestureDetector(onTap: linkOnTap, child: listImage(AppIcon.diamondId)),
+        GestureDetector(
+          onTap: linkOnTap,
+          child: Container(
+            padding: EdgeInsetsGeometry.only(left: 22, top: 5, bottom: 5),
+            decoration: BoxDecoration(color: AppColor.white),
+            child: listImage(AppIcon.diamondId),
+          ),
+        ),
       if (holdDiamond)
         checkBox(
           isHoldDiamondChecked,

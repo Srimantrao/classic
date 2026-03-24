@@ -2,6 +2,7 @@
 
 import 'package:classic/view/utils/widget/button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 Widget indexButton({
   required String text,
@@ -12,6 +13,7 @@ Widget indexButton({
 }) {
   return button(
     text,
+    fontSize: Get.width * 0.035,
     onTap: onTap,
     borderColor: borderColor,
     backgroundColor: color,

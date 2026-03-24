@@ -5,6 +5,7 @@ import 'package:classic/view/screen/menu/home/homeExtraWidget/homeconnectingWide
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_Image.dart';
 import 'package:classic/view/utils/app_String.dart';
+import 'package:classic/view/utils/app_TextSize.dart';
 import 'package:classic/view/utils/app_video.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:classic/view/utils/widget/inputfield.dart';
@@ -61,12 +62,15 @@ Widget ourCollection(
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      SizedBox(height: Get.height * 0.01),
+      Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.01)),
 
       /// HEADING
       homeScreenHeddingText(AppString.ouerCollection),
-      homeScreenSubheddingText(AppString.chekout),
-      SizedBox(height: Get.height * 0.01),
+      homeScreenSubheddingText(
+        AppString.chekout,
+        fontSize: Textsize.samiHedding,
+      ),
+      Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.01)),
 
       /// CATEGORY TABS
       SingleChildScrollView(
@@ -74,10 +78,9 @@ Widget ourCollection(
         child: Row(
           children: List.generate(data.length, (index) {
             final isSelected = selectedIndex == index;
-
             return GestureDetector(
               onTap: () {
-                onCategoryTap(index); // ✅ Category tap
+                onCategoryTap(index);
               },
               child: ouerCollectionTitle(isSelected, data, index),
             );
@@ -93,7 +96,6 @@ Widget ourCollection(
         child: Row(
           children: List.generate(collections.length, (index) {
             final Map item = collections[index];
-
             return overCollectionItems(
               item,
               onTap: () {
@@ -103,8 +105,7 @@ Widget ourCollection(
           }),
         ),
       ),
-
-      SizedBox(height: Get.height * 0.01),
+      Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.01)),
     ],
   );
 }
@@ -260,7 +261,10 @@ Widget whatClassic() {
           child: homeScreenHeddingText(AppString.aPeekIntowhatClassic),
         ),
       ),
-      homeScreenSubheddingText(AppString.classicGrownJewelry),
+      homeScreenSubheddingText(
+        AppString.classicGrownJewelry,
+        fontSize: Textsize.samiHedding,
+      ),
       Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.03)),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -286,7 +290,9 @@ Widget emailContainer() {
         child: horizontalPadding(
           child: Column(
             children: [
-              SizedBox(height: Get.height * 0.05),
+              Padding(
+                padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.05),
+              ),
               SizedBox(
                 width: Get.width / 1.3,
                 child: homeScreenHeddingText(
@@ -295,16 +301,20 @@ Widget emailContainer() {
                   color: AppColor.white,
                 ),
               ),
-              SizedBox(height: Get.height * 0.01),
+              Padding(
+                padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.01),
+              ),
               SizedBox(
                 width: Get.width / 1.1,
                 child: homeScreenSubheddingText(
                   AppString.become,
                   color: AppColor.white,
-                  fontSize: Get.width * 0.03,
+                  fontSize: Textsize.samiHedding,
                 ),
               ),
-              SizedBox(height: Get.height * 0.04),
+              Padding(
+                padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.04),
+              ),
               Inputfield(
                 height: Widgetsize.getContainerHeight(),
                 color: AppColor.gray5,
@@ -318,7 +328,9 @@ Widget emailContainer() {
                   color: AppColor.gray5,
                 ),
               ),
-              SizedBox(height: Get.height * 0.05),
+              Padding(
+                padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.05),
+              ),
             ],
           ),
         ),

@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, unused_import, unused_local_variable, unnecessary_null_comparison, dead_code, strict_top_level_inference
 
+import 'package:classic/controller/application_Programing_interface/apiController/menu/dashbord/cardRecord_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/dashbord/totalRecored_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
 import 'package:classic/controller/user_Interface/menu/dashboard/dashboard_Controller.dart';
@@ -31,6 +32,7 @@ class Dashbord extends StatelessWidget {
   final dashbord_UI = Get.put(DashboardUIController());
   final dashbord_API = Get.put(DashBordAPICall());
   final cartAPICallAPI = Get.put(CartAPICall());
+  final cardRecord = Get.put(CardRecordController());
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final value = Listviwe();
   Dashbord({super.key});
@@ -115,7 +117,7 @@ class Dashbord extends StatelessWidget {
               if (dashbord_UI.selectedTab.value == 0)
                 recentviwe(dashbord_API)
               else if (dashbord_UI.selectedTab.value == 1)
-                myCartDiamond(cartAPICallAPI),
+                myCartDiamond(cardRecord),
             ]
             // Jewelry Section
             else if (dashbord_UI.selectedIndex.value == 1) ...[

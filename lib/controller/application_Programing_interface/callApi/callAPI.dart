@@ -5,6 +5,7 @@ import 'package:classic/controller/application_Programing_interface/apiControlle
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/fitterWish/fitterWish_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/holdDiamond/holdDiamond_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/orderHistory/orderHistory_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/menu/dashbord/cardRecord_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/dashbord/totalRecored_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/home/filterSlider_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/home/homeCollctionAPIController.dart';
@@ -99,6 +100,7 @@ class JewelleryAPICall extends GetxController {
 class DashBordAPICall extends GetxController {
   final totalRecored = Get.put(TotalRecordedController());
   final recentView = Get.put(RecentViewController());
+  final cardRecord = Get.put(CardRecordController());
 
   @override
   Future<void> onInit() async {
@@ -108,6 +110,7 @@ class DashBordAPICall extends GetxController {
       await Future.wait([
         totalRecored.totalRecord(),
         recentView.recentViewdata(),
+        cardRecord.fetchCardRecords(isFirstLoad: true,type: 'Diamond'),
       ]);
     } else {
       print('No Login in DashboardAPI');

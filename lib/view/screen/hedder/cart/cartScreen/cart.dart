@@ -1,5 +1,6 @@
 // ignore_for_file: body_might_complete_normally_nullable, strict_top_level_inference, unnecessary_import
 
+import 'package:classic/controller/application_Programing_interface/apiController/menu/dashbord/cardRecord_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
 import 'package:classic/controller/user_Interface/hedder/cart/cartUI_Controller.dart';
 import 'package:classic/view/screen/hedder/cart/cartWidget/body/cartWidget.dart';
@@ -13,7 +14,6 @@ import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-
 import '../../../../../controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createCart_Controller.dart';
 import '../../../../../controller/user_Interface/menu/jewelry/productDetailUI_Controller.dart';
 
@@ -21,8 +21,11 @@ class Cart extends StatelessWidget {
   final cartAPICallAPI = Get.put(CartAPICall());
   final cartUI = Get.put(CartUiController());
   final productDetail = Get.put(ProductDetailUIController());
+  final cardRecord = Get.put(CardRecordController());
   final adToCart = Get.put(CreateCartController());
+
   Cart({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
@@ -46,6 +49,7 @@ class Cart extends StatelessWidget {
         }
         final cartProduct = dataList[0]['productLookup'] as List? ?? [];
         final diamondProduct = dataList[0]['diamondLookup'] as List? ?? [];
+        final cartRecord = cardRecord.cardRecordData as List? ?? [];
 
         if (cartProduct.isEmpty && diamondProduct.isEmpty) {
           return Center(child: Lottie.asset(AppJson.noData));
@@ -59,7 +63,7 @@ class Cart extends StatelessWidget {
                 cartProductItem(cartUI, cartProduct, productDetail),
 
               //Diamond List
-              if (diamondProduct.isNotEmpty) diamondProductItem(diamondProduct),
+              if (cartRecord.isNotEmpty) diamondProductItem(cartRecord),
 
               //Price
               GetBuilder<CartUiController>(

@@ -7,6 +7,7 @@ import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
+import 'package:classic/view/utils/widget/image/productVideo.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -21,6 +22,7 @@ import '../../../../../../controller/user_Interface/menu/jewelry/productDetailUI
 import '../../../../../utils/app_icon.dart';
 import '../../../../../utils/widget/image/productImage.dart';
 import '../../../../../utils/widget/link/productLink.dart';
+import '../../../../../utils/widget/pop.dart';
 import '../../../../menu/diamondSearch/diamondWidget/body/searchResultWidget.dart';
 import '../../../../menu/jewelry/jewelryScreen/productDetail.dart';
 
@@ -55,16 +57,16 @@ Widget cartProductItem(cartUI, cartProduct, productDetail) {
   );
 }
 
-Widget diamondProductItem(diamondProduct) {
+Widget diamondProductItem(List dataList) {
   final adToCart = Get.put(CreateCartController());
   final removeItem = Get.put(DeleteCartController());
   final cartAPICallAPI = Get.put(CartAPICall());
   return ListView.builder(
     shrinkWrap: true,
     physics: const NeverScrollableScrollPhysics(),
-    itemCount: diamondProduct.length,
+    itemCount: dataList.length,
     itemBuilder: (BuildContext context, int index) {
-      final diamond = diamondProduct[index]['diamondDetails'];
+      final diamond = dataList[index];
       return listDiamond(
         idOnTop: () {
           final String? link = diamond['certurl']?.toString();
@@ -79,8 +81,8 @@ Widget diamondProductItem(diamondProduct) {
         },
         cartifactIcon: (diamond?['certno'] == null || diamond?['certno'] == '-')
             ? AppIcon.documant
-            : AppIcon.edit,
-        ids: diamondProduct[index]['diamondId']?.toString() ?? '',
+            : AppIcon.documant,
+        ids: diamond['_id']?.toString() ?? '',
         images: diamond['imageurl1']?.toString() ?? '',
         videos: diamond['videourl']?.toString() ?? '',
         shape: diamond['shape']?.toString() ?? '',
@@ -97,28 +99,29 @@ Widget diamondProductItem(diamondProduct) {
         T: diamond['depth']?.toString() ?? '0%',
         D: diamond['tablepercent']?.toString() ?? 'NaN%',
         loc: diamond['country']?.toString() ?? '',
-        ct: diamond['parcarat']?.toString() ?? '',
+        ct: diamond['carat']?.toString() ?? '',
         total: diamond['finalamount']?.toString() ?? '',
         isWishlist: true,
         video: true,
         camara: true,
         link: true,
         deletdiamond: true,
-        deleteDiamond: () {
-          removeItem.deleteCart(diamondProduct[index]['_id']?.toString() ?? '');
-          diamondProduct.removeAt(index);
-          cartAPICallAPI.cartAPI.filterCart();
-        },
-        cartOnTap: () {
-          adToCart.createCart(
-            price: diamond['finalamount']?.toString() ?? '',
-            productId: diamondProduct[index]['_id']?.toString() ?? '',
-            DiamondId: diamondProduct[index]['dimCountryId']?.toString() ?? '',
-          );
+        videoOnTap: () {
+          final String? video = diamond['videourl']?.toString();
+          if (video == null || video.isEmpty) {
+            ToastificationError.Error(AppString.noVideo);
+            if (kDebugMode) {
+              print("No Video");
+            }
+            return;
+          } else {
+            Get.to(() => ProductVideo(videoUrl: video));
+          }
         },
         camaraOnTap: () {
           final String? image = diamond['imageurl1']?.toString();
           if (image == null || image.isEmpty) {
+            ToastificationError.Error(AppString.noImage);
             if (kDebugMode) {
               print("No Image");
             }
@@ -126,9 +129,22 @@ Widget diamondProductItem(diamondProduct) {
           }
           Get.to(() => ProductImage(images: image));
         },
+        deleteDiamond: () {
+          removeItem.deleteCart(diamond['_id']?.toString() ?? '');
+          diamond.removeAt(index);
+          cartAPICallAPI.cartAPI.filterCart();
+        },
+        cartOnTap: () {
+          adToCart.createCart(
+            price: diamond['finalamount']?.toString() ?? '',
+            productId: diamond[index]['_id']?.toString() ?? '',
+            DiamondId: diamond[index]['dimCountryId']?.toString() ?? '',
+          );
+        },
         linkOnTap: () {
           final String? link = diamond['certurl']?.toString();
           if (link == null || link.isEmpty) {
+            ToastificationError.Error(AppString.noLink);
             if (kDebugMode) {
               print("No Link");
             }

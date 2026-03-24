@@ -53,18 +53,15 @@ class DiamondDetailUIController extends GestureDetector {
     isSelectInclusion.value = true;
   }
 
-  void addToCart() {
+  Future<void> addToCart() async {
     final diamondId = diamondShow.diamondSearchData['data'][0]['_id'];
-    adToCart.createCart(
-      DiamondId: jsonEncode([diamondId]),
-      qty: '1',
-    );
+    await adToCart.createCart(DiamondId: jsonEncode([diamondId]), qty: '1');
     if (kDebugMode) {
       print('DiamondId :- ${jsonEncode([diamondId])}');
     }
   }
 
-  void addToWishListCart(){
+  void addToWishListCart() {
     final fitterWish = Get.put(FitterWishController());
     final diamondId = diamondShow.diamondSearchData['data'][0]['_id'];
     addWishListCart.createWishlist(

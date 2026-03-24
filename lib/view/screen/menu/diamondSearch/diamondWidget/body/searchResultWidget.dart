@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createCart_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createWishList_Controller.dart';
 import 'package:classic/controller/user_Interface/menu/diamondSearch/searchResult_Controller.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/holdDiamods/holdDiamodsExtraWidget/holdDiamodsExtraWidget.dart';
 import 'package:classic/view/utils/app_String.dart';
@@ -71,7 +72,9 @@ Widget valueListDiamond({
   ScrollController? scrollController,
 }) {
   final adToCart = Get.put(CreateCartController());
+  final addWishList = Get.put(CreateWishlistController());
   final cartAPICallAPI = Get.put(CartAPICall());
+  final dasbaord = Get.put(DashBordAPICall());
   final searchResult = Get.find<SearchResultController>();
   if (searchResult.holdDiamondList.length != valueList.length) {
     searchResult.initHoldDiamond(valueList.length);
@@ -115,6 +118,13 @@ Widget valueListDiamond({
           loc: valueList[index]['countryCode']?.toString() ?? '',
           ct: valueList[index]['parcarat']?.toString() ?? '',
           total: valueList[index]['finalamount']?.toString() ?? '',
+          isWishlistOnTap: () {
+            addWishList.createWishlist(
+              price: jsonEncode([valueList[index]['finalamount']]),
+              DiamondId: jsonEncode([valueList[index]['_id']]),
+              qty: '1',
+            );
+          },
           cartOnTap: () {
             adToCart.createCart(
               price: jsonEncode([valueList[index]['finalamount']]),
@@ -122,6 +132,10 @@ Widget valueListDiamond({
               qty: '1',
             );
             cartAPICallAPI.cartAPI.filterCart();
+            dasbaord.cardRecord.fetchCardRecords(
+              isFirstLoad: true,
+              type: 'Diamond',
+            );
           },
           holdDiamondChanged: (value) {
             searchResult.holdDiamondValue(index, value!);

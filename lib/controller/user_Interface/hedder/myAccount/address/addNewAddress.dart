@@ -90,7 +90,7 @@ class AddnewaddressUIController extends GetxController {
   }
 
   @override
-  void dispose() {
+  void onClose() {
     firstnameController.dispose();
     lastnameController.dispose();
     addressnameController.dispose();
@@ -99,8 +99,6 @@ class AddnewaddressUIController extends GetxController {
     zipCodeController.dispose();
     emailController.dispose();
     phoneController.dispose();
-    country.value = '';
-    isDefaultAddress.value = false;
-    super.dispose();
+    super.onClose();
   }
 }

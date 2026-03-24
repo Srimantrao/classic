@@ -108,6 +108,7 @@ class SearchResultController extends GetxController {
   }
 
   void addToCart() async {
+    final dasbaord = Get.put(DashBordAPICall());
     final apiData = diamondSearchAPI.diamondSearchData;
     final List apiloadData = apiData['data'] ?? [];
     List<String> selectedIds = [];
@@ -122,6 +123,10 @@ class SearchResultController extends GetxController {
         print('DiamondId :- ${jsonEncode(selectedIds)}');
       }
       cartAPICallAPI.cartAPI.filterCart();
+      dasbaord.cardRecord.fetchCardRecords(
+        isFirstLoad: true,
+        type: 'Diamond',
+      );
     } else {
       if (kDebugMode) {
         print("Please select at least one diamond");

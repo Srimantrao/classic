@@ -94,7 +94,7 @@ Widget myCartDiamond(CardRecordController cartAPICallAPI) {
                 (item?['certno'] == null || item?['certno'] == '-')
                 ? AppIcon.documant
                 : AppIcon.documant,
-            ids: item['diamondId'] ?? '',
+            ids: item['_id'] ?? '',
             images: item['imageurl1'] ?? '',
             shape: item['shape'] ?? '',
             careat: item['carat']?.toString() ?? '',
@@ -105,7 +105,7 @@ Widget myCartDiamond(CardRecordController cartAPICallAPI) {
             cps: item['selling_price_per_ct']?.toString() ?? '',
             refNo: item['stockId'] ?? '',
             loc: item['country'] ?? '',
-            ct: item['cut'] ?? '',
+            ct: item['carat']?.toString() ?? '',
             total: (item['finalamount'] as num?)?.toStringAsFixed(2) ?? '',
             videos: '',
             meas: item['measurement']?.toString() ?? '',
@@ -114,8 +114,7 @@ Widget myCartDiamond(CardRecordController cartAPICallAPI) {
             cartOnTap: () {
               adToCart.createCart(
                 price: item['finalamount']?.toString() ?? '',
-                productId: item['_id']?.toString() ?? '',
-                DiamondId: item['dimCountryId']?.toString() ?? '',
+                DiamondId: item['_id']?.toString() ?? '',
               );
             },
             videoOnTap: () {

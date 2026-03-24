@@ -120,7 +120,8 @@ class ProductDetailUIController extends GetxController {
     activeVariant.value = variant;
 
     /// CURRENT VALUES
-    currentShape.value = variant['productStoneDetails']?[0]?['shape']?['paraMtrName'] ?? '';
+    currentShape.value =
+        variant['productStoneDetails']?[0]?['shape']?['paraMtrName'] ?? '';
     currentMetalStamp.value = variant['metalStamp']?[0]?['paraMtrName'] ?? '';
     currentMetalType.value = variant['metalType']?[0]?['metal'] ?? '';
     currentCarat.value = variant['totalWgt']?.toString() ?? '';
@@ -129,7 +130,7 @@ class ProductDetailUIController extends GetxController {
     uniqueShapes.value = {
       for (var p in childProducts)
         p['productStoneDetails'][0]['shape']['paraMtrName']:
-        Map<String, dynamic>.from(p['productStoneDetails'][0]['shape']),
+            Map<String, dynamic>.from(p['productStoneDetails'][0]['shape']),
     }.values.toList();
 
     uniqueMetalStamp.value = {

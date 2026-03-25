@@ -17,37 +17,42 @@ Widget refrens({
   final double iconsize = 25;
   return GestureDetector(
     onTap: onTap,
-    child: horizontalPadding(
-      child: Column(
-        children: [
-          SizedBox(height: Get.height * 0.01),
-          Row(
-            children: [
-              Container(
-                padding: EdgeInsets.all(Get.width * 0.02),
-                decoration: BoxDecoration(
-                  color: AppColor.primary,
-                  borderRadius: BorderRadius.circular(borderradius.buttonboder),
+    child: Container(
+      decoration: BoxDecoration(color: AppColor.white),
+      child: horizontalPadding(
+        child: Column(
+          children: [
+            SizedBox(height: Get.height * 0.01),
+            Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(Get.width * 0.02),
+                  decoration: BoxDecoration(
+                    color: AppColor.primary,
+                    borderRadius: BorderRadius.circular(
+                      borderradius.buttonboder,
+                    ),
+                  ),
+                  child: Image(
+                    image: AssetImage(icon),
+                    height: iconsize,
+                    width: iconsize,
+                    color: AppColor.white,
+                  ),
                 ),
-                child: Image(
-                  image: AssetImage(icon),
-                  height: iconsize,
-                  width: iconsize,
-                  color: AppColor.white,
+                SizedBox(width: Get.width * 0.03),
+                Text(
+                  text,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: Get.width * 0.040,
+                  ),
                 ),
-              ),
-              SizedBox(width: Get.width * 0.03),
-              Text(
-                text,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: Get.width * 0.040,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: Get.height * 0.01),
-        ],
+              ],
+            ),
+            SizedBox(height: Get.height * 0.01),
+          ],
+        ),
       ),
     ),
   );

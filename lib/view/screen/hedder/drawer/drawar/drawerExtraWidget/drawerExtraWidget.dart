@@ -37,46 +37,49 @@ Widget iconDrawer({
   final double size = 16;
   return GestureDetector(
     onTap: onTap,
-    child: horizontalPadding(
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: AppColor.primary,
-                      borderRadius: BorderRadius.circular(
-                        borderradius.buttonboder,
+    child: Container(
+      decoration: BoxDecoration(color: AppColor.white),
+      child: horizontalPadding(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: AppColor.primary,
+                        borderRadius: BorderRadius.circular(
+                          borderradius.buttonboder,
+                        ),
+                      ),
+                      child: Image(
+                        image: AssetImage(icon),
+                        color: AppColor.white,
+                        width: size,
+                        height: size,
                       ),
                     ),
-                    child: Image(
-                      image: AssetImage(icon),
-                      color: AppColor.white,
-                      width: size,
-                      height: size,
+                    SizedBox(width: Get.width * 0.05),
+                    Text(
+                      text.toUpperCase(),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: Textsize.normal,
+                      ),
                     ),
-                  ),
-                  SizedBox(width: Get.width * 0.05),
-                  Text(
-                    text.toUpperCase(),
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: Textsize.normal,
-                    ),
-                  ),
-                ],
-              ),
-              (dot == true)
-                  ? CircleAvatar(radius: 2, backgroundColor: AppColor.primary)
-                  : SizedBox(),
-            ],
-          ),
-          Divider(color: AppColor.gray),
-        ],
+                  ],
+                ),
+                (dot == true)
+                    ? CircleAvatar(radius: 2, backgroundColor: AppColor.primary)
+                    : SizedBox(),
+              ],
+            ),
+            Divider(color: AppColor.gray),
+          ],
+        ),
       ),
     ),
   );
@@ -109,9 +112,7 @@ Widget listColltion({
               Expanded(
                 child: LayoutBuilder(
                   builder: (context, constraints) {
-                    final textStyle = TextStyle(
-                      fontSize: Get.width * 0.038,
-                    );
+                    final textStyle = TextStyle(fontSize: Get.width * 0.038);
                     final textSpan = TextSpan(text: datalist, style: textStyle);
                     final textPainter = TextPainter(
                       text: textSpan,

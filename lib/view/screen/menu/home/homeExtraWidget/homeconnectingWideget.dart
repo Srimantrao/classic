@@ -155,7 +155,10 @@ Widget schedulebutton(text) {
 Widget homeScreenIcon(icon) {
   return Container(
     color: AppColor.white,
-    padding: EdgeInsetsGeometry.all(8),
+    padding: EdgeInsetsGeometry.symmetric(
+      horizontal: Get.height * 0.006,
+      vertical: Get.width * 0.03,
+    ),
     child: Image.asset(icon, scale: 3),
   );
 }

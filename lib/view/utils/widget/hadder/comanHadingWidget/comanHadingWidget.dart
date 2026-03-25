@@ -30,11 +30,8 @@ Widget icon(dynamic icon) {
       height: size,
     );
   }
-  // Fallback: if a widget is passed in directly
   if (icon is Widget) {
     return icon;
   }
-
-  // Default empty container to avoid runtime crashes
   return SizedBox(width: size, height: size);
 }

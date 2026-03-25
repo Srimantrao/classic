@@ -35,10 +35,9 @@ PreferredSizeWidget comanAppBar({
                   },
                   child: Container(
                     padding: EdgeInsetsGeometry.only(right: 35),
-                    decoration: BoxDecoration(
-                      color: AppColor.primary
-                    ),
-                      child: icon(prefix)),
+                    decoration: BoxDecoration(color: AppColor.primary),
+                    child: icon(prefix),
+                  ),
                 ),
                 appbarheddingText(hedding),
                 GestureDetector(
@@ -48,11 +47,10 @@ PreferredSizeWidget comanAppBar({
                     }
                   },
                   child: Container(
-                      decoration: BoxDecoration(
-                          color: AppColor.primary
-                      ),
-                      padding: EdgeInsetsGeometry.only(left: 35),
-                      child: icon(suffix)),
+                    decoration: BoxDecoration(color: AppColor.primary),
+                    padding: EdgeInsetsGeometry.only(left: 35),
+                    child: icon(suffix),
+                  ),
                 ),
               ],
             ),

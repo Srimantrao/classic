@@ -17,45 +17,48 @@ Widget editNameEmail({
   final double iconsize = 30;
   return GestureDetector(
     onTap: onTap,
-    child: Column(
-      children: [
-        SizedBox(height: Get.height * 0.02),
-        horizontalPadding(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    style: TextStyle(
-                      fontSize: Textsize.subheding,
-                      fontWeight: FontWeight.w500,
+    child: Container(
+      decoration: BoxDecoration(color: AppColor.white),
+      child: Column(
+        children: [
+          SizedBox(height: Get.height * 0.02),
+          horizontalPadding(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: TextStyle(
+                        fontSize: Textsize.subheding,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                  ),
-                  Text(
-                    email,
-                    style: TextStyle(
-                      fontSize: Textsize.small,
-                      fontWeight: FontWeight.w400,
+                    Text(
+                      email,
+                      style: TextStyle(
+                        fontSize: Textsize.small,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Image.asset(
-                AppIcon.edit,
-                color: AppColor.primary,
-                width: iconsize,
-                height: iconsize,
-              ),
-            ],
+                  ],
+                ),
+                Image.asset(
+                  AppIcon.edit,
+                  color: AppColor.primary,
+                  width: iconsize,
+                  height: iconsize,
+                ),
+              ],
+            ),
           ),
-        ),
-        SizedBox(height: Get.height * 0.02),
-        Divider(color: AppColor.secondary),
-        SizedBox(height: Get.height * 0.02),
-      ],
+          SizedBox(height: Get.height * 0.02),
+          Divider(color: AppColor.secondary),
+          SizedBox(height: Get.height * 0.02),
+        ],
+      ),
     ),
   );
 }
@@ -121,11 +124,7 @@ Widget showActivity({
             icon: AppIcon.documant,
             onTap: termsAndConditions,
           ),
-          refrens(
-            text: AppString.logout,
-            icon: AppIcon.logout,
-            onTap: logout,
-          ),
+          refrens(text: AppString.logout, icon: AppIcon.logout, onTap: logout),
         ],
       ),
     ),

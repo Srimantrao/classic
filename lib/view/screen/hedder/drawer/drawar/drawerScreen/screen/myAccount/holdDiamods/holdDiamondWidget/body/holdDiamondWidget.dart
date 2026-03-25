@@ -50,7 +50,8 @@ Widget holdDiamondListViwe({required List<dynamic> jewelryList}) {
                   SizedBox(
                     width: Get.width * 0.12,
                     height: Get.width * 0.12,
-                    child: (jewelry['imageurl1'] != null &&
+                    child:
+                        (jewelry['imageurl1'] != null &&
                             jewelry['imageurl1'].toString().isNotEmpty)
                         ? Image.network(
                             jewelry['imageurl1'],
@@ -201,7 +202,7 @@ Widget floatingActionButton({
                   child: Transform.translate(
                     offset: Offset(0, (1 - c.animationController.value) * 20),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end, // Align to right
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         _customBubble(
                           title: AppString.addtoCart,
@@ -270,25 +271,31 @@ Widget _customBubble({
     padding: const EdgeInsets.symmetric(vertical: 1),
     child: Row(
       mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.end, // Align row content to right
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           decoration: BoxDecoration(
-            color: Colors.black54,
-            borderRadius: BorderRadius.circular(8),
+            color: AppColor.primary,
+            borderRadius: BorderRadius.circular(borderradius.buttonboder),
           ),
           child: Text(
             title,
-            style: const TextStyle(color: Colors.white, fontSize: 12),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: Textsize.small,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
-        const SizedBox(width: 10),
-        FloatingActionButton.small(
+        Padding(
+          padding: EdgeInsetsGeometry.symmetric(horizontal: Get.width * 0.009),
+        ),
+        FloatingActionButton(
           heroTag: "fab_$title",
           backgroundColor: AppColor.primary,
           onPressed: onTap,
-          child: Icon(icon, color: Colors.white, size: 20),
+          child: Icon(icon, color: Colors.white, size: 25),
         ),
       ],
     ),

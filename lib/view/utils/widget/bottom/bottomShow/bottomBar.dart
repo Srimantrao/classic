@@ -39,7 +39,7 @@ class Bottombar extends StatelessWidget {
                   color: AppColor.white,
                   padding: EdgeInsets.only(
                     top: Get.height * 0.01,
-                    bottom: Get.height * 0.009,
+                    bottom: Get.height * 0.001,
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,

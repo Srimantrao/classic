@@ -34,12 +34,10 @@ PreferredSizeWidget appBar({
             Container(
               padding: EdgeInsets.symmetric(vertical: 8),
               decoration: BoxDecoration(color: AppColor.white),
-              child: horizontalPadding(
-                child: setLogoIcon(
-                  newcartOntap: newcartOntap,
-                  drawerOntap: drawerOntap,
-                  wishlistOntap: wishlistOntap,
-                ),
+              child: setLogoIcon(
+                newcartOntap: newcartOntap,
+                drawerOntap: drawerOntap,
+                wishlistOntap: wishlistOntap,
               ),
             ),
           ],

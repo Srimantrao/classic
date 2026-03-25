@@ -27,22 +27,23 @@ Widget setLogoIcon({
 }) {
   return Row(
     children: [
-      Row(children: [Image.asset(AppImage.logo, scale: 3)]),
+      Padding(padding: EdgeInsetsGeometry.only(left: Get.width * 0.03)),
+      Row(children: [Image.asset(AppImage.logo, scale: 2.5)]),
       Spacer(),
       Row(
         children: [
           homeScreenIcon(AppIcon.search),
-          Padding(padding: EdgeInsetsGeometry.only(left: Get.width * 0.03)),
+          Padding(padding: EdgeInsetsGeometry.only(left: Get.width * 0.001)),
           GestureDetector(
             onTap: wishlistOntap,
             child: homeScreenIcon(AppIcon.wishlist),
           ),
-          Padding(padding: EdgeInsetsGeometry.only(left: Get.width * 0.03)),
+          Padding(padding: EdgeInsetsGeometry.only(left: Get.width * 0.001)),
           GestureDetector(
             onTap: newcartOntap,
             child: homeScreenIcon(AppIcon.newcart),
           ),
-          Padding(padding: EdgeInsetsGeometry.only(left: Get.width * 0.03)),
+          Padding(padding: EdgeInsetsGeometry.only(left: Get.width * 0.001)),
           GestureDetector(
             onTap: drawerOntap,
             child: homeScreenIcon(AppIcon.drawer),
@@ -152,7 +153,11 @@ Widget schedulebutton(text) {
 }
 
 Widget homeScreenIcon(icon) {
-  return Image.asset(icon, scale: 3.5);
+  return Container(
+    color: AppColor.white,
+    padding: EdgeInsetsGeometry.all(8),
+    child: Image.asset(icon, scale: 3),
+  );
 }
 
 Widget homeScreenHeddingText(text, {Color? color, TextAlign? textAlign}) {
@@ -210,7 +215,7 @@ Widget ouerCollectionTitle(isSelected, data, index) {
 
 Widget overCollectionItems(item, {required void Function() onTap}) {
   return Padding(
-    padding: EdgeInsets.symmetric(horizontal: Get.width * 0.03),
+    padding: EdgeInsets.symmetric(horizontal: Get.width * 0.01),
     child: GestureDetector(
       onTap: onTap,
       child: Column(
@@ -219,24 +224,30 @@ Widget overCollectionItems(item, {required void Function() onTap}) {
             borderRadius: BorderRadius.circular(12),
             child: Image.network(
               item['image'] ?? '',
-              width: Get.width * 0.25,
+              width: Get.width * 0.32,
+              height: Get.height * 0.15,
               fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) {
                 return Image.asset(
                   AppImage.logo,
-                  width: Get.width * 0.25,
+                  width: Get.width * 0.32,
+                  height: Get.height * 0.15,
                   fit: BoxFit.cover,
                 );
               },
             ),
           ),
-          SizedBox(height: Get.width * 0.01),
+          Padding(padding: EdgeInsetsGeometry.only(bottom: Get.width * 0.01)),
           Text(
             textAlign: TextAlign.center,
             item['title'].replaceFirst(' ', '\n'),
             softWrap: true,
             maxLines: 2,
-            style: TextStyle(fontSize: Get.width * 0.030),
+            style: TextStyle(
+              fontFamily: 'Sans-Bold',
+              fontSize: Get.width * 0.030,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ],
       ),

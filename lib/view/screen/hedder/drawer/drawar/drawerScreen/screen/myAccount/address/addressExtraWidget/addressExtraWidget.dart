@@ -3,6 +3,7 @@
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
+import 'package:classic/view/utils/app_TextSize.dart';
 import 'package:classic/view/utils/widget/inputTyping.dart';
 import 'package:flutter/material.dart';
 
@@ -32,11 +33,25 @@ Widget removeAccountButton(void Function()? onTap) {
 }
 
 Widget addressListText(text) {
-  return Text(text);
+  return Text(
+    text,
+    style: TextStyle(
+      fontWeight: FontWeight.w500,
+      fontSize: Textsize.samisubHedding,
+    ),
+  );
 }
 
 Widget chageBillingAddressText(text) {
-  return Text(text, style: TextStyle(decoration: TextDecoration.underline));
+  return Text(
+    text,
+    style: TextStyle(
+      decoration: TextDecoration.underline,
+      fontSize: Textsize.samisubHedding,
+      fontWeight: FontWeight.w600,
+      color: AppColor.primary,
+    ),
+  );
 }
 
 Widget typeInputEdit({

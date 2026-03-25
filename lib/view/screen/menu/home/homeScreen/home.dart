@@ -66,7 +66,9 @@ class Home extends StatelessWidget {
         slivers: [
           SliverToBoxAdapter(
             child: Obx(() {
-              final data = homeAPI.filterSilderAPI.filterSliderData['data'];
+              final api = homeAPI.filterSilderAPI;
+              final apidata = api.filterSliderData['data'];
+              final data = apidata;
               if (data == null || data.isEmpty) {
                 return const SizedBox();
               }

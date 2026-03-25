@@ -14,7 +14,7 @@ Widget productDetailsubHedding(text) {
     text,
     style: TextStyle(
       fontSize: Textsize.samisubHedding,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
     ),
   );
 }
@@ -31,7 +31,7 @@ Widget productDetailsubHedding2(text) {
 }
 
 Widget productDetailtext(text) {
-  return Text(text, style: TextStyle(fontWeight: FontWeight.w500));
+  return Text(text, style: TextStyle(fontWeight: FontWeight.w600));
 }
 
 Widget showItemImage(image) {
@@ -160,7 +160,7 @@ Widget toggleIcon(text) {
 Widget metalHedding(text) {
   return Text(
     text.toUpperCase(),
-    style: TextStyle(fontSize: Get.width * 0.033, fontWeight: FontWeight.w500),
+    style: TextStyle(fontSize: Get.width * 0.035, fontWeight: FontWeight.w600),
   );
 }
 
@@ -195,8 +195,7 @@ Widget imageViwe(ImageController imageController) {
       panEnabled: true,
       minScale: 1.0,
       maxScale: 4.0,
-      child:
-          (imageController.selectedImage.isEmpty)
+      child: (imageController.selectedImage.isEmpty)
           ? Center(child: Icon(Icons.image_not_supported, color: Colors.grey))
           : Image.network(
               imageController.selectedImage,
@@ -256,10 +255,8 @@ Widget commonHorizontalList({
   required String textKey,
   EdgeInsets? margin,
   Function(Map<String, dynamic>)? onItemSelected,
-  required String
-  compareKey,
-  required dynamic
-  selectedValue,
+  required String compareKey,
+  required dynamic selectedValue,
 }) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: Get.height * 0.006),
@@ -273,10 +270,13 @@ Widget commonHorizontalList({
               child: Row(
                 children: List.generate(list.length, (index) {
                   final item = list[index];
-                  final value = (item.containsKey(textKey)) ? item[textKey] : '';
+                  final value = (item.containsKey(textKey))
+                      ? item[textKey]
+                      : '';
                   bool isSelected = false;
                   if (compareKey == 'totalWgt') {
-                    isSelected = item[compareKey].toString() == selectedValue.toString();
+                    isSelected =
+                        item[compareKey].toString() == selectedValue.toString();
                   } else {
                     isSelected = item[compareKey] == selectedValue;
                   }
@@ -292,21 +292,29 @@ Widget commonHorizontalList({
                           borderradius.buttonboder,
                         ),
                         border: Border.all(
-                          color: isSelected ? AppColor.primary : AppColor.secondary,
+                          color: isSelected
+                              ? AppColor.primary
+                              : AppColor.secondary,
                           width: isSelected ? 1 : 1,
                         ),
-                        color: isSelected ? AppColor.secondary.withOpacity(0.3) : Colors.transparent,
+                        color: isSelected
+                            ? AppColor.secondary.withOpacity(0.3)
+                            : Colors.transparent,
                       ),
                       padding: EdgeInsets.symmetric(
                         horizontal: Get.width * 0.025,
                         vertical: Get.height * 0.005,
                       ),
-                      margin: margin ?? EdgeInsets.symmetric(horizontal: Get.width * 0.009),
+                      margin:
+                          margin ??
+                          EdgeInsets.symmetric(horizontal: Get.width * 0.009),
                       child: Text(
                         value.toString(),
                         style: TextStyle(
                           color: isSelected ? AppColor.primary : Colors.black,
-                          fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                          fontWeight: isSelected
+                              ? FontWeight.w600
+                              : FontWeight.w500,
                         ),
                       ),
                     ),
@@ -342,7 +350,7 @@ Widget like({
           image: DecorationImage(fit: BoxFit.cover, image: NetworkImage(image)),
         ),
       ),
-      SizedBox(height: Get.height * 0.005),
+      Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.005)),
       SizedBox(
         width: size,
         child: Text(
@@ -350,6 +358,7 @@ Widget like({
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.center,
+          style: TextStyle(fontWeight: FontWeight.w500),
         ),
       ),
       SizedBox(
@@ -359,7 +368,10 @@ Widget like({
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.center,
-          style: TextStyle(color: AppColor.primary),
+          style: TextStyle(
+            color: AppColor.primary,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ),
     ],

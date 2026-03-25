@@ -27,7 +27,7 @@ Widget productDetailsPrice(name, price, itemCode) {
           name,
           style: TextStyle(
             fontSize: Textsize.samiHedding,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w600,
           ),
         ),
         // SizedBox(height: Get.height * 0.003),
@@ -37,7 +37,7 @@ Widget productDetailsPrice(name, price, itemCode) {
           style: TextStyle(
             fontSize: Get.width * 0.03,
             fontWeight: FontWeight.w500,
-            color: AppColor.gray3,
+            color: AppColor.gray5,
           ),
         ),
         Padding(padding: EdgeInsetsGeometry.only(top: Get.height * 0.009)),
@@ -47,7 +47,7 @@ Widget productDetailsPrice(name, price, itemCode) {
               "\$${double.parse(price).toStringAsFixed(2)}",
               style: TextStyle(
                 fontSize: Get.width * 0.04,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w600,
                 color: AppColor.primary,
               ),
             ),
@@ -57,7 +57,7 @@ Widget productDetailsPrice(name, price, itemCode) {
               style: TextStyle(
                 fontSize: Get.width * 0.04,
                 fontWeight: FontWeight.w500,
-                color: AppColor.gray3,
+                color: AppColor.gray5,
               ),
             ),
           ],
@@ -563,7 +563,7 @@ Widget listLike({
                     AppString.youMay,
                     style: TextStyle(
                       fontSize: Get.width * 0.04,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w600,
                       color: AppColor.primary,
                     ),
                   ),

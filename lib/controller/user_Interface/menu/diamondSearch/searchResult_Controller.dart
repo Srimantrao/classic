@@ -54,14 +54,31 @@ class SearchResultController extends GetxController {
     return holdDiamondList.where((e) => e == true).length;
   }
 
+  // double getTotalCts(List valueList) {
+  //   double total = 0.0;
+  //   for (int i = 0; i < holdDiamondList.length; i++) {
+  //     if (holdDiamondList[i]) {
+  //       total += double.tryParse(valueList[i]['parcarat'].toString()) ?? 0.0;
+  //     }
+  //   }
+  //   return total;
+  // }
+
   double getTotalCts(List valueList) {
-    double total = 0.0;
+    double totalPieces = 0.0;
+    double carat;
+    double parCarat;
     for (int i = 0; i < holdDiamondList.length; i++) {
       if (holdDiamondList[i]) {
-        total += double.tryParse(valueList[i]['parcarat'].toString()) ?? 0.0;
+        carat = double.tryParse(valueList[i]['carat'].toString()) ?? 0.0;
+        parCarat = double.tryParse(valueList[i]['parcarat'].toString()) ?? 0.0;
+        if (parCarat != 0) {
+          totalPieces = (parCarat / carat);
+        }
       }
+      print("totalPieces :- $totalPieces");
     }
-    return total;
+    return totalPieces;
   }
 
   double getTotalCarat(List valueList) {
@@ -123,10 +140,7 @@ class SearchResultController extends GetxController {
         print('DiamondId :- ${jsonEncode(selectedIds)}');
       }
       cartAPICallAPI.cartAPI.filterCart();
-      dasbaord.cardRecord.fetchCardRecords(
-        isFirstLoad: true,
-        type: 'Diamond',
-      );
+      dasbaord.cardRecord.fetchCardRecords(isFirstLoad: true, type: 'Diamond');
     } else {
       if (kDebugMode) {
         print("Please select at least one diamond");

@@ -262,6 +262,7 @@ class AppString {
 
   //Dimaond Search Screen
   static const whiteDiamond = 'White Diamond';
+  static const searchResult = 'Search Result';
   static const shape = 'Shape';
   static const carat = 'Carat';
   static const clarity = 'Clarity';

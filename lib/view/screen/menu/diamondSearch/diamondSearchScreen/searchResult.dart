@@ -1,5 +1,6 @@
 import 'package:classic/controller/user_Interface/menu/diamondSearch/searchResult_Controller.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/holdDiamods/holdDiamondWidget/body/holdDiamondWidget.dart';
+import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_json.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
@@ -14,21 +15,27 @@ class SearchResult extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      final faechApi = searchResult.diamondSearchAPI.diamondSearchData;
-      final List data = searchResult.diamondSearchAPI.diamondList;
-      final totalCount = faechApi['totalCount'];
+      final fetchApi = searchResult;
+      final searchResultApi = fetchApi.diamondSearchAPI;
+      final searchResultApiLoading = searchResultApi.isLoading.value;
+      final paginationLoading = searchResultApi.isPaginationLoading.value;
+      final searchResultData = searchResultApi.diamondSearchData;
+      final List data = searchResultApi.diamondList;
+      final totalCount = searchResultData['totalCount'];
       return Fullscreen(
-        appBar: allOtherScreen('Search Result (${totalCount ?? 0})'),
+        appBar: allOtherScreen(
+          "${AppString.searchResult} (${totalCount ?? 0})",
+        ),
         floatingActionButton: floatingActionButton(
           addHold: true,
           removeToHold: false,
-          addToHoldonPress: searchResult.addHoldDiamond,
-          addToWishList: searchResult.addToWishListCart,
-          addToCart: searchResult.addToCart,
+          addToHoldonPress: fetchApi.addHoldDiamond,
+          addToWishList: fetchApi.addToWishListCart,
+          addToCart: fetchApi.addToCart,
         ),
         child: Column(
           children: [
-            if (searchResult.diamondSearchAPI.isLoading.value && data.isEmpty)
+            if (searchResultApiLoading && data.isEmpty)
               const Expanded(child: Center(child: CircularProgressIndicator()))
             else if (data.isEmpty)
               Expanded(child: Center(child: Lottie.asset(AppJson.noData)))
@@ -37,8 +44,8 @@ class SearchResult extends StatelessWidget {
                 child: Obx(() {
                   return Column(
                     children: [
-                      if (searchResult.holdDiamondList.contains(true))
-                        checkvaluehedding(searchResult, data),
+                      if (fetchApi.holdDiamondList.contains(true))
+                        checkvaluehedding(fetchApi, data),
                       valueListDiamond(
                         valueList: data,
                         video: true,
@@ -46,12 +53,9 @@ class SearchResult extends StatelessWidget {
                         isCart: true,
                         isWishlist: true,
                         holdDiamond: true,
-                        scrollController: searchResult.scrollController,
+                        scrollController: fetchApi.scrollController,
                       ),
-                      if (searchResult
-                          .diamondSearchAPI
-                          .isPaginationLoading
-                          .value)
+                      if (paginationLoading)
                         const Padding(
                           padding: EdgeInsets.all(8.0),
                           child: CircularProgressIndicator(),

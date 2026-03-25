@@ -48,8 +48,8 @@ Widget holdDiamondValueList({
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(children: [chakhedding(AppString.pcs), chakValue(pcs)]),
-          Column(children: [chakhedding(AppString.cts), chakValue(cts)]),
           Column(children: [chakhedding(AppString.price), chakValue(price)]),
+          Column(children: [chakhedding(AppString.cts), chakValue(cts)]),
           Column(
             children: [
               chakhedding(AppString.amount.toUpperCase()),

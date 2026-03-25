@@ -19,8 +19,8 @@ Widget shapeHedding(text) {
     text,
     style: TextStyle(
       fontSize: Textsize.subheding,
-      fontFamily: 'FuturaCyrillic',
-      fontWeight: FontWeight.w500,
+      fontFamily: 'Sans-Bold',
+      fontWeight: FontWeight.w600,
     ),
   );
 }
@@ -67,27 +67,29 @@ Widget shape(GetallparameterController diamondSearch, {required bool isMenu}) {
                   children: [
                     (imageUrl != null && imageUrl.isNotEmpty)
                         ? Image.network(
-                      imageUrl,
-                      scale: 3,
-                      color: isSelected ? AppColor.white : AppColor.black,
-                      fit: BoxFit.contain,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return const CircularProgressIndicator();
-                      },
-                      errorBuilder: (context, error, stackTrace) {
-                        return Icon(
-                          Icons.broken_image,
-                          size: 35,
-                          color: isSelected ? AppColor.white : AppColor.black,
-                        );
-                      },
-                    )
+                            imageUrl,
+                            scale: 3,
+                            color: isSelected ? AppColor.white : AppColor.black,
+                            fit: BoxFit.contain,
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return const CircularProgressIndicator();
+                            },
+                            errorBuilder: (context, error, stackTrace) {
+                              return Icon(
+                                Icons.broken_image,
+                                size: 35,
+                                color: isSelected
+                                    ? AppColor.white
+                                    : AppColor.black,
+                              );
+                            },
+                          )
                         : Icon(
-                      Icons.broken_image,
-                      size: 35,
-                      color: isSelected ? AppColor.white : AppColor.gray3,
-                    ),
+                            Icons.broken_image,
+                            size: 35,
+                            color: isSelected ? AppColor.white : AppColor.gray3,
+                          ),
                     Text(
                       shapeList[index]['paraMtrName'],
                       style: TextStyle(
@@ -95,7 +97,7 @@ Widget shape(GetallparameterController diamondSearch, {required bool isMenu}) {
                         color: isSelected ? AppColor.white : AppColor.black,
                         fontWeight: isSelected
                             ? FontWeight.w600
-                            : FontWeight.normal,
+                            : FontWeight.w500,
                       ),
                     ),
                   ],
@@ -202,7 +204,7 @@ Widget fancyColor(GetallparameterController diamondSearch) {
                         );
                       },
                       errorBuilder: (context, error, stackTrace) {
-                        return  Icon(Icons.broken_image, color: AppColor.black);
+                        return Icon(Icons.broken_image, color: AppColor.black);
                       },
                     ),
                   const SizedBox(height: 4),
@@ -211,7 +213,9 @@ Widget fancyColor(GetallparameterController diamondSearch) {
                     style: TextStyle(
                       fontSize: Textsize.samisubHedding,
                       color: isSelected ? AppColor.white : AppColor.black,
-                      fontWeight: isSelected ? FontWeight.w500 : FontWeight.normal,
+                      fontWeight: isSelected
+                          ? FontWeight.w500
+                          : FontWeight.normal,
                     ),
                   ),
                 ],
@@ -555,7 +559,7 @@ Widget selectionGrid<T>({
             color: selected ? AppColor.primary : AppColor.white,
             textColor: selected ? AppColor.white : AppColor.black,
             text: item.toString(),
-            fontWeight: selected ? FontWeight.w500 : FontWeight.normal,
+            fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
           );
         },
       );

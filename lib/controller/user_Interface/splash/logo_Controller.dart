@@ -7,10 +7,14 @@ import 'package:get/get.dart';
 
 class LogoController extends GetxController {
   @override
-  void onInit() {
-    super.onInit();
-    Future.delayed(Duration(seconds: 2), () {
-      Get.offAll(() => (isLogin) ? Bottombar() : Login());
+  void onReady() {
+    super.onReady();
+    Future.delayed(Duration(seconds: 3), () {
+      if (isLogin) {
+        Get.offAll(() => Bottombar());
+      } else {
+        Get.offAll(() => Login());
+      }
     });
   }
 }

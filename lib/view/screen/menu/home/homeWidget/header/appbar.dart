@@ -1,7 +1,6 @@
 import 'package:classic/view/screen/menu/home/homeExtraWidget/homeconnectingWideget.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
-import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -96,15 +96,32 @@ class HolddiamodUIController extends GetxController
     return holdDiamondList.where((e) => e == true).length;
   }
 
+  // double getTotalCts(List valueList) {
+  //   double total = 0.0;
+  //   for (int i = 0; i < holdDiamondList.length; i++) {
+  //     if (i < valueList.length && holdDiamondList[i]) {
+  //       total +=
+  //           double.tryParse(valueList[i]['parcarat']?.toString() ?? '0') ?? 0.0;
+  //     }
+  //   }
+  //   return total;
+  // }
+
   double getTotalCts(List valueList) {
-    double total = 0.0;
+    double totalPieces = 0.0;
+    double carat;
+    double parCarat;
     for (int i = 0; i < holdDiamondList.length; i++) {
-      if (i < valueList.length && holdDiamondList[i]) {
-        total +=
-            double.tryParse(valueList[i]['parcarat']?.toString() ?? '0') ?? 0.0;
+      if (holdDiamondList[i]) {
+        carat = double.tryParse(valueList[i]['carat'].toString()) ?? 0.0;
+        parCarat = double.tryParse(valueList[i]['parcarat'].toString()) ?? 0.0;
+        if (parCarat != 0) {
+          totalPieces = (parCarat / carat);
+        }
       }
+      print("totalPieces :- $totalPieces");
     }
-    return total;
+    return totalPieces;
   }
 
   double getTotalCarat(List valueList) {

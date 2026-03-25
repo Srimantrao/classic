@@ -11,7 +11,7 @@ class Logo extends StatelessWidget {
   const Logo({super.key});
   @override
   Widget build(BuildContext context) {
-    Get.put(LogoController());
+    Get.put(LogoController(), permanent: true);
     return Fullscreen(
       image: AppImage.spalsh_background,
       child: Column(

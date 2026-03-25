@@ -34,15 +34,19 @@ class Diamondsearch extends StatelessWidget {
       endDrawer: Drawers(),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(color: AppColor.white),
-        height: Get.height * 0.20,
+        height: Get.height * 0.17,
         child: horizontalPadding(
           child: Column(
             children: [
-              Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.025)),
+              Padding(
+                padding: EdgeInsetsGeometry.only(
+                  bottom: Get.height * 0.009,
+                ),
+              ),
               Obx(() {
                 final api = diamondSearch.diamondSearchAPI;
                 final loading = api.isLoading.value;
-                if(getAllPeraMeter.getAllParameterData.isEmpty){
+                if (getAllPeraMeter.getAllParameterData.isEmpty) {
                   return SizedBox();
                 }
                 return button(
@@ -58,7 +62,9 @@ class Diamondsearch extends StatelessWidget {
                 );
               }),
               Padding(
-                padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.025),
+                padding: EdgeInsetsGeometry.only(
+                  bottom: Get.height * 0.025,
+                ),
               ),
             ],
           ),
@@ -72,14 +78,16 @@ class Diamondsearch extends StatelessWidget {
         prefixOnTap: diamondSearch.clearSelections,
       ),
       child: Obx(() {
-        if(getAllPeraMeter.getAllParameterData.isEmpty){
+        if (getAllPeraMeter.getAllParameterData.isEmpty) {
           return Center(child: Lottie.asset(AppJson.noData));
         }
         return SingleChildScrollView(
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.02),
+                padding: EdgeInsetsGeometry.only(
+                  bottom: Get.height * 0.02,
+                ),
               ),
               // TOP TABS
               indexButtons(

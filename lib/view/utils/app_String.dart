@@ -27,6 +27,7 @@ class AppString {
   static const clear = 'Clear';
   static const save = 'Save';
   static const addtoCart = 'Add To Cart';
+  static const download = 'Download';
   static const details = 'Details';
   static const measurements = 'Measurements';
   static const inclusion = 'Inclusion';

@@ -26,16 +26,27 @@ import '../../../../../utils/widget/pop.dart';
 import '../../../../menu/diamondSearch/diamondWidget/body/searchResultWidget.dart';
 import '../../../../menu/jewelry/jewelryScreen/productDetail.dart';
 
-Widget cartProductItem(cartUI, cartProduct, productDetail) {
+Widget cartProductItem(
+  CartUiController cartUI,
+  List cartProduct,
+  ProductDetailUIController productDetail,
+) {
   return GetBuilder<CartUiController>(
-    id: 'cartList',
+    id: 'qty_list',
     initState: (_) => cartUI.initQty(cartProduct),
     builder: (cartUI) {
+      if (cartUI.qtyList.isEmpty ||
+          cartUI.qtyList.length < cartProduct.length) {
+        return const SizedBox();
+      }
       return ListView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: cartProduct.length,
         itemBuilder: (context, index) {
+          if (index >= cartUI.qtyList.length) {
+            return const SizedBox();
+          }
           final product = cartProduct[index];
           final images = product['productDetails']?['images'] as List?;
           final productImage = (images != null && images.isNotEmpty)
@@ -131,14 +142,13 @@ Widget diamondProductItem(List dataList) {
         },
         deleteDiamond: () {
           removeItem.deleteCart(diamond['_id']?.toString() ?? '');
-          diamond.removeAt(index);
           cartAPICallAPI.cartAPI.filterCart();
         },
         cartOnTap: () {
           adToCart.createCart(
             price: diamond['finalamount']?.toString() ?? '',
-            productId: diamond[index]['_id']?.toString() ?? '',
-            DiamondId: diamond[index]['dimCountryId']?.toString() ?? '',
+            productId: diamond['_id']?.toString() ?? '',
+            DiamondId: diamond['dimCountryId']?.toString() ?? '',
           );
         },
         linkOnTap: () {
@@ -161,19 +171,19 @@ Widget diamondProductItem(List dataList) {
 Widget cartShow(
   product,
   productImage,
-  cartUI,
-  index,
-  cartProduct,
-  productDetail,
+  CartUiController cartUI,
+  int index,
+  List cartProduct,
+  ProductDetailUIController productDetail,
 ) {
-  // if (index >= cartUI.qtyList.length ||
-  //     index >= cartUI.unitPriceList.length ||
-  //     cartUI.qtyList.isEmpty) {
-  //   return SizedBox.shrink();
-  // }
   return GetBuilder<CartUiController>(
     id: 'qty_$index',
     builder: (_) {
+      // Index safety check
+      if (index >= cartUI.qtyList.length ||
+          index >= cartUI.unitPriceList.length) {
+        return const SizedBox();
+      }
       return GestureDetector(
         onTap: () {
           Get.to(
@@ -202,7 +212,8 @@ Widget cartShow(
             cartUI.removeCartItem(index, product['_id']);
           },
           productDetail: productDetail,
-          categoryId: product['productDetails']?['categoryDetails']?['_id'],
+          categoryId:
+              product['productDetails']?['categoryDetails']?['_id'] ?? '',
         ),
       );
     },

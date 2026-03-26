@@ -24,6 +24,7 @@ class AppString {
   static const remove = 'Remove';
   static const submit = 'Submit';
   static const proceed = 'Procced To Checkout';
+  static const placeOrder = 'Place Order';
   static const clear = 'Clear';
   static const save = 'Save';
   static const addtoCart = 'Add To Cart';
@@ -52,7 +53,6 @@ class AppString {
     static const getDirections = 'Get Directions';
         //Save Address Screen
         static const saveAddress = 'Save Address';
-
         //My Account Screen
         static const editProfile = 'Edit Profile';
         static const orderHistory = 'Order History';
@@ -102,6 +102,9 @@ class AppString {
         static const personalDetails = 'Personal Details';
         static const productDetails = 'Product Details';
         static const buttonName = 'show Quotation';
+        //checkOut Screen
+        static const checkOut = 'Shipping Address';
+        static const billing = 'Billing Address Same As Shipping ?';
 
   //cart Screen
   static const total = 'Total';
@@ -238,6 +241,7 @@ class AppString {
   static const Hold = 'Hold';
   static const recentViwe = 'Recent View';
   static const myCart = 'My Cart';
+  static const checkout = 'Checkout';
       //Dimaond Ditails
         static const diamondDetail = 'Diamond Detail';
         static const location = 'Location';
@@ -293,6 +297,8 @@ class AppString {
   static const pcs = 'PCS';
   static const cts = 'CTS';
   static const price = 'PRICE/CT';
+  static const priceDetails = 'Price Details';
+  static const prdoctItem = 'Product Item';
 
   //Add Custom Jewellery Screen
   static const addCustomJewellery = 'Add Custom Jewellery';

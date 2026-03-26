@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers, avoid_print
+// ignore_for_file: file_names, avoid_unnecessary_containers, avoid_print, deprecated_member_use
 
 import 'package:classic/controller/user_Interface/hedder/myAccount/holdDiamonds/holdDiamodUI_Controller.dart';
 import 'package:classic/view/screen/menu/dashbord/dasboadWidget/body/diamondSection.dart';

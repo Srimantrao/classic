@@ -29,7 +29,7 @@ Widget inputTyaping({
         text,
         style: TextStyle(
           fontSize: Textsize.normal,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w600,
         ),
       ),
       Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.01)),

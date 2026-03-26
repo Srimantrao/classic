@@ -38,14 +38,20 @@ Widget cartValue({
           children: [
             GestureDetector(
               onTap: removeItem,
-              child: Text(
-                'Remove Item',
-                style: TextStyle(
-                  fontSize: Textsize.samisubHedding,
-                  color: AppColor.primary,
-                  decoration: TextDecoration.underline,
-                  decorationColor: AppColor.primary,
-                  decorationThickness: 1.5,
+              child: Container(
+                padding: EdgeInsets.only(bottom: Get.height * 0.002),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: AppColor.primary, width: 1.5),
+                  ),
+                ),
+                child: Text(
+                  'Remove Item',
+                  style: TextStyle(
+                    fontSize: Textsize.samisubHedding,
+                    color: AppColor.primary,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ),
@@ -166,6 +172,28 @@ Widget valuecart(text) {
         fontWeight: FontWeight.w500,
         fontSize: Textsize.small,
       ),
+    ),
+  );
+}
+
+Widget checkOutContainer(Widget? child) {
+  return Container(
+    padding: EdgeInsetsGeometry.all(10),
+    decoration: BoxDecoration(
+      border: Border.all(color: AppColor.gray),
+      borderRadius: BorderRadius.circular(borderradius.buttonboder),
+    ),
+    child: child,
+  );
+}
+
+Widget checkoutHeddingText(text, {Color? color}) {
+  return Text(
+    text,
+    style: TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: Get.width * 0.04,
+      color: color,
     ),
   );
 }

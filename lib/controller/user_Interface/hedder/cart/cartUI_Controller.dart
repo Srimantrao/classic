@@ -23,7 +23,6 @@ class CartUiController extends GetxController {
   RxDouble totalPrice = 0.0.obs;
 
   void initQty(List cartProduct) {
-    // build cycle ke baad update karne ke liye addPostFrameCallback use karein
     WidgetsBinding.instance.addPostFrameCallback((_) {
       qtyList = cartProduct
           .where((e) => e['qty'] != null)
@@ -90,15 +89,19 @@ class CartUiController extends GetxController {
         price: totalPrice.value.toStringAsFixed(2),
         ringSizeId: ringSizeList[index],
       );
-
-      print('Updated Cart :- $id, Qty: ${qtyList[index]}');
       calculateGrandTotal();
     }
   }
 
-  void removeCartItem(int index, String id) {
-    removeItem.deleteCart(id);
-    cartAPICallAPI.cartAPI.filterCart();
-    update(['cartList', 'grand_total']);
+  Future<void> removeCartItem(int index, String id) async {
+    if (index < qtyList.length) {
+      qtyList.removeAt(index);
+      if (index < ringSizeList.length) ringSizeList.removeAt(index);
+      if (index < unitPriceList.length) unitPriceList.removeAt(index);
+    }
+    calculateGrandTotal();
+    update(['grand_total', 'qty_list', 'cartList']);
+    await removeItem.deleteCart(id);
+    await cartAPICallAPI.cartAPI.filterCart();
   }
 }

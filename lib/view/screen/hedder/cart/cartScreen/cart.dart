@@ -1,4 +1,4 @@
-// ignore_for_file: body_might_complete_normally_nullable, strict_top_level_inference, unnecessary_import
+// ignore_for_file: body_might_complete_normally_nullable, strict_top_level_inference, unnecessary_import, use_key_in_widget_constructors
 
 import 'package:classic/controller/application_Programing_interface/apiController/menu/dashbord/cardRecord_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
@@ -24,7 +24,6 @@ class Cart extends StatelessWidget {
   final productDetail = Get.put(ProductDetailUIController());
   final cardRecord = Get.put(CardRecordController());
   final adToCart = Get.put(CreateCartController());
-  Cart({super.key});
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
@@ -70,13 +69,15 @@ class Cart extends StatelessWidget {
                 id: 'grand_total',
                 builder: (cartUI) {
                   return horizontalPadding(
-                    child: total(cartUI.grandTotal.toStringAsFixed(2)),
+                    child: total("\$${cartUI.grandTotal.toStringAsFixed(2)}"),
                   );
                 },
               ),
 
               Padding(
-                padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.025),
+                padding: EdgeInsetsGeometry.only(
+                  bottom: Get.height * 0.025,
+                ),
               ),
             ],
           ),

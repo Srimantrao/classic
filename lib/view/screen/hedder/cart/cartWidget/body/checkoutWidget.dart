@@ -93,7 +93,7 @@ Widget remarkInput() {
   );
 }
 
-Widget priceDetail() {
+Widget priceDetail(value) {
   return horizontalPadding(
     child: checkOutContainer(
       Column(
@@ -105,7 +105,7 @@ Widget priceDetail() {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               checkoutHeddingText(AppString.subTotal, color: AppColor.primary),
-              checkoutHeddingText("₹ 0.00", color: AppColor.primary),
+              checkoutHeddingText(value, color: AppColor.primary),
             ],
           ),
         ],

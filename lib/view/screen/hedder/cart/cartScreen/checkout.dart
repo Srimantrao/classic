@@ -64,8 +64,8 @@ class Checkout extends StatelessWidget {
               prdoctItem(
                 checkoutUi.isBillingItem,
                 (billingValue)
-                    ? Icon(Icons.keyboard_arrow_down)
-                    : Icon(Icons.keyboard_arrow_up),
+                    ? Icon(Icons.keyboard_arrow_down, color: AppColor.primary)
+                    : Icon(Icons.keyboard_arrow_up, color: AppColor.primary),
               ),
 
               (billingValue)
@@ -90,7 +90,7 @@ class Checkout extends StatelessWidget {
                 checkoutUi.isbillingAddress(value!);
               }),
               remarkInput(),
-              priceDetail(),
+              priceDetail("\$${cartUI.grandTotal.toStringAsFixed(2)}"),
             ],
           ),
         );

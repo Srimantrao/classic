@@ -2,6 +2,7 @@
 
 // ignore_for_file: file_names, duplicate_ignore, non_constant_identifier_names, avoid_unnecessary_containers, strict_top_level_inference
 
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/cart/cart_Controller.dart';
 import 'package:classic/view/screen/hedder/cart/cartWidget/extraWidget/extraWidget.dart';
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
@@ -176,10 +177,10 @@ Widget cartShow(
   List cartProduct,
   ProductDetailUIController productDetail,
 ) {
+  final cartAPI = Get.put(CartController());
   return GetBuilder<CartUiController>(
     id: 'qty_$index',
     builder: (_) {
-      // Index safety check
       if (index >= cartUI.qtyList.length ||
           index >= cartUI.unitPriceList.length) {
         return const SizedBox();

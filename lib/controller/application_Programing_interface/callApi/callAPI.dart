@@ -48,11 +48,11 @@ class CartAPICall extends GetxController {
         customProduct.getCustomProduct(),
         getAddress.getAddress(userID),
       ]);
+      await calculateCartCount(cartAPI);
+      await calculateWishCount(fitterWish);
     } else {
       print('No Login in Header');
     }
-    await calculateCartCount(cartAPI);
-    await calculateWishCount(fitterWish);
   }
 }
 

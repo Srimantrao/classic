@@ -67,7 +67,7 @@ PreferredSizeWidget comanAppBar({
                       () => cartBadge(
                         cartItemCount.value,
                         color: AppColor.secondary,
-                        top: -3,
+                        top: 3,
                         right: 365,
                         textcolor: AppColor.black,
                       ),
@@ -194,7 +194,7 @@ PreferredSizeWidget allOtherScreen(
                     () => cartBadge(
                       cartItemCount.value,
                       color: AppColor.primary,
-                      top: -4,
+                      top: 3,
                       right: 8,
                       textcolor: AppColor.white,
                     ),

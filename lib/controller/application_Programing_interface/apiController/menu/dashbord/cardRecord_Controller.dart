@@ -12,11 +12,11 @@ class CardRecordController extends GetxController {
   final int pageSize = 25;
   var hasMoreData = true.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    fetchCardRecords(isFirstLoad: true);
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   fetchCardRecords(isFirstLoad: true);
+  // }
 
   Future<void> fetchCardRecords({
     bool isFirstLoad = false,

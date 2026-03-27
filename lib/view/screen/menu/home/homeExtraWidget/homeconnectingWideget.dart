@@ -42,7 +42,7 @@ Widget setLogoIcon({
                 onTap: wishlistOntap,
                 child: homeScreenIcon(AppIcon.wishlist),
               ),
-              Obx(() => wishBadge(wishItemCount.value, top: -5, right: 0)),
+              Obx(() => wishBadge(wishItemCount.value, top: 0, right: 0)),
             ],
           ),
           Padding(padding: EdgeInsetsGeometry.only(left: Get.width * 0.001)),
@@ -52,7 +52,7 @@ Widget setLogoIcon({
               clipBehavior: Clip.none,
               children: [
                 homeScreenIcon(AppIcon.newcart),
-                Obx(() => cartBadge(cartItemCount.value, top: -5, right: 0)),
+                Obx(() => cartBadge(cartItemCount.value, top: 0, right: 0)),
               ],
             ),
           ),
@@ -315,7 +315,7 @@ Widget wishBadge(
 
 Widget circalbadge({String cartItem = '0', Color? color, Color? textcolor}) {
   return Container(
-    padding: EdgeInsets.all(7),
+    padding: EdgeInsets.all(4),
     decoration: BoxDecoration(
       color: color ?? AppColor.primary,
       shape: BoxShape.circle,
@@ -326,7 +326,7 @@ Widget circalbadge({String cartItem = '0', Color? color, Color? textcolor}) {
         cartItem,
         style: TextStyle(
           color: textcolor ?? Colors.white,
-          fontSize: 13,
+          fontSize: 9,
           fontWeight: FontWeight.bold,
         ),
       ),

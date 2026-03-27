@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, unused_import, non_constant_identifier_names, must_be_immutable
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, unused_import, non_constant_identifier_names, must_be_immutable, use_key_in_widget_constructors
 
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/cart/cart_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/customProduct/customProduct_Controller.dart';
@@ -42,10 +42,10 @@ class Home extends StatelessWidget {
   final dashbord_API = Get.put(DashBordAPICall());
   final jewellry = Get.put(JewelleryAPICall());
   static bool apiCalled = false;
-  Home({super.key});
   @override
   Widget build(BuildContext context) {
     calculateCartCount(cartAPICallAPI.cartAPI);
+    calculateWishCount(cartAPICallAPI.fitterWish);
     if (!apiCalled) {
       apiCalled = true;
       Future.wait([

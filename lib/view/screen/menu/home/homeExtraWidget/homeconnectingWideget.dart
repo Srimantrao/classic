@@ -35,9 +35,15 @@ Widget setLogoIcon({
         children: [
           homeScreenIcon(AppIcon.search),
           Padding(padding: EdgeInsetsGeometry.only(left: Get.width * 0.001)),
-          GestureDetector(
-            onTap: wishlistOntap,
-            child: homeScreenIcon(AppIcon.wishlist),
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              GestureDetector(
+                onTap: wishlistOntap,
+                child: homeScreenIcon(AppIcon.wishlist),
+              ),
+              Obx(() => wishBadge(wishItemCount.value, top: -5, right: 0)),
+            ],
           ),
           Padding(padding: EdgeInsetsGeometry.only(left: Get.width * 0.001)),
           GestureDetector(
@@ -46,7 +52,7 @@ Widget setLogoIcon({
               clipBehavior: Clip.none,
               children: [
                 homeScreenIcon(AppIcon.newcart),
-                Obx(() => cartBadge(cartItemCount.value,top: -5,right: 0)),
+                Obx(() => cartBadge(cartItemCount.value, top: -5, right: 0)),
               ],
             ),
           ),
@@ -278,23 +284,71 @@ Widget cartBadge(
   return Positioned(
     right: right ?? -2,
     top: top ?? -2,
-    child: Container(
-      padding: EdgeInsets.all(7),
-      decoration: BoxDecoration(
-        color: color ?? AppColor.primary,
-        shape: BoxShape.circle,
-      ),
-      constraints: BoxConstraints(minWidth: 16, minHeight: 16),
-      child: Center(
-        child: Text(
-          cartItem,
-          style: TextStyle(
-            color: textcolor ?? Colors.white,
-            fontSize: 13,
-            fontWeight: FontWeight.bold,
-          ),
+    child: circalbadge(
+      cartItem: cartItem,
+      color: color ?? AppColor.primary,
+      textcolor: textcolor ?? Colors.white,
+    ),
+  );
+}
+
+Widget wishBadge(
+  String wishItem, {
+  Color? color,
+  Color? textcolor,
+  double? right,
+  double? top,
+}) {
+  if (wishItem.isEmpty || wishItem == '0') {
+    return const SizedBox.shrink();
+  }
+  return Positioned(
+    right: right ?? -2,
+    top: top ?? -2,
+    child: circalbadge(
+      cartItem: wishItem,
+      color: color ?? AppColor.primary,
+      textcolor: textcolor ?? Colors.white,
+    ),
+  );
+}
+
+Widget circalbadge({String cartItem = '0', Color? color, Color? textcolor}) {
+  return Container(
+    padding: EdgeInsets.all(7),
+    decoration: BoxDecoration(
+      color: color ?? AppColor.primary,
+      shape: BoxShape.circle,
+    ),
+    constraints: BoxConstraints(minWidth: 16, minHeight: 16),
+    child: Center(
+      child: Text(
+        cartItem,
+        style: TextStyle(
+          color: textcolor ?? Colors.white,
+          fontSize: 13,
+          fontWeight: FontWeight.bold,
         ),
       ),
     ),
   );
 }
+
+// child: Container(
+//   padding: EdgeInsets.all(7),
+//   decoration: BoxDecoration(
+//     color: color ?? AppColor.primary,
+//     shape: BoxShape.circle,
+//   ),
+//   constraints: BoxConstraints(minWidth: 16, minHeight: 16),
+//   child: Center(
+//     child: Text(
+//       cartItem,
+//       style: TextStyle(
+//         color: textcolor ?? Colors.white,
+//         fontSize: 13,
+//         fontWeight: FontWeight.bold,
+//       ),
+//     ),
+//   ),
+// ),

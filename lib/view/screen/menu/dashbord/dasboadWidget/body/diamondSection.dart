@@ -125,7 +125,6 @@ Widget cartJewelryList({required List jewelryList}) {
         final imageList = item['images'] ?? [];
         final imageUrl =
         imageList.isNotEmpty ? imageList.first['zoom'] ?? '' : '';
-
         return jeawellweryList(
           imageUrl: imageUrl,
           productTitle: item['productTitle'] ?? '',

@@ -35,3 +35,4 @@ String userID = '';
 
 //cart
 RxString cartItemCount = '0'.obs;
+RxString wishItemCount = '0'.obs;

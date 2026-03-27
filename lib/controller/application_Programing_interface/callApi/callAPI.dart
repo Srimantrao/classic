@@ -1,4 +1,4 @@
-// ignore_for_file: must_call_super, file_names, unused_import, avoid_print
+// ignore_for_file: must_call_super, file_names, unused_import, avoid_print, strict_top_level_inference
 
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/address/getAddress_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/customProduct/customProduct_Controller.dart';
@@ -52,6 +52,7 @@ class CartAPICall extends GetxController {
       print('No Login in Header');
     }
     await calculateCartCount(cartAPI);
+    await calculateWishCount(fitterWish);
   }
 }
 
@@ -133,5 +134,25 @@ Future<void> calculateCartCount(cartAPI) async {
   }
   final cartProductList = dataList[0]['productLookup'] as List? ?? [];
   final diamondProductList = dataList[0]['diamondLookup'] as List? ?? [];
-  cartItemCount.value = (cartProductList.length + diamondProductList.length).toString();
+  cartItemCount.value = (cartProductList.length + diamondProductList.length)
+      .toString();
+}
+
+Future<void> calculateWishCount(FitterWishController fitterWish) async {
+  await fitterWish.fitterWishList();
+  final wishData = fitterWish.fitterWishData;
+
+  if (wishData.isEmpty ||
+      wishData['data'] == null ||
+      (wishData['data'] as List).isEmpty) {
+    wishItemCount.value = "0";
+    return;
+  }
+
+  final data = wishData['data'][0];
+  final productLookup = data['productLookup'] as List? ?? [];
+  final diamondLookup = data['diamondLookup'] as List? ?? [];
+
+  wishItemCount.value = (productLookup.length + diamondLookup.length)
+      .toString();
 }

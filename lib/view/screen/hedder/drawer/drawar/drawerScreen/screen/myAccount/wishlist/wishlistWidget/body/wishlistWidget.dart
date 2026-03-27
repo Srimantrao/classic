@@ -2,6 +2,7 @@
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/fitterWish/deletWish_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/fitterWish/fitterWish_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createCart_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
 import 'package:classic/view/screen/menu/diamondSearch/diamondWidget/body/searchResultWidget.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
@@ -74,11 +75,12 @@ Widget diamondListWish(header) {
         final details = diamond?['diamondDetails'] as Map? ?? {};
         return listDiamond(
           deletdiamond: true,
-          deleteDiamond: () {
+          deleteDiamond: () async {
             final deletWish = Get.put(DeletWishController());
             final fitterWish = Get.put(FitterWishController());
-            deletWish.deleWishList(diamond!['_id']);
-            fitterWish.fitterWishList();
+            await deletWish.deleWishList(diamond!['_id']);
+            await fitterWish.fitterWishList();
+            calculateWishCount(fitterWish);
           },
           idOnTop: () {
             final String? link = details['certurl']?.toString();

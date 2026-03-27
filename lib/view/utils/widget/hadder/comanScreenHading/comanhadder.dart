@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_unnecessary_containers, strict_top_level_inference
 
+import 'package:classic/controller/user_Interface/widget/bottaomBar/bottombar_Controller.dart';
 import 'package:classic/view/screen/hedder/cart/cartScreen/cart.dart';
 import 'package:classic/view/screen/menu/home/homeExtraWidget/homeconnectingWideget.dart';
 import 'package:classic/view/utils/app_Color.dart';
@@ -9,7 +10,6 @@ import 'package:classic/view/utils/widget/hadder/comanHadingWidget/comanHadingWi
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../app_Constants.dart';
 
 PreferredSizeWidget comanAppBar({
@@ -19,6 +19,7 @@ PreferredSizeWidget comanAppBar({
   void Function()? prefixOnTap,
   void Function()? suffixOnTap,
 }) {
+  final bottomController = Get.put(BottombarController());
   return PreferredSize(
     preferredSize: Size.fromHeight(kToolbarHeight + 0.15),
     child: Container(
@@ -60,15 +61,17 @@ PreferredSizeWidget comanAppBar({
                   ],
                 ),
               ),
-              Obx(
-                () => cartBadge(
-                  cartItemCount.value,
-                  color: AppColor.secondary,
-                  top: -3,
-                  right: 365,
-                  textcolor: AppColor.black,
-                ),
-              ),
+              (bottomController.selectindex.value == 3)
+                  ? SizedBox()
+                  : Obx(
+                      () => cartBadge(
+                        cartItemCount.value,
+                        color: AppColor.secondary,
+                        top: -3,
+                        right: 365,
+                        textcolor: AppColor.black,
+                      ),
+                    ),
             ],
           ),
         ),

@@ -45,6 +45,7 @@ class Home extends StatelessWidget {
   Home({super.key});
   @override
   Widget build(BuildContext context) {
+    calculateCartCount(cartAPICallAPI.cartAPI);
     if (!apiCalled) {
       apiCalled = true;
       Future.wait([

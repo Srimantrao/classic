@@ -210,9 +210,8 @@ class ProductDetailUIController extends GetxController {
   }
 
   //Add To Cart
-  void addToCart() {
+  Future<void> addToCart() async {
     String? ringSizeParam;
-
     if (selectedRingSize.value.isNotEmpty) {
       ringSizeParam = selectedRingSize.value;
     } else if (selectedBraceletSize.value.isNotEmpty) {
@@ -220,7 +219,7 @@ class ProductDetailUIController extends GetxController {
     } else {
       ringSizeParam = null;
     }
-    adToCart.createCart(
+    await adToCart.createCart(
       price: activeVariant['finalPrice'].toString(),
       productId: activeVariant['_id'].toString(),
       engravingText: engravingController.text,

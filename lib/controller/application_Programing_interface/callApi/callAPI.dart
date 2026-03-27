@@ -51,6 +51,7 @@ class CartAPICall extends GetxController {
     } else {
       print('No Login in Header');
     }
+    await calculateCartCount(cartAPI);
   }
 }
 
@@ -110,10 +111,27 @@ class DashBordAPICall extends GetxController {
       await Future.wait([
         totalRecored.totalRecord(),
         recentView.recentViewdata(),
-        cardRecord.fetchCardRecords(isFirstLoad: true,type: 'Diamond'),
+        cardRecord.fetchCardRecords(isFirstLoad: true, type: 'Diamond'),
       ]);
     } else {
       print('No Login in DashboardAPI');
     }
   }
+}
+
+Future<void> calculateCartCount(cartAPI) async {
+  await cartAPI.filterCart();
+  final cartData = cartAPI.cartData;
+  if (cartData.isEmpty) {
+    cartItemCount.value = "0";
+    return;
+  }
+  final dataList = cartData['data'];
+  if (dataList == null || dataList.isEmpty) {
+    cartItemCount.value = "0";
+    return;
+  }
+  final cartProductList = dataList[0]['productLookup'] as List? ?? [];
+  final diamondProductList = dataList[0]['diamondLookup'] as List? ?? [];
+  cartItemCount.value = (cartProductList.length + diamondProductList.length).toString();
 }

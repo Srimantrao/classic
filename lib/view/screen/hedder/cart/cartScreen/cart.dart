@@ -49,11 +49,9 @@ class Cart extends StatelessWidget {
         final cartProduct = dataList[0]['productLookup'] as List? ?? [];
         final diamondProduct = dataList[0]['diamondLookup'] as List? ?? [];
         final cartRecord = cardRecord.cardRecordData as List? ?? [];
-
         if (cartProduct.isEmpty && diamondProduct.isEmpty) {
           return Center(child: Lottie.asset(AppJson.noData));
         }
-
         return SingleChildScrollView(
           child: Column(
             children: [

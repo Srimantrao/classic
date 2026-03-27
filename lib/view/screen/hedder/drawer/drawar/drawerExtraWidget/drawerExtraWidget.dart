@@ -36,7 +36,7 @@ Widget iconDrawer({
   bool? dot = false,
   void Function()? onTap,
 }) {
-  final double size = 16;
+  final double size = 27;
   return GestureDetector(
     onTap: onTap,
     child: Container(
@@ -68,7 +68,7 @@ Widget iconDrawer({
                     Text(
                       text.toUpperCase(),
                       style: TextStyle(
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                         fontSize: Textsize.normal,
                       ),
                     ),
@@ -114,7 +114,10 @@ Widget listColltion({
               Expanded(
                 child: LayoutBuilder(
                   builder: (context, constraints) {
-                    final textStyle = TextStyle(fontSize: Get.width * 0.038);
+                    final textStyle = TextStyle(
+                      fontSize: Get.width * 0.038,
+                      fontWeight: FontWeight.w500,
+                    );
                     final textSpan = TextSpan(text: datalist, style: textStyle);
                     final textPainter = TextPainter(
                       text: textSpan,

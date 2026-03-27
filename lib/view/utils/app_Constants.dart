@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, non_constant_identifier_names
 
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final dio = Dio();
@@ -31,3 +32,6 @@ String token ='';
 bool isLogin = false;
 
 String userID = '';
+
+//cart
+RxString cartItemCount = '0'.obs;

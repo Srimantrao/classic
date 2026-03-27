@@ -44,7 +44,7 @@ Widget refrens({
                 Text(
                   text,
                   style: TextStyle(
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
                     fontSize: Get.width * 0.040,
                   ),
                 ),

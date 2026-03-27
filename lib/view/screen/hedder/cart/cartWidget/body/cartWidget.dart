@@ -141,9 +141,10 @@ Widget diamondProductItem(List dataList) {
           }
           Get.to(() => ProductImage(images: image));
         },
-        deleteDiamond: () {
-          removeItem.deleteCart(diamond['_id']?.toString() ?? '');
-          cartAPICallAPI.cartAPI.filterCart();
+        deleteDiamond: () async {
+          await removeItem.deleteCart(diamond['_id']?.toString() ?? '');
+          await cartAPICallAPI.cartAPI.filterCart();
+          calculateCartCount(cartAPICallAPI.cartAPI);
         },
         cartOnTap: () {
           adToCart.createCart(
@@ -177,7 +178,7 @@ Widget cartShow(
   List cartProduct,
   ProductDetailUIController productDetail,
 ) {
-  final cartAPI = Get.put(CartController());
+  Get.put(CartController());
   return GetBuilder<CartUiController>(
     id: 'qty_$index',
     builder: (_) {
@@ -185,6 +186,7 @@ Widget cartShow(
           index >= cartUI.unitPriceList.length) {
         return const SizedBox();
       }
+      final cartAPICallAPI = Get.put(CartAPICall());
       return GestureDetector(
         onTap: () {
           Get.to(
@@ -209,8 +211,10 @@ Widget cartShow(
             cartUI.incrementQty(index, product['_id']);
           },
           value: cartUI.qtyList[index],
-          removeItem: () {
-            cartUI.removeCartItem(index, product['_id']);
+          removeItem: () async{
+            await cartUI.removeCartItem(index, product['_id']);
+            await cartAPICallAPI.cartAPI.filterCart();
+            calculateCartCount(cartAPICallAPI.cartAPI);
           },
           productDetail: productDetail,
           categoryId:

@@ -5,6 +5,7 @@ import 'package:classic/view/utils/app_Image.dart';
 import 'package:classic/view/utils/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../utils/app_Constants.dart';
 import '../../../../utils/app_TextSize.dart';
 
 Widget addText(text) {
@@ -41,7 +42,13 @@ Widget setLogoIcon({
           Padding(padding: EdgeInsetsGeometry.only(left: Get.width * 0.001)),
           GestureDetector(
             onTap: newcartOntap,
-            child: homeScreenIcon(AppIcon.newcart),
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                homeScreenIcon(AppIcon.newcart),
+                Obx(() => cartBadge(cartItemCount.value,top: -5,right: 0)),
+              ],
+            ),
           ),
           Padding(padding: EdgeInsetsGeometry.only(left: Get.width * 0.001)),
           GestureDetector(
@@ -253,6 +260,40 @@ Widget overCollectionItems(item, {required void Function() onTap}) {
             ),
           ),
         ],
+      ),
+    ),
+  );
+}
+
+Widget cartBadge(
+  String cartItem, {
+  Color? color,
+  Color? textcolor,
+  double? right,
+  double? top,
+}) {
+  if (cartItem.isEmpty || cartItem == '0') {
+    return const SizedBox.shrink();
+  }
+  return Positioned(
+    right: right ?? -2,
+    top: top ?? -2,
+    child: Container(
+      padding: EdgeInsets.all(7),
+      decoration: BoxDecoration(
+        color: color ?? AppColor.primary,
+        shape: BoxShape.circle,
+      ),
+      constraints: BoxConstraints(minWidth: 16, minHeight: 16),
+      child: Center(
+        child: Text(
+          cartItem,
+          style: TextStyle(
+            color: textcolor ?? Colors.white,
+            fontSize: 13,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     ),
   );

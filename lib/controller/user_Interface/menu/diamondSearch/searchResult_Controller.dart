@@ -141,6 +141,7 @@ class SearchResultController extends GetxController {
       }
       cartAPICallAPI.cartAPI.filterCart();
       dasbaord.cardRecord.fetchCardRecords(isFirstLoad: true, type: 'Diamond');
+      calculateCartCount(cartAPICallAPI.cartAPI);
     } else {
       if (kDebugMode) {
         print("Please select at least one diamond");

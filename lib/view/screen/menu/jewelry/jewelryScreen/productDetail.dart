@@ -50,9 +50,10 @@ class ProductDetail extends StatelessWidget {
             loadingWait: (productDetail.adToCart.isLoading.value)
                 ? customCircular()
                 : null,
-            onTap: () {
-              productDetail.addToCart();
-              cartAPICallAPI.cartAPI.filterCart();
+            onTap: () async {
+              await productDetail.addToCart();
+              await cartAPICallAPI.cartAPI.filterCart();
+              calculateCartCount(cartAPICallAPI.cartAPI);
             },
             AppString.addtoCart,
             isLowercase: true,

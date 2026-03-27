@@ -33,14 +33,14 @@ Widget editNameEmail({
                       name,
                       style: TextStyle(
                         fontSize: Textsize.subheding,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     Text(
                       email,
                       style: TextStyle(
-                        fontSize: Textsize.small,
-                        fontWeight: FontWeight.w400,
+                        fontSize: Textsize.samisubHedding,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],

@@ -30,7 +30,7 @@ Widget cartValue({
   final rings = '682181561353060d79b6e480';
   final bracelets = '67f3a6e10d01f3f9f578083b';
   return Padding(
-    padding: const EdgeInsets.all(10),
+    padding: EdgeInsets.all(8.0),
     child: Column(
       children: [
         Row(
@@ -39,7 +39,6 @@ Widget cartValue({
             GestureDetector(
               onTap: removeItem,
               child: Container(
-                padding: EdgeInsets.only(bottom: Get.height * 0.002),
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(color: AppColor.primary, width: 1.5),
@@ -57,7 +56,7 @@ Widget cartValue({
             ),
           ],
         ),
-        Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.005)),
+        Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.010)),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -73,12 +72,9 @@ Widget cartValue({
                 child: Image.network(cartImage),
               ),
             ),
-
-            SizedBox(width: Get.width * 0.03),
-
+            Padding(padding: EdgeInsetsGeometry.only(right: Get.width * 0.03)),
             Expanded(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     title,
@@ -89,35 +85,55 @@ Widget cartValue({
                       fontSize: Textsize.samisubHedding,
                     ),
                   ),
-                  price(
-                    parsedPrice != null
-                        ? '\$${parsedPrice.toStringAsFixed(2)}'
-                        : '\$$PRICE_CT',
-                  ),
-                  valuedetails(shape: 'PRICE/CT', valueDetails: PRICE_CT),
-                  valuedetails(shape: 'Stock Id', valueDetails: stock),
-                  valuedetails(shape: 'Weightm (Apx)', valueDetails: Weightm),
-                  valuedetails(shape: 'Type', valueDetails: type),
                   Padding(
-                    padding: EdgeInsetsGeometry.only(top: Get.height * 0.02),
+                    padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.005),
                   ),
-                  //Rings
-                  (categoryId == rings)
-                      ? productSize(productDetail, AppString.ringSize)
-                      : SizedBox(),
-
-                  // Bracelet Size
-                  (categoryId == bracelets)
-                      ? productSize(productDetail, AppString.braceletSize)
-                      : SizedBox(),
-                  quantity(
-                    value: value,
-                    onTapDecrimant: onTapDecrimant,
-                    onTapIncrimant: onTapIncrimant,
+                  Row(
+                    children: [
+                      price(
+                        parsedPrice != null
+                            ? '\$${parsedPrice.toStringAsFixed(2)}'
+                            : '\$$PRICE_CT',
+                      ),
+                      Spacer(),
+                      quantity(
+                        value: value,
+                        onTapDecrimant: onTapDecrimant,
+                        onTapIncrimant: onTapIncrimant,
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
+          ],
+        ),
+        Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.005)),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                valuedetails(shape: 'PRICE/CT', valueDetails: PRICE_CT),
+                valuedetails(shape: 'Weightm (Apx)', valueDetails: Weightm),
+                valuedetails(shape: 'Type', valueDetails: type),
+              ],
+            ),
+            valuedetails(shape: 'Stock Id', valueDetails: stock),
+            (categoryId == rings || categoryId == bracelets)
+                ? Padding(
+                    padding: EdgeInsetsGeometry.only(top: Get.height * 0.02),
+                  )
+                : SizedBox(),
+            //Rings
+            (categoryId == rings)
+                ? productSize(productDetail, AppString.ringSize)
+                : SizedBox(),
+
+            // Bracelet Size
+            (categoryId == bracelets)
+                ? productSize(productDetail, AppString.braceletSize)
+                : SizedBox(),
           ],
         ),
       ],
@@ -131,7 +147,7 @@ Widget valuedetails({required String valueDetails, required String shape}) {
   if (shape == 'PRICE/CT') {
     final parsed = double.tryParse(valueDetails);
     displayValue = parsed != null
-        ? '\$${parsed.toStringAsFixed(2)}'
+        ? '\$${parsed.toStringAsFixed(1)}'
         : '\$$valueDetails';
   }
 
@@ -162,16 +178,13 @@ Widget hedding(text) {
 }
 
 Widget valuecart(text) {
-  return SizedBox(
-    width: Get.width * 0.3,
-    child: Text(
-      '$text, ',
-      style: TextStyle(
-        color: AppColor.black,
-        fontFamily: 'Sans-Bold',
-        fontWeight: FontWeight.w500,
-        fontSize: Textsize.small,
-      ),
+  return Text(
+    '$text, ',
+    style: TextStyle(
+      color: AppColor.black,
+      fontFamily: 'Sans-Bold',
+      fontWeight: FontWeight.w500,
+      fontSize: Textsize.small,
     ),
   );
 }

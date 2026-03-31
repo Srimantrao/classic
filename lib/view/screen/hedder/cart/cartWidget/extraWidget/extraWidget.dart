@@ -44,14 +44,15 @@ Widget cartValue({
                     bottom: BorderSide(color: AppColor.primary, width: 1.5),
                   ),
                 ),
-                child: Text(
-                  'Remove Item',
-                  style: TextStyle(
-                    fontSize: Textsize.samisubHedding,
-                    color: AppColor.primary,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                child: Icon(Icons.delete,color: AppColor.red),
+                // child: Text(
+                //   'Remove Item',
+                //   style: TextStyle(
+                //     fontSize: Textsize.samisubHedding,
+                //     color: AppColor.primary,
+                //     fontWeight: FontWeight.w600,
+                //   ),
+                // ),
               ),
             ),
           ],
@@ -115,7 +116,7 @@ Widget cartValue({
             Row(
               children: [
                 valuedetails(shape: 'PRICE/CT', valueDetails: PRICE_CT),
-                valuedetails(shape: 'Weightm (Apx)', valueDetails: Weightm),
+                valuedetails(shape: 'Weightm', valueDetails: Weightm),
                 valuedetails(shape: 'Type', valueDetails: type),
               ],
             ),
@@ -169,9 +170,9 @@ Widget hedding(text) {
   return Text(
     '$text : ',
     style: TextStyle(
-      color: AppColor.gray3,
+      color: AppColor.gray5,
       fontFamily: 'Sans-Bold',
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
       fontSize: Textsize.small,
     ),
   );
@@ -179,7 +180,7 @@ Widget hedding(text) {
 
 Widget valuecart(text) {
   return Text(
-    '$text, ',
+    '$text,  ',
     style: TextStyle(
       color: AppColor.black,
       fontFamily: 'Sans-Bold',

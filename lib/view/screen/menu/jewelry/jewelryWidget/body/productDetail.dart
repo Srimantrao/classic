@@ -447,8 +447,10 @@ Widget productmetalDetails({
       children: [
         SizedBox(height: Get.height * 0.02),
         cartConatiner(
+          vertical: 10,
           child: Column(
             children: [
+              SizedBox(height: Get.height * 0.01),
               GestureDetector(
                 onTap: onTapMetal,
                 child: Row(
@@ -460,7 +462,6 @@ Widget productmetalDetails({
                 ),
               ),
               Divider(color: AppColor.editColor),
-              SizedBox(height: Get.height * 0.01),
               (metalDetail)
                   ? Column(
                       children: [
@@ -502,7 +503,6 @@ Widget productmetalDetails({
                       ],
                     ),
                     Divider(color: AppColor.editColor),
-                    SizedBox(height: Get.height * 0.01),
                     (stoneDetail)
                         ? Column(
                             children: [

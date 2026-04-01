@@ -19,11 +19,12 @@ class VideoController extends GetxController {
 
     videoPlayerController = VideoPlayerController.asset(videoUrl);
     await videoPlayerController!.initialize();
+    await videoPlayerController!.setVolume(0.0);
 
     videoPlayerController!
-      ..pause();
-      // ..setLooping(true)
-      // ..play();
+      ..pause()
+      ..setLooping(true)
+      ..play();
 
     update();
   }

@@ -453,12 +453,15 @@ Widget productmetalDetails({
               SizedBox(height: Get.height * 0.01),
               GestureDetector(
                 onTap: onTapMetal,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    metalHedding(AppString.productAndMetalDetails),
-                    (metalDetail) ? toggleIcon('-') : toggleIcon('+'),
-                  ],
+                child: Container(
+                  color: AppColor.cardBg,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      metalHedding(AppString.productAndMetalDetails),
+                      (metalDetail) ? toggleIcon('-') : toggleIcon('+'),
+                    ],
+                  ),
                 ),
               ),
               Divider(color: AppColor.editColor),

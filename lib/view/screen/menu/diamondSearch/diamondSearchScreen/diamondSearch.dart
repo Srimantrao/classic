@@ -34,15 +34,10 @@ class Diamondsearch extends StatelessWidget {
       endDrawer: Drawers(),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(color: AppColor.white),
-        height: Get.height * 0.17,
+        height: Get.height * 0.15,
         child: horizontalPadding(
           child: Column(
             children: [
-              Padding(
-                padding: EdgeInsetsGeometry.only(
-                  bottom: Get.height * 0.009,
-                ),
-              ),
               Obx(() {
                 final api = diamondSearch.diamondSearchAPI;
                 final loading = api.isLoading.value;

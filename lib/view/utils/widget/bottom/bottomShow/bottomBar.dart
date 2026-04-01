@@ -12,7 +12,9 @@ import 'package:get/get.dart';
 class Bottombar extends StatelessWidget {
   final bottomController = Get.put(BottombarController());
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
   Bottombar({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
@@ -41,17 +43,7 @@ class Bottombar extends StatelessWidget {
                     top: Get.height * 0.01,
                     bottom: Get.height * 0.001,
                   ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      horizontalPadding(child: flotingBar(bottomController)),
-                      Padding(
-                        padding: EdgeInsetsGeometry.only(
-                          bottom: Get.height * 0.008,
-                        ),
-                      ),
-                    ],
-                  ),
+                  child: horizontalPadding(child: flotingBar(bottomController)),
                 ),
               ),
             ),

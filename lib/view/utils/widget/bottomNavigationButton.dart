@@ -10,17 +10,10 @@ Widget buttonNavigation({required Widget child}) {
     color: AppColor.white,
     child: SafeArea(
       child: SizedBox(
-        height: Get.height * 0.06,
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.01),
-            ),
-            Container(
-              decoration: BoxDecoration(color: AppColor.white),
-              child: horizontalPadding(child: child),
-            ),
-          ],
+        height: Get.height * 0.05,
+        child: Container(
+          decoration: BoxDecoration(color: AppColor.white),
+          child: horizontalPadding(child: child),
         ),
       ),
     ),

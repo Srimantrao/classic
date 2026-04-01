@@ -15,6 +15,7 @@ class Fullscreen extends StatelessWidget {
   final Widget? floatingActionButton;
   final GlobalKey<ScaffoldState>? scaffoldKey;
   final Widget? body;
+
   Fullscreen({
     super.key,
     this.child,
@@ -26,6 +27,7 @@ class Fullscreen extends StatelessWidget {
     this.endDrawer,
     this.body,
   });
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

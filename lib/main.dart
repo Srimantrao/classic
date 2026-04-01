@@ -67,6 +67,11 @@ Future<void> main() async {
   print('Stock $Stock');
   print('TokanRecaptcha $TokanRecaptcha');
 
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitDown,
+    DeviceOrientation.portraitUp,
+  ]);
+
   runApp(const MyApp());
 }
 

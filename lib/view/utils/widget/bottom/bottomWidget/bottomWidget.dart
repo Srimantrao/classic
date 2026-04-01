@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 Widget flotingBar(BottombarController bottomController) {
   return Container(
     padding: EdgeInsets.only(
-      top: Get.height * 0.010,
+      top: Get.height * 0.009,
       left: Get.width * 0.0001,
       right: Get.width * 0.0001,
       bottom: Get.height * 0.01,
@@ -77,17 +77,10 @@ Widget actionIconButton({
       customIcon(
         icon: icon,
         onTap: onTap,
-        color: (color!) ? AppColor.primary : null,
+        color: (color!) ? AppColor.primary : AppColor.gray5,
       ),
       (color)
-          ? Column(
-              children: [
-                Padding(
-                  padding: EdgeInsetsGeometry.only(top: Get.height * 0.002),
-                ),
-                dot(),
-              ],
-            )
+          ? dot()
           : SizedBox(),
     ],
   );
@@ -103,7 +96,7 @@ Widget customIcon({
     child: Container(
       padding: EdgeInsetsGeometry.symmetric(horizontal: 20, vertical: 5),
       decoration: BoxDecoration(color: Colors.transparent),
-      child: Image.asset(icon, scale: 2.8, color: color),
+      child: Image.asset(icon, scale: 3, color: color),
     ),
   );
 }

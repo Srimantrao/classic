@@ -52,6 +52,7 @@ dependencies:
   marquee:
   intl:
   restart_app:
+  flutter_screenutil:
 
 dev_dependencies:
   flutter_test:

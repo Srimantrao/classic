@@ -5,7 +5,7 @@ import 'package:classic/view/utils/app_Color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Widget cartConatiner({required Widget child, double? vertical = 0.0}) {
+Widget cartConatiner({required Widget child, double? vertical}) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 15, vertical: vertical ?? 20),
     decoration: BoxDecoration(

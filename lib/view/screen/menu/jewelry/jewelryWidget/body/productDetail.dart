@@ -244,15 +244,27 @@ Future<void> youlike(youMayLikeControllerAPI, productListAPI) async {
     }
     return current as T?;
   }
+
   final productData = productListAPI.productListData.isNotEmpty
       ? productListAPI.productListData[0]
       : <String, dynamic>{};
   await youMayLikeControllerAPI.getYouMayLike(
-    shape: getNestedValue<String>(productData, ['stoneDetails', 0, 'shape', '_id',]) ?? "",
+    shape:
+        getNestedValue<String>(productData, [
+          'stoneDetails',
+          0,
+          'shape',
+          '_id',
+        ]) ??
+        "",
     carat: getNestedValue<dynamic>(productData, ['totalWgt'])?.toString() ?? "",
-    AppWeight: getNestedValue<dynamic>(productData, ['appxMetalWgt'])?.toString() ?? "",
-    metalType: getNestedValue<String>(productData, ['metalType', 0, '_id']) ?? "",
-    metalStamp: getNestedValue<String>(productData, ['metalStamp', 0, '_id']) ?? "",
+    AppWeight:
+        getNestedValue<dynamic>(productData, ['appxMetalWgt'])?.toString() ??
+        "",
+    metalType:
+        getNestedValue<String>(productData, ['metalType', 0, '_id']) ?? "",
+    metalStamp:
+        getNestedValue<String>(productData, ['metalStamp', 0, '_id']) ?? "",
   );
 }
 
@@ -445,12 +457,20 @@ Widget productmetalDetails({
   return horizontalPadding(
     child: Column(
       children: [
-        SizedBox(height: Get.height * 0.02),
+        Padding(
+          padding: EdgeInsetsGeometry.only(
+            bottom: Get.height * 0.02,
+          ),
+        ),
         cartConatiner(
           vertical: 10,
           child: Column(
             children: [
-              SizedBox(height: Get.height * 0.01),
+              Padding(
+                padding: EdgeInsetsGeometry.only(
+                  bottom: Get.height * 0.01,
+                ),
+              ),
               GestureDetector(
                 onTap: onTapMetal,
                 child: Container(

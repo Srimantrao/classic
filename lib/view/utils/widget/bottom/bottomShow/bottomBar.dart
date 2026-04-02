@@ -38,12 +38,17 @@ class Bottombar extends StatelessWidget {
               bottom: 0,
               child: SafeArea(
                 child: Container(
+                  height: Get.height * 0.09,
                   color: AppColor.white,
                   padding: EdgeInsets.only(
                     top: Get.height * 0.01,
                     bottom: Get.height * 0.001,
                   ),
-                  child: horizontalPadding(child: flotingBar(bottomController)),
+                  child: Column(
+                    children: [
+                      horizontalPadding(child: flotingBar(bottomController)),
+                    ],
+                  ),
                 ),
               ),
             ),

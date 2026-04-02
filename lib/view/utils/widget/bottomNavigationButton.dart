@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, sized_box_for_whitespace
 
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
@@ -9,11 +9,15 @@ Widget buttonNavigation({required Widget child}) {
   return Container(
     color: AppColor.white,
     child: SafeArea(
-      child: SizedBox(
-        height: Get.height * 0.05,
-        child: Container(
-          decoration: BoxDecoration(color: AppColor.white),
-          child: horizontalPadding(child: child),
+      child: Container(
+        height: Get.height * 0.06,
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(color: AppColor.white),
+              child: horizontalPadding(child: child),
+            ),
+          ],
         ),
       ),
     ),

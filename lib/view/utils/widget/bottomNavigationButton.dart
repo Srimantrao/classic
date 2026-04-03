@@ -13,9 +13,11 @@ Widget buttonNavigation({required Widget child}) {
         height: Get.height * 0.06,
         child: Column(
           children: [
-            Container(
-              decoration: BoxDecoration(color: AppColor.white),
-              child: horizontalPadding(child: child),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(color: AppColor.white),
+                child: horizontalPadding(child: child),
+              ),
             ),
           ],
         ),

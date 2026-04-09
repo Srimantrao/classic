@@ -82,7 +82,6 @@ class CartUiController extends GetxController {
   Future<void> _updateCart(int index, String id) async {
     if (index < unitPriceList.length && index < qtyList.length) {
       totalPrice.value = unitPriceList[index] * qtyList[index];
-
       await updateCart.updateCart(
         id,
         qty: qtyList[index].toString(),

@@ -22,9 +22,9 @@ class VideoController extends GetxController {
     await videoPlayerController!.setVolume(0.0);
 
     videoPlayerController!
-      ..pause();
-      // ..setLooping(true)
-      // ..play();
+      ..pause()
+      ..setLooping(true)
+      ..play();
 
     update();
   }

@@ -14,9 +14,13 @@ Widget buttonNavigation({required Widget child}) {
         child: Column(
           children: [
             Expanded(
-              child: Container(
-                decoration: BoxDecoration(color: AppColor.white),
-                child: horizontalPadding(child: child),
+              child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(color: AppColor.white),
+                    child: horizontalPadding(child: child),
+                  ),
+                ],
               ),
             ),
           ],

@@ -225,7 +225,7 @@ Widget subHedding(text) {
   return Row(
     children: [
       Text(
-        text,
+        "$text: ",
         style: TextStyle(fontSize: Textsize.small, fontWeight: FontWeight.w500),
       ),
     ],

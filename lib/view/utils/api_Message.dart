@@ -49,15 +49,20 @@ void errorMesssess({
 }) {
   print("❌ $callAPI Status: ${e.response?.statusCode}");
   print("❌ $callAPI Status Data: ${e.response?.data}");
-  
+
+  String errorMessage = 'Something went wrong';
+  if (e.response?.data is Map) {
+    errorMessage = e.response?.data?["message"] ?? 'Something went wrong';
+  }
+
   if (showSnackbarMessages) {
     ToastificationError.Error(
-      "$callAPI Message :-  ${e.response?.data?["message"] ?? 'Something went wrong'}",
+      "$callAPI Message :-  $errorMessage",
     );
   }
-  
+
   if (showSnackbarErorr) {
-    ToastificationError.Error("Error, ${e.response?.data?["message"] ?? 'Something went wrong'}");
+    ToastificationError.Error("Error, $errorMessage");
   }
   return;
 }

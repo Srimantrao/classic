@@ -34,7 +34,10 @@ class Wishlist extends StatelessWidget {
               onTapJewellwery: () => wishlistUI.selectTab(1),
             ),
 
+            //Dimaond
             if (wishlistUI.selectedIndex.value == 0) diamondListWish(header),
+
+            //Jewellwery
             if (wishlistUI.selectedIndex.value == 1)
               dashbordValueList(
                 list: jewelryListViwe(

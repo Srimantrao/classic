@@ -47,7 +47,7 @@ class CartUiController extends GetxController {
   }
 
   void incrementQty(int index, String id) {
-    if(index < qtyList.length){
+    if (index < qtyList.length) {
       qtyList[index]++;
       updatingQty.value = qtyList[index];
       update(['qty_$index', 'grand_total']);
@@ -65,7 +65,7 @@ class CartUiController extends GetxController {
   }
 
   void changeRingSize(int index, String ringSize, String id) {
-    if(index < ringSizeList.length){
+    if (index < ringSizeList.length) {
       ringSizeList[index] = ringSize;
       _updateCart(index, id);
       update(['ring_$index', 'qty_$index', 'grand_total']);
@@ -80,7 +80,7 @@ class CartUiController extends GetxController {
   }
 
   Future<void> _updateCart(int index, String id) async {
-    if(index < unitPriceList.length && index < qtyList.length){
+    if (index < unitPriceList.length && index < qtyList.length) {
       totalPrice.value = unitPriceList[index] * qtyList[index];
 
       await updateCart.updateCart(

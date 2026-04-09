@@ -60,7 +60,7 @@ class Cart extends StatelessWidget {
                 cartProductItem(cartUI, cartProduct, productDetail),
 
               //Diamond List
-              if (cartRecord.isNotEmpty) diamondProductItem(cartRecord),
+              if (cartRecord.isNotEmpty) diamondProductItem(diamondProduct),
 
               //Price
               GetBuilder<CartUiController>(

@@ -5,6 +5,7 @@ import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
+import 'package:classic/view/utils/widget/removeIcon.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../../controller/application_Programing_interface/apiController/menu/jewellery/productDetail/productsize_Controller.dart';
@@ -38,22 +39,7 @@ Widget cartValue({
           children: [
             GestureDetector(
               onTap: removeItem,
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: AppColor.primary, width: 1.5),
-                  ),
-                ),
-                child: Icon(Icons.delete,color: AppColor.red),
-                // child: Text(
-                //   'Remove Item',
-                //   style: TextStyle(
-                //     fontSize: Textsize.samisubHedding,
-                //     color: AppColor.primary,
-                //     fontWeight: FontWeight.w600,
-                //   ),
-                // ),
-              ),
+              child: removeIcon(),
             ),
           ],
         ),

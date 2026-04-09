@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 Widget removeIcon() {
   return Container(
     padding: EdgeInsetsGeometry.only(left: 20, right: 0, top: 2, bottom: 2),
-    decoration: BoxDecoration(color: AppColor.white),
+    decoration: BoxDecoration(color: Colors.transparent),
     child: Icon(Icons.delete_outline, color: AppColor.red, size: 18),
   );
 }

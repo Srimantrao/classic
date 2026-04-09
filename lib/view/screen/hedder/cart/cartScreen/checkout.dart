@@ -79,7 +79,7 @@ class Checkout extends StatelessWidget {
 
                           //Diamond List
                           if (cartRecordList.isNotEmpty)
-                            diamondProductItem(cartRecordList),
+                            diamondProductItem(diamondProduct),
                         ],
                       ),
                     )

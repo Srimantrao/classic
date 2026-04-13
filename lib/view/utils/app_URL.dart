@@ -5,6 +5,9 @@ class AppUrl {
   //base url
 
   //Staging
+      //WebSite
+        static const classicWebSite = "https://next.weingenious.in/classic-alpha/";
+      //API
   static const String baseUrl = "https://node.weingenious.in/classic/api/v1/";
   static const String imagebaseUrl = "https://node.weingenious.in/classic/uploads/photos/";
 

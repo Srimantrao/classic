@@ -1,6 +1,5 @@
-// ignore: file_names
 
-// ignore_for_file: avoid_print, file_names, duplicate_ignore, non_constant_identifier_names, avoid_unnecessary_containers, strict_top_level_inference
+// ignore_for_file: avoid_unnecessary_containers, non_constant_identifier_names, strict_top_level_inference, avoid_print
 
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/cart/cart_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/fitterWish/deletWish_Controller.dart';
@@ -111,100 +110,6 @@ Widget diamondProductItem(List dataList) {
     },
   );
 }
-
-// final adToCart = Get.put(CreateCartController());
-// final removeItem = Get.put(DeleteCartController());
-// final cartAPICallAPI = Get.put(CartAPICall());
-// final adToCart = Get.put(CreateCartController());
-// final removeItem = Get.put(DeleteCartController());
-// final cartAPICallAPI = Get.put(CartAPICall());
-// return listDiamond(
-//   idOnTop: () {
-//     final String? link = diamond['certurl']?.toString();
-//     if (link == null || link.isEmpty) {
-//       if (kDebugMode) {
-//         print("No Link");
-//       }
-//       return;
-//     } else {
-//       productLink(link);
-//     }
-//   },
-//   cartifactIcon: (diamond?['certno'] == null || diamond?['certno'] == '-')
-//       ? AppIcon.documant
-//       : AppIcon.documant,
-//   ids: diamond['_id']?.toString() ?? '',
-//   images: diamond['imageurl1']?.toString() ?? '',
-//   videos: diamond['videourl']?.toString() ?? '',
-//   shape: diamond['shape']?.toString() ?? '',
-//   careat: diamond['carat']?.toString() ?? '',
-//   lab: diamond['lab']?.toString() ?? '',
-//   colorcode: diamond['countryCode']?.toString() ?? '',
-//   clarity: diamond['clarity']?.toString() ?? '',
-//   cartifactNo: (diamond['certno'] == null || diamond['certno'] == '-')
-//       ? ''
-//       : diamond['certno'].toString(),
-//   cps: diamond['polish']?.toString() ?? 'NONE-Undefined-U',
-//   meas: diamond['measurement']?.toString() ?? 'undefined',
-//   refNo: diamond['stockId']?.toString() ?? '',
-//   T: diamond['depth']?.toString() ?? '0%',
-//   D: diamond['tablepercent']?.toString() ?? 'NaN%',
-//   loc: diamond['country']?.toString() ?? '',
-//   ct: diamond['carat']?.toString() ?? '',
-//   total: diamond['finalamount']?.toString() ?? '',
-//   isWishlist: true,
-//   video: true,
-//   camara: true,
-//   link: true,
-//   deletdiamond: true,
-//   videoOnTap: () {
-//     final String? video = diamond['videourl']?.toString();
-//     if (video == null || video.isEmpty) {
-//       ToastificationError.Error(AppString.noVideo);
-//       if (kDebugMode) {
-//         print("No Video");
-//       }
-//       return;
-//     } else {
-//       Get.to(() => ProductVideo(videoUrl: video));
-//     }
-//   },
-//   camaraOnTap: () {
-//     final String? image = diamond['imageurl1']?.toString();
-//     if (image == null || image.isEmpty) {
-//       ToastificationError.Error(AppString.noImage);
-//       if (kDebugMode) {
-//         print("No Image");
-//       }
-//       return;
-//     }
-//     Get.to(() => ProductImage(images: image));
-//   },
-//   deleteDiamond: () async {
-//     await removeItem.deleteCart(diamond['_id']?.toString() ?? '');
-//     await cartAPICallAPI.cartAPI.filterCart();
-//     calculateCartCount(cartAPICallAPI.cartAPI);
-//   },
-//   cartOnTap: () {
-//     adToCart.createCart(
-//       price: diamond['finalamount']?.toString() ?? '',
-//       productId: diamond['_id']?.toString() ?? '',
-//       DiamondId: diamond['dimCountryId']?.toString() ?? '',
-//     );
-//   },
-//   linkOnTap: () {
-//     final String? link = diamond['certurl']?.toString();
-//     if (link == null || link.isEmpty) {
-//       ToastificationError.Error(AppString.noLink);
-//       if (kDebugMode) {
-//         print("No Link");
-//       }
-//       return;
-//     } else {
-//       productLink(link);
-//     }
-//   },
-// );
 
 Widget cartShow(
   product,

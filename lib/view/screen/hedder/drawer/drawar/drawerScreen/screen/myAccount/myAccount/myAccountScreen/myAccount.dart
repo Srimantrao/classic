@@ -10,6 +10,7 @@ import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myA
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/myAccount/myAccountExtraWidget/myAccountExtraWidget.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/myAccount/myAccountWidget/body/myAccontWidget.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/orderHistory/orderHistoryScreen/orderHistory.dart';
+import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/privacyPolicy/privacyPolicyScreen/privacyPolicy.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/wishlist/wishlistScreen/wishlistScreen.dart';
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
@@ -19,11 +20,14 @@ import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.d
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../termsConditions/termsConditionsScreen/termsCondition.dart';
 
 class Myaccount extends StatelessWidget {
   final hedder = Get.put(CartAPICall());
   final logOutUI = Get.put(LogoutController());
+
   Myaccount({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
@@ -49,6 +53,8 @@ class Myaccount extends StatelessWidget {
             customProduct: () => Get.to(() => Customproduct()),
             address: () => Get.to(() => Address()),
             changePassword: () => passwordChange(context),
+            privacyPolicy: () => Get.to(() => Privacypolicy()),
+            termsAndConditions: () => Get.to(() => TermsCondition()),
             logout: logOutUI.logout,
           ),
         ],
@@ -93,7 +99,11 @@ void passwordChange(BuildContext context) {
                     newPasswordController: newPasswordController,
                     confirmPasswordController: confirmPasswordController,
                   ),
-                  SizedBox(height: Get.height * 0.01),
+                  Padding(
+                    padding: EdgeInsetsGeometry.only(
+                      bottom: Get.height * 0.01,
+                    ),
+                  ),
                   changePasswordButton(
                     canalOnTap: () => Get.back(),
                     submitOnTap: () {

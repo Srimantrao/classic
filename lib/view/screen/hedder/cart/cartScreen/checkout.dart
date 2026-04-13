@@ -24,7 +24,6 @@ class Checkout extends StatelessWidget {
   final cardRecord = Get.put(CardRecordController());
   final cartUI = Get.put(CartUiController());
   final productDetail = Get.put(ProductDetailUIController());
-
   @override
   Widget build(BuildContext context) {
     return Fullscreen(

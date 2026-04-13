@@ -12,9 +12,7 @@ import 'package:get/get.dart';
 class Bottombar extends StatelessWidget {
   final bottomController = Get.put(BottombarController());
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
   Bottombar({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Fullscreen(

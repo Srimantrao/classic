@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
-import 'package:classic/controller/user_Interface/hedder/myAccount/wishlist/wishlist_Controller.dart';
+import 'package:classic/controller/user_Interface/hedder/drawer/myAccount/wishlist/wishlist_Controller.dart';
 import 'package:classic/modal/headder/myAccount/wishlist.dart';
 import 'package:classic/view/screen/menu/dashbord/dasboadWidget/body/diamondSection.dart';
 import 'package:classic/view/screen/menu/dashbord/dashbordExtraWidget/dashbordExtraWidget.dart';

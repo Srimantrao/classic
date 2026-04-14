@@ -45,6 +45,7 @@ class AppColor{
   static Color gray3 = Color(0xffCFCFCF);
   static Color gray4 = Color(0xffFAFAFA);
   static Color gray5 = Color(0xff7989AE);
+  static Color ligthGray = Color(0xffE1E8EC);
   static Color red = Colors.red;
   static Color shadeGreen = Color(0xff31A44A);
   static Color green1 = Color(0xff168944);

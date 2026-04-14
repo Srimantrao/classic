@@ -1,5 +1,4 @@
 // ignore_for_file: file_names, invalid_use_of_protected_member
-import 'package:classic/controller/user_Interface/hedder/myAccount/holdDiamonds/holdDiamodUI_Controller.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/holdDiamods/holdDiamondWidget/body/holdDiamondWidget.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_json.dart';
@@ -8,6 +7,8 @@ import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.d
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+
+import '../../../../../../../../../../controller/user_Interface/hedder/drawer/myAccount/holdDiamonds/holdDiamodUI_Controller.dart';
 
 class Holddimaond extends StatelessWidget {
   const Holddimaond({super.key});

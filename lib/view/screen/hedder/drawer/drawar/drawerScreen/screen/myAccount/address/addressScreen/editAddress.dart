@@ -1,6 +1,6 @@
 // ignore_for_file: file_names, unnecessary_import, use_key_in_widget_constructors
 
-import 'package:classic/controller/user_Interface/hedder/myAccount/address/editAddress.dart';
+import 'package:classic/controller/user_Interface/hedder/drawer/myAccount/address/editAddress.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/address/addressWidget/body/editAddressWidget.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_cricularProgrssIndicator.dart';

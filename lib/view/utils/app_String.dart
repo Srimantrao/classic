@@ -32,6 +32,7 @@ class AppString {
   static const details = 'Details';
   static const measurements = 'Measurements';
   static const inclusion = 'Inclusion';
+  static const sendMessage = 'Send Message';
 
   //Drawer Screen
   static const myAccount = 'MY ACCOUNT';
@@ -45,6 +46,15 @@ class AppString {
   static const logout = 'LOGOUT';
   static const naturalDiamond = 'Natural Diamond';
   static const coloredDiamond = 'Colored Diamond';
+  static const contactus = 'Contact Us';
+  static const letsgetintouch = 'Let\'s Get In Touch';
+  static const followUs = 'Follow Us';
+  static const comapanyAdress = '22W 48th Street Suite #300 New York,NY 100036 USA';
+  static const phoneNo = '+1_212_221_3667';
+  static const phone = 'Phone Number';
+  static const comapnyemailId = "sales@classicgrowndiamonds.com";
+  static const companyInformation = 'We are open for any suggestion or just to have a chat';
+  static const companyInformation2 = 'Plese get in touch with us if you like more information about our products and Services';
 
     //FindStore Screen
     static const check = 'Check';

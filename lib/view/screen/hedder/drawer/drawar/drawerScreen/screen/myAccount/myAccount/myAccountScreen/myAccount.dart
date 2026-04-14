@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 
 import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
-import 'package:classic/controller/user_Interface/hedder/myAccount/chnagePassword/changePasswordUI_Controller.dart';
 import 'package:classic/controller/user_Interface/widget/logOut/logOut_Controller.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/address/addressScreen/address.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/customProduct/customProductScreen/customProduct.dart';
@@ -20,7 +19,9 @@ import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.d
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../../../../../../../controller/user_Interface/hedder/drawer/myAccount/chnagePassword/changePasswordUI_Controller.dart';
 import '../../termsConditions/termsConditionsScreen/termsCondition.dart';
+import '../helpCenter/helpCenterScreen/helpCenter.dart';
 
 class Myaccount extends StatelessWidget {
   final hedder = Get.put(CartAPICall());
@@ -53,6 +54,7 @@ class Myaccount extends StatelessWidget {
             customProduct: () => Get.to(() => Customproduct()),
             address: () => Get.to(() => Address()),
             changePassword: () => passwordChange(context),
+            helpCenter: () => Get.to(() => HelpCenter()),
             privacyPolicy: () => Get.to(() => Privacypolicy()),
             termsAndConditions: () => Get.to(() => TermsCondition()),
             logout: logOutUI.logout,

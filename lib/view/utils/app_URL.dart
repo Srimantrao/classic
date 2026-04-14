@@ -52,6 +52,8 @@ class AppUrl {
                 static const String editAddress = "${baseUrl}App/myaccount/editMyAddress";
               //Change Address
                 static const String changeAddress = "${baseUrl}App/myaccount/updateProfile";
+              //help Center
+                static const String sendMessage = "${baseUrl}app/contactUs/create";
   //Menu
     //home
       static const String filterSlider = "${baseUrl}App/slider/filterSlider/1";

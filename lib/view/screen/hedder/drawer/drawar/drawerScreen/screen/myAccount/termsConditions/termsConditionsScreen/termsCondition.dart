@@ -1,6 +1,6 @@
 // ignore_for_file: use_key_in_widget_constructors
 
-import 'package:classic/controller/user_Interface/hedder/myAccount/termsConditions/termsConditions_Controller.dart';
+import 'package:classic/controller/user_Interface/hedder/drawer/myAccount/termsConditions/termsConditions_Controller.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/privacyPolicy/privacyPolicyWidget/privacyPolicyWidget.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:flutter/material.dart';

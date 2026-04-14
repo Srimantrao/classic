@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 
-import 'package:classic/controller/user_Interface/hedder/myAccount/editProfile/editProfile_Controller.dart';
+
 import 'package:classic/view/screen/credentials/businessInformation/businessInformationWidget/businessInformationWidget.dart';
 import 'package:classic/view/screen/credentials/signUp/singUpWidget/sinupWidget.dart';
 import 'package:classic/view/utils/app_Color.dart';
@@ -13,6 +13,8 @@ import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.d
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../../../../../../../../controller/user_Interface/hedder/drawer/myAccount/editProfile/editProfile_Controller.dart';
 
 class Editprofile extends StatelessWidget {
   final editProfileUI = Get.put(EditprofileUIController());

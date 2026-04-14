@@ -1,6 +1,5 @@
 // ignore_for_file: invalid_null_aware_operator, unnecessary_null_comparison, file_names, avoid_unnecessary_containers, avoid_print, deprecated_member_use
 
-import 'package:classic/controller/user_Interface/hedder/myAccount/holdDiamonds/holdDiamodUI_Controller.dart';
 import 'package:classic/view/screen/menu/dashbord/dasboadWidget/body/diamondSection.dart';
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
@@ -11,6 +10,7 @@ import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../../../../../../../controller/user_Interface/hedder/drawer/myAccount/holdDiamonds/holdDiamodUI_Controller.dart';
 import '../../../../../../../../../menu/diamondSearch/diamondWidget/body/searchResultWidget.dart';
 
 Widget chekhValueeadder(HolddiamodUIController holdcontroller, List valueList) {

@@ -1,6 +1,6 @@
 // ignore_for_file: file_names, non_constant_identifier_names
 
-import 'package:classic/controller/user_Interface/hedder/myAccount/address/addNewAddress.dart';
+
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/address/addressWidget/body/editAddressWidget.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_cricularProgrssIndicator.dart';
@@ -10,6 +10,7 @@ import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../../../../../../../controller/user_Interface/hedder/drawer/myAccount/address/addNewAddress.dart';
 
 class Addnewaddress extends StatelessWidget {
   final AddnewaddressUI = Get.put(AddnewaddressUIController());

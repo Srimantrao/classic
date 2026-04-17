@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_print
+// ignore_for_file: use_key_in_widget_constructors, file_names, avoid_print
 
 import 'package:classic/controller/user_Interface/menu/addCustomJewellery/addCustomJewellery_Controller.dart';
 import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';
@@ -18,6 +18,7 @@ import '../../../../../controller/application_Programing_interface/apiController
 import '../../../../../controller/application_Programing_interface/callApi/callAPI.dart';
 import '../../../../utils/app_cricularProgrssIndicator.dart';
 
+//AddCustom Screen
 class AddCustomJewellery extends StatelessWidget {
   final addCustom = Get.put(AddcustomjewelleryUIController());
   final addCustomJewellery = Get.put(AddCustomJewelleryController());
@@ -25,7 +26,6 @@ class AddCustomJewellery extends StatelessWidget {
   final jewellry = Get.put(JewelleryAPICall());
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final diamondList = DiamondList();
-  AddCustomJewellery({super.key});
   @override
   Widget build(BuildContext context) {
     return Fullscreen(

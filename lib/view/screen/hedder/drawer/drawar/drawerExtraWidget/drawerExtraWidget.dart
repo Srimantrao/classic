@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_unnecessary_containers
+// ignore_for_file: strict_top_level_inference, avoid_unnecessary_containers
 
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
@@ -10,10 +10,26 @@ import 'package:marquee/marquee.dart';
 import '../../../../../utils/app_TextSize.dart';
 import '../../../../../utils/widget/logo.dart';
 
-Widget imageDrawer() {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [image(height: Get.height * 0.02)],
+Widget imageDrawer(void Function()? onTap) {
+  return horizontalPadding(
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(width: Get.width * 0.025),
+        image(height: Get.height * 0.02),
+        GestureDetector(
+          onTap: onTap,
+          child: Container(
+            padding: EdgeInsetsDirectional.symmetric(
+              vertical: Get.height * 0.03,
+              horizontal: Get.width * 0.005,
+            ),
+            decoration: BoxDecoration(color: Colors.transparent),
+            child: Icon(Icons.cancel_outlined, color: AppColor.primary),
+          ),
+        ),
+      ],
+    ),
   );
 }
 

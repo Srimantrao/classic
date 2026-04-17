@@ -1,5 +1,9 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
 import 'package:classic/controller/user_Interface/hedder/drawer/drawers_Controller.dart';
+import 'package:classic/controller/user_Interface/menu/jewelry/filter_Controller.dart';
+import 'package:classic/controller/user_Interface/widget/bottaomBar/bottombar_Controller.dart';
 import 'package:classic/controller/user_Interface/widget/logOut/logOut_Controller.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerExtraWidget/drawerExtraWidget.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/findStore/findStoreScreen/findStore.dart';
@@ -13,12 +17,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
+//Drawers
 class Drawers extends StatelessWidget {
   final drawerUI = Get.put(DrawersUIController());
   final jewelryUI = Get.put(JewelleryAPICall());
   final cartAPICallAPI = Get.put(CartAPICall());
+  final bottomController = Get.put(BottombarController());
   final logOutUI = Get.put(LogoutController());
-  Drawers({super.key});
+  final filter = Get.put(FilterUIController());
   @override
   Widget build(BuildContext context) {
     return allDrawersBody(
@@ -65,16 +71,12 @@ class Drawers extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                imageDrawer(),
+                imageDrawer(() => bottomController.isDrawerOpen.value = false),
                 Divider(color: AppColor.gray),
                 Padding(
-                  padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.015),
-                ),
-                //Myaccount
-                iconDrawer(
-                  onTap: () => Get.to(() => Myaccount()),
-                  text: AppString.myAccount,
-                  icon: AppIcon.user1,
+                  padding: EdgeInsetsGeometry.only(
+                    bottom: Get.height * 0.015,
+                  ),
                 ),
                 //Engagement Rings
                 iconDrawer(
@@ -149,6 +151,16 @@ class Drawers extends StatelessWidget {
                     ],
                   ),
                 ),
+                //Custom
+                iconDrawer(
+                  text: AppString.custom,
+                  icon: AppIcon.jewelry,
+                  onTap: () {
+                    bottomController.isDrawerOpen.value = false;
+                    bottomController.selectindex.value = 4;
+                    bottomController.changePage(4);
+                  },
+                ),
                 //Metaphysical
                 iconDrawer(
                   onTap: drawerUI.showShopByMetal,
@@ -178,6 +190,22 @@ class Drawers extends StatelessWidget {
                   text: AppString.findstore,
                   icon: AppIcon.findstore1,
                   onTap: () => Get.to(() => Findstore()),
+                ),
+                //Dashbord
+                iconDrawer(
+                  text: AppString.dashboard,
+                  icon: AppIcon.user1,
+                  onTap: () {
+                    bottomController.isDrawerOpen.value = false;
+                    bottomController.selectindex.value = 2;
+                    bottomController.changePage(2);
+                  },
+                ),
+                //Myaccount
+                iconDrawer(
+                  onTap: () => Get.to(() => Myaccount()),
+                  text: AppString.myAccount,
+                  icon: AppIcon.user1,
                 ),
                 //logout
                 iconDrawer(

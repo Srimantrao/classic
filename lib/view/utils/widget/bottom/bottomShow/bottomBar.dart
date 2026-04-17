@@ -69,7 +69,7 @@ class Bottombar extends StatelessWidget {
                 top: 0,
                 bottom: 0,
                 right: 0,
-                width: Get.width * 0.80,
+                width: Get.width,
                 child: Drawers(),
               ),
           ],

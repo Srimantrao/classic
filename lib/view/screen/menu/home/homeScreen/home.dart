@@ -34,7 +34,6 @@ import 'package:get/get_connect/http/src/utils/utils.dart';
 import '../../jewelry/jewelryScreen/product.dart';
 import '../homeExtraWidget/homeconnectingWideget.dart';
 
-
 //home Screen
 class Home extends StatelessWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();

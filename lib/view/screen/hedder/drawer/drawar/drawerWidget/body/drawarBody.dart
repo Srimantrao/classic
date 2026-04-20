@@ -6,6 +6,8 @@ import 'package:classic/controller/user_Interface/widget/bottaomBar/bottombar_Co
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerExtraWidget/drawerExtraWidget.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/show/showScreen/show.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/jewelryBody.dart';
+import 'package:classic/view/utils/app_Color.dart';
+import 'package:classic/view/utils/app_String.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
@@ -13,41 +15,54 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import '../../../../../../../controller/user_Interface/menu/diamondSearch/diamondSearch_Controller.dart';
 import '../../../../../menu/jewelry/jewelryScreen/product.dart';
 
-//Engagement Rings List
-Widget engagementRingsList() {
-  final jewellry = Get.find<JewelleryAPICall>();
-  final List categoryList = jewellry.categoryAPI.catagoryData['data'];
-  final engagementCategory = categoryList.firstWhere(
-    (element) => element['categoryName'] == "Engagement Rings",
-  );
-  final List subCategories = engagementCategory['subCategory'];
-  final engagement = '67ee85d43c2ae60318a28998';
-  return ListView.builder(
-    shrinkWrap: true,
-    physics: NeverScrollableScrollPhysics(),
-    itemCount: subCategories.length,
-    itemBuilder: (context, index) {
-      return listColltion(
-        index: index,
-        datalist: subCategories[index]['categoryName'],
-        onTap: () {
-          Get.to(
-            () => Product(
-              categoryId: engagement,
-              subCategoryId: subCategories[index]['_id'],
-              categoryName: subCategories[index]['categoryName'],
-            ),
-          );
-          print({
-            'categoryId': categoryList[index]['_id'],
-            'subCategoryId': subCategories[index]['_id'],
-            'categoryName': subCategories[index]['categoryName'],
-          });
-        },
-      );
-    },
+//Engagement Sectiion
+Widget engagementSection({
+  bool? metalvisible,
+  void Function()? metalonTap,
+   Widget? metalvisiblechild,
+}) {
+  return productBand(
+    metalvisible: metalvisible ?? false,
+    metalonTap: metalonTap,
+    metalvisiblechild: metalvisiblechild ?? SizedBox(),
   );
 }
+
+//Engagement Rings List
+// Widget engagementRingsList() {
+//   final jewellry = Get.find<JewelleryAPICall>();
+//   final List categoryList = jewellry.categoryAPI.catagoryData['data'];
+//   final engagementCategory = categoryList.firstWhere(
+//     (element) => element['categoryName'] == "Engagement Rings",
+//   );
+//   final List subCategories = engagementCategory['subCategory'];
+//   final engagement = '67ee85d43c2ae60318a28998';
+//   return ListView.builder(
+//     shrinkWrap: true,
+//     physics: NeverScrollableScrollPhysics(),
+//     itemCount: subCategories.length,
+//     itemBuilder: (context, index) {
+//       return listColltion(
+//         index: index,
+//         datalist: subCategories[index]['categoryName'],
+//         onTap: () {
+//           Get.to(
+//             () => Product(
+//               categoryId: engagement,
+//               subCategoryId: subCategories[index]['_id'],
+//               categoryName: subCategories[index]['categoryName'],
+//             ),
+//           );
+//           print({
+//             'categoryId': categoryList[index]['_id'],
+//             'subCategoryId': subCategories[index]['_id'],
+//             'categoryName': subCategories[index]['categoryName'],
+//           });
+//         },
+//       );
+//     },
+//   );
+// }
 
 //Wedding Bands List
 Widget weddingBandsList() {

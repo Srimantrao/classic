@@ -74,9 +74,7 @@ class Drawers extends StatelessWidget {
                 imageDrawer(() => bottomController.isDrawerOpen.value = false),
                 Divider(color: AppColor.gray),
                 Padding(
-                  padding: EdgeInsetsGeometry.only(
-                    bottom: Get.height * 0.015,
-                  ),
+                  padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.015),
                 ),
                 //Engagement Rings
                 iconDrawer(
@@ -88,7 +86,11 @@ class Drawers extends StatelessWidget {
                 //Engagement Rings List
                 Visibility(
                   visible: drawerUI.engagement.value,
-                  child: engagementRingsList(),
+                  child: engagementSection(
+                    metalvisible: drawerUI.shaopmetal.value,
+                    metalonTap: drawerUI.shopMetal,
+                    metalvisiblechild: Text('kafjgadf'),
+                  ),
                 ),
                 //Wedding bands
                 iconDrawer(

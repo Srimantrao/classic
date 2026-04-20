@@ -12,6 +12,8 @@ class DrawersUIController extends GetxController {
   var shape = false.obs;
   var shape2 = false.obs;
 
+  var shaopmetal = false.obs;
+
   //Engagement Rings
   void showEngagement() {
     engagement.value = !engagement.value;
@@ -26,6 +28,11 @@ class DrawersUIController extends GetxController {
       categoryId = '';
       categoryName = '';
     }
+    update();
+  }
+
+  void shopMetal() {
+    shaopmetal.value = !shaopmetal.value;
     update();
   }
 

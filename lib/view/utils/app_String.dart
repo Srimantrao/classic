@@ -52,6 +52,8 @@ class AppString {
   static const comapanyAdress = '22W 48th Street Suite #300 New York,NY 100036 USA';
   static const phoneNo = '+1_212_221_3667';
   static const phone = 'Phone Number';
+  static const shopbyMetal = 'Shop by Metal';
+  static const shopbyStyle = 'Shop by Style';
   static const comapnyemailId = "sales@classicgrowndiamonds.com";
   static const companyInformation = 'We are open for any suggestion or just to have a chat';
   static const companyInformation2 = 'Plese get in touch with us if you like more information about our products and Services';

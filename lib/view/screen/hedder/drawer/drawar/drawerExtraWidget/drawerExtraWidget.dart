@@ -2,6 +2,7 @@
 
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
+import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -164,6 +165,75 @@ Widget listColltion({
           Divider(color: AppColor.gray),
         ],
       ),
+    ),
+  );
+}
+
+Widget drawarDivider() => Divider(color: AppColor.gray);
+
+Widget padddingsubhedding({required Widget child}) {
+  return Padding(
+    padding: EdgeInsetsGeometry.only(
+      left: Get.width * 0.07,
+      right: Get.width * 0.03,
+    ),
+    child: child,
+  );
+}
+
+Widget subheedingText(text) {
+  return Column(
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            text,
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: Get.width * 0.042,
+            ),
+          ),
+          dot(),
+        ],
+      ),
+      drawarDivider(),
+    ],
+  );
+}
+
+Widget dot() {
+  return CircleAvatar(radius: 2, backgroundColor: AppColor.primary);
+}
+
+Widget productBand({
+  void Function()? metalonTap,
+  void Function()? styleonTap,
+  void Function()? shapeonTap,
+  bool? metalvisible,
+  Widget? metalvisiblechild,
+}) {
+  return padddingsubhedding(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GestureDetector(
+          onTap: metalonTap,
+          child: subheedingText(AppString.shopbyMetal),
+        ),
+        Visibility(
+          visible: metalvisible ?? false,
+          child: metalvisiblechild ?? SizedBox(),
+        ),
+        GestureDetector(
+          onTap: styleonTap,
+          child: subheedingText(AppString.shopbyStyle),
+        ),
+        GestureDetector(
+          onTap: shapeonTap,
+          child: subheedingText(AppString.shape),
+        ),
+      ],
     ),
   );
 }

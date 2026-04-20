@@ -33,6 +33,7 @@ class AppString {
   static const measurements = 'Measurements';
   static const inclusion = 'Inclusion';
   static const sendMessage = 'Send Message';
+  static const viewAll = 'View All';
 
   //Drawer Screen
   static const myAccount = 'MY ACCOUNT';

@@ -5,6 +5,7 @@ import 'package:classic/controller/application_Programing_interface/apiControlle
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/fitterWish/fitterWish_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/holdDiamond/holdDiamond_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/orderHistory/orderHistory_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/productTital/productTital_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/dashbord/cardRecord_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/dashbord/totalRecored_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/home/filterSlider_Controller.dart';
@@ -32,6 +33,7 @@ class CartAPICall extends GetxController {
   final getholdDiamond = Get.put(HoldDiamondController());
   final customProduct = Get.put(CustomProductController());
   final getAddress = Get.put(GetAddressController());
+  final productTital = Get.put(ProductTitalController());
 
   @override
   Future<void> onInit() async {
@@ -47,6 +49,7 @@ class CartAPICall extends GetxController {
         getholdDiamond.getHoldDimaond(),
         customProduct.getCustomProduct(),
         getAddress.getAddress(userID),
+        productTital.geMetalNameFun(),
       ]);
       await calculateCartCount(cartAPI);
       await calculateWishCount(fitterWish);
@@ -120,6 +123,7 @@ class DashBordAPICall extends GetxController {
   }
 }
 
+//Calcultion API
 Future<void> calculateCartCount(cartAPI) async {
   await cartAPI.filterCart();
   final cartData = cartAPI.cartData;

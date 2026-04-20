@@ -62,6 +62,7 @@ class AppColor{
   static Color roseGold = Color(0xffB76E79);
   static Color gold = Color(0xffFFD700);
   static Color silveGold = Color(0xffD7D7D7);
+  static Color yellowGold = Color(0xFFFFD700);
   static Color editColor = Color(0xffBDBDBD);
   static Color cancel = Color(0xffCF1D11);
   static Color bottomTabColor = Color.fromRGBO(238, 248, 253, 0.6);

@@ -13,6 +13,8 @@ class DrawersUIController extends GetxController {
   var shape2 = false.obs;
 
   var shaopmetal = false.obs;
+  var shopstyle = false.obs;
+  var shapProduct = false.obs;
 
   //Engagement Rings
   void showEngagement() {
@@ -33,6 +35,16 @@ class DrawersUIController extends GetxController {
 
   void shopMetal() {
     shaopmetal.value = !shaopmetal.value;
+    update();
+  }
+
+  void shopStyle() {
+    shopstyle.value = !shopstyle.value;
+    update();
+  }
+
+  void shapeProduct() {
+    shapProduct.value = !shapProduct.value;
     update();
   }
 

@@ -1,5 +1,6 @@
 // ignore_for_file: use_key_in_widget_constructors
 
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/productTital/productTital_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
 import 'package:classic/controller/user_Interface/hedder/drawer/drawers_Controller.dart';
 import 'package:classic/controller/user_Interface/menu/jewelry/filter_Controller.dart';
@@ -17,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
+
 //Drawers
 class Drawers extends StatelessWidget {
   final drawerUI = Get.put(DrawersUIController());
@@ -25,6 +27,8 @@ class Drawers extends StatelessWidget {
   final bottomController = Get.put(BottombarController());
   final logOutUI = Get.put(LogoutController());
   final filter = Get.put(FilterUIController());
+  final productTital = Get.put(ProductTitalController());
+  final jewellry = Get.put(JewelleryAPICall());
   @override
   Widget build(BuildContext context) {
     return allDrawersBody(
@@ -40,6 +44,10 @@ class Drawers extends StatelessWidget {
             final shopByMetalList = shopByMetalListData['metalType'];
             final showList = showListApi.showListData['data'];
             final shapList = parameter.getAllParameterData['shape'];
+            final product = productTital;
+            final productData = product.getMetalName['data'] ?? {};
+            final productMetal = productData['metaltype'] ?? [];
+            final productstamp = productData['stamp'] ?? [];
             if (jewelryData.isEmpty) {
               return Lottie.asset(AppJson.noData);
             }
@@ -67,6 +75,24 @@ class Drawers extends StatelessWidget {
             if (parameter.getAllParameterData['shape'].isEmpty) {
               return Lottie.asset(AppJson.noData);
             }
+            if (productMetal.isEmpty) {
+              return Lottie.asset(AppJson.noData);
+            }
+            if (productstamp.isEmpty) {
+              return Lottie.asset(AppJson.noData);
+            }
+            final engagementCategory = (jewelry as List).firstWhere(
+              (element) => element['_id'] == '67ee85d43c2ae60318a28998',
+              orElse: () => null,
+            );
+            final List subCategories =
+                (engagementCategory != null &&
+                    engagementCategory['subCategory'] != null)
+                ? engagementCategory['subCategory']
+                : [];
+            List filteredShapeList = shapList
+                .where((e) => e['isMenu'] == true)
+                .toList();
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,8 +114,17 @@ class Drawers extends StatelessWidget {
                   visible: drawerUI.engagement.value,
                   child: engagementSection(
                     metalvisible: drawerUI.shaopmetal.value,
+                    stylevisible: drawerUI.shopstyle.value,
+                    shapvisible: drawerUI.shapProduct.value,
                     metalonTap: drawerUI.shopMetal,
-                    metalvisiblechild: Text('kafjgadf'),
+                    styleonTap: drawerUI.shopStyle,
+                    shapeonTap: drawerUI.shapeProduct,
+                    metalvisiblechild: itemSelection(
+                      productMetal,
+                      productstamp,
+                    ),
+                    stylevisiblechild: style(subCategories, engagementCategory),
+                    shapvisiblechild: shape(filteredShapeList),
                   ),
                 ),
                 //Wedding bands

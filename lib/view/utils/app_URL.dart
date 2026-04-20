@@ -75,6 +75,7 @@ class AppUrl {
           //Filter
             static const String getProductFilterList = "${baseUrl}App/product/getProductFilterList";
             static const String getAllParameter = "${baseUrl}admin/parameter/getAllParameter";
+            static const String getMetalName = "${baseUrl}App/metal/getMetalName";
 
     //dashbord
       static const String totalRecord ="${baseUrl}App/dashboard/totalRecord";

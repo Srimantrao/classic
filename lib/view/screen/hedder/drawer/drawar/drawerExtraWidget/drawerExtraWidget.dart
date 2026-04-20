@@ -1,8 +1,10 @@
 // ignore_for_file: strict_top_level_inference, avoid_unnecessary_containers
 
+import 'package:classic/view/screen/menu/jewelry/jewelryScreen/product.dart';
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
+import 'package:classic/view/utils/widget/button.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -10,6 +12,84 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:marquee/marquee.dart';
 import '../../../../../utils/app_TextSize.dart';
 import '../../../../../utils/widget/logo.dart';
+
+Widget itemSelection(metaltype, stamps) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: Get.height * 0.009),
+    child: ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: metaltype.length,
+      itemBuilder: (context, index) {
+        var metalItem = metaltype[index];
+        return metalItemWidget(metalItem, stamps);
+      },
+    ),
+  );
+}
+
+Widget metalItemWidget(metalItem, stamps) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: Get.height * 0.005),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        metalTitleRow(metalItem['metal']),
+        SizedBox(height: 5),
+        stampWrapWidget(stamps),
+      ],
+    ),
+  );
+}
+
+Widget metalTitleRow(String? metal) {
+  return Row(
+    children: [
+      Container(
+        decoration: BoxDecoration(
+          color: getMetalColor(metal ?? ""),
+          shape: BoxShape.circle,
+        ),
+        padding: EdgeInsets.all(5),
+      ),
+      SizedBox(width: Get.width * 0.025),
+      subTitalHedding(metal ?? ""),
+    ],
+  );
+}
+
+Widget stampWrapWidget(stamps) {
+  return Wrap(
+    spacing: Get.width * 0.025,
+    runSpacing: 5,
+    children: List.generate(stamps.length, (i) {
+      return Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColor.gray),
+          borderRadius: BorderRadius.circular(5),
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        child: subTitalHedding(
+          stamps[i]['paraMtrName']?.toString() ?? "",
+          fontSize: Textsize.samisubHedding,
+        ),
+      );
+    }),
+  );
+}
+
+Color getMetalColor(String metal) {
+  metal = metal.toLowerCase();
+  if (metal.contains("rose")) {
+    return AppColor.roseGold;
+  } else if (metal.contains("yellow")) {
+    return AppColor.yellowGold;
+  } else if (metal.contains("white")) {
+    return AppColor.silveGold;
+  } else {
+    return Colors.black;
+  }
+}
 
 Widget imageDrawer(void Function()? onTap) {
   return horizontalPadding(
@@ -31,6 +111,67 @@ Widget imageDrawer(void Function()? onTap) {
         ),
       ],
     ),
+  );
+}
+
+Widget style(subCategories, engagementCategory) {
+  return padddingVartival(
+    child: gridViweing(
+      itemCount: subCategories.length,
+      itemBuilder: (BuildContext context, int index) {
+        return styleWidget(
+          text: subCategories[index]['categoryName'],
+          onTap: () {
+            Get.to(
+              () => Product(
+                categoryId: engagementCategory['_id'],
+                subCategoryId: subCategories[index]['_id'],
+                categoryName: subCategories[index]['categoryName'],
+              ),
+            );
+          },
+        );
+      },
+    ),
+  );
+}
+
+Widget gridViweing({
+  int? itemCount,
+  required Widget? Function(BuildContext, int) itemBuilder,
+}) {
+  return GridView.builder(
+    itemCount: itemCount,
+    shrinkWrap: true,
+    physics: NeverScrollableScrollPhysics(),
+    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 2,
+      crossAxisSpacing: 10,
+      mainAxisSpacing: 1,
+      childAspectRatio: 6,
+    ),
+    itemBuilder: itemBuilder,
+  );
+}
+
+Widget shape(filteredShapeList) {
+  return padddingVartival(
+    child: gridViweing(
+      itemCount: filteredShapeList.length,
+      itemBuilder: (BuildContext p1, int p2) {
+        return subTitalHedding(
+          filteredShapeList[p2]['paraMtrName'],
+          fontSize: Textsize.samisubHedding,
+        );
+      },
+    ),
+  );
+}
+
+Widget styleWidget({String? text, void Function()? onTap}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: subTitalHedding(text, fontSize: Textsize.samisubHedding),
   );
 }
 
@@ -182,22 +323,17 @@ Widget padddingsubhedding({required Widget child}) {
 }
 
 Widget subheedingText(text) {
-  return Column(
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            text,
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: Get.width * 0.042,
-            ),
-          ),
-          dot(),
-        ],
+      Text(
+        text,
+        style: TextStyle(
+          fontWeight: FontWeight.w500,
+          fontSize: Get.width * 0.042,
+        ),
       ),
-      drawarDivider(),
+      dot(),
     ],
   );
 }
@@ -211,7 +347,11 @@ Widget productBand({
   void Function()? styleonTap,
   void Function()? shapeonTap,
   bool? metalvisible,
+  bool? stylevisible,
+  bool? shapvisible,
   Widget? metalvisiblechild,
+  Widget? stylevisiblechild,
+  Widget? shapvisiblechild,
 }) {
   return padddingsubhedding(
     child: Column(
@@ -219,21 +359,139 @@ Widget productBand({
       children: [
         GestureDetector(
           onTap: metalonTap,
-          child: subheedingText(AppString.shopbyMetal),
+          child: Container(
+            color: Colors.transparent,
+            child: subheedingText(AppString.shopbyMetal),
+          ),
         ),
         Visibility(
           visible: metalvisible ?? false,
           child: metalvisiblechild ?? SizedBox(),
         ),
+        drawarDivider(),
         GestureDetector(
           onTap: styleonTap,
-          child: subheedingText(AppString.shopbyStyle),
+          child: Container(
+            color: Colors.transparent,
+            child: subheedingText(AppString.shopbyStyle),
+          ),
         ),
+        Visibility(
+          visible: stylevisible ?? false,
+          child: stylevisiblechild ?? SizedBox(),
+        ),
+        drawarDivider(),
         GestureDetector(
           onTap: shapeonTap,
-          child: subheedingText(AppString.shape),
+          child: Container(
+            color: Colors.transparent,
+            child: subheedingText(AppString.shape),
+          ),
+        ),
+        Visibility(
+          visible: shapvisible ?? false,
+          child: shapvisiblechild ?? SizedBox(),
+        ),
+        drawarDivider(),
+        button(AppString.viewAll, onTap: () {}),
+        Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.015)),
+      ],
+    ),
+  );
+}
+
+Widget subTitalHedding(text, {double? fontSize}) {
+  return Text(
+    text,
+    style: TextStyle(
+      color: AppColor.black,
+      fontSize: fontSize ?? Textsize.samiHedding,
+      fontWeight: FontWeight.w500,
+    ),
+  );
+}
+
+Widget padddingVartival({required Widget child}) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: Get.height * 0.01),
+    child: child,
+  );
+}
+
+/*
+
+Widget itemSelection(metaltype, stamps) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: Get.height * 0.009),
+    child: Column(
+      children: [
+        ListView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: metaltype.length,
+          itemBuilder: (BuildContext context, int index) {
+            var metalItem = metaltype[index];
+            return Padding(
+              padding: EdgeInsets.symmetric(vertical: Get.height * 0.005),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: Get.height * 0.003),
+                    child: Row(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: getMetalColor(
+                              metalItem['metal']?.toString() ?? "",
+                            ),
+                            shape: BoxShape.circle,
+                          ),
+                          padding: EdgeInsetsGeometry.all(5),
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          metalItem['metal']?.toString() ?? "",
+                          style: TextStyle(
+                            color: AppColor.black,
+                            fontSize: Textsize.samiHedding,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: Get.height * 0.003),
+                    child: Wrap(
+                      spacing: Get.width * 0.025,
+                      runSpacing: 5,
+                      children: List.generate(stamps.length, (i) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: AppColor.gray),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 6,
+                          ),
+                          child: Text(
+                            stamps[i]['paraMtrName']?.toString() ?? "",
+                            style: TextStyle(fontWeight: FontWeight.w500),
+                          ),
+                        );
+                      }),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
         ),
       ],
     ),
   );
 }
+
+*/

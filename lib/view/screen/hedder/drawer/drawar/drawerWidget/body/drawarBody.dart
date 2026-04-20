@@ -6,8 +6,6 @@ import 'package:classic/controller/user_Interface/widget/bottaomBar/bottombar_Co
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerExtraWidget/drawerExtraWidget.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/show/showScreen/show.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/jewelryBody.dart';
-import 'package:classic/view/utils/app_Color.dart';
-import 'package:classic/view/utils/app_String.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
@@ -18,13 +16,25 @@ import '../../../../../menu/jewelry/jewelryScreen/product.dart';
 //Engagement Sectiion
 Widget engagementSection({
   bool? metalvisible,
+  bool? stylevisible,
   void Function()? metalonTap,
-   Widget? metalvisiblechild,
+  void Function()? styleonTap,
+  void Function()? shapeonTap,
+  Widget? metalvisiblechild,
+  Widget? stylevisiblechild,
+  bool? shapvisible,
+  Widget? shapvisiblechild,
 }) {
   return productBand(
     metalvisible: metalvisible ?? false,
     metalonTap: metalonTap,
+    styleonTap: styleonTap,
+    shapeonTap: shapeonTap,
+    stylevisible: stylevisible ?? false,
+    shapvisible: shapvisible,
     metalvisiblechild: metalvisiblechild ?? SizedBox(),
+    stylevisiblechild: stylevisiblechild ?? SizedBox(),
+    shapvisiblechild: shapvisiblechild,
   );
 }
 

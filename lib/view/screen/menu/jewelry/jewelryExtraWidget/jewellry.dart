@@ -10,7 +10,6 @@ Widget product({
   void Function()? onTap,
 }) {
   final bool hasImage = image != null && image.isNotEmpty;
-
   return GestureDetector(
     onTap: onTap,
     child: Container(
@@ -47,9 +46,15 @@ Widget product({
                       );
                     },
                   )
-                : Center(child: Icon(Icons.image_not_supported, size: 30, color: Colors.grey)),
+                : Center(
+                    child: Icon(
+                      Icons.image_not_supported,
+                      size: 30,
+                      color: Colors.grey,
+                    ),
+                  ),
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: Get.height * 0.003),
           Text(
             text,
             maxLines: 2,

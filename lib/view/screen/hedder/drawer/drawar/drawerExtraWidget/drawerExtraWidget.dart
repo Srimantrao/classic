@@ -13,7 +13,13 @@ import 'package:marquee/marquee.dart';
 import '../../../../../utils/app_TextSize.dart';
 import '../../../../../utils/widget/logo.dart';
 
-Widget itemSelection(metaltype, stamps) {
+Widget itemSelection(
+  metaltype,
+  stamps, {
+  required void Function() onTapStamp,
+  void Function(String metalType)? onMetalSelected,
+  void Function(String metalStamp)? onStampSelected,
+}) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: Get.height * 0.009),
     child: ListView.builder(
@@ -22,21 +28,46 @@ Widget itemSelection(metaltype, stamps) {
       itemCount: metaltype.length,
       itemBuilder: (context, index) {
         var metalItem = metaltype[index];
-        return metalItemWidget(metalItem, stamps);
+        return metalItemWidget(
+          metalItem,
+          stamps,
+          onTapStamp: onTapStamp,
+          onMetalSelected: onMetalSelected,
+          onStampSelected: onStampSelected,
+        );
       },
     ),
   );
 }
 
-Widget metalItemWidget(metalItem, stamps) {
+Widget metalItemWidget(
+  metalItem,
+  stamps, {
+  required void Function() onTapStamp,
+  void Function(String metalType)? onMetalSelected,
+  void Function(String metalStamp)? onStampSelected,
+}) {
+  final metalName = metalItem['metal'] ?? '';
+
   return Padding(
     padding: EdgeInsets.symmetric(vertical: Get.height * 0.005),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        metalTitleRow(metalItem['metal']),
-        SizedBox(height: 5),
-        stampWrapWidget(stamps),
+        GestureDetector(
+          onTap: () {
+            onMetalSelected?.call(metalName);
+          },
+          child: metalTitleRow(metalName),
+        ),
+        SizedBox(height: Get.height * 0.005),
+        stampWrapWidget(
+          stamps,
+          onTapStamp,
+          metalType: metalName,
+          onStampSelected: onStampSelected,
+          onMetalSelected: onMetalSelected,
+        ),
       ],
     ),
   );
@@ -58,20 +89,33 @@ Widget metalTitleRow(String? metal) {
   );
 }
 
-Widget stampWrapWidget(stamps) {
+Widget stampWrapWidget(
+  stamps,
+  void Function() onTapStamp, {
+  String? metalType,
+  void Function(String metalStamp)? onStampSelected,
+  void Function(String metalType)? onMetalSelected,
+}) {
   return Wrap(
     spacing: Get.width * 0.025,
     runSpacing: 5,
     children: List.generate(stamps.length, (i) {
-      return Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: AppColor.gray),
-          borderRadius: BorderRadius.circular(5),
-        ),
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-        child: subTitalHedding(
-          stamps[i]['paraMtrName']?.toString() ?? "",
-          fontSize: Textsize.samisubHedding,
+      final stampName = stamps[i]['paraMtrName']?.toString() ?? "";
+      return GestureDetector(
+        onTap: () {
+          if (metalType != null && metalType.isNotEmpty) {
+            onMetalSelected?.call(metalType);
+          }
+          onStampSelected?.call(stampName);
+          onTapStamp();
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColor.gray),
+            borderRadius: BorderRadius.circular(5),
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+          child: subTitalHedding(stampName, fontSize: Textsize.samisubHedding),
         ),
       );
     }),
@@ -120,7 +164,9 @@ Widget style(subCategories, engagementCategory) {
       itemCount: subCategories.length,
       itemBuilder: (BuildContext context, int index) {
         return styleWidget(
-          text: subCategories[index]['categoryName'],
+          text: (subCategories[index]['categoryName'] ?? "")
+              .toString()
+              .toUpperCase(),
           onTap: () {
             Get.to(
               () => Product(
@@ -160,7 +206,7 @@ Widget shape(filteredShapeList) {
       itemCount: filteredShapeList.length,
       itemBuilder: (BuildContext p1, int p2) {
         return subTitalHedding(
-          filteredShapeList[p2]['paraMtrName'],
+          (filteredShapeList[p2]['paraMtrName']).toString().toUpperCase(),
           fontSize: Textsize.samisubHedding,
         );
       },
@@ -346,6 +392,7 @@ Widget productBand({
   void Function()? metalonTap,
   void Function()? styleonTap,
   void Function()? shapeonTap,
+  void Function()? viweButtononTap,
   bool? metalvisible,
   bool? stylevisible,
   bool? shapvisible,
@@ -393,7 +440,7 @@ Widget productBand({
           child: shapvisiblechild ?? SizedBox(),
         ),
         drawarDivider(),
-        button(AppString.viewAll, onTap: () {}),
+        button(AppString.viewAll, onTap: viweButtononTap),
         Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.015)),
       ],
     ),

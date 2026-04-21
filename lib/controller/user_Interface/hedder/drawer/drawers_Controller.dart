@@ -1,6 +1,7 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: strict_top_level_inference, avoid_print
 
 import 'package:get/get.dart';
+import '../../../../view/screen/menu/jewelry/jewelryScreen/product.dart';
 
 class DrawersUIController extends GetxController {
   var engagement = false.obs;
@@ -12,9 +13,19 @@ class DrawersUIController extends GetxController {
   var shape = false.obs;
   var shape2 = false.obs;
 
+  //Engaemant
   var shaopmetal = false.obs;
   var shopstyle = false.obs;
   var shapProduct = false.obs;
+
+  //Wedding Bands
+  var shaopmetalWedding = false.obs;
+  var shopstyleWedding = false.obs;
+  var shapProductWedding = false.obs;
+
+  // Track selected metal type and stamp
+  var selectedMetalType = ''.obs;
+  var selectedMetalStamp = ''.obs;
 
   //Engagement Rings
   void showEngagement() {
@@ -33,6 +44,81 @@ class DrawersUIController extends GetxController {
     update();
   }
 
+  void engagementSeramani(
+    drawerUI,
+    productMetal,
+    productstamp,
+    engagementCategory,
+  ) {
+    final metalStamp = drawerUI.selectedMetalStamp.value;
+    final metalType = drawerUI.selectedMetalType.value;
+    final selectedMetal = productMetal.firstWhere(
+      (e) =>
+          (e['metal'] ?? '').toString().toLowerCase().trim() ==
+          metalType.toLowerCase().trim(),
+      orElse: () => null,
+    );
+    final selectedStamp = productstamp.firstWhere(
+      (e) =>
+          (e['paraMtrName'] ?? '').toString().toLowerCase().trim() ==
+          metalStamp.toLowerCase().trim(),
+      orElse: () => null,
+    );
+    if (selectedMetal != null && selectedStamp != null) {
+      Get.to(
+        () => Product(
+          categoryId: engagementCategory['_id'],
+          categoryName: "$metalStamp $metalType",
+          metalStamp: selectedStamp['_id'],
+          metalType: selectedMetal['_id'],
+        ),
+      );
+    } else {
+      print("❌ Selection not found");
+    }
+    update();
+  }
+
+  //Wedding
+  void weddingBandsSeramani(
+    drawerUI,
+    productMetal,
+    productstamp,
+    weddingBandsCategory,
+  ) {
+    final metalStamp = drawerUI.selectedMetalStamp.value;
+    final metalType = drawerUI.selectedMetalType.value;
+
+    final selectedMetal = productMetal.firstWhere(
+      (e) =>
+          (e['metal'] ?? '').toString().toLowerCase().trim() ==
+          metalType.toLowerCase().trim(),
+      orElse: () => null,
+    );
+
+    final selectedStamp = productstamp.firstWhere(
+      (e) =>
+          (e['paraMtrName'] ?? '').toString().toLowerCase().trim() ==
+          metalStamp.toLowerCase().trim(),
+      orElse: () => null,
+    );
+
+    if (selectedMetal != null && selectedStamp != null) {
+      Get.to(
+        () => Product(
+          categoryId: weddingBandsCategory['_id'],
+          categoryName: "$metalStamp $metalType",
+          metalStamp: selectedStamp['_id'],
+          metalType: selectedMetal['_id'],
+        ),
+      );
+    } else {
+      print("❌ Wedding Bands selection not found");
+    }
+    update();
+  }
+
+  //Engaemant
   void shopMetal() {
     shaopmetal.value = !shaopmetal.value;
     update();
@@ -45,6 +131,32 @@ class DrawersUIController extends GetxController {
 
   void shapeProduct() {
     shapProduct.value = !shapProduct.value;
+    update();
+  }
+
+  //Wedding
+  void shopMetalWedding() {
+    shaopmetalWedding.value = !shaopmetalWedding.value;
+    update();
+  }
+
+  void shopStyleWedding() {
+    shopstyleWedding.value = !shopstyleWedding.value;
+    update();
+  }
+
+  void shapeProductWedding() {
+    shapProductWedding.value = !shapProductWedding.value;
+    update();
+  }
+
+  void selectMetalType(String metalType) {
+    selectedMetalType.value = metalType;
+    update();
+  }
+
+  void selectMetalStamp(String metalStamp) {
+    selectedMetalStamp.value = metalStamp;
     update();
   }
 

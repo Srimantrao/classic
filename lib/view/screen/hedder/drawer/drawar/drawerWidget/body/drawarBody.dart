@@ -13,28 +13,55 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import '../../../../../../../controller/user_Interface/menu/diamondSearch/diamondSearch_Controller.dart';
 import '../../../../../menu/jewelry/jewelryScreen/product.dart';
 
-//Engagement Sectiion
 Widget engagementSection({
   bool? metalvisible,
   bool? stylevisible,
+  bool? shapvisible,
   void Function()? metalonTap,
   void Function()? styleonTap,
   void Function()? shapeonTap,
   Widget? metalvisiblechild,
   Widget? stylevisiblechild,
-  bool? shapvisible,
   Widget? shapvisiblechild,
+  void Function()? viweButtononTap,
 }) {
   return productBand(
     metalvisible: metalvisible ?? false,
+    stylevisible: stylevisible ?? false,
+    shapvisible: shapvisible ?? false,
     metalonTap: metalonTap,
     styleonTap: styleonTap,
     shapeonTap: shapeonTap,
-    stylevisible: stylevisible ?? false,
-    shapvisible: shapvisible,
-    metalvisiblechild: metalvisiblechild ?? SizedBox(),
-    stylevisiblechild: stylevisiblechild ?? SizedBox(),
+    metalvisiblechild: metalvisiblechild,
+    stylevisiblechild: stylevisiblechild,
     shapvisiblechild: shapvisiblechild,
+    viweButtononTap: viweButtononTap,
+  );
+}
+
+Widget weddingBandsSection({
+  bool? metalvisible,
+  bool? stylevisible,
+  bool? shapvisible,
+  void Function()? metalonTap,
+  void Function()? styleonTap,
+  void Function()? shapeonTap,
+  Widget? metalvisiblechild,
+  Widget? stylevisiblechild,
+  Widget? shapvisiblechild,
+  void Function()? viweButtononTap,
+}) {
+  return productBand(
+    metalvisible: metalvisible ?? false,
+    stylevisible: stylevisible ?? false,
+    shapvisible: shapvisible ?? false,
+    metalonTap: metalonTap,
+    styleonTap: styleonTap,
+    shapeonTap: shapeonTap,
+    metalvisiblechild: metalvisiblechild,
+    stylevisiblechild: stylevisiblechild,
+    shapvisiblechild: shapvisiblechild,
+    viweButtononTap: viweButtononTap,
   );
 }
 

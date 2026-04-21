@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+// ignore_for_file: unnecessary_cast, prefer_interpolation_to_compose_strings, avoid_print, use_key_in_widget_constructors
 
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/productTital/productTital_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
@@ -10,6 +10,7 @@ import 'package:classic/view/screen/hedder/drawer/drawar/drawerExtraWidget/drawe
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/findStore/findStoreScreen/findStore.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/myAccount/myAccountScreen/myAccount.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerWidget/body/drawarBody.dart';
+import 'package:classic/view/screen/menu/jewelry/jewelryScreen/product.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_icon.dart';
@@ -17,7 +18,6 @@ import 'package:classic/view/utils/app_json.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-
 
 //Drawers
 class Drawers extends StatelessWidget {
@@ -29,6 +29,7 @@ class Drawers extends StatelessWidget {
   final filter = Get.put(FilterUIController());
   final productTital = Get.put(ProductTitalController());
   final jewellry = Get.put(JewelleryAPICall());
+
   @override
   Widget build(BuildContext context) {
     return allDrawersBody(
@@ -90,6 +91,15 @@ class Drawers extends StatelessWidget {
                     engagementCategory['subCategory'] != null)
                 ? engagementCategory['subCategory']
                 : [];
+            final weddingBandsCategory = (jewelry as List).firstWhere(
+              (element) => element['_id'] == '682181561353060d79b6e480',
+              orElse: () => null,
+            );
+            final List weddingSubCategories =
+                (weddingBandsCategory != null &&
+                    weddingBandsCategory['subCategory'] != null)
+                ? weddingBandsCategory['subCategory']
+                : [];
             List filteredShapeList = shapList
                 .where((e) => e['isMenu'] == true)
                 .toList();
@@ -122,9 +132,31 @@ class Drawers extends StatelessWidget {
                     metalvisiblechild: itemSelection(
                       productMetal,
                       productstamp,
+                      onTapStamp: () {
+                        drawerUI.engagementSeramani(
+                          drawerUI,
+                          productMetal,
+                          productstamp,
+                          engagementCategory,
+                        );
+                      },
+                      onMetalSelected: (metalType) {
+                        drawerUI.selectMetalType(metalType);
+                      },
+                      onStampSelected: (metalStamp) {
+                        drawerUI.selectMetalStamp(metalStamp);
+                      },
                     ),
                     stylevisiblechild: style(subCategories, engagementCategory),
                     shapvisiblechild: shape(filteredShapeList),
+                    viweButtononTap: () {
+                      Get.to(
+                        () => Product(
+                          categoryId: engagementCategory['_id'],
+                          categoryName: AppString.enagagement,
+                        ),
+                      );
+                    },
                   ),
                 ),
                 //Wedding bands
@@ -137,7 +169,45 @@ class Drawers extends StatelessWidget {
                 //Wedding bands List
                 Visibility(
                   visible: drawerUI.weddingbands.value,
-                  child: weddingBandsList(),
+                  child: weddingBandsSection(
+                    metalvisible: drawerUI.shaopmetalWedding.value,
+                    stylevisible: drawerUI.shopstyleWedding.value,
+                    shapvisible: drawerUI.shapProductWedding.value,
+                    metalonTap: drawerUI.shopMetalWedding,
+                    styleonTap: drawerUI.shopStyleWedding,
+                    shapeonTap: drawerUI.shapeProductWedding,
+                    metalvisiblechild: itemSelection(
+                      productMetal,
+                      productstamp,
+                      onTapStamp: () {
+                        drawerUI.weddingBandsSeramani(
+                          drawerUI,
+                          productMetal,
+                          productstamp,
+                          weddingBandsCategory,
+                        );
+                      },
+                      onMetalSelected: (metalType) {
+                        drawerUI.selectMetalType(metalType);
+                      },
+                      onStampSelected: (metalStamp) {
+                        drawerUI.selectMetalStamp(metalStamp);
+                      },
+                    ),
+                    stylevisiblechild: style(
+                      weddingSubCategories,
+                      weddingBandsCategory,
+                    ),
+                    shapvisiblechild: shape(filteredShapeList),
+                    viweButtononTap: () {
+                      Get.to(
+                        () => Product(
+                          categoryId: weddingBandsCategory['_id'],
+                          categoryName: AppString.weddingbands,
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 //jewellwery
                 iconDrawer(

@@ -40,7 +40,7 @@ Widget shape(GetallparameterController diamondSearch, {required bool isMenu}) {
         return const SizedBox();
       }
       return Wrap(
-        spacing: Get.width * 0.05,
+        spacing: Get.width * 0.029,
         runSpacing: Get.height * 0.009,
         children: [
           ...List.generate(shapeList.length, (index) {

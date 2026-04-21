@@ -6,6 +6,11 @@ import 'package:classic/controller/user_Interface/widget/bottaomBar/bottombar_Co
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerExtraWidget/drawerExtraWidget.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/show/showScreen/show.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/jewelryBody.dart';
+import 'package:classic/view/utils/app_Color.dart';
+import 'package:classic/view/utils/app_String.dart';
+import 'package:classic/view/utils/app_URL.dart';
+import 'package:classic/view/utils/widget/button.dart';
+import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
@@ -137,23 +142,84 @@ Widget weddingBandsList() {
 }
 
 //Jewellery List
+// Widget jewelryList({required List list}) {
+//   var newList = list
+//       .where(
+//         (item) => item['subCategory'] != null && item['subCategory'].isNotEmpty,
+//       )
+//       .toList();
+//   return ListView.builder(
+//     shrinkWrap: true,
+//     itemCount: newList.length,
+//     physics: NeverScrollableScrollPhysics(),
+//     itemBuilder: (BuildContext context, int index) {
+//       return listColltion(
+//         index: index,
+//         datalist: newList[index]['categoryName'],
+//         onTap: () => callProductList(newList, index),
+//       );
+//     },
+//   );
+// }
+
+//Jewellery List
 Widget jewelryList({required List list}) {
   var newList = list
       .where(
-        (item) => item['subCategory'] != null && item['subCategory'].isNotEmpty,
+        (item) =>
+            item['isMenu'] == true &&
+            item['slug'] != 'engagement-rings' &&
+            item['slug'] != 'wedding-bands' &&
+            item['subCategory'] != null &&
+            item['subCategory'].any(
+              (sub) => sub['isMenu'] == true || sub['isMenu'] == null,
+            ),
       )
       .toList();
-  return ListView.builder(
-    shrinkWrap: true,
-    itemCount: newList.length,
-    physics: NeverScrollableScrollPhysics(),
-    itemBuilder: (BuildContext context, int index) {
-      return listColltion(
-        index: index,
-        datalist: newList[index]['categoryName'],
-        onTap: () => callProductList(newList, index),
-      );
-    },
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: Get.height * 0.025),
+    child: horizontalPadding(
+      child: Column(
+        children: [
+            GridView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: newList.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                childAspectRatio: 0.8 / 1,
+              ),
+              itemBuilder: (BuildContext context, int index) {
+                return GestureDetector(
+                  onTap: () => callProductList(newList, index),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: AppColor.gray),
+                    ),
+                    child: Column(
+                      children: [
+                        Image(
+                          image: NetworkImage(
+                            AppUrl.imagebaseUrl + (newList[index]['image'] ?? ""),
+                          ),
+                          errorBuilder: (context, error, stackTrace) =>
+                              Icon(Icons.image_not_supported),
+                        ),
+                        SizedBox(height: Get.height * 0.009),
+                        Text(newList[index]['categoryName'] ?? ""),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          SizedBox(height: Get.height * 0.025),
+          button(AppString.viewAll)
+        ],
+      ),
+    ),
   );
 }
 

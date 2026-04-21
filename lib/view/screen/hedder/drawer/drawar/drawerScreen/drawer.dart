@@ -112,6 +112,7 @@ class Drawers extends StatelessWidget {
                 Padding(
                   padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.015),
                 ),
+
                 //Engagement Rings
                 iconDrawer(
                   onTap: drawerUI.showEngagement,
@@ -159,6 +160,7 @@ class Drawers extends StatelessWidget {
                     },
                   ),
                 ),
+
                 //Wedding bands
                 iconDrawer(
                   onTap: drawerUI.showWeddingbands,
@@ -209,6 +211,7 @@ class Drawers extends StatelessWidget {
                     },
                   ),
                 ),
+
                 //jewellwery
                 iconDrawer(
                   onTap: drawerUI.showJewellery,
@@ -221,6 +224,7 @@ class Drawers extends StatelessWidget {
                   visible: drawerUI.jewellery.value,
                   child: jewelryList(list: jewelry),
                 ),
+
                 //Diamond
                 iconDrawer(
                   onTap: drawerUI.showDiamonds,
@@ -258,6 +262,7 @@ class Drawers extends StatelessWidget {
                     ],
                   ),
                 ),
+
                 //Custom
                 iconDrawer(
                   text: AppString.custom,
@@ -268,6 +273,7 @@ class Drawers extends StatelessWidget {
                     bottomController.changePage(4);
                   },
                 ),
+
                 //Metaphysical
                 iconDrawer(
                   onTap: drawerUI.showShopByMetal,
@@ -280,6 +286,7 @@ class Drawers extends StatelessWidget {
                   visible: drawerUI.shopByMetal.value,
                   child: shopByMetal(list: shopByMetalList),
                 ),
+
                 //Show
                 iconDrawer(
                   text: AppString.show,
@@ -292,12 +299,14 @@ class Drawers extends StatelessWidget {
                   visible: drawerUI.show.value,
                   child: showListValue(list: showList),
                 ),
+
                 //Find Store
                 iconDrawer(
                   text: AppString.findstore,
                   icon: AppIcon.findstore1,
                   onTap: () => Get.to(() => Findstore()),
                 ),
+
                 //Dashbord
                 iconDrawer(
                   text: AppString.dashboard,
@@ -308,12 +317,14 @@ class Drawers extends StatelessWidget {
                     bottomController.changePage(2);
                   },
                 ),
+
                 //Myaccount
                 iconDrawer(
                   onTap: () => Get.to(() => Myaccount()),
                   text: AppString.myAccount,
                   icon: AppIcon.user1,
                 ),
+
                 //logout
                 iconDrawer(
                   text: AppString.logout,

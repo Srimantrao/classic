@@ -259,6 +259,9 @@ Widget dimaonds(drawerUI, shapList, filteredShapeList, bottomController) {
               itemBuilder: (BuildContext p1, int p2) {
                 return GestureDetector(
                   onTap: () {
+                    diamondSearch.toggleShapeSelection(
+                      filteredShapeList[p2]['paraMtrId'].toString(),
+                    );
                     bottomController.isDrawerOpen.value = false;
                     bottomController.selectindex.value = 3;
                     bottomController.changePage(3);

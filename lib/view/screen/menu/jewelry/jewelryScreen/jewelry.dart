@@ -1,4 +1,4 @@
-// ignore_for_file: overridden_fields, annotate_overrides
+// ignore_for_file: use_key_in_widget_constructors, overridden_fields, annotate_overrides
 
 import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
 import 'package:classic/modal/menu/jewelry/lisofProduct.dart';
@@ -19,7 +19,6 @@ class Jewelry extends StatelessWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final product = ProductList();
   final jewellry = Get.put(JewelleryAPICall());
-  Jewelry({super.key});
   @override
   Widget build(BuildContext context) {
     return Fullscreen(

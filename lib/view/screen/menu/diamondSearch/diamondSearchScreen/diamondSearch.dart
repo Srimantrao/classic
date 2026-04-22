@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_unnecessary_containers, unused_import
+// ignore_for_file: use_key_in_widget_constructors, file_names, avoid_unnecessary_containers, unused_import
 
 import 'dart:convert';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productList/filter/getAllParameter_Controller.dart';
@@ -26,9 +26,6 @@ class Diamondsearch extends StatelessWidget {
   final getAllPeraMeter = Get.put(GetallparameterController());
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final diamondList = DiamondList();
-
-  Diamondsearch({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
@@ -75,7 +72,9 @@ class Diamondsearch extends StatelessWidget {
         prefixOnTap: diamondSearch.clearSelections,
       ),
       child: Obx(() {
-        if (getAllPeraMeter.getAllParameterData.isEmpty) {
+        final api = getAllPeraMeter;
+        final apiData = api.getAllParameterData;
+        if (apiData.isEmpty) {
           return Center(child: Lottie.asset(AppJson.noData));
         }
         return Column(

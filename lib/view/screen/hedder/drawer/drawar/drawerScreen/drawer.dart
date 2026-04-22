@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_cast, prefer_interpolation_to_compose_strings, avoid_print, use_key_in_widget_constructors
 
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/productTital/productTital_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/menu/diamondSearch/diamondShow_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
 import 'package:classic/controller/user_Interface/hedder/drawer/drawers_Controller.dart';
 import 'package:classic/controller/user_Interface/menu/jewelry/filter_Controller.dart';
@@ -29,7 +30,7 @@ class Drawers extends StatelessWidget {
   final filter = Get.put(FilterUIController());
   final productTital = Get.put(ProductTitalController());
   final jewellry = Get.put(JewelleryAPICall());
-
+  final diamondShow = Get.put(DiamondShowController());
   @override
   Widget build(BuildContext context) {
     return allDrawersBody(
@@ -235,31 +236,11 @@ class Drawers extends StatelessWidget {
                 //Diamond List
                 Visibility(
                   visible: drawerUI.diamonds.value,
-                  child: Column(
-                    children: [
-                      listColltion(
-                        onTap: drawerUI.showShape,
-                        datalist: AppString.naturalDiamond,
-                      ),
-                      Visibility(
-                        visible: drawerUI.shape.value,
-                        child: Padding(
-                          padding: EdgeInsets.only(left: Get.width * 0.040),
-                          child: diamondList(list: shapList),
-                        ),
-                      ),
-                      listColltion(
-                        datalist: AppString.coloredDiamond,
-                        onTap: drawerUI.showShape2,
-                      ),
-                      Visibility(
-                        visible: drawerUI.shape2.value,
-                        child: Padding(
-                          padding: EdgeInsets.only(left: Get.width * 0.040),
-                          child: diamondList(list: shapList),
-                        ),
-                      ),
-                    ],
+                  child: dimaonds(
+                    drawerUI,
+                    shapList,
+                    filteredShapeList,
+                    bottomController
                   ),
                 ),
 

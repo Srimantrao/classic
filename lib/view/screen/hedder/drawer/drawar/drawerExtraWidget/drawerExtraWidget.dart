@@ -447,13 +447,13 @@ Widget productBand({
   );
 }
 
-Widget subTitalHedding(text, {double? fontSize}) {
+Widget subTitalHedding(text, {double? fontSize, FontWeight? fontWeight}) {
   return Text(
     text,
     style: TextStyle(
       color: AppColor.black,
       fontSize: fontSize ?? Textsize.samiHedding,
-      fontWeight: FontWeight.w500,
+      fontWeight: fontWeight ?? FontWeight.w500,
     ),
   );
 }

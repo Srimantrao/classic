@@ -1,22 +1,27 @@
-// ignore_for_file: file_names, avoid_print
+// ignore_for_file: strict_top_level_inference, file_names, avoid_print
 
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productList/filter/getAllParameter_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
 import 'package:classic/controller/user_Interface/hedder/drawer/drawers_Controller.dart';
+import 'package:classic/controller/user_Interface/menu/diamondSearch/diamondSearch_Controller.dart';
 import 'package:classic/controller/user_Interface/widget/bottaomBar/bottombar_Controller.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerExtraWidget/drawerExtraWidget.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/show/showScreen/show.dart';
+import 'package:classic/view/screen/menu/diamondSearch/diamondSearchScreen/searchResult.dart';
+import 'package:classic/view/screen/menu/jewelry/jewelryScreen/product.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/jewelryBody.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
+import 'package:classic/view/utils/app_TextSize.dart';
 import 'package:classic/view/utils/app_URL.dart';
+import 'package:classic/view/utils/app_cricularProgrssIndicator.dart';
 import 'package:classic/view/utils/widget/button.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-import '../../../../../../../controller/user_Interface/menu/diamondSearch/diamondSearch_Controller.dart';
-import '../../../../../menu/jewelry/jewelryScreen/product.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 Widget engagementSection({
   bool? metalvisible,
@@ -181,45 +186,142 @@ Widget jewelryList({required List list}) {
     child: horizontalPadding(
       child: Column(
         children: [
-            GridView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: newList.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                childAspectRatio: 0.8 / 1,
-              ),
-              itemBuilder: (BuildContext context, int index) {
-                return GestureDetector(
-                  onTap: () => callProductList(newList, index),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: AppColor.gray),
-                    ),
-                    child: Column(
-                      children: [
-                        Image(
-                          image: NetworkImage(
-                            AppUrl.imagebaseUrl + (newList[index]['image'] ?? ""),
-                          ),
-                          errorBuilder: (context, error, stackTrace) =>
-                              Icon(Icons.image_not_supported),
+          GridView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: newList.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              childAspectRatio: 0.8 / 1,
+            ),
+            itemBuilder: (BuildContext context, int index) {
+              return GestureDetector(
+                onTap: () => callProductList(newList, index),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColor.gray),
+                  ),
+                  child: Column(
+                    children: [
+                      Image(
+                        image: NetworkImage(
+                          AppUrl.imagebaseUrl + (newList[index]['image'] ?? ""),
                         ),
-                        SizedBox(height: Get.height * 0.009),
-                        Text(newList[index]['categoryName'] ?? ""),
-                      ],
-                    ),
+                        errorBuilder: (context, error, stackTrace) =>
+                            Icon(Icons.image_not_supported),
+                      ),
+                      SizedBox(height: Get.height * 0.009),
+                      Text(newList[index]['categoryName'] ?? ""),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+          SizedBox(height: Get.height * 0.025),
+          button(
+            AppString.viewAll,
+            onTap: () {
+              Get.to(
+                () => Product(
+                  categoryId: '',
+                  categoryName: AppString.productDetails,
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget dimaonds(drawerUI, shapList, filteredShapeList, bottomController) {
+  final diamondSearch = Get.put(DiamondSearchUIController());
+  final getAllPeraMeter = Get.put(GetallparameterController());
+  return Column(
+    children: [
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: Get.width * 0.09),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            subTitalHedding(
+              AppString.shape,
+              fontSize: Textsize.samiHedding,
+              fontWeight: FontWeight.w600,
+            ),
+            SizedBox(height: Get.height * 0.015),
+            gridViweing(
+              itemCount: filteredShapeList.length,
+              itemBuilder: (BuildContext p1, int p2) {
+                return GestureDetector(
+                  onTap: () {
+                    bottomController.isDrawerOpen.value = false;
+                    bottomController.selectindex.value = 3;
+                    bottomController.changePage(3);
+                  },
+                  child: subTitalHedding(
+                    (filteredShapeList[p2]['paraMtrName'])
+                        .toString()
+                        .toUpperCase(),
+                    fontSize: Textsize.samisubHedding,
                   ),
                 );
               },
             ),
-          SizedBox(height: Get.height * 0.025),
-          button(AppString.viewAll)
-        ],
+            drawarDivider(),
+          ],
+        ),
       ),
-    ),
+      listColltion(
+        onTap: drawerUI.showShape,
+        datalist: AppString.naturalDiamond,
+      ),
+      Visibility(
+        visible: drawerUI.shape.value,
+        child: Padding(
+          padding: EdgeInsets.only(left: Get.width * 0.040),
+          child: diamondList(list: shapList),
+        ),
+      ),
+      listColltion(
+        datalist: AppString.coloredDiamond,
+        onTap: drawerUI.showShape2,
+      ),
+      Visibility(
+        visible: drawerUI.shape2.value,
+        child: Padding(
+          padding: EdgeInsets.only(left: Get.width * 0.040),
+          child: diamondList(list: shapList),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.only(
+          left: Get.width * 0.08,
+          right: Get.width * 0.03,
+        ),
+        child: Obx(() {
+          final api = diamondSearch.diamondSearchAPI;
+          final loading = api.isLoading.value;
+          if (getAllPeraMeter.getAllParameterData.isEmpty) {
+            return SizedBox();
+          }
+          return button(
+            loadingWait: loading ? customCircular() : null,
+            AppString.viewAll,
+            onTap: () {
+              diamondSearch.searchDiamond().then((value) {
+                Get.to(() => SearchResult());
+              });
+            },
+          );
+        }),
+      ),
+      SizedBox(height: Get.height * 0.015),
+    ],
   );
 }
 

@@ -7,6 +7,7 @@ class DrawersUIController extends GetxController {
   var engagement = false.obs;
   var weddingbands = false.obs;
   var jewellery = false.obs;
+  var collection = false.obs;
   var shopByMetal = false.obs;
   var show = false.obs;
   var diamonds = false.obs;
@@ -180,6 +181,11 @@ class DrawersUIController extends GetxController {
   //Jewellery
   void showJewellery() {
     jewellery.value = !jewellery.value;
+    update();
+  }
+
+  void showCollection(){
+    collection.value =! collection.value;
     update();
   }
 

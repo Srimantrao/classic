@@ -226,6 +226,18 @@ class Drawers extends StatelessWidget {
                   child: jewelryList(list: jewelry),
                 ),
 
+                //Collection
+                iconDrawer(
+                  onTap: drawerUI.showCollection,
+                  text: AppString.collection,
+                  icon: AppIcon.jewelry,
+                  dot: true,
+                ),
+                Visibility(
+                  visible: drawerUI.collection.value,
+                  child: collection(),
+                ),
+
                 //Diamond
                 iconDrawer(
                   onTap: drawerUI.showDiamonds,

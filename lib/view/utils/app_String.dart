@@ -40,6 +40,11 @@ class AppString {
   static const enagagement = 'ENGAGEMENT';
   static const weddingbands = 'WEDDING BANDS';
   static const Jewelry = 'JEWELRY';
+  static const collection = 'Collection';
+  static const fancyShapDiamond = 'Fancy Shap Diamond';
+  static const engagementCollection = 'Engagement Collection';
+  static const trendingJewelry = 'Trending Jewelry';
+  static const fashion = 'Fashion';
   static const Diamond = 'DIAMONDS';
   static const shopbymetal = 'SHOP BY METAL';
   static const show = 'SHOW';

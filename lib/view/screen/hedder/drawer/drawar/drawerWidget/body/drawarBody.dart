@@ -238,6 +238,69 @@ Widget jewelryList({required List list}) {
   );
 }
 
+//Collection
+Widget collection() {
+  return padddingVartival(
+    child: horizontalPadding(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: Get.width,
+            color: Colors.transparent,
+            child: subTitalHedding(
+              AppString.fancyShapDiamond,
+              fontSize: Textsize.samiHedding,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          drawarDivider(),
+          Container(
+            width: Get.width,
+            color: Colors.transparent,
+            child: subTitalHedding(
+              AppString.engagementCollection,
+              fontSize: Textsize.samiHedding,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          drawarDivider(),
+          Container(
+            width: Get.width,
+            color: Colors.transparent,
+            child: subTitalHedding(
+              AppString.trendingJewelry,
+              fontSize: Textsize.samiHedding,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          drawarDivider(),
+          Container(
+            width: Get.width,
+            color: Colors.transparent,
+            child: subTitalHedding(
+              AppString.fashion,
+              fontSize: Textsize.samiHedding,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          drawarDivider(),
+          button(
+            AppString.viewAll,
+            onTap: () {
+              Get.to(
+                () =>
+                    Product(categoryId: '', categoryName: AppString.collection),
+              );
+            },
+          ),
+          drawarDivider(),
+        ],
+      ),
+    ),
+  );
+}
+
 Widget dimaonds(drawerUI, shapList, filteredShapeList, bottomController) {
   final diamondSearch = Get.put(DiamondSearchUIController());
   final getAllPeraMeter = Get.put(GetallparameterController());

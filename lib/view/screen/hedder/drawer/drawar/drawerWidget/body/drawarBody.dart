@@ -240,48 +240,92 @@ Widget jewelryList({required List list}) {
 
 //Collection
 Widget collection() {
+  final String fancyShapDiamond = '6846a8b38248d6c41940c959';
+  final String fashion = '687610da536dedcd1d4211c8';
+  final String engagementCollection = '67ee85d43c2ae60318a28998';
+  final String trendingJewelry = '68d0e428eb8fba210997cfa8';
   return padddingVartival(
     child: horizontalPadding(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: Get.width,
-            color: Colors.transparent,
-            child: subTitalHedding(
-              AppString.fancyShapDiamond,
-              fontSize: Textsize.samiHedding,
-              fontWeight: FontWeight.w500,
+          GestureDetector(
+            onTap: () {
+              Get.to(
+                () => Product(
+                  categoryId: fancyShapDiamond,
+                  categoryName: AppString.fancyShapDiamond,
+                ),
+              );
+            },
+            child: Container(
+              width: Get.width,
+              color: Colors.transparent,
+              child: subTitalHedding(
+                AppString.fancyShapDiamond,
+                fontSize: Textsize.samiHedding,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
           drawarDivider(),
-          Container(
-            width: Get.width,
-            color: Colors.transparent,
-            child: subTitalHedding(
-              AppString.engagementCollection,
-              fontSize: Textsize.samiHedding,
-              fontWeight: FontWeight.w500,
+          GestureDetector(
+            onTap: () {
+              Get.to(
+                () => Product(
+                  categoryId: engagementCollection,
+                  categoryName: AppString.engagementCollection,
+                ),
+              );
+            },
+            child: Container(
+              width: Get.width,
+              color: Colors.transparent,
+              child: subTitalHedding(
+                AppString.engagementCollection,
+                fontSize: Textsize.samiHedding,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
           drawarDivider(),
-          Container(
-            width: Get.width,
-            color: Colors.transparent,
-            child: subTitalHedding(
-              AppString.trendingJewelry,
-              fontSize: Textsize.samiHedding,
-              fontWeight: FontWeight.w500,
+          GestureDetector(
+            onTap: () {
+              Get.to(
+                () => Product(
+                  categoryId: trendingJewelry,
+                  categoryName: AppString.trendingJewelry,
+                ),
+              );
+            },
+            child: Container(
+              width: Get.width,
+              color: Colors.transparent,
+              child: subTitalHedding(
+                AppString.trendingJewelry,
+                fontSize: Textsize.samiHedding,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
           drawarDivider(),
-          Container(
-            width: Get.width,
-            color: Colors.transparent,
-            child: subTitalHedding(
-              AppString.fashion,
-              fontSize: Textsize.samiHedding,
-              fontWeight: FontWeight.w500,
+          GestureDetector(
+            onTap: () {
+              Get.to(
+                () => Product(
+                  categoryId: fashion,
+                  categoryName: AppString.fashion,
+                ),
+              );
+            },
+            child: Container(
+              width: Get.width,
+              color: Colors.transparent,
+              child: subTitalHedding(
+                AppString.fashion,
+                fontSize: Textsize.samiHedding,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
           drawarDivider(),
@@ -289,8 +333,10 @@ Widget collection() {
             AppString.viewAll,
             onTap: () {
               Get.to(
-                () =>
-                    Product(categoryId: '', categoryName: AppString.collection),
+                () => Product(
+                  categoryId: AppString.collection,
+                  categoryName: AppString.collection,
+                ),
               );
             },
           ),
@@ -431,7 +477,7 @@ Widget showListValue({required List list}) {
 }
 
 //Diamond List
-Widget diamondList({required List list}) {
+Widget diamondList({required List list, final filteredShapeList}) {
   final bottomController = Get.put(BottombarController());
   final diamondSearch = Get.put(DiamondSearchUIController());
   final drawerUI = Get.put(DrawersUIController());
@@ -444,12 +490,18 @@ Widget diamondList({required List list}) {
         index: index,
         datalist: list[index]['paraMtrName'],
         onTap: () {
+          final id = list[index]['paraMtrId'].toString();
+
           if (drawerUI.shape.value) {
             diamondSearch.selectedIndex.value = 0;
+            diamondSearch.toggleShapeSelection(id);
           }
+
           if (drawerUI.shape2.value) {
             diamondSearch.selectedIndex.value = 1;
+            diamondSearch.toggleShapeSelection(id);
           }
+
           bottomController.isDrawerOpen.value = false;
           bottomController.selectindex.value = 3;
           bottomController.changePage(3);

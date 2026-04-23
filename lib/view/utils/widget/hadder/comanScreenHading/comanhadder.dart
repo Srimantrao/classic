@@ -10,6 +10,7 @@ import 'package:classic/view/utils/widget/hadder/comanHadingWidget/comanHadingWi
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:marquee/marquee.dart';
 import '../../../app_Constants.dart';
 
 PreferredSizeWidget comanAppBar({
@@ -134,12 +135,32 @@ PreferredSizeWidget allOtherScreen(
                               ),
                             ),
                           ),
-                    Text(
-                      text,
-                      style: TextStyle(
-                        color: AppColor.primary,
-                        fontWeight: FontWeight.w600,
-                        fontSize: Textsize.subheding,
+                    Expanded(
+                      child: SizedBox(
+                        height: Get.height * 0.025,
+                        child: text.length > 15
+                            ? Marquee(
+                                text: text,
+                                style: TextStyle(
+                                  color: AppColor.primary,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: Textsize.subheding,
+                                ),
+                                scrollAxis: Axis.horizontal,
+                                blankSpace: 40.0,
+                                velocity: 30.0,
+                                pauseAfterRound: Duration(seconds: 1),
+                              )
+                            : Text(
+                                text,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: AppColor.primary,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: Textsize.subheding,
+                                ),
+                              ),
                       ),
                     ),
                     (filter == true)

@@ -294,11 +294,11 @@ class Drawers extends StatelessWidget {
                 ),
 
                 //Find Store
-                iconDrawer(
-                  text: AppString.findstore,
-                  icon: AppIcon.findstore1,
-                  onTap: () => Get.to(() => Findstore()),
-                ),
+                // iconDrawer(
+                //   text: AppString.findstore,
+                //   icon: AppIcon.findstore1,
+                //   onTap: () => Get.to(() => Findstore()),
+                // ),
 
                 //Dashbord
                 iconDrawer(

@@ -1,4 +1,3 @@
-
 // ignore_for_file: file_names, sized_box_for_whitespace, avoid_unnecessary_containers
 
 import 'package:classic/view/screen/menu/home/homeExtraWidget/homeconnectingWideget.dart';
@@ -69,14 +68,30 @@ Widget fotter() {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(AppString.followUsOn, style: TextStyle(color: AppColor.gray5)),
+              Text(
+                AppString.followUsOn,
+                style: TextStyle(color: AppColor.gray5),
+              ),
               fotterImage(AppImage.instagram),
+              Padding(
+                padding: EdgeInsetsGeometry.only(right: Get.width * 0.025),
+              ),
               fotterImage(AppImage.twitter),
+              Padding(
+                padding: EdgeInsetsGeometry.only(right: Get.width * 0.025),
+              ),
               fotterImage(AppImage.facebook),
+              Padding(
+                padding: EdgeInsetsGeometry.only(right: Get.width * 0.025),
+              ),
               fotterImage(AppImage.pinterest),
+              Padding(
+                padding: EdgeInsetsGeometry.only(right: Get.width * 0.025),
+              ),
               fotterImage(AppImage.youtube),
             ],
           ),
+          Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.095)),
         ],
       ),
     ),

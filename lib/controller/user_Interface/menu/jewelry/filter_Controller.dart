@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, strict_top_level_inference, avoid_print
+// ignore_for_file: non_constant_identifier_names, file_names, strict_top_level_inference, avoid_print
 
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/product.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,8 +28,11 @@ class FilterUIController extends GetxController {
 
   // Select methods
   void selectMetalType(String value) => selectedMetalType.value = value;
+
   void selectMetalStamp(String value) => selectedMetalStamp.value = value;
+
   void selectShapes(String value) => selectedShapes.value = value;
+
   void selectStoneTypes(String value) => selectedStoneTypes.value = value;
 
   // Compute combinedMetal from API data
@@ -122,6 +125,19 @@ class FilterUIController extends GetxController {
     lowToHigh.value = false;
     highToLow.value = true;
     priceSort.value = '-1';
+  }
+
+  //Bottom Filters
+  var lowTohigh_val = false.obs;
+  var highTolow_val = false.obs;
+
+  void lowTohigh_valfun() {
+    lowTohigh_val.value = true;
+    highTolow_val.value = false;
+  }
+  void highTolow_valfun() {
+    lowTohigh_val.value = false;
+    highTolow_val.value = true;
   }
 
   // Save filters and fetch API

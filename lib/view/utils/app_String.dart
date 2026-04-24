@@ -34,6 +34,7 @@ class AppString {
   static const inclusion = 'Inclusion';
   static const sendMessage = 'Send Message';
   static const viewAll = 'View All';
+  static const apply = 'Apply';
 
   //Drawer Screen
   static const myAccount = 'MY ACCOUNT';
@@ -252,6 +253,9 @@ class AppString {
       static const productWeight = 'Product Weight(Approximate)';
       static const wgt = 'Weight';
       static const youMay = 'You May Also Like';
+      static const prices = "Price";
+      static const lowTohigh = 'Low To High';
+      static const highTolow = 'High To Low';
 
   //DashBoard Scrren
   static const diamond = 'Diamonds';
@@ -295,7 +299,7 @@ class AppString {
   static const availability = 'Availability';
   static const treatment = 'Treatment';
   static const eyeClean = 'Eye Clean';
-  static const filter = 'Filter';
+  static const filter = 'Filters';
   static const resetFilter = 'Reset Filter';
   static const applyFilter = 'Apply Filter';
   static const sortBy = 'Sort By';

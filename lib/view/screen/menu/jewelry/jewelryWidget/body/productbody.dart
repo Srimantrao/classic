@@ -1,7 +1,10 @@
-// ignore_for_file: strict_top_level_inference, deprecated_member_use
+// ignore_for_file: avoid_unnecessary_containers, non_constant_identifier_names, strict_top_level_inference, deprecated_member_use
 
 import 'package:classic/view/screen/menu/jewelry/jewelryExtraWidget/product.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/productDetail.dart';
+import 'package:classic/view/utils/app_String.dart';
+import 'package:classic/view/utils/app_icon.dart';
+import 'package:classic/view/utils/widget/button.dart';
 import 'package:classic/view/utils/widget/image/productImage.dart';
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
@@ -316,7 +319,6 @@ Widget buildTotalWgt(ProductuiController productControllerUI) {
       child: Row(
         children: sortedWeights.map<Widget>((weight) {
           final isSelected = productControllerUI.isWeightSelected(weight);
-
           return showContainer(
             onTap: () => productControllerUI.selectByWeight(weight),
             name: weight,
@@ -327,4 +329,178 @@ Widget buildTotalWgt(ProductuiController productControllerUI) {
       ),
     );
   });
+}
+
+Widget shortBy({
+  void Function()? lowToHighonTap,
+  void Function()? highToLowonTap,
+  bool lowTohigh_val = false,
+  bool highTolow_val = false,
+}) {
+  double colsesize = 11;
+  return Container(
+    width: Get.width,
+    height: Get.height * 0.30,
+    decoration: BoxDecoration(
+      color: AppColor.white,
+      borderRadius: BorderRadius.circular(borderradius.boder),
+    ),
+    child: Center(
+      child: Column(
+        children: [
+          horizontalPadding(
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: AppColor.gray3)),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: EdgeInsetsGeometry.symmetric(
+                      vertical: Get.width * 0.020,
+                    ),
+                    child: Text(
+                      AppString.sortBy,
+                      style: TextStyle(fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  cencelIcon(colsesize),
+                ],
+              ),
+            ),
+          ),
+          Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.020)),
+          GestureDetector(
+            onTap: lowToHighonTap,
+            child: shortWidgetText(
+              text: "${AppString.prices}: ${AppString.lowTohigh}",
+              boderColor: (lowTohigh_val) ? AppColor.primary : AppColor.gray3,
+              textColor: (lowTohigh_val) ? AppColor.primary : AppColor.black,
+            ),
+          ),
+          GestureDetector(
+            onTap: highToLowonTap,
+            child: shortWidgetText(
+              text: "${AppString.prices}: ${AppString.highTolow}",
+              boderColor: (highTolow_val) ? AppColor.primary : AppColor.gray3,
+              textColor: (highTolow_val) ? AppColor.primary : AppColor.black,
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget filterfun() {
+  double colsesize = 11;
+  return Container(
+    width: Get.width,
+    height: Get.height * 0.70,
+    decoration: BoxDecoration(
+      color: AppColor.white,
+      borderRadius: BorderRadius.circular(borderradius.boder),
+    ),
+    child: horizontalPadding(
+      child: Column(
+        children: [
+          Expanded(
+            flex: 5,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      AppString.filters,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: Get.height * 0.02,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          AppString.reset,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: Get.width * 0.045,
+                            color: AppColor.primary,
+                          ),
+                        ),
+                        cencelIcon(colsesize),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(child: button(
+                      AppString.cancel,
+                      backgroundColor: AppColor.white,
+                      textColor: AppColor.black,
+                      borderColor: AppColor.gray3,
+                    )),
+                    Padding(
+                      padding: EdgeInsetsGeometry.only(
+                        right: Get.width * 0.025,
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                        child: button(AppString.apply)),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget shortWidgetText({
+  required String text,
+  Color? boderColor,
+  Color? textColor,
+}) {
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: Get.width * 0.070),
+    child: Container(
+      padding: EdgeInsetsGeometry.all(10),
+      width: Get.width,
+      decoration: BoxDecoration(
+        border: Border(bottom: BorderSide(color: boderColor!)),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(fontWeight: FontWeight.w500, color: textColor),
+      ),
+    ),
+  );
+}
+
+Widget cencelIcon(colsesize) {
+  return GestureDetector(
+    onTap: () => Get.back(),
+    child: Container(
+      color: AppColor.white,
+      padding: EdgeInsetsGeometry.all(5),
+      child: Image(
+        image: AssetImage(AppIcon.close),
+        width: colsesize,
+        height: colsesize,
+      ),
+    ),
+  );
 }

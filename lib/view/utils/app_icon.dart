@@ -20,6 +20,11 @@ class AppIcon{
   static const newcart = 'assets/icons/newcart.png';
   static const drawer = 'assets/icons/drawer.png';
 
+  //Jwellry
+      //ProductList
+        static const filter = "assets/icons/filter.png";
+        static const close = "assets/icons/close.png";
+
   //DashBorad Screen Icon
   static const camera = 'assets/icons/camera.png';
   static const video = 'assets/icons/video.png';

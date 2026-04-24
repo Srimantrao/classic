@@ -1,6 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, deprecated_member_use, file_names, unnecessary_import
 
 import 'package:classic/controller/user_Interface/widget/bottaomBar/bottombar_Controller.dart';
+import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/drawer.dart';
 import 'package:classic/view/utils/widget/bottom/bottomWidget/bottomWidget.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
@@ -13,6 +14,7 @@ class Bottombar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
+      endDrawer: Drawers(),
       body: SafeArea(
         child: Stack(
           children: [

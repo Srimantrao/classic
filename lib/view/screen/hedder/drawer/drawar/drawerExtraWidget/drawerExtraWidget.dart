@@ -1,6 +1,7 @@
 // ignore_for_file: strict_top_level_inference, avoid_unnecessary_containers
 
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/product.dart';
+import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/productbody.dart';
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
@@ -136,6 +137,7 @@ Color getMetalColor(String metal) {
 }
 
 Widget imageDrawer(void Function()? onTap) {
+  double colsesize = 11;
   return horizontalPadding(
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -150,7 +152,7 @@ Widget imageDrawer(void Function()? onTap) {
               horizontal: Get.width * 0.005,
             ),
             decoration: BoxDecoration(color: Colors.transparent),
-            child: Icon(Icons.cancel_outlined, color: AppColor.primary),
+            child: cencelIcon(colsesize),
           ),
         ),
       ],

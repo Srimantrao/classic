@@ -1,7 +1,11 @@
 // ignore_for_file: file_names, avoid_print, strict_top_level_inference
 
 import 'package:classic/view/screen/menu/jewelry/jewelryExtraWidget/jewellry.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:classic/view/screen/menu/jewelry/jewelryExtraWidget/product.dart';
+import 'package:classic/view/utils/app_Color.dart';
+import 'package:classic/view/utils/app_String.dart';
+import 'package:classic/view/utils/app_icon.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../jewelryScreen/product.dart';
 
@@ -32,6 +36,38 @@ Widget listOfItem({required List list}) {
   );
 }
 
+Widget filterBottom({
+  void Function()? sortOnTap,
+  void Function()? filtersOnTap,
+}) {
+  return Container(
+    decoration: BoxDecoration(color: AppColor.secondary),
+    child: Row(
+      children: [
+        Expanded(
+          child: GestureDetector(
+            onTap: sortOnTap,
+            child: filterSelectButton(
+              image: AppIcon.custom,
+              text: AppString.sortBy,
+            ),
+          ),
+        ),
+        VerticalDivider(color: AppColor.gray3, thickness: 2),
+        Expanded(
+          child: GestureDetector(
+            onTap: filtersOnTap,
+            child: filterSelectButton(
+              image: AppIcon.filter,
+              text: AppString.filter,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
 void callProductList(newList, index) {
   final categoryId = newList[index]['_id'];
   final categoryName = newList[index]['categoryName'];
@@ -39,7 +75,6 @@ void callProductList(newList, index) {
   print("categoryId :- $categoryId");
   print("categoryId :- $categoryName");
 }
-
 
 //  crossAxisCount: 2,
 //         mainAxisExtent: Get.height * 0.30,

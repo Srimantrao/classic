@@ -3,7 +3,7 @@
 import 'package:classic/view/utils/app_Borderradius.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_TextSize.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 
@@ -85,5 +85,38 @@ Widget showContainer({
         ),
       ),
     ),
+  );
+}
+
+Widget filterSelectButton({String? image, String? text}) {
+  double size = 22;
+  return Container(
+    decoration: BoxDecoration(color: AppColor.secondary),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image(
+          image: AssetImage(image!),
+          width: size,
+          height: size,
+          color: AppColor.gray5,
+        ),
+        Padding(padding: EdgeInsetsGeometry.only(right: Get.width * 0.020)),
+        Text(text!, style: TextStyle(fontWeight: FontWeight.w500)),
+      ],
+    ),
+  );
+}
+
+void showBottomSheetFuc(
+  context, {
+  required Widget Function(BuildContext) builder,
+}) {
+  showModalBottomSheet(
+    isScrollControlled: true,
+    context: context,
+    builder: builder,
+    showDragHandle: true,
+    backgroundColor: AppColor.white,
   );
 }

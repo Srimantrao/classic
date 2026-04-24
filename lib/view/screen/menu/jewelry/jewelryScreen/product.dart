@@ -4,6 +4,7 @@ import 'package:classic/controller/application_Programing_interface/apiControlle
 import 'package:classic/controller/user_Interface/menu/jewelry/filter_Controller.dart';
 import 'package:classic/controller/user_Interface/menu/jewelry/productUI_Controller.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/filter.dart';
+import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/jewelryBody.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/productbody.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.dart';
@@ -11,6 +12,7 @@ import 'package:classic/view/utils/widget/noDada.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../utils/widget/horizontalpaddind.dart';
+import '../jewelryExtraWidget/product.dart';
 
 class Product extends StatelessWidget {
   final searchUIController = Get.put(ProductSerchController());
@@ -74,57 +76,97 @@ class Product extends StatelessWidget {
           categoryName.toUpperCase(),
           cart: true,
         ),
+
+        //Item List
         child: Column(
           children: [
-            search(
-              searchController,
-              onChanged: (value) {
-                searchUIController.onSearchChanged(value);
-              },
-              filtertab: () {
-                bottomStyle(
-                  context,
-                  categoryId: categoryId,
-                  categoryName: categoryName,
-                );
-              },
-            ),
-            Obx(() {
-              final api = productListAPI;
-              final loading = api.isLoading.value;
-              final product = api.productListData;
-              final List productList = searchUIController.filteredProducts;
-              // final List productList = product['data'] ?? [];
-              // final List productList = product;
+            Expanded(
+              flex: 13,
+              child: Column(
+                children: [
+                  search(
+                    searchController,
+                    onChanged: (value) {
+                      searchUIController.onSearchChanged(value);
+                    },
+                    filtertab: () {
+                      bottomStyle(
+                        context,
+                        categoryId: categoryId,
+                        categoryName: categoryName,
+                      );
+                    },
+                  ),
+                  Obx(() {
+                    final api = productListAPI;
+                    final loading = api.isLoading.value;
+                    final product = api.productListData;
+                    final List productList =
+                        searchUIController.filteredProducts;
+                    // final List productList = product['data'] ?? [];
+                    // final List productList = product;
 
-              if (loading) {
-                return Expanded(child: Center(child: shimmerGrid()));
-              }
+                    if (loading) {
+                      return Expanded(child: Center(child: shimmerGrid()));
+                    }
 
-              if (product.isEmpty || productList.isEmpty) {
-                return noData();
-              }
+                    if (product.isEmpty || productList.isEmpty) {
+                      return noData();
+                    }
 
-              return Expanded(
-                child: horizontalPadding(
-                  child: Column(
-                    children: [
-                      listController(
-                        categoryId,
-                        productList,
-                        scrollController,
-                        isLoadMore: api.isLoadMore.value,
-                      ),
-                      Padding(
-                        padding: EdgeInsetsGeometry.symmetric(
-                          vertical: Get.height * 0.01,
+                    return Expanded(
+                      child: horizontalPadding(
+                        child: Column(
+                          children: [
+                            listController(
+                              categoryId,
+                              productList,
+                              scrollController,
+                              isLoadMore: api.isLoadMore.value,
+                            ),
+                            Padding(
+                              padding: EdgeInsetsGeometry.symmetric(
+                                vertical: Get.height * 0.01,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              );
-            }),
+                    );
+                  }),
+                ],
+              ),
+            ),
+
+            //Bottom Filters
+            Expanded(
+              flex: 1,
+              child: filterBottom(
+                filtersOnTap: () {
+                  showBottomSheetFuc(
+                    context,
+                    builder: (BuildContext context) {
+                      return filterfun();
+                    },
+                  );
+                },
+                sortOnTap: () {
+                  showBottomSheetFuc(
+                    context,
+                    builder: (BuildContext context) {
+                      return Obx(() {
+                        return shortBy(
+                          lowTohigh_val: filter.lowTohigh_val.value,
+                          highTolow_val: filter.highTolow_val.value,
+                          lowToHighonTap: filter.lowTohigh_valfun,
+                          highToLowonTap: filter.highTolow_valfun,
+                        );
+                      });
+                    },
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),

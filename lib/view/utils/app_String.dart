@@ -249,6 +249,7 @@ class AppString {
       static const productAndMetalDetails = 'Product And Metal Details';
       static const productCode = 'Product Code';
       static const metal = 'Metal';
+      static const stamps = 'Stamps';
       static const height = 'Height';
       static const productWeight = 'Product Weight(Approximate)';
       static const wgt = 'Weight';
@@ -256,6 +257,8 @@ class AppString {
       static const prices = "Price";
       static const lowTohigh = 'Low To High';
       static const highTolow = 'High To Low';
+      static const style = 'Style';
+      static const tags = 'Tags';
 
   //DashBoard Scrren
   static const diamond = 'Diamonds';

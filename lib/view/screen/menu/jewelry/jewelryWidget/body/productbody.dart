@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_unnecessary_containers, non_constant_identifier_names, strict_top_level_inference, deprecated_member_use
 
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productList/filter/getAllParameter_Controller.dart';
+import 'package:classic/controller/user_Interface/menu/jewelry/bottomfilterUI_Controller.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryExtraWidget/product.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/productDetail.dart';
 import 'package:classic/view/utils/app_String.dart';
@@ -394,6 +396,8 @@ Widget shortBy({
 }
 
 Widget filterfun() {
+  final getAllParameter = Get.put(GetallparameterController());
+  final bottomfilter = Get.put(BottomFilterUiController());
   double colsesize = 11;
   return Container(
     width: Get.width,
@@ -402,69 +406,96 @@ Widget filterfun() {
       color: AppColor.white,
       borderRadius: BorderRadius.circular(borderradius.boder),
     ),
-    child: horizontalPadding(
-      child: Column(
-        children: [
-          Expanded(
-            flex: 5,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      AppString.filters,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: Get.height * 0.02,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          AppString.reset,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: Get.width * 0.045,
-                            color: AppColor.primary,
-                          ),
+    child: Column(
+      children: [
+        Expanded(
+          flex: 9,
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.only(bottom: Get.height * 0.015),
+                decoration: BoxDecoration(
+                  border: Border(bottom: BorderSide(color: AppColor.secondary)),
+                ),
+                child: horizontalPadding(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        AppString.filters,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: Get.height * 0.02,
                         ),
-                        cencelIcon(colsesize),
-                      ],
-                    ),
-                  ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            AppString.reset,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: Get.width * 0.040,
+                              color: AppColor.primary,
+                            ),
+                          ),
+                          SizedBox(width: Get.width * 0.025),
+                          cencelIcon(colsesize),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
+              ),
+
+              Expanded(
+                child: filterData(
+                  styleonTap: bottomfilter.styleOnTab,
+                  stamponTap: bottomfilter.stampsOnTab,
+                  metalonTap: bottomfilter.metalOnTab,
+                  collectiononTap: bottomfilter.collectinOnTab,
+                  priceonTap: bottomfilter.priceOnTab,
+                  tagsonTap: bottomfilter.tagOnTab,
+                ),
+              ),
+            ],
           ),
-          Expanded(
-            flex: 1,
+        ),
+        Expanded(
+          flex: 2,
+          child: Container(
+            decoration: BoxDecoration(
+              color: AppColor.white,
+              border: Border(top: BorderSide(color: AppColor.secondary)),
+            ),
+            padding: EdgeInsets.only(top: Get.height * 0.008),
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(child: button(
-                      AppString.cancel,
-                      backgroundColor: AppColor.white,
-                      textColor: AppColor.black,
-                      borderColor: AppColor.gray3,
-                    )),
-                    Padding(
-                      padding: EdgeInsetsGeometry.only(
-                        right: Get.width * 0.025,
+                horizontalPadding(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: button(
+                          AppString.cancel,
+                          backgroundColor: AppColor.white,
+                          textColor: AppColor.black,
+                          borderColor: AppColor.gray3,
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                        child: button(AppString.apply)),
-                  ],
+                      Padding(
+                        padding: EdgeInsetsGeometry.only(
+                          right: Get.width * 0.025,
+                        ),
+                      ),
+                      Expanded(flex: 2, child: button(AppString.apply)),
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     ),
   );
 }
@@ -500,6 +531,133 @@ Widget cencelIcon(colsesize) {
         image: AssetImage(AppIcon.close),
         width: colsesize,
         height: colsesize,
+      ),
+    ),
+  );
+}
+
+Widget filterData({
+  void Function()? styleonTap,
+  void Function()? stamponTap,
+  void Function()? metalonTap,
+  void Function()? collectiononTap,
+  void Function()? priceonTap,
+  void Function()? tagsonTap,
+}) {
+  final bottomfilter = Get.put(BottomFilterUiController());
+  return Obx(() {
+    bool style = bottomfilter.styleTab.value;
+    bool stamps = bottomfilter.stampsTab.value;
+    bool metal = bottomfilter.metalTab.value;
+    bool collection = bottomfilter.collectinTab.value;
+    bool price = bottomfilter.priceTab.value;
+    bool tags = bottomfilter.tagTab.value;
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+          flex: 5,
+          child: Container(
+            decoration: BoxDecoration(
+              color: AppColor.gray2,
+              border: Border(right: BorderSide(color: AppColor.secondary)),
+            ),
+            child: Column(
+              children: [
+                filterText(
+                  Bodercolor: style ? AppColor.primary : Colors.transparent,
+                  textcolor: style ? AppColor.primary : AppColor.black,
+                  color: style ? AppColor.white : AppColor.gray2,
+                  onTap: styleonTap,
+                  AppString.style,
+                ),
+                filterText(
+                  Bodercolor: stamps ? AppColor.primary : Colors.transparent,
+                  textcolor: stamps ? AppColor.primary : AppColor.black,
+                  color: stamps ? AppColor.white : AppColor.gray2,
+                  onTap: stamponTap,
+                  AppString.stamps,
+                ),
+                filterText(
+                  Bodercolor: metal ? AppColor.primary : Colors.transparent,
+                  textcolor: metal ? AppColor.primary : AppColor.black,
+                  color: metal ? AppColor.white : AppColor.gray2,
+                  onTap: metalonTap,
+                  AppString.metal,
+                ),
+                filterText(
+                  Bodercolor: collection
+                      ? AppColor.primary
+                      : Colors.transparent,
+                  color: collection ? AppColor.white : AppColor.gray2,
+                  textcolor: collection ? AppColor.primary : AppColor.black,
+                  onTap: collectiononTap,
+                  AppString.collection,
+                ),
+                filterText(
+                  Bodercolor: price ? AppColor.primary : Colors.transparent,
+                  textcolor: price ? AppColor.primary : AppColor.black,
+                  color: price ? AppColor.white : AppColor.gray2,
+                  onTap: priceonTap,
+                  AppString.price,
+                ),
+                filterText(
+                  Bodercolor: tags ? AppColor.primary : Colors.transparent,
+                  textcolor: tags ? AppColor.primary : AppColor.black,
+                  color: tags ? AppColor.white : AppColor.gray2,
+                  onTap: tagsonTap,
+                  AppString.tags,
+                ),
+              ],
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 10,
+          child: Column(
+            children: [
+              Visibility(visible: style, child: Text('jzhsbdgzhgdf')),
+              Visibility(visible: stamps, child: Text('dgzhgzsdgffdf')),
+              Visibility(visible: metal, child: Text('ffdf')),
+              Visibility(visible: collection, child: Text('rdtyreyrt')),
+              Visibility(visible: price, child: Text('plkmh')),
+              Visibility(visible: tags, child: Text('aaqssf')),
+            ],
+          ),
+        ),
+      ],
+    );
+  });
+}
+
+Widget filterText(
+  text, {
+  void Function()? onTap,
+  Color? color,
+  Color? Bodercolor,
+  Color? textcolor,
+}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
+      width: Get.width,
+      padding: EdgeInsets.symmetric(vertical: Get.height * 0.015),
+      decoration: BoxDecoration(
+        color: color,
+        border: Border(
+          left: BorderSide(color: Bodercolor!, width: 3),
+          bottom: BorderSide(color: AppColor.secondary),
+        ),
+      ),
+      child: horizontalPadding(
+        child: Text(
+          text,
+          style: TextStyle(
+            color: textcolor,
+            fontSize: Get.width * 0.040,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
       ),
     ),
   );

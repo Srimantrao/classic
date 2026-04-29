@@ -1,9 +1,6 @@
 // ignore_for_file: avoid_print, avoid_unnecessary_containers, non_constant_identifier_names, strict_top_level_inference, deprecated_member_use
 
-import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/catagory/category_Controller.dart';
-import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productList/filter/getAllParameter_Controller.dart';
 import 'package:classic/controller/user_Interface/menu/jewelry/bottomfilterUI_Controller.dart';
-import 'package:classic/modal/menu/dashbord/listViwe.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryExtraWidget/product.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/productDetail.dart';
 import 'package:classic/view/utils/app_String.dart';

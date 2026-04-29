@@ -1,9 +1,12 @@
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/catagory/category_Controller.dart';
 import 'package:get/get.dart';
 
 class BottomFilterUiController extends GetxController {
+  final categoryAPI = Get.put(CategoryController());
+
   var styleTab = false.obs;
   var stampsTab = false.obs;
-  var metalTab = false.obs;
+  var metalTab = true.obs;
   var collectinTab = false.obs;
   var priceTab = false.obs;
   var tagTab = false.obs;
@@ -61,4 +64,7 @@ class BottomFilterUiController extends GetxController {
     priceTab.value = false;
     tagTab.value = true;
   }
+
+  //bottom filter
+  var selectedSubCategoryId = ''.obs;
 }

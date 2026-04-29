@@ -12,9 +12,21 @@ import '../../jewelryScreen/product.dart';
 Widget listOfItem({required List list}) {
   var newList = list
       .where(
-        (item) => item['subCategory'] != null && item['subCategory'].isNotEmpty,
+        (item) =>
+            item['isMenu'] == true &&
+            item['slug'] != 'engagement-rings' &&
+            item['slug'] != 'wedding-bands' &&
+            item['subCategory'] != null &&
+            item['subCategory'].any(
+              (sub) => sub['isMenu'] == true || sub['isMenu'] == null,
+            ),
       )
       .toList();
+  // var newList = list
+  //     .where(
+  //       (item) => item['subCategory'] != null && item['subCategory'].isNotEmpty,
+  //     )
+  //     .toList();
   return Expanded(
     child: GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

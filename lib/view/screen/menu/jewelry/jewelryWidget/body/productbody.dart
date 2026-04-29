@@ -1,10 +1,13 @@
-// ignore_for_file: avoid_unnecessary_containers, non_constant_identifier_names, strict_top_level_inference, deprecated_member_use
+// ignore_for_file: avoid_print, avoid_unnecessary_containers, non_constant_identifier_names, strict_top_level_inference, deprecated_member_use
 
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/catagory/category_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productList/filter/getAllParameter_Controller.dart';
 import 'package:classic/controller/user_Interface/menu/jewelry/bottomfilterUI_Controller.dart';
+import 'package:classic/modal/menu/dashbord/listViwe.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryExtraWidget/product.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/productDetail.dart';
 import 'package:classic/view/utils/app_String.dart';
+import 'package:classic/view/utils/app_TextSize.dart';
 import 'package:classic/view/utils/app_icon.dart';
 import 'package:classic/view/utils/widget/button.dart';
 import 'package:classic/view/utils/widget/image/productImage.dart';
@@ -16,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../../controller/user_Interface/menu/jewelry/productUI_Controller.dart';
@@ -305,7 +309,6 @@ Widget buildMetalStamps(ProductuiController productControllerUI) {
 Widget buildTotalWgt(ProductuiController productControllerUI) {
   return Obx(() {
     final sortedWeights = productControllerUI.sortedWeightList;
-
     if (sortedWeights.isEmpty) {
       return Container(
         padding: const EdgeInsets.symmetric(vertical: 12),
@@ -395,10 +398,10 @@ Widget shortBy({
   );
 }
 
-Widget filterfun() {
-  final getAllParameter = Get.put(GetallparameterController());
+Widget filterfun({dynamic styleSubCatagory}) {
   final bottomfilter = Get.put(BottomFilterUiController());
   double colsesize = 11;
+  print("styleSubCatagory :- $styleSubCatagory");
   return Container(
     width: Get.width,
     height: Get.height * 0.70,
@@ -446,7 +449,6 @@ Widget filterfun() {
                   ),
                 ),
               ),
-
               Expanded(
                 child: filterData(
                   styleonTap: bottomfilter.styleOnTab,
@@ -455,6 +457,7 @@ Widget filterfun() {
                   collectiononTap: bottomfilter.collectinOnTab,
                   priceonTap: bottomfilter.priceOnTab,
                   tagsonTap: bottomfilter.tagOnTab,
+                  styleSubCatagory: styleSubCatagory,
                 ),
               ),
             ],
@@ -543,6 +546,7 @@ Widget filterData({
   void Function()? collectiononTap,
   void Function()? priceonTap,
   void Function()? tagsonTap,
+  dynamic styleSubCatagory,
 }) {
   final bottomfilter = Get.put(BottomFilterUiController());
   return Obx(() {
@@ -552,6 +556,12 @@ Widget filterData({
     bool collection = bottomfilter.collectinTab.value;
     bool price = bottomfilter.priceTab.value;
     bool tags = bottomfilter.tagTab.value;
+    List subCategoryList = [];
+    if (styleSubCatagory is Map && styleSubCatagory.isNotEmpty) {
+      if (styleSubCatagory['subCategory'] is List) {
+        subCategoryList = styleSubCatagory['subCategory'] as List;
+      }
+    }
     return Row(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -614,15 +624,66 @@ Widget filterData({
         ),
         Expanded(
           flex: 10,
-          child: Column(
-            children: [
-              Visibility(visible: style, child: Text('jzhsbdgzhgdf')),
-              Visibility(visible: stamps, child: Text('dgzhgzsdgffdf')),
-              Visibility(visible: metal, child: Text('ffdf')),
-              Visibility(visible: collection, child: Text('rdtyreyrt')),
-              Visibility(visible: price, child: Text('plkmh')),
-              Visibility(visible: tags, child: Text('aaqssf')),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Style
+                Visibility(
+                  visible: style,
+                  child: subCategoryList.isEmpty
+                      ? Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                            'No subcategories available',
+                            style: TextStyle(color: Colors.grey.shade600),
+                          ),
+                        )
+                      : bottomStylefilter(
+                          subCategoryList,
+                          bottomfilter.selectedSubCategoryId,
+                          onTap: (id) {
+                            print("Selected ID: $id");
+                          },
+                        ),
+                ),
+                Visibility(
+                  visible: stamps,
+                  child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Text('Stamps filter coming soon...'),
+                  ),
+                ),
+                Visibility(
+                  visible: metal,
+                  child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Text('Metal filter coming soon...'),
+                  ),
+                ),
+                Visibility(
+                  visible: collection,
+                  child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Text('Collection filter coming soon...'),
+                  ),
+                ),
+                Visibility(
+                  visible: price,
+                  child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Text('Price filter coming soon...'),
+                  ),
+                ),
+                Visibility(
+                  visible: tags,
+                  child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Text('Tags filter coming soon...'),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ],
@@ -658,6 +719,60 @@ Widget filterText(
             fontWeight: FontWeight.w500,
           ),
         ),
+      ),
+    ),
+  );
+}
+
+//bottom Style Filter
+Widget bottomStylefilter(
+  List subCategoryList,
+  RxString selectedId, {
+  void Function(String id)? onTap,
+}) {
+  final menuList = subCategoryList.where((item) {
+    final data = item as Map<String, dynamic>;
+    return data['isMenu'] == true;
+  }).toList();
+  return Padding(
+    padding: const EdgeInsets.all(10),
+    child: Obx(
+      () => Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: menuList.map<Widget>((item) {
+          final data = item as Map<String, dynamic>;
+          final categoryName = data['categoryName'] ?? 'Unknown';
+          final id = data['_id'];
+          final isSelected = selectedId.value == id;
+          return GestureDetector(
+            onTap: () {
+              selectedId.value = id;
+              onTap?.call(id);
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: isSelected ? AppColor.primary : AppColor.gray,
+                  width: 1,
+                ),
+                borderRadius: BorderRadius.circular(borderradius.buttonboder),
+                color: isSelected
+                    ? AppColor.primary.withOpacity(0.1)
+                    : Colors.transparent,
+              ),
+              child: Text(
+                categoryName.toString(),
+                style: TextStyle(
+                  fontSize: Textsize.samisubHedding,
+                  color: isSelected ? AppColor.primary : Colors.black87,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          );
+        }).toList(),
       ),
     ),
   );

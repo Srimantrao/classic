@@ -11,6 +11,7 @@ import 'package:classic/view/utils/widget/hadder/comanScreenHading/comanhadder.d
 import 'package:classic/view/utils/widget/noDada.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../../controller/application_Programing_interface/apiController/menu/jewellery/catagory/category_Controller.dart';
 import '../../../../utils/widget/horizontalpaddind.dart';
 import '../jewelryExtraWidget/product.dart';
 
@@ -146,7 +147,21 @@ class Product extends StatelessWidget {
                   showBottomSheetFuc(
                     context,
                     builder: (BuildContext context) {
-                      return filterfun();
+                      final categoryAPI = Get.put(CategoryController());
+                      final categoryData = categoryAPI.catagoryData;
+                      Map<String, dynamic>? selectedCategory;
+                      if (categoryData is Map && categoryData['data'] is List) {
+                        final dataList = categoryData['data'] as List;
+                        selectedCategory =
+                            dataList.firstWhereOrNull(
+                                  (item) =>
+                                      item is Map && item['_id'] == categoryId,
+                                )
+                                as Map<String, dynamic>?;
+                      }
+                      return filterfun(
+                        styleSubCatagory: selectedCategory ?? {},
+                      );
                     },
                   );
                 },

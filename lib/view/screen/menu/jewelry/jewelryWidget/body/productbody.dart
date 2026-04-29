@@ -745,34 +745,46 @@ Widget bottomStylefilter(
           final categoryName = data['categoryName'] ?? 'Unknown';
           final id = data['_id'];
           final isSelected = selectedId.value == id;
-          return GestureDetector(
+          return fillterShowContainer(
+            isSelected: isSelected,
             onTap: () {
               selectedId.value = id;
               onTap?.call(id);
             },
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: isSelected ? AppColor.primary : AppColor.gray,
-                  width: 1,
-                ),
-                borderRadius: BorderRadius.circular(borderradius.buttonboder),
-                color: isSelected
-                    ? AppColor.primary.withOpacity(0.1)
-                    : Colors.transparent,
-              ),
-              child: Text(
-                categoryName.toString(),
-                style: TextStyle(
-                  fontSize: Textsize.samisubHedding,
-                  color: isSelected ? AppColor.primary : Colors.black87,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
+            text: categoryName.toString(),
           );
         }).toList(),
+      ),
+    ),
+  );
+}
+
+Widget fillterShowContainer({
+  required bool isSelected,
+  required void Function() onTap,
+  required String text,
+}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: isSelected ? AppColor.primary : AppColor.gray,
+          width: 1,
+        ),
+        borderRadius: BorderRadius.circular(borderradius.buttonboder),
+        color: isSelected
+            ? AppColor.primary.withOpacity(0.1)
+            : Colors.transparent,
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: Textsize.samisubHedding,
+          color: isSelected ? AppColor.primary : Colors.black87,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     ),
   );

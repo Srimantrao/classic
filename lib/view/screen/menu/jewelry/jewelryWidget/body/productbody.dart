@@ -745,6 +745,7 @@ Widget filterData({
                           },
                         ),
                 ),
+                //Stamps
                 Visibility(
                   visible: stamps,
                   child: Padding(
@@ -760,6 +761,7 @@ Widget filterData({
                     ),
                   ),
                 ),
+                //Metal
                 Visibility(
                   visible: metal,
                   child: Padding(
@@ -775,6 +777,7 @@ Widget filterData({
                     ),
                   ),
                 ),
+                //
                 Visibility(
                   visible: collection,
                   child: Padding(
@@ -789,6 +792,7 @@ Widget filterData({
                     ),
                   ),
                 ),
+                //Price
                 Visibility(
                   visible: price,
                   child: Padding(
@@ -796,6 +800,7 @@ Widget filterData({
                     child: priceText(bottomfilter.priceRange),
                   ),
                 ),
+                //
                 Visibility(
                   visible: tags,
                   child: Padding(

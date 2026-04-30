@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print, avoid_unnecessary_containers, non_constant_identifier_names, strict_top_level_inference, deprecated_member_use
 
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/productTital/productTital_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/catagory/category_Controller.dart';
 import 'package:classic/controller/user_Interface/menu/jewelry/bottomfilterUI_Controller.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryExtraWidget/product.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/productDetail.dart';
@@ -16,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_navigation/src/root/parse_route.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:shimmer/shimmer.dart';
@@ -331,6 +334,53 @@ Widget buildTotalWgt(ProductuiController productControllerUI) {
       ),
     );
   });
+}
+
+//bottom Filter
+
+void shortFun(context, filter) {
+  showBottomSheetFuc(
+    context,
+    builder: (BuildContext context) {
+      return Obx(() {
+        return shortBy(
+          lowTohigh_val: filter.lowTohigh_val.value,
+          highTolow_val: filter.highTolow_val.value,
+          lowToHighonTap: filter.lowTohigh_valfun,
+          highToLowonTap: filter.highTolow_valfun,
+        );
+      });
+    },
+  );
+}
+
+void filterFun(context, {required String categoryId}) {
+  showBottomSheetFuc(
+    context,
+    builder: (BuildContext context) {
+      return Obx(() {
+        final categoryAPI = Get.put(CategoryController());
+        final productTital = Get.put(ProductTitalController());
+        final categoryData = categoryAPI.catagoryData;
+        final productTitalData = productTital.getMetalName;
+        Map<String, dynamic>? selectedCategory;
+        if (categoryData is Map && categoryData['data'] is List) {
+          final dataList = categoryData['data'] as List;
+          selectedCategory =
+              dataList.firstWhereOrNull(
+                    (item) => item is Map && item['_id'] == categoryId,
+                  )
+                  as Map<String, dynamic>?;
+        }
+        return filterfun(
+          styleSubCatagory: selectedCategory ?? {},
+          stampData: productTitalData['data'] is Map
+              ? productTitalData['data']
+              : {},
+        );
+      });
+    },
+  );
 }
 
 Widget shortBy({
@@ -667,6 +717,7 @@ Widget filterData({
                       bottomfilter.selectedStampIds,
                       nameKey: 'paraMtrName',
                       onChanged: (selectedIds) {
+                        bottomfilter.stampID.value = selectedIds;
                         print("Selected Stamp IDs: $selectedIds");
                       },
                     ),
@@ -681,6 +732,7 @@ Widget filterData({
                       bottomfilter.selectedMetalIds,
                       nameKey: 'metal',
                       onChanged: (selectedIds) {
+                        bottomfilter.metalID.value = selectedIds;
                         print("Selected Metal IDs: $selectedIds");
                       },
                     ),
@@ -784,9 +836,9 @@ Widget bottomStylefilter(
 
 Widget bottomStampsfilter(
   List list,
-    RxString selectedIds, {
+  RxString selectedIds, {
   required String nameKey,
-      void Function(String)? onChanged,
+  void Function(String)? onChanged,
 }) {
   return Padding(
     padding: const EdgeInsets.all(10),

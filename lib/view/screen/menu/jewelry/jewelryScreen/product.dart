@@ -144,52 +144,8 @@ class Product extends StatelessWidget {
             Expanded(
               flex: 1,
               child: filterBottom(
-                filtersOnTap: () {
-                  showBottomSheetFuc(
-                    context,
-                    builder: (BuildContext context) {
-                      return Obx(() {
-                        final categoryAPI = Get.put(CategoryController());
-                        final productTital = Get.put(ProductTitalController());
-                        final categoryData = categoryAPI.catagoryData;
-                        final productTitalData = productTital.getMetalName;
-                        Map<String, dynamic>? selectedCategory;
-                        if (categoryData is Map &&
-                            categoryData['data'] is List) {
-                          final dataList = categoryData['data'] as List;
-                          selectedCategory =
-                              dataList.firstWhereOrNull(
-                                    (item) =>
-                                        item is Map &&
-                                        item['_id'] == categoryId,
-                                  )
-                                  as Map<String, dynamic>?;
-                        }
-                        return filterfun(
-                          styleSubCatagory: selectedCategory ?? {},
-                          stampData: productTitalData['data'] is Map
-                              ? productTitalData['data']
-                              : {},
-                        );
-                      });
-                    },
-                  );
-                },
-                sortOnTap: () {
-                  showBottomSheetFuc(
-                    context,
-                    builder: (BuildContext context) {
-                      return Obx(() {
-                        return shortBy(
-                          lowTohigh_val: filter.lowTohigh_val.value,
-                          highTolow_val: filter.highTolow_val.value,
-                          lowToHighonTap: filter.lowTohigh_valfun,
-                          highToLowonTap: filter.highTolow_valfun,
-                        );
-                      });
-                    },
-                  );
-                },
+                filtersOnTap: () => filterFun(context, categoryId: categoryId),
+                sortOnTap: () => shortFun(context, filter),
               ),
             ),
           ],

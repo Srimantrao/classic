@@ -69,9 +69,15 @@ class BottomFilterUiController extends GetxController {
   var selectedSubCategoryId = ''.obs;
   var selectedStampIds = ''.obs;
   var selectedMetalIds = ''.obs;
+  var priceRange = ''.obs;
+  var selectedCollectionIds = ''.obs;
+  var selectedTagId = ''.obs;
 
   //_id
   var styleID = ''.obs;
   var stampID = ''.obs;
   var metalID = ''.obs;
+  var collectionID = ''.obs;
+  var priceID = ''.obs;
+  var tagID = ''.obs;
 }

@@ -1,7 +1,8 @@
-// ignore_for_file: avoid_print, avoid_unnecessary_containers, non_constant_identifier_names, strict_top_level_inference, deprecated_member_use
+// ignore_for_file: unnecessary_type_check, avoid_print, avoid_unnecessary_containers, non_constant_identifier_names, strict_top_level_inference, deprecated_member_use
 
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/productTital/productTital_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/catagory/category_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productList/filter/getAllParameter_Controller.dart';
 import 'package:classic/controller/user_Interface/menu/jewelry/bottomfilterUI_Controller.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryExtraWidget/product.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/productDetail.dart';
@@ -257,13 +258,9 @@ Widget buildShape(ProductuiController productControllerUI) {
     child: Row(
       children: shapeList.map((shape) {
         final name = shape['shapeName'] ?? '';
-        final shapeId =
-            shape['shapeId'] ?? ''; // Changed from 'shape' to 'shapeId'
-
+        final shapeId = shape['shapeId'] ?? '';
         if (name.isEmpty) return const SizedBox();
-
         final isSelected = productControllerUI.isShapeSelected(shapeId);
-
         return GestureDetector(
           onTap: () {
             productControllerUI.selectShape(shapeId);
@@ -337,7 +334,6 @@ Widget buildTotalWgt(ProductuiController productControllerUI) {
 }
 
 //bottom Filter
-
 void shortFun(context, filter) {
   showBottomSheetFuc(
     context,
@@ -361,8 +357,11 @@ void filterFun(context, {required String categoryId}) {
       return Obx(() {
         final categoryAPI = Get.put(CategoryController());
         final productTital = Get.put(ProductTitalController());
+        final getAllParameter = Get.put(GetallparameterController());
         final categoryData = categoryAPI.catagoryData;
         final productTitalData = productTital.getMetalName;
+        final rawCollection = getAllParameter.getAllParameterData['collection'];
+        final rawTags = getAllParameter.getAllParameterData['tag'];
         Map<String, dynamic>? selectedCategory;
         if (categoryData is Map && categoryData['data'] is List) {
           final dataList = categoryData['data'] as List;
@@ -372,11 +371,30 @@ void filterFun(context, {required String categoryId}) {
                   )
                   as Map<String, dynamic>?;
         }
+
+        // Collection
+        Map<String, dynamic> collectionMap = {};
+        if (rawCollection is List) {
+          collectionMap = {'collection': rawCollection};
+        } else if (rawCollection is Map) {
+          collectionMap = Map<String, dynamic>.from(rawCollection);
+        }
+
+        //Tags
+        Map<String, dynamic> tagonMap = {};
+        if (rawTags is List) {
+          tagonMap = {'tag': rawTags};
+        } else if (rawTags is Map) {
+          tagonMap = Map<String, dynamic>.from(rawTags);
+        }
+
         return filterfun(
           styleSubCatagory: selectedCategory ?? {},
           stampData: productTitalData['data'] is Map
               ? productTitalData['data']
               : {},
+          collectionData: collectionMap,
+          tagData: tagonMap,
         );
       });
     },
@@ -445,11 +463,14 @@ Widget shortBy({
   );
 }
 
-Widget filterfun({dynamic styleSubCatagory, dynamic stampData}) {
+Widget filterfun({
+  dynamic styleSubCatagory,
+  dynamic stampData,
+  dynamic collectionData,
+  dynamic tagData,
+}) {
   final bottomfilter = Get.put(BottomFilterUiController());
   double colsesize = 11;
-  print("styleSubCatagory :- $styleSubCatagory");
-  print("Stamp :- $stampData");
   return Container(
     width: Get.width,
     height: Get.height * 0.70,
@@ -507,6 +528,8 @@ Widget filterfun({dynamic styleSubCatagory, dynamic stampData}) {
                   tagsonTap: bottomfilter.tagOnTab,
                   styleSubCatagory: styleSubCatagory,
                   stampData: stampData,
+                  collectionData: collectionData,
+                  tagData: tagData,
                 ),
               ),
             ],
@@ -597,6 +620,8 @@ Widget filterData({
   void Function()? tagsonTap,
   dynamic styleSubCatagory,
   dynamic stampData,
+  dynamic collectionData,
+  dynamic tagData,
 }) {
   final bottomfilter = Get.put(BottomFilterUiController());
   return Obx(() {
@@ -609,6 +634,8 @@ Widget filterData({
     List subCategoryList = [];
     List stampList = [];
     List metalList = [];
+    List collectionList = [];
+    List tagList = [];
     if (styleSubCatagory is Map && styleSubCatagory.isNotEmpty) {
       if (styleSubCatagory['subCategory'] is List) {
         subCategoryList = styleSubCatagory['subCategory'] as List;
@@ -620,6 +647,16 @@ Widget filterData({
       }
       if (stampData['metaltype'] is List) {
         metalList = stampData['metaltype'];
+      }
+    }
+    if (collectionData is Map) {
+      if (collectionData['collection'] is List) {
+        collectionList = collectionData['collection'];
+      }
+    }
+    if (tagData is Map && tagData.isNotEmpty) {
+      if (tagData['tag'] is List) {
+        tagList = tagData['tag'];
       }
     }
     return Row(
@@ -741,22 +778,36 @@ Widget filterData({
                 Visibility(
                   visible: collection,
                   child: Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Text('Collection filter coming soon...'),
+                    padding: EdgeInsets.all(10),
+                    child: bottomCollectionfilter(
+                      collectionList,
+                      bottomfilter.selectedCollectionIds,
+                      onChanged: (selectedIds) {
+                        bottomfilter.collectionID.value = selectedIds;
+                        print("Selected Collection IDs: $selectedIds");
+                      },
+                    ),
                   ),
                 ),
                 Visibility(
                   visible: price,
                   child: Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Text('Price filter coming soon...'),
+                    padding: EdgeInsets.all(10),
+                    child: priceText(bottomfilter.priceRange),
                   ),
                 ),
                 Visibility(
                   visible: tags,
                   child: Padding(
                     padding: EdgeInsets.all(16),
-                    child: Text('Tags filter coming soon...'),
+                    child: bottomTagFilter(
+                      tagList,
+                      bottomfilter.selectedTagId,
+                      onChanged: (selectedId) {
+                        bottomfilter.tagID.value = selectedId;
+                        print("Selected Tag ID: $selectedId");
+                      },
+                    ),
                   ),
                 ),
               ],
@@ -849,7 +900,91 @@ Widget bottomStampsfilter(
         final data = item as Map<String, dynamic>;
         final id = data['_id'];
         final name = data[nameKey] ?? 'Unknown';
-        final isSelected = selectedIds.contains(id);
+        final isSelected = selectedIds.value == id;
+        return fillterShowContainer(
+          isSelected: isSelected,
+          onTap: () {
+            selectedIds.value = id;
+            onChanged?.call(id);
+          },
+          text: name.toString(),
+        );
+      }).toList(),
+    ),
+  );
+}
+
+Widget bottomCollectionfilter(
+  List collectionList,
+  RxString selectedIds, {
+  void Function(String)? onChanged,
+}) {
+  return Padding(
+    padding: const EdgeInsets.all(10),
+    child: Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: collectionList.map<Widget>((item) {
+        final data = item as Map<String, dynamic>;
+        final id = data['paraMtrId'];
+        final name = data['paraMtrName'] ?? 'Unknown';
+        final isSelected = selectedIds.value == id;
+        return fillterShowContainer(
+          isSelected: isSelected,
+          onTap: () {
+            selectedIds.value = id;
+            onChanged?.call(id);
+          },
+          text: name.toString(),
+        );
+      }).toList(),
+    ),
+  );
+}
+
+Widget priceText(RxString priceName) {
+  List priceOptions = [
+    'Under \$500',
+    '\$501 - \$1000',
+    '\$1001 - \$2000',
+    '\$2001 - \$3000',
+    '\$3001 - \$4000',
+    '\$4001 - \$5000',
+    'Above \$5000',
+  ];
+  return Wrap(
+    spacing: 8,
+    runSpacing: 8,
+    children: List.generate(priceOptions.length, (index) {
+      final priceid = priceOptions[index];
+      final isSelected = priceName.value == priceid;
+      return fillterShowContainer(
+        isSelected: isSelected,
+        onTap: () {
+          priceName.value = priceid;
+          print("Price option ${index + 1} selected: $priceid");
+        },
+        text: "$priceid",
+      );
+    }),
+  );
+}
+
+Widget bottomTagFilter(
+  List tagList,
+  RxString selectedIds, {
+  void Function(String)? onChanged,
+}) {
+  return Padding(
+    padding: const EdgeInsets.all(10),
+    child: Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: tagList.map<Widget>((item) {
+        final data = item as Map<String, dynamic>;
+        final id = data['paraMtrId'];
+        final name = data['paraMtrName'] ?? 'Unknown';
+        final isSelected = selectedIds.value == id;
         return fillterShowContainer(
           isSelected: isSelected,
           onTap: () {

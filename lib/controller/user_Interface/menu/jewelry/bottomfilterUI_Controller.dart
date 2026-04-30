@@ -67,4 +67,11 @@ class BottomFilterUiController extends GetxController {
 
   //bottom filter
   var selectedSubCategoryId = ''.obs;
+  var selectedStampIds = ''.obs;
+  var selectedMetalIds = ''.obs;
+
+  //_id
+  var styleID = ''.obs;
+  var stampID = ''.obs;
+  var metalID = ''.obs;
 }

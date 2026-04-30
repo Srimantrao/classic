@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_type_check, unused_local_variable, deprecated_member_use
 
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/productTital/productTital_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productList/productList_Controller.dart';
 import 'package:classic/controller/user_Interface/menu/jewelry/filter_Controller.dart';
 import 'package:classic/controller/user_Interface/menu/jewelry/productUI_Controller.dart';
@@ -147,21 +148,30 @@ class Product extends StatelessWidget {
                   showBottomSheetFuc(
                     context,
                     builder: (BuildContext context) {
-                      final categoryAPI = Get.put(CategoryController());
-                      final categoryData = categoryAPI.catagoryData;
-                      Map<String, dynamic>? selectedCategory;
-                      if (categoryData is Map && categoryData['data'] is List) {
-                        final dataList = categoryData['data'] as List;
-                        selectedCategory =
-                            dataList.firstWhereOrNull(
-                                  (item) =>
-                                      item is Map && item['_id'] == categoryId,
-                                )
-                                as Map<String, dynamic>?;
-                      }
-                      return filterfun(
-                        styleSubCatagory: selectedCategory ?? {},
-                      );
+                      return Obx(() {
+                        final categoryAPI = Get.put(CategoryController());
+                        final productTital = Get.put(ProductTitalController());
+                        final categoryData = categoryAPI.catagoryData;
+                        final productTitalData = productTital.getMetalName;
+                        Map<String, dynamic>? selectedCategory;
+                        if (categoryData is Map &&
+                            categoryData['data'] is List) {
+                          final dataList = categoryData['data'] as List;
+                          selectedCategory =
+                              dataList.firstWhereOrNull(
+                                    (item) =>
+                                        item is Map &&
+                                        item['_id'] == categoryId,
+                                  )
+                                  as Map<String, dynamic>?;
+                        }
+                        return filterfun(
+                          styleSubCatagory: selectedCategory ?? {},
+                          stampData: productTitalData['data'] is Map
+                              ? productTitalData['data']
+                              : {},
+                        );
+                      });
                     },
                   );
                 },

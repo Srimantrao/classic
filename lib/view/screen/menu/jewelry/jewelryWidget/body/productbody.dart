@@ -395,10 +395,11 @@ Widget shortBy({
   );
 }
 
-Widget filterfun({dynamic styleSubCatagory}) {
+Widget filterfun({dynamic styleSubCatagory, dynamic stampData}) {
   final bottomfilter = Get.put(BottomFilterUiController());
   double colsesize = 11;
   print("styleSubCatagory :- $styleSubCatagory");
+  print("Stamp :- $stampData");
   return Container(
     width: Get.width,
     height: Get.height * 0.70,
@@ -455,6 +456,7 @@ Widget filterfun({dynamic styleSubCatagory}) {
                   priceonTap: bottomfilter.priceOnTab,
                   tagsonTap: bottomfilter.tagOnTab,
                   styleSubCatagory: styleSubCatagory,
+                  stampData: stampData,
                 ),
               ),
             ],
@@ -544,6 +546,7 @@ Widget filterData({
   void Function()? priceonTap,
   void Function()? tagsonTap,
   dynamic styleSubCatagory,
+  dynamic stampData,
 }) {
   final bottomfilter = Get.put(BottomFilterUiController());
   return Obx(() {
@@ -554,9 +557,19 @@ Widget filterData({
     bool price = bottomfilter.priceTab.value;
     bool tags = bottomfilter.tagTab.value;
     List subCategoryList = [];
+    List stampList = [];
+    List metalList = [];
     if (styleSubCatagory is Map && styleSubCatagory.isNotEmpty) {
       if (styleSubCatagory['subCategory'] is List) {
         subCategoryList = styleSubCatagory['subCategory'] as List;
+      }
+    }
+    if (stampData is Map) {
+      if (stampData['stamp'] is List) {
+        stampList = stampData['stamp'];
+      }
+      if (stampData['metaltype'] is List) {
+        metalList = stampData['metaltype'];
       }
     }
     return Row(
@@ -640,6 +653,7 @@ Widget filterData({
                           subCategoryList,
                           bottomfilter.selectedSubCategoryId,
                           onTap: (id) {
+                            bottomfilter.styleID.value = id.toString();
                             print("Selected ID: $id");
                           },
                         ),
@@ -647,15 +661,29 @@ Widget filterData({
                 Visibility(
                   visible: stamps,
                   child: Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Text('Stamps filter coming soon...'),
+                    padding: EdgeInsets.all(10),
+                    child: bottomStampsfilter(
+                      stampList,
+                      bottomfilter.selectedStampIds,
+                      nameKey: 'paraMtrName',
+                      onChanged: (selectedIds) {
+                        print("Selected Stamp IDs: $selectedIds");
+                      },
+                    ),
                   ),
                 ),
                 Visibility(
                   visible: metal,
                   child: Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Text('Metal filter coming soon...'),
+                    padding: EdgeInsets.all(10),
+                    child: bottomStampsfilter(
+                      metalList,
+                      bottomfilter.selectedMetalIds,
+                      nameKey: 'metal',
+                      onChanged: (selectedIds) {
+                        print("Selected Metal IDs: $selectedIds");
+                      },
+                    ),
                   ),
                 ),
                 Visibility(
@@ -733,25 +761,52 @@ Widget bottomStylefilter(
   }).toList();
   return Padding(
     padding: const EdgeInsets.all(10),
-    child: Obx(
-      () => Wrap(
-        spacing: 8,
-        runSpacing: 8,
-        children: menuList.map<Widget>((item) {
-          final data = item as Map<String, dynamic>;
-          final categoryName = data['categoryName'] ?? 'Unknown';
-          final id = data['_id'];
-          final isSelected = selectedId.value == id;
-          return fillterShowContainer(
-            isSelected: isSelected,
-            onTap: () {
-              selectedId.value = id;
-              onTap?.call(id);
-            },
-            text: categoryName.toString(),
-          );
-        }).toList(),
-      ),
+    child: Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: menuList.map<Widget>((item) {
+        final data = item as Map<String, dynamic>;
+        final categoryName = data['categoryName'] ?? 'Unknown';
+        final id = data['_id'];
+        final isSelected = selectedId.value == id;
+        return fillterShowContainer(
+          isSelected: isSelected,
+          onTap: () {
+            selectedId.value = id;
+            onTap?.call(id);
+          },
+          text: categoryName.toString(),
+        );
+      }).toList(),
+    ),
+  );
+}
+
+Widget bottomStampsfilter(
+  List list,
+    RxString selectedIds, {
+  required String nameKey,
+      void Function(String)? onChanged,
+}) {
+  return Padding(
+    padding: const EdgeInsets.all(10),
+    child: Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: list.map<Widget>((item) {
+        final data = item as Map<String, dynamic>;
+        final id = data['_id'];
+        final name = data[nameKey] ?? 'Unknown';
+        final isSelected = selectedIds.contains(id);
+        return fillterShowContainer(
+          isSelected: isSelected,
+          onTap: () {
+            selectedIds.value = id;
+            onChanged?.call(id);
+          },
+          text: name.toString(),
+        );
+      }).toList(),
     ),
   );
 }

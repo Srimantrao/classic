@@ -65,7 +65,7 @@ Widget filterBottom({
             ),
           ),
         ),
-        VerticalDivider(color: AppColor.gray3, thickness: 2),
+        VerticalDivider(color: AppColor.gray, thickness: 1),
         Expanded(
           child: GestureDetector(
             onTap: filtersOnTap,

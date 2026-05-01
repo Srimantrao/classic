@@ -103,7 +103,10 @@ class FilterUIController extends GetxController {
       priceShort: priceSort.value,
     );
 
-    Get.back(result: product);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Get.back(result: product);
+    });
+
     debugPrint('Reset filters');
     print("category :- $categoryId");
     print("categoryName :- $categoryName");
@@ -135,6 +138,7 @@ class FilterUIController extends GetxController {
     lowTohigh_val.value = true;
     highTolow_val.value = false;
   }
+
   void highTolow_valfun() {
     lowTohigh_val.value = false;
     highTolow_val.value = true;

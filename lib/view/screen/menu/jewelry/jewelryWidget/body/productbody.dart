@@ -389,6 +389,7 @@ void filterFun(context, {required String categoryId}) {
         }
 
         return filterfun(
+          categoryId: categoryId,
           styleSubCatagory: selectedCategory ?? {},
           stampData: productTitalData['data'] is Map
               ? productTitalData['data']
@@ -464,6 +465,7 @@ Widget shortBy({
 }
 
 Widget filterfun({
+  categoryId,
   dynamic styleSubCatagory,
   dynamic stampData,
   dynamic collectionData,
@@ -502,12 +504,15 @@ Widget filterfun({
                       ),
                       Row(
                         children: [
-                          Text(
-                            AppString.reset,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: Get.width * 0.040,
-                              color: AppColor.primary,
+                          GestureDetector(
+                            onTap: () => bottomfilter.reset(categoryId),
+                            child: Text(
+                              AppString.reset,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: Get.width * 0.040,
+                                color: AppColor.primary,
+                              ),
                             ),
                           ),
                           SizedBox(width: Get.width * 0.025),
@@ -551,6 +556,7 @@ Widget filterfun({
                     children: [
                       Expanded(
                         child: button(
+                          onTap: () => Get.back(),
                           AppString.cancel,
                           backgroundColor: AppColor.white,
                           textColor: AppColor.black,
@@ -562,7 +568,13 @@ Widget filterfun({
                           right: Get.width * 0.025,
                         ),
                       ),
-                      Expanded(flex: 2, child: button(AppString.apply)),
+                      Expanded(
+                        flex: 2,
+                        child: button(
+                          onTap: () => bottomfilter.applyFilter(categoryId),
+                          AppString.apply,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -797,10 +809,17 @@ Widget filterData({
                   visible: price,
                   child: Padding(
                     padding: EdgeInsets.all(10),
-                    child: priceText(bottomfilter.priceRange),
+                    child: priceText(
+                      bottomfilter.priceRange,
+                      bottomfilter.priceID,
+                      onChanged: (selectedId) {
+                        bottomfilter.priceID.value = selectedId;
+                        print("Selected Price ID: $selectedId");
+                      },
+                    ),
                   ),
                 ),
-                //
+                //Tags
                 Visibility(
                   visible: tags,
                   child: Padding(
@@ -947,7 +966,11 @@ Widget bottomCollectionfilter(
   );
 }
 
-Widget priceText(RxString priceName) {
+Widget priceText(
+  RxString priceName,
+  RxString selectedIds, {
+  void Function(String)? onChanged,
+}) {
   List priceOptions = [
     'Under \$500',
     '\$501 - \$1000',
@@ -962,12 +985,12 @@ Widget priceText(RxString priceName) {
     runSpacing: 8,
     children: List.generate(priceOptions.length, (index) {
       final priceid = priceOptions[index];
-      final isSelected = priceName.value == priceid;
+      final isSelected = selectedIds.value == priceid;
       return fillterShowContainer(
         isSelected: isSelected,
         onTap: () {
-          priceName.value = priceid;
-          print("Price option ${index + 1} selected: $priceid");
+          selectedIds.value = priceid;
+          onChanged?.call(priceid);
         },
         text: "$priceid",
       );

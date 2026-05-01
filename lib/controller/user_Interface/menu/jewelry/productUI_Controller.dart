@@ -26,12 +26,12 @@ class ProductAPICall extends GetxController {
   final String? minPrice;
   final String? priceShort;
 
-  final ProductlistController productListAPI = Get.find<ProductlistController>();
+  final ProductlistController productListAPI =
+      Get.find<ProductlistController>();
 
   @override
   void onInit() {
     super.onInit();
-
     productListAPI.fetchFirstPage(
       categoryId: categoryId,
       subCategoryId: subCategoryId,

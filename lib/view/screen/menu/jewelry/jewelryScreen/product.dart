@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_type_check, unused_local_variable, deprecated_member_use
+// ignore_for_file: dead_null_aware_expression, dead_code, unnecessary_type_check, unused_local_variable, deprecated_member_use
 
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productList/productList_Controller.dart';
 import 'package:classic/controller/user_Interface/menu/jewelry/filter_Controller.dart';
@@ -28,7 +28,6 @@ class Product extends StatelessWidget {
   final String? settingType;
   final String? minPrice;
   final String? priceShort;
-
   Product({
     super.key,
     required this.categoryId,
@@ -41,7 +40,6 @@ class Product extends StatelessWidget {
     this.minPrice,
     this.priceShort = '1',
   });
-
   @override
   Widget build(BuildContext context) {
     final ProductAPICall apiController = Get.put(
@@ -66,7 +64,11 @@ class Product extends StatelessWidget {
       canPop: false,
       onPopInvoked: (didPop) {
         filter.reset(categoryId, categoryName);
-        Get.back();
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (Get.isOverlaysOpen ?? true) {
+            Get.back();
+          }
+        });
       },
       child: Fullscreen(
         appBar: allOtherScreen(

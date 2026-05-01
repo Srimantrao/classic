@@ -25,6 +25,9 @@ class Bottombar extends StatelessWidget {
             }),
 
             Obx(() {
+              if (bottomController.isDrawerOpen.value) {
+                return const SizedBox.shrink();
+              }
               return Positioned(
                 left: 1,
                 right: 1,

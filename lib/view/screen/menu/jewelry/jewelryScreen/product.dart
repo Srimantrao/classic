@@ -3,6 +3,7 @@
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productList/productList_Controller.dart';
 import 'package:classic/controller/user_Interface/menu/jewelry/filter_Controller.dart';
 import 'package:classic/controller/user_Interface/menu/jewelry/productUI_Controller.dart';
+import 'package:classic/controller/user_Interface/menu/jewelry/sarchUI_Controller.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/filter.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/jewelryBody.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryWidget/body/productbody.dart';
@@ -17,6 +18,7 @@ class Product extends StatelessWidget {
   final searchUIController = Get.put(ProductSerchController());
   final productListAPI = Get.put(ProductlistController(), permanent: true);
   final filter = Get.put(FilterUIController());
+  final searchUI = Get.put(SarchuiController());
   final searchController = TextEditingController();
   final scrollController = ScrollController();
   final String categoryId;
@@ -72,6 +74,8 @@ class Product extends StatelessWidget {
       },
       child: Fullscreen(
         appBar: allOtherScreen(
+          search: true,
+          searchOnTap: () => searchUI.toggleSearch(),
           onTapLeft: () {
             filter.reset(categoryId, categoryName);
             Get.back();
@@ -87,19 +91,25 @@ class Product extends StatelessWidget {
               flex: 13,
               child: Column(
                 children: [
-                  search(
-                    searchController,
-                    onChanged: (value) {
-                      searchUIController.onSearchChanged(value);
-                    },
-                    filtertab: () {
-                      bottomStyle(
-                        context,
-                        categoryId: categoryId,
-                        categoryName: categoryName,
+                  Obx(() {
+                    final filter = searchUI.isSearch.value;
+                    if (filter == true) {
+                      return search(
+                        searchController,
+                        onChanged: (value) {
+                          searchUIController.onSearchChanged(value);
+                        },
+                        filtertab: () {
+                          bottomStyle(
+                            context,
+                            categoryId: categoryId,
+                            categoryName: categoryName,
+                          );
+                        },
                       );
-                    },
-                  ),
+                    }
+                    return SizedBox();
+                  }),
                   Obx(() {
                     final api = productListAPI;
                     final loading = api.isLoading.value;
@@ -121,6 +131,13 @@ class Product extends StatelessWidget {
                       child: horizontalPadding(
                         child: Column(
                           children: [
+                            (searchUI.isSearch.value == false)
+                                ? Padding(
+                                    padding: EdgeInsetsGeometry.symmetric(
+                                      vertical: Get.height * 0.013,
+                                    ),
+                                  )
+                                : SizedBox(),
                             listController(
                               categoryId,
                               productList,

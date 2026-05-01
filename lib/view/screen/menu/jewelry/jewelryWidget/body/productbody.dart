@@ -612,7 +612,7 @@ Widget cencelIcon(colsesize) {
   return GestureDetector(
     onTap: () => Get.back(),
     child: Container(
-      color: AppColor.white,
+      color: Colors.transparent,
       padding: EdgeInsetsGeometry.all(5),
       child: Image(
         image: AssetImage(AppIcon.close),

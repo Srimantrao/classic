@@ -85,7 +85,9 @@ PreferredSizeWidget allOtherScreen(
   text, {
   bool? cart = false,
   bool? filter = false,
+  bool? search = false,
   void Function()? onTapLeft,
+  void Function()? searchOnTap,
 }) {
   final double iconsize = 33;
   return PreferredSize(
@@ -111,7 +113,9 @@ PreferredSizeWidget allOtherScreen(
                               decoration: BoxDecoration(
                                 color: AppColor.secondary,
                               ),
-                              padding: EdgeInsetsGeometry.only(right: 35),
+                              padding: EdgeInsetsGeometry.only(
+                                right: (search == true) ? 40 : 10,
+                              ),
                               child: Icon(
                                 Icons.chevron_left,
                                 color: AppColor.secondary,
@@ -127,7 +131,9 @@ PreferredSizeWidget allOtherScreen(
                               decoration: BoxDecoration(
                                 color: AppColor.secondary,
                               ),
-                              padding: EdgeInsetsGeometry.only(right: 35),
+                              padding: EdgeInsetsGeometry.only(
+                                right: (search == true) ? 40 : 10,
+                              ),
                               child: Icon(
                                 Icons.chevron_left,
                                 color: AppColor.primary,
@@ -163,6 +169,22 @@ PreferredSizeWidget allOtherScreen(
                               ),
                       ),
                     ),
+                    (search == true)
+                        ? GestureDetector(
+                            onTap: searchOnTap,
+                            child: Container(
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                color: AppColor.secondary,
+                              ),
+                              child: Image(
+                                image: AssetImage(AppIcon.search),
+                                height: 23,
+                                width: 23,
+                              ),
+                            ),
+                          )
+                        : SizedBox(),
                     (filter == true)
                         ? GestureDetector(
                             onTap: () => Get.back(),
@@ -185,7 +207,7 @@ PreferredSizeWidget allOtherScreen(
                               decoration: BoxDecoration(
                                 color: AppColor.secondary,
                               ),
-                              padding: EdgeInsetsGeometry.only(left: 35),
+                              padding: EdgeInsetsGeometry.only(left: 5),
                               child: Image(
                                 image: AssetImage(AppIcon.newcart),
                                 height: iconsize,
@@ -198,7 +220,7 @@ PreferredSizeWidget allOtherScreen(
                               decoration: BoxDecoration(
                                 color: AppColor.secondary,
                               ),
-                              padding: EdgeInsetsGeometry.only(left: 35),
+                              padding: EdgeInsetsGeometry.only(left: 5),
                               child: Icon(
                                 Icons.chevron_left,
                                 color: AppColor.secondary,

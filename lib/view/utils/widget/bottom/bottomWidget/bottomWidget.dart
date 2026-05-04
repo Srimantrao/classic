@@ -55,7 +55,7 @@ Widget iconTabbing(BottombarController bottomController) {
 
 BoxDecoration boxDecoration() {
   return BoxDecoration(
-    color: AppColor.secondary.withOpacity(0.8),
+    color: AppColor.secondary.withOpacity(0.9),
     borderRadius: BorderRadius.circular(borderradius.boder),
     boxShadow: [
       BoxShadow(

@@ -224,15 +224,13 @@ Widget styleWidget({String? text, void Function()? onTap}) {
 }
 
 Widget allDrawersBody({required Widget child}) {
-  return Container(
-    decoration: BoxDecoration(
-      color: AppColor.white,
-      borderRadius: BorderRadius.only(
-        bottomLeft: Radius.circular(borderradius.boder),
-        topLeft: Radius.circular(borderradius.boder),
-      ),
+  return Scaffold(
+    body: Container(
+      height: Get.height,
+      width: Get.width,
+      decoration: BoxDecoration(color: AppColor.white),
+      child: SafeArea(child: child),
     ),
-    child: SafeArea(child: child),
   );
 }
 

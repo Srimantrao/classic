@@ -30,6 +30,7 @@ class Product extends StatelessWidget {
   final String? settingType;
   final String? minPrice;
   final String? priceShort;
+
   Product({
     super.key,
     required this.categoryId,
@@ -42,6 +43,7 @@ class Product extends StatelessWidget {
     this.minPrice,
     this.priceShort = '1',
   });
+
   @override
   Widget build(BuildContext context) {
     final ProductAPICall apiController = Get.put(
@@ -163,7 +165,7 @@ class Product extends StatelessWidget {
               flex: 1,
               child: filterBottom(
                 filtersOnTap: () => filterFun(context, categoryId: categoryId),
-                sortOnTap: () => shortFun(context, filter),
+                sortOnTap: () => shortFun(context, filter, categoryId),
               ),
             ),
           ],

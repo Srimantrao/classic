@@ -31,6 +31,7 @@ class Fullscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       key: scaffoldKey,
       endDrawer: endDrawer,
       appBar: appBar,

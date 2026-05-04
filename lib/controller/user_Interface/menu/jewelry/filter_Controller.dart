@@ -11,6 +11,7 @@ class FilterUIController extends GetxController {
   // API controllers
   final filterAPI = Get.put(FilterController());
   final getAllPeraMeter = Get.put(GetallparameterController());
+  final productListAPI = Get.put(ProductlistController(), permanent: true);
 
   // Selected filters
   RxString selectedMetalType = ''.obs;
@@ -134,14 +135,34 @@ class FilterUIController extends GetxController {
   var lowTohigh_val = false.obs;
   var highTolow_val = false.obs;
 
-  void lowTohigh_valfun() {
+  void lowTohigh_valfun(categoryId) {
     lowTohigh_val.value = true;
+    if (lowTohigh_val.value == true) {
+      productListAPI.fetchFirstPage(
+        categoryId: categoryId,
+        priceShort: '1',
+        metalType: selectedMetalType.value,
+        metalStamp: selectedMetalStamp.value,
+        shape: selectedShapes.value,
+        settingType: selectedStoneTypes.value,
+      );
+    }
     highTolow_val.value = false;
   }
 
-  void highTolow_valfun() {
-    lowTohigh_val.value = false;
+  void highTolow_valfun(categoryId) {
     highTolow_val.value = true;
+    if (highTolow_val.value == true) {
+      productListAPI.fetchFirstPage(
+        categoryId: categoryId,
+        priceShort: '-1',
+        metalType: selectedMetalType.value,
+        metalStamp: selectedMetalStamp.value,
+        shape: selectedShapes.value,
+        settingType: selectedStoneTypes.value,
+      );
+    }
+    lowTohigh_val.value = false;
   }
 
   // Save filters and fetch API

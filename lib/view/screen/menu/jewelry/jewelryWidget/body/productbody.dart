@@ -334,7 +334,7 @@ Widget buildTotalWgt(ProductuiController productControllerUI) {
 }
 
 //bottom Filter
-void shortFun(context, filter) {
+void shortFun(context, filter,categoryId) {
   showBottomSheetFuc(
     context,
     builder: (BuildContext context) {
@@ -342,8 +342,8 @@ void shortFun(context, filter) {
         return shortBy(
           lowTohigh_val: filter.lowTohigh_val.value,
           highTolow_val: filter.highTolow_val.value,
-          lowToHighonTap: filter.lowTohigh_valfun,
-          highToLowonTap: filter.highTolow_valfun,
+          lowToHighonTap: () => filter.lowTohigh_valfun(categoryId),
+          highToLowonTap: () => filter.highTolow_valfun(categoryId),
         );
       });
     },

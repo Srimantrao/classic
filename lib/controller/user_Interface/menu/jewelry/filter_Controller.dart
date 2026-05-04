@@ -146,6 +146,7 @@ class FilterUIController extends GetxController {
         shape: selectedShapes.value,
         settingType: selectedStoneTypes.value,
       );
+      Get.back();
     }
     highTolow_val.value = false;
   }
@@ -161,6 +162,7 @@ class FilterUIController extends GetxController {
         shape: selectedShapes.value,
         settingType: selectedStoneTypes.value,
       );
+      Get.back();
     }
     lowTohigh_val.value = false;
   }

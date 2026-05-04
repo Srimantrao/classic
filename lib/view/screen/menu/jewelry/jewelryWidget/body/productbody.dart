@@ -483,7 +483,7 @@ Widget filterfun({
     child: Column(
       children: [
         Expanded(
-          flex: 9,
+          flex: 13,
           child: Column(
             children: [
               Container(

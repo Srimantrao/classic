@@ -96,7 +96,7 @@ Widget customIcon({
     child: Container(
       padding: EdgeInsetsGeometry.symmetric(horizontal: 20, vertical: 5),
       decoration: BoxDecoration(color: Colors.transparent),
-      child: Image.asset(icon, scale: 3, color: color),
+      child: Image.asset(icon, scale: 3, color: color,),
     ),
   );
 }

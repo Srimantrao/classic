@@ -88,6 +88,39 @@ Widget showContainer({
   );
 }
 
+Widget showColorContainer({
+  required Color color,
+  required bool isSelected,
+  required void Function() onTap,
+}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
+      margin: EdgeInsets.only(right: Get.width * 0.01),
+      padding: EdgeInsets.all(2), // spacing for outer border
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: isSelected ? color : Colors.transparent,
+          width: 1,
+        ),
+      ),
+      child: Container(
+        width: Get.width * 0.06,
+        height: Get.width * 0.06,
+        decoration: BoxDecoration(
+          color: color,
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: Colors.grey.shade300, // inner border
+            width: 1,
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
 Widget filterSelectButton({String? image, String? text}) {
   double size = 22;
   return Container(

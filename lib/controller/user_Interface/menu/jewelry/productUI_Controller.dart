@@ -262,7 +262,7 @@ class ProductuiController extends GetxController {
     return selectedShapes[productId] == shapeId;
   }
 
-  //combinedMetal
+  // combinedMetal (keep for compatibility if needed, but we'll use separate lists)
   List<Map<String, dynamic>> get combinedMetal {
     final result = <Map<String, dynamic>>[];
 
@@ -292,6 +292,118 @@ class ProductuiController extends GetxController {
     }
 
     return result;
+  }
+
+  // Unique Stamp List
+  List<Map<String, dynamic>> get uniqueStampList {
+    final List<Map<String, dynamic>> stampList = [];
+    final Set<String> added = {};
+
+    for (final item in childProducts) {
+      final List metalStamps = item['metalStamp'] ?? [];
+      for (final stamp in metalStamps) {
+        final id = stamp['_id'];
+        final name = stamp['paraMtrName'];
+        if (id != null && name != null && !added.contains(id)) {
+          added.add(id);
+          stampList.add({'id': id, 'name': name});
+        }
+      }
+    }
+    return stampList;
+  }
+
+  // Unique Metal List
+  List<Map<String, dynamic>> get uniqueMetalList {
+    final List<Map<String, dynamic>> metalList = [];
+    final Set<String> added = {};
+
+    for (final item in childProducts) {
+      final List metalTypes = item['metalType'] ?? [];
+      for (final metal in metalTypes) {
+        final id = metal['_id'];
+        final name = metal['metal'];
+        if (id != null && name != null && !added.contains(id)) {
+          added.add(id);
+          metalList.add({'id': id, 'name': name});
+        }
+      }
+    }
+    return metalList;
+  }
+
+  // Check if a stamp is selected
+  bool isStampSelected(String stampId) {
+    if (activeVariant.isEmpty) return false;
+    final List stamps = activeVariant[0]['metalStamp'] ?? [];
+    return stamps.any((s) => s['_id'] == stampId);
+  }
+
+  // Check if a metal is selected
+  bool isMetalSelected(String metalId) {
+    if (activeVariant.isEmpty) return false;
+    final List metals = activeVariant[0]['metalType'] ?? [];
+    return metals.any((m) => m['_id'] == metalId);
+  }
+
+  // Select Stamp
+  void selectStamp(String stampId) {
+    if (activeVariant.isEmpty) return;
+    
+    // Get current metal ID to try and maintain it
+    final currentMetalId = activeVariant[0]['metalType']?.isNotEmpty == true 
+        ? activeVariant[0]['metalType'][0]['_id'] 
+        : null;
+
+    // Try to find variant with same metal and new stamp
+    var target = childProducts.firstWhere((item) {
+      final stamps = item['metalStamp'] as List? ?? [];
+      final metals = item['metalType'] as List? ?? [];
+      return stamps.any((s) => s['_id'] == stampId) && 
+             (currentMetalId == null || metals.any((m) => m['_id'] == currentMetalId));
+    }, orElse: () => {});
+
+    if (target.isEmpty) {
+      // Find any variant with this stamp
+      target = childProducts.firstWhere((item) {
+        final stamps = item['metalStamp'] as List? ?? [];
+        return stamps.any((s) => s['_id'] == stampId);
+      }, orElse: () => {});
+    }
+
+    if (target.isNotEmpty && target['slug'] != null) {
+      selectVariant(target['slug']);
+    }
+  }
+
+  // Select Metal
+  void selectMetal(String metalId) {
+    if (activeVariant.isEmpty) return;
+
+    // Get current stamp ID to try and maintain it
+    final currentStampId = activeVariant[0]['metalStamp']?.isNotEmpty == true 
+        ? activeVariant[0]['metalStamp'][0]['_id'] 
+        : null;
+
+    // Try to find variant with same stamp and new metal
+    var target = childProducts.firstWhere((item) {
+      final stamps = item['metalStamp'] as List? ?? [];
+      final metals = item['metalType'] as List? ?? [];
+      return metals.any((m) => m['_id'] == metalId) && 
+             (currentStampId == null || stamps.any((s) => s['_id'] == currentStampId));
+    }, orElse: () => {});
+
+    if (target.isEmpty) {
+      // Find any variant with this metal
+      target = childProducts.firstWhere((item) {
+        final metals = item['metalType'] as List? ?? [];
+        return metals.any((m) => m['_id'] == metalId);
+      }, orElse: () => {});
+    }
+
+    if (target.isNotEmpty && target['slug'] != null) {
+      selectVariant(target['slug']);
+    }
   }
 
   // Helper to get background color based on metal name

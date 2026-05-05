@@ -4,6 +4,7 @@ import 'package:classic/controller/application_Programing_interface/apiControlle
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/catagory/category_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productList/filter/getAllParameter_Controller.dart';
 import 'package:classic/controller/user_Interface/menu/jewelry/bottomfilterUI_Controller.dart';
+import 'package:classic/view/screen/hedder/drawer/drawar/drawerExtraWidget/drawerExtraWidget.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryExtraWidget/product.dart';
 import 'package:classic/view/screen/menu/jewelry/jewelryScreen/productDetail.dart';
 import 'package:classic/view/utils/app_String.dart';
@@ -219,17 +220,26 @@ Widget productShowList(
                 if (productControllerUI.uniqueShapeList.isNotEmpty)
                   Row(
                     children: [
-                      information('Shape'),
+                      information(AppString.shape),
                       Expanded(child: buildShape(productControllerUI)),
                     ],
                   ),
 
-                // Metal stamps (now interactive)
-                if (productControllerUI.combinedMetal.isNotEmpty)
+                // Metal stamps
+                if (productControllerUI.uniqueStampList.isNotEmpty)
                   Row(
                     children: [
-                      information('Metal'),
-                      Expanded(child: buildMetalStamps(productControllerUI)),
+                      information(AppString.stamps),
+                      Expanded(child: buildStampList(productControllerUI)),
+                    ],
+                  ),
+
+                // Metal types
+                if (productControllerUI.uniqueMetalList.isNotEmpty)
+                  Row(
+                    children: [
+                      information(AppString.metal),
+                      Expanded(child: buildMetalList(productControllerUI)),
                     ],
                   ),
 
@@ -237,7 +247,7 @@ Widget productShowList(
                 if (productControllerUI.caratOptions.isNotEmpty)
                   Row(
                     children: [
-                      information('Carat'),
+                      information(AppString.carat),
                       Expanded(child: buildTotalWgt(productControllerUI)),
                     ],
                   ),
@@ -279,23 +289,53 @@ Widget buildShape(ProductuiController productControllerUI) {
   );
 }
 
-// Build metal stamps with tap functionality
-Widget buildMetalStamps(ProductuiController productControllerUI) {
-  final metalStamps = productControllerUI.combinedMetal;
+// Build metal list with tap functionality
+Widget buildMetalList(ProductuiController productControllerUI) {
+  final metalList = productControllerUI.uniqueMetalList;
   return SingleChildScrollView(
     scrollDirection: Axis.horizontal,
     child: Row(
-      children: metalStamps.map((stamp) {
-        final name = (stamp['param'] ?? '').toString();
-        final variantSlug = stamp['slug'] ?? '';
-        final metalName = stamp['combinedMetalName'] ?? '';
-        final isSelected = productControllerUI.isVariantSelected(variantSlug);
-        final bgColor = productControllerUI.getMetalBackgroundColor(metalName);
+      children: metalList.map((metal) {
+        final List<Color> metalColors = [
+          Colors.amber, // Yellow Gold
+          Color(0xFFB76E79), // Rose Gold
+          Colors.grey.shade300, // White Gold
+        ];
+        final name = metal['name'] ?? '';
+        final id = metal['id'] ?? '';
+        final isSelected = productControllerUI.isMetalSelected(id);
+        final bgColor = productControllerUI.getMetalBackgroundColor(name);
+        return showColorContainer(
+          color: getMetalColor(name),
+          isSelected: isSelected,
+          onTap: () => productControllerUI.selectMetal(id),
+        );
+        // return showContainer(
+        //   onTap: () => productControllerUI.selectMetal(id),
+        //   name: name,
+        //   bgColor: bgColor,
+        //   selectColor: isSelected ? bgColor : null,
+        // );
+      }).toList(),
+    ),
+  );
+}
+
+// Build stamp list with tap functionality
+Widget buildStampList(ProductuiController productControllerUI) {
+  final stampList = productControllerUI.uniqueStampList;
+  return SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    child: Row(
+      children: stampList.map((stamp) {
+        final name = stamp['name'] ?? '';
+        final id = stamp['id'] ?? '';
+        final isSelected = productControllerUI.isStampSelected(id);
         return showContainer(
-          onTap: () => productControllerUI.selectVariant(variantSlug),
+          onTap: () => productControllerUI.selectStamp(id),
           name: name,
-          bgColor: bgColor,
-          selectColor: isSelected ? bgColor : null,
+          bgColor: isSelected ? AppColor.gray3 : AppColor.gray,
+          selectColor: isSelected ? AppColor.gray : null,
         );
       }).toList(),
     ),
@@ -334,7 +374,7 @@ Widget buildTotalWgt(ProductuiController productControllerUI) {
 }
 
 //bottom Filter
-void shortFun(context, filter,categoryId) {
+void shortFun(context, filter, categoryId) {
   showBottomSheetFuc(
     context,
     builder: (BuildContext context) {

@@ -2,6 +2,7 @@
 
 import 'package:classic/controller/user_Interface/menu/addCustomJewellery/addCustomJewellery_Controller.dart';
 import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';
+import 'package:classic/view/screen/credentials/businessInformation/businessInformationWidget/businessInformationWidget.dart';
 import 'package:classic/view/screen/hedder/cart/cartScreen/cart.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/drawer.dart';
 import 'package:classic/view/screen/menu/addCustomJewellery/addCustomJewelleryWidget/body/addCustomJewelleryWidget.dart';
@@ -26,6 +27,7 @@ class AddCustomJewellery extends StatelessWidget {
   final jewellry = Get.put(JewelleryAPICall());
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final diamondList = DiamondList();
+
   @override
   Widget build(BuildContext context) {
     return Fullscreen(
@@ -80,7 +82,8 @@ class AddCustomJewellery extends StatelessWidget {
                           chooseFile(
                             onTap: () => addCustom.pickImageFile(),
                             buttonText: AppString.chooseFile,
-                            yourCommentsController: addCustom.yourCommentsController,
+                            yourCommentsController:
+                                addCustom.yourCommentsController,
                             addCustomJewellery: addCustom,
                           ),
                           Padding(
@@ -98,7 +101,8 @@ class AddCustomJewellery extends StatelessWidget {
                           chooseFile(
                             onTap: () => addCustom.pickVideoFile(),
                             buttonText: AppString.chooseFile,
-                            yourCommentsController: addCustom.yourCommentsController,
+                            yourCommentsController:
+                                addCustom.yourCommentsController,
                             addCustomJewellery: addCustom,
                           ),
                           Padding(
@@ -114,8 +118,10 @@ class AddCustomJewellery extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           addURL(
-                            addURlTextController: addCustom.addURlTextController,
-                            yourCommentsController: addCustom.yourCommentsController,
+                            addURlTextController:
+                                addCustom.addURlTextController,
+                            yourCommentsController:
+                                addCustom.yourCommentsController,
                           ),
                           Padding(
                             padding: EdgeInsets.only(bottom: Get.height * 0.02),
@@ -136,7 +142,8 @@ class AddCustomJewellery extends StatelessWidget {
                   ringSizeOnChanged: addCustom.selectRingSizeValueChange,
                   ringSizeList: addCustom.getSelectRingSizeItems(),
                   ringSizeValue: addCustom.ringSize.value,
-                  appxMetalWeightController: addCustom.appxMetalWeightController,
+                  appxMetalWeightController:
+                      addCustom.appxMetalWeightController,
                   budgetController: addCustom.budgetController,
                   engravingController: addCustom.engravingController,
                 ),
@@ -196,6 +203,37 @@ class AddCustomJewellery extends StatelessWidget {
                   onTab: addCustom.onSubmit,
                   AppString.submit,
                 ),
+
+                SizedBox(height: Get.height * 0.01),
+
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    hedings(AppString.privateCustom),
+                    CustomServiceGuide(numbar: '1', text: AppString.order),
+                    CustomServiceGuide(numbar: '2', text: AppString.addition),
+                    CustomServiceGuide(
+                      numbar: '3',
+                      text: AppString.free_to_order,
+                    ),
+                    CustomServiceGuide(numbar: '4', text: AppString.submitted),
+                    CustomServiceGuide(numbar: '5', text: AppString.ordering),
+                    CustomServiceGuide(
+                      numbar: '6',
+                      text: AppString.subscription,
+                    ),
+                    CustomServiceGuide(
+                      numbar: '7',
+                      text: AppString.deciding,
+                    ),
+                    CustomServiceGuide(
+                      numbar: '8',
+                      text: AppString.commercial,
+                    ),
+                  ],
+                ),
+
+                SizedBox(height: Get.height * 0.1),
               ],
             );
           }),

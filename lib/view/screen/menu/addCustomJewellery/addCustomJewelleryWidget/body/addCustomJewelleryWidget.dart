@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_print, unused_import, strict_top_level_inference
+// ignore_for_file: non_constant_identifier_names, file_names, avoid_print, unused_import, strict_top_level_inference
 
 import 'package:classic/controller/user_Interface/menu/addCustomJewellery/addCustomJewellery_Controller.dart';
 import 'package:classic/modal/menu/diamondSearch/diamondSearch.dart';
@@ -334,15 +334,10 @@ Widget contactInformation({
   );
 }
 
-Widget submitButton(
-    text,
-    {
-      void Function()? onTab,
-      Widget? loadingWait,
-    }) {
+Widget submitButton(text, {void Function()? onTab, Widget? loadingWait}) {
   return Column(
     children: [
-      SizedBox(height: Get.height * 0.05),
+      SizedBox(height: Get.height * 0.02),
       GestureDetector(
         onTap: onTab,
         child: button(
@@ -351,7 +346,21 @@ Widget submitButton(
           loadingWait: loadingWait,
         ),
       ),
-      Padding(padding: EdgeInsets.only(bottom: Get.height * 0.09)),
+    ],
+  );
+}
+
+Widget CustomServiceGuide({required String numbar, required String text}) {
+  return Column(
+    children: [
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('$numbar. '),
+          Expanded(child: addCustomJewellerySubHeddingText(text)),
+        ],
+      ),
+      Padding(padding: EdgeInsetsGeometry.all(Get.height * 0.003)),
     ],
   );
 }

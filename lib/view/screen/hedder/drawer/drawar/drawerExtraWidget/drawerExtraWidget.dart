@@ -372,11 +372,13 @@ Widget subheedingText(text) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      Text(
-        text,
-        style: TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: Get.width * 0.042,
+      Expanded(
+        child: Text(
+          text,
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: Get.width * 0.042,
+          ),
         ),
       ),
       dot(),

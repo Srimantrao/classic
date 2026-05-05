@@ -359,4 +359,14 @@ class AppString {
   static const weight = 'Weight';
   static const enterRemark = 'Enter Remark';
   static const enterEngraving = 'Enter Envolving';
+      //CustomServiceGuide
+      static const privateCustom = 'Private Custom Service Guide';
+      static const order = 'In order to improve efficiency and accuracy, try to provide detailed information in the remarks';
+      static const addition = 'In addition to filling in the notes, uploading the picture will greatly improve the accuracy of the valuation';
+      static const free_to_order = 'The free-to-order valuation service is only available to registered users. Orders must be filled in after completing the registered user';
+      static const submitted = 'After the order is submitted, the Classic Grown Diamonds will be replied by email.';
+      static const ordering = 'After the ordering party decides to accept the customized valuation, we will provide a specific design drawing to the ordering party. This is a paid service. The specific fee will be indicated in the evaluation email. This fee will be finalized. Deducted from the custom fee.';
+      static const subscription = 'Private subscription is the commercial service we provide to the contractor. Classic Grown Diamonds does not bear any law and the third party provides intellectual property rights to the information provided by the contractor who uses the service.';
+      static const deciding = 'After deciding to accept the customized valuation, we will provide a specific design drawing The system. This is a paid service. The specific fee will be indicated in the evaluation email. The fee will be deducted from the finalized subscription fee.';
+      static const commercial = 'Private ordering is our commercial service to the contractor. Classic Grown Diamonds has no ability and Obligation to verify whether the third party in the information provided by the contractor using the service involves a third Party intellectual property rights.';
 }

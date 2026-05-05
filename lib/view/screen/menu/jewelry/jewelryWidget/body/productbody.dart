@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_type_check, avoid_print, avoid_unnecessary_containers, non_constant_identifier_names, strict_top_level_inference, deprecated_member_use
+// ignore_for_file: unused_local_variable, unnecessary_type_check, avoid_print, avoid_unnecessary_containers, non_constant_identifier_names, strict_top_level_inference, deprecated_member_use
 
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/productTital/productTital_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/catagory/category_Controller.dart';

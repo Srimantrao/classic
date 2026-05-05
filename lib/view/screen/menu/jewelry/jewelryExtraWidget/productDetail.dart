@@ -329,6 +329,85 @@ Widget commonHorizontalList({
   );
 }
 
+Widget metalColorList({
+  required String title,
+  required List<Map<String, dynamic>> list,
+  required String textKey,
+  Function(Map<String, dynamic>)? onItemSelected,
+  required String compareKey,
+  required dynamic selectedValue,
+}) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: Get.height * 0.006),
+    child: horizontalPadding(
+      child: Row(
+        children: [
+          productDetailsubHedding('$title :- '),
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: list.map((item) {
+                  final metalName = item[textKey] ?? '';
+                  final isSelected = item[compareKey] == selectedValue;
+                  Color color = Colors.white;
+                  if (metalName.toString().toLowerCase().contains('white')) {
+                    color = AppColor.silveGold;
+                  } else if (metalName.toString().toLowerCase().contains(
+                    'rose',
+                  )) {
+                    color = AppColor.roseGold;
+                  } else if (metalName.toString().toLowerCase().contains(
+                    'yellow',
+                  )) {
+                    color = AppColor.yellowGold;
+                  }
+                  return GestureDetector(
+                    onTap: () => onItemSelected?.call(item),
+                    child: Container(
+                      padding: EdgeInsetsGeometry.all(2),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                          borderradius.buttonboder,
+                        ),
+                        border: Border.all(
+                          color: isSelected ? color : Colors.transparent,
+                          width: isSelected ? 1 : 1,
+                        ),
+                        color: isSelected
+                            ? color.withOpacity(0.3)
+                            : Colors.transparent,
+                      ),
+                      child: Container(
+                        width: 28,
+                        height: 28,
+                        margin: EdgeInsets.symmetric(horizontal: 8),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: color,
+                          boxShadow: isSelected
+                              ? [
+                                  BoxShadow(
+                                    color: AppColor.primary.withOpacity(0.3),
+                                    blurRadius: 4,
+                                    spreadRadius: 2,
+                                  ),
+                                ]
+                              : null,
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
 Widget like({
   required String image,
   required String name,

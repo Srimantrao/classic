@@ -96,23 +96,23 @@ Widget showColorContainer({
   return GestureDetector(
     onTap: onTap,
     child: Container(
-      margin: EdgeInsets.only(right: Get.width * 0.01),
-      padding: EdgeInsets.all(2), // spacing for outer border
+      margin: EdgeInsets.only(right: Get.width * 0.02),
+      padding: EdgeInsets.all(2),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(
-          color: isSelected ? color : Colors.transparent,
-          width: 1,
+          color: isSelected ? AppColor.primary : Colors.transparent,
+          width: 2,
         ),
       ),
       child: Container(
-        width: Get.width * 0.06,
-        height: Get.width * 0.06,
+        width: Get.width * 0.07,
+        height: Get.width * 0.07,
         decoration: BoxDecoration(
           color: color,
           shape: BoxShape.circle,
           border: Border.all(
-            color: Colors.grey.shade300, // inner border
+            color: Colors.grey.shade300,
             width: 1,
           ),
         ),

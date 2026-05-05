@@ -337,7 +337,7 @@ Widget productDetailList(productDetail, categoryId, youMayLikeControllerAPI) {
 
       /// METAL TYPE
       (productDetail.currentMetalType.value.isNotEmpty)
-          ? commonHorizontalList(
+          ? metalColorList(
               title: AppString.metalType,
               list: productDetail.uniqueMetalType,
               textKey: 'metal',

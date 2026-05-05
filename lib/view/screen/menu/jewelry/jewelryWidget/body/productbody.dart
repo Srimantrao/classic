@@ -132,7 +132,7 @@ Widget listController(
             right: 0,
             child: Center(
               child: Container(
-                padding: const EdgeInsets.all(8),
+                padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.9), // optional
                   borderRadius: BorderRadius.circular(8),
@@ -296,11 +296,6 @@ Widget buildMetalList(ProductuiController productControllerUI) {
     scrollDirection: Axis.horizontal,
     child: Row(
       children: metalList.map((metal) {
-        final List<Color> metalColors = [
-          Colors.amber, // Yellow Gold
-          Color(0xFFB76E79), // Rose Gold
-          Colors.grey.shade300, // White Gold
-        ];
         final name = metal['name'] ?? '';
         final id = metal['id'] ?? '';
         final isSelected = productControllerUI.isMetalSelected(id);

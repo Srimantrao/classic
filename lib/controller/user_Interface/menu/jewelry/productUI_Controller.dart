@@ -349,18 +349,19 @@ class ProductuiController extends GetxController {
   // Select Stamp
   void selectStamp(String stampId) {
     if (activeVariant.isEmpty) return;
-    
+
     // Get current metal ID to try and maintain it
-    final currentMetalId = activeVariant[0]['metalType']?.isNotEmpty == true 
-        ? activeVariant[0]['metalType'][0]['_id'] 
+    final currentMetalId = activeVariant[0]['metalType']?.isNotEmpty == true
+        ? activeVariant[0]['metalType'][0]['_id']
         : null;
 
     // Try to find variant with same metal and new stamp
     var target = childProducts.firstWhere((item) {
       final stamps = item['metalStamp'] as List? ?? [];
       final metals = item['metalType'] as List? ?? [];
-      return stamps.any((s) => s['_id'] == stampId) && 
-             (currentMetalId == null || metals.any((m) => m['_id'] == currentMetalId));
+      return stamps.any((s) => s['_id'] == stampId) &&
+          (currentMetalId == null ||
+              metals.any((m) => m['_id'] == currentMetalId));
     }, orElse: () => {});
 
     if (target.isEmpty) {
@@ -381,16 +382,17 @@ class ProductuiController extends GetxController {
     if (activeVariant.isEmpty) return;
 
     // Get current stamp ID to try and maintain it
-    final currentStampId = activeVariant[0]['metalStamp']?.isNotEmpty == true 
-        ? activeVariant[0]['metalStamp'][0]['_id'] 
+    final currentStampId = activeVariant[0]['metalStamp']?.isNotEmpty == true
+        ? activeVariant[0]['metalStamp'][0]['_id']
         : null;
 
     // Try to find variant with same stamp and new metal
     var target = childProducts.firstWhere((item) {
       final stamps = item['metalStamp'] as List? ?? [];
       final metals = item['metalType'] as List? ?? [];
-      return metals.any((m) => m['_id'] == metalId) && 
-             (currentStampId == null || stamps.any((s) => s['_id'] == currentStampId));
+      return metals.any((m) => m['_id'] == metalId) &&
+          (currentStampId == null ||
+              stamps.any((s) => s['_id'] == currentStampId));
     }, orElse: () => {});
 
     if (target.isEmpty) {
@@ -511,10 +513,56 @@ class ProductuiController extends GetxController {
 
   // Select variant by weight
   void selectByWeight(String weight) {
-    final slugs = weightOptions[weight];
-    if (slugs != null && slugs.isNotEmpty) {
-      selectVariant(slugs[0]);
+    if (activeVariant.isEmpty) return;
+
+    // Get current metal and stamp to try and maintain them
+    final currentMetalId = activeVariant[0]['metalType']?.isNotEmpty == true
+        ? activeVariant[0]['metalType'][0]['_id']
+        : null;
+    final currentStampId = activeVariant[0]['metalStamp']?.isNotEmpty == true
+        ? activeVariant[0]['metalStamp'][0]['_id']
+        : null;
+
+    final slugs = weightOptions[weight] ?? [];
+    if (slugs.isEmpty) return;
+
+    // Try to find a variant with the new weight that matches the current metal and stamp
+    var targetSlug = slugs.firstWhere((s) {
+      final item = childProducts.firstWhere(
+        (cp) => cp['slug'] == s,
+        orElse: () => {},
+      );
+      if (item.isEmpty) return false;
+
+      final metals = item['metalType'] as List? ?? [];
+      final stamps = item['metalStamp'] as List? ?? [];
+
+      return (currentMetalId == null ||
+              metals.any((m) => m['_id'] == currentMetalId)) &&
+          (currentStampId == null ||
+              stamps.any((s) => s['_id'] == currentStampId));
+    }, orElse: () => "");
+
+    // Fallback: match just metal
+    if (targetSlug.isEmpty) {
+      targetSlug = slugs.firstWhere((s) {
+        final item = childProducts.firstWhere(
+          (cp) => cp['slug'] == s,
+          orElse: () => {},
+        );
+        if (item.isEmpty) return false;
+        final metals = item['metalType'] as List? ?? [];
+        return currentMetalId == null ||
+            metals.any((m) => m['_id'] == currentMetalId);
+      }, orElse: () => "");
     }
+
+    // Ultimate fallback: first available slug for this weight
+    if (targetSlug.isEmpty) {
+      targetSlug = slugs[0];
+    }
+
+    selectVariant(targetSlug);
   }
 
   // Handle variant selection

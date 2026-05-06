@@ -27,7 +27,6 @@ class AddCustomJewellery extends StatelessWidget {
   final jewellry = Get.put(JewelleryAPICall());
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final diamondList = DiamondList();
-
   @override
   Widget build(BuildContext context) {
     return Fullscreen(

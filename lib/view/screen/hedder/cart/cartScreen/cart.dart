@@ -48,6 +48,8 @@ class Cart extends StatelessWidget {
         }
         final cartProduct = dataList[0]['productLookup'] as List? ?? [];
         final diamondProduct = dataList[0]['diamondLookup'] as List? ?? [];
+        final totalDiamondPrice =
+            (dataList[0]['totalDiamondPrice'] as num?)?.toDouble() ?? 0.0;
         final cartRecord = cardRecord.cardRecordData as List? ?? [];
         if (cartProduct.isEmpty && diamondProduct.isEmpty) {
           return Center(child: Lottie.asset(AppJson.noData));
@@ -57,7 +59,19 @@ class Cart extends StatelessWidget {
             children: [
               //Product List
               if (cartProduct.isNotEmpty)
-                cartProductItem(cartUI, cartProduct, productDetail),
+                cartProductItem(
+                  cartUI,
+                  cartProduct,
+                  productDetail,
+                  diamondTotal: totalDiamondPrice,
+                ),
+              if (cartProduct.isEmpty && diamondProduct.isNotEmpty)
+                GetBuilder<CartUiController>(
+                  id: 'grand_total',
+                  initState: (_) =>
+                      cartUI.initQty([], apiDiamondTotal: totalDiamondPrice),
+                  builder: (_) => const SizedBox.shrink(),
+                ),
 
               //Diamond List
               if (cartRecord.isNotEmpty) diamondProductItem(diamondProduct),
@@ -73,9 +87,7 @@ class Cart extends StatelessWidget {
               ),
 
               Padding(
-                padding: EdgeInsetsGeometry.only(
-                  bottom: Get.height * 0.025,
-                ),
+                padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.025),
               ),
             ],
           ),

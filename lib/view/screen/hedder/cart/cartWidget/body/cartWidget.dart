@@ -26,11 +26,12 @@ import '../../../../menu/jewelry/jewelryScreen/productDetail.dart';
 Widget cartProductItem(
   CartUiController cartUI,
   List cartProduct,
-  ProductDetailUIController productDetail,
-) {
+  ProductDetailUIController productDetail, {
+  double? diamondTotal,
+}) {
   return GetBuilder<CartUiController>(
     id: 'qty_list',
-    initState: (_) => cartUI.initQty(cartProduct),
+    initState: (_) => cartUI.initQty(cartProduct, apiDiamondTotal: diamondTotal),
     builder: (cartUI) {
       if (cartUI.qtyList.isEmpty ||
           cartUI.qtyList.length < cartProduct.length) {

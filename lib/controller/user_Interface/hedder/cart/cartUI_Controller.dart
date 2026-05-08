@@ -19,10 +19,11 @@ class CartUiController extends GetxController {
   List<String> ringSizeList = [];
   List<double> unitPriceList = [];
   double grandTotal = 0;
+  double diamondTotal = 0;
   RxInt updatingQty = 0.obs;
   RxDouble totalPrice = 0.0.obs;
 
-  void initQty(List cartProduct) {
+  void initQty(List cartProduct, {double? apiDiamondTotal}) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       qtyList = cartProduct
           .where((e) => e['qty'] != null)
@@ -34,12 +35,16 @@ class CartUiController extends GetxController {
       unitPriceList = cartProduct
           .map<double>((e) => (e['price'] as num?)?.toDouble() ?? 0.0)
           .toList();
+
+      if (apiDiamondTotal != null) {
+        diamondTotal = apiDiamondTotal;
+      }
       calculateGrandTotal();
     });
   }
 
   void calculateGrandTotal() {
-    grandTotal = 0;
+    grandTotal = diamondTotal;
     for (int i = 0; i < qtyList.length; i++) {
       grandTotal += unitPriceList[i] * qtyList[i];
     }

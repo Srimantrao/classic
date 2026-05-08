@@ -10,7 +10,7 @@ Widget buttonNavigation({required Widget child}) {
     color: AppColor.white,
     child: SafeArea(
       child: Container(
-        height: Get.height * 0.06,
+        height: Get.height * 0.07,
         child: Column(
           children: [
             Expanded(

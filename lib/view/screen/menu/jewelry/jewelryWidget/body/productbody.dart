@@ -576,7 +576,7 @@ Widget filterfun({
           ),
         ),
         Expanded(
-          flex: 2,
+          flex: 3,
           child: Container(
             decoration: BoxDecoration(
               color: AppColor.white,

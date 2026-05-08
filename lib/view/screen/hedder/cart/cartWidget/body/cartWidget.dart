@@ -2,6 +2,7 @@
 // ignore_for_file: avoid_unnecessary_containers, non_constant_identifier_names, strict_top_level_inference, avoid_print
 
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/cart/cart_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/apiController/hedder/cart/deleteCart_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/fitterWish/deletWish_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/fitterWish/fitterWish_Controller.dart';
 import 'package:classic/view/screen/hedder/cart/cartWidget/extraWidget/extraWidget.dart';
@@ -65,8 +66,8 @@ Widget cartProductItem(
 }
 
 Widget diamondProductItem(List dataList) {
-  final deletWish = Get.put(DeletWishController());
-  final fitterWish = Get.put(FitterWishController());
+  final deletcart = Get.put(DeleteCartController());
+  final fittercart = Get.put(CartController());
   return ListView.builder(
     shrinkWrap: true,
     physics: const NeverScrollableScrollPhysics(),
@@ -99,9 +100,9 @@ Widget diamondProductItem(List dataList) {
           checkBoxWidget: GestureDetector(
             onTap: () {
               print("diamondID :-$diamondID");
-              deletWish.deleWishList(diamondID.toString());
-              fitterWish.fitterWishList();
-              calculateWishCount(fitterWish);
+              deletcart.deleteCart(diamondID.toString());
+              fittercart.filterCart();
+              calculateWishCount(fittercart as FitterWishController);
             },
             child: removeIcon(),
           ),

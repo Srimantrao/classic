@@ -33,11 +33,25 @@ class Dashbord extends StatelessWidget {
   final dashbord_API = Get.put(DashBordAPICall());
   final cartAPICallAPI = Get.put(CartAPICall());
   final cardRecord = Get.put(CardRecordController());
+  final homeAPI = Get.put(HomeAPICall());
+  final jewellry = Get.put(JewelleryAPICall());
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final value = Listviwe();
+  static bool apiCalled = false;
   Dashbord({super.key});
   @override
   Widget build(BuildContext context) {
+    calculateCartCount(cartAPICallAPI.cartAPI);
+    calculateWishCount(cartAPICallAPI.fitterWish);
+    if (!apiCalled) {
+      apiCalled = true;
+      Future.wait([
+        homeAPI.onInit(),
+        cartAPICallAPI.onInit(),
+        dashbord_API.onInit(),
+        jewellry.onInit(),
+      ]);
+    }
     return Fullscreen(
       scaffoldKey: scaffoldKey,
       endDrawer: Drawers(),

@@ -5,8 +5,10 @@ class AppUrl {
   //base url
 
   //Staging
+
       //WebSite
         static const classicWebSite = "https://next.weingenious.in/classic-alpha/";
+
       //API
   static const String baseUrl = "https://node.weingenious.in/classic/api/v1/";
   static const String imagebaseUrl = "https://node.weingenious.in/classic/uploads/photos/";
@@ -15,6 +17,9 @@ class AppUrl {
   // static const String baseUrl = "http://192.168.1.222:4000/api/v1/";
 
   static const String application = "${baseUrl}App/auth/";
+
+  //benner
+    static const String benner = "${baseUrl}app/offerBanner/list/";
 
   //Other
   static const String country = "${baseUrl}admin/address/getCountry";

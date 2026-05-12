@@ -316,8 +316,8 @@ class Drawers extends StatelessWidget {
                     icon: AppIcon.user1,
                     onTap: () {
                       bottomController.isDrawerOpen.value = false;
-                      bottomController.selectindex.value = 2;
-                      bottomController.changePage(2);
+                      bottomController.selectindex.value = 0;
+                      bottomController.changePage(0);
                       Get.back();
                     },
                   ),

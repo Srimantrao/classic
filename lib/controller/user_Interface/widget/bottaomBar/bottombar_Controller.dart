@@ -25,9 +25,9 @@ class BottombarController extends GetxController {
     AddCustomJewellery(),
   ].obs;
 
-  void indexOne() => selectindex.value = 0;
+  void indexOne() => selectindex.value = 2;
   void indexTwo() => selectindex.value = 1;
-  void indexThree() => selectindex.value = 2;
+  void indexThree() => selectindex.value = 0;
   void indexFour() => selectindex.value = 3;
   void indexFive() => selectindex.value = 4;
 
@@ -40,11 +40,11 @@ class BottombarController extends GetxController {
   Widget selectscreen(int index) {
     switch (index) {
       case 0:
-        return Home();
+        return Dashbord();
       case 1:
         return Jewelry();
       case 2:
-        return Dashbord();
+        return Home();
       case 3:
         return Diamondsearch();
       case 4:

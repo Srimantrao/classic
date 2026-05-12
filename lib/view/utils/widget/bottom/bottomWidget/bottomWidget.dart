@@ -26,8 +26,8 @@ Widget iconTabbing(BottombarController bottomController) {
     children: [
       actionIconButton(
         icon: AppIcon.home,
-        color: bottomController.selectindex.value == 0,
-        onTap: () => bottomController.changePage(0),
+        color: bottomController.selectindex.value == 2,
+        onTap: () => bottomController.changePage(2),
       ),
       actionIconButton(
         icon: AppIcon.jewelry,
@@ -36,8 +36,8 @@ Widget iconTabbing(BottombarController bottomController) {
       ),
       actionIconButton(
         icon: AppIcon.dashboard,
-        color: bottomController.selectindex.value == 2,
-        onTap: () => bottomController.changePage(2),
+        color: bottomController.selectindex.value == 0,
+        onTap: () => bottomController.changePage(0),
       ),
       actionIconButton(
         icon: AppIcon.diamond,

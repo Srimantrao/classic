@@ -18,8 +18,8 @@ class CartUiController extends GetxController {
   List<int> qtyList = [];
   List<String> ringSizeList = [];
   List<double> unitPriceList = [];
-  double grandTotal = 0;
-  double diamondTotal = 0;
+  RxDouble grandTotal = 0.0.obs;
+  RxDouble diamondTotal = 0.0.obs;
   RxInt updatingQty = 0.obs;
   RxDouble totalPrice = 0.0.obs;
 
@@ -37,18 +37,18 @@ class CartUiController extends GetxController {
           .toList();
 
       if (apiDiamondTotal != null) {
-        diamondTotal = apiDiamondTotal;
+        diamondTotal.value = apiDiamondTotal;
       }
       calculateGrandTotal();
     });
-    update();
   }
 
   void calculateGrandTotal() {
-    grandTotal = diamondTotal;
+    double totalValue = diamondTotal.value;
     for (int i = 0; i < qtyList.length; i++) {
-      grandTotal += unitPriceList[i] * qtyList[i];
+      totalValue += unitPriceList[i] * qtyList[i];
     }
+    grandTotal.value = totalValue;
     update(['grand_total', 'qty_list']);
   }
 

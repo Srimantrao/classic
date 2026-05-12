@@ -50,6 +50,13 @@ class Cart extends StatelessWidget {
         final diamondProduct = dataList[0]['diamondLookup'] as List? ?? [];
         final totalDiamondPrice =
             (dataList[0]['totalDiamondPrice'] as num?)?.toDouble() ?? 0.0;
+
+        // Ensure diamond total is always in sync with API
+        cartUI.diamondTotal.value = totalDiamondPrice;
+        if (cartProduct.isEmpty) {
+          cartUI.calculateGrandTotal();
+        }
+
         final cartRecord = cardRecord.cardRecordData as List? ?? [];
         if (cartProduct.isEmpty && diamondProduct.isEmpty) {
           return Center(child: Lottie.asset(AppJson.noData));
@@ -65,26 +72,18 @@ class Cart extends StatelessWidget {
                   productDetail,
                   diamondTotal: totalDiamondPrice,
                 ),
-              if (cartProduct.isEmpty && diamondProduct.isNotEmpty)
-                GetBuilder<CartUiController>(
-                  id: 'grand_total',
-                  initState: (_) =>
-                      cartUI.initQty([], apiDiamondTotal: totalDiamondPrice),
-                  builder: (_) => const SizedBox.shrink(),
-                ),
 
               //Diamond List
               if (cartRecord.isNotEmpty) diamondProductItem(diamondProduct),
 
               //Price
-              GetBuilder<CartUiController>(
-                id: 'grand_total',
-                builder: (cartUI) {
-                  return horizontalPadding(
-                    child: total("\$${cartUI.grandTotal.toStringAsFixed(2)}"),
-                  );
-                },
-              ),
+              Obx(() {
+                return horizontalPadding(
+                  child: total(
+                    "\$${cartUI.grandTotal.value.toStringAsFixed(2)}",
+                  ),
+                );
+              }),
 
               Padding(
                 padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.025),

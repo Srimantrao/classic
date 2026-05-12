@@ -99,10 +99,10 @@ Widget diamondProductItem(List dataList) {
               .toString(),
           finalamount: diamond['finalamount']?.toString() ?? '',
           checkBoxWidget: GestureDetector(
-            onTap: () {
+            onTap: () async {
               print("diamondID :-$diamondID");
-              deletcart.deleteCart(diamondID.toString());
-              fittercart.filterCart();
+              await deletcart.deleteCart(diamondID.toString());
+              await fittercart.filterCart();
               cartUi.calculateGrandTotal();
               calculateCartCount(cartAPICallAPI.cartAPI);
             },

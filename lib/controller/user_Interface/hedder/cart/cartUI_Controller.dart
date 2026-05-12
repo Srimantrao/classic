@@ -41,6 +41,7 @@ class CartUiController extends GetxController {
       }
       calculateGrandTotal();
     });
+    update();
   }
 
   void calculateGrandTotal() {
@@ -58,6 +59,7 @@ class CartUiController extends GetxController {
       update(['qty_$index', 'grand_total']);
       _debouncedUpdateCart(index, id);
     }
+    update();
   }
 
   void decrementQty(int index, String id) {
@@ -67,6 +69,7 @@ class CartUiController extends GetxController {
       update(['qty_$index', 'grand_total']);
       _debouncedUpdateCart(index, id);
     }
+    update();
   }
 
   void changeRingSize(int index, String ringSize, String id) {
@@ -75,6 +78,7 @@ class CartUiController extends GetxController {
       _updateCart(index, id);
       update(['ring_$index', 'qty_$index', 'grand_total']);
     }
+    update();
   }
 
   void _debouncedUpdateCart(int index, String id) {
@@ -82,6 +86,7 @@ class CartUiController extends GetxController {
     _qtyDebounce = Timer(const Duration(milliseconds: 600), () {
       _updateCart(index, id);
     });
+    update();
   }
 
   Future<void> _updateCart(int index, String id) async {
@@ -94,6 +99,7 @@ class CartUiController extends GetxController {
         ringSizeId: ringSizeList[index],
       );
       calculateGrandTotal();
+      update();
     }
   }
 
@@ -107,5 +113,6 @@ class CartUiController extends GetxController {
     update(['grand_total', 'qty_list', 'cartList']);
     await removeItem.deleteCart(id);
     await cartAPICallAPI.cartAPI.filterCart();
+    update();
   }
 }

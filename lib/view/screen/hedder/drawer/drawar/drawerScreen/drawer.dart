@@ -273,6 +273,7 @@ class Drawers extends StatelessWidget {
                       bottomController.isDrawerOpen.value = false;
                       bottomController.selectindex.value = 4;
                       bottomController.changePage(4);
+                      Get.back();
                     },
                   ),
 
@@ -317,6 +318,7 @@ class Drawers extends StatelessWidget {
                       bottomController.isDrawerOpen.value = false;
                       bottomController.selectindex.value = 2;
                       bottomController.changePage(2);
+                      Get.back();
                     },
                   ),
 

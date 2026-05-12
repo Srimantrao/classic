@@ -3,7 +3,6 @@
 
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/cart/cart_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/cart/deleteCart_Controller.dart';
-import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/fitterWish/fitterWish_Controller.dart';
 import 'package:classic/view/screen/hedder/cart/cartWidget/extraWidget/extraWidget.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/screen/myAccount/holdDiamods/holdDiamondWidget/body/holdDiamondWidget.dart';
 import 'package:classic/view/screen/menu/dashbord/dashbordScreen/diamondDetail.dart';
@@ -68,6 +67,8 @@ Widget cartProductItem(
 Widget diamondProductItem(List dataList) {
   final deletcart = Get.put(DeleteCartController());
   final fittercart = Get.put(CartController());
+  final cartUi = Get.put(CartUiController());
+  final cartAPICallAPI = Get.put(CartAPICall());
   return ListView.builder(
     shrinkWrap: true,
     physics: const NeverScrollableScrollPhysics(),
@@ -102,7 +103,8 @@ Widget diamondProductItem(List dataList) {
               print("diamondID :-$diamondID");
               deletcart.deleteCart(diamondID.toString());
               fittercart.filterCart();
-              calculateWishCount(fittercart as FitterWishController);
+              cartUi.calculateGrandTotal();
+              calculateCartCount(cartAPICallAPI.cartAPI);
             },
             child: removeIcon(),
           ),

@@ -1,5 +1,6 @@
 // ignore_for_file: must_call_super, file_names, unused_import, avoid_print, strict_top_level_inference
 
+import 'package:classic/controller/application_Programing_interface/apiController/banner/banner_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/address/getAddress_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/customProduct/customProduct_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/fitterWish/fitterWish_Controller.dart';
@@ -106,6 +107,7 @@ class DashBordAPICall extends GetxController {
   final totalRecored = Get.put(TotalRecordedController());
   final recentView = Get.put(RecentViewController());
   final cardRecord = Get.put(CardRecordController());
+  final banner = Get.put(BannerController());
 
   @override
   Future<void> onInit() async {
@@ -116,6 +118,7 @@ class DashBordAPICall extends GetxController {
         totalRecored.totalRecord(),
         recentView.recentViewdata(),
         cardRecord.fetchCardRecords(isFirstLoad: true, type: 'Diamond'),
+        banner.banner(),
       ]);
     } else {
       print('No Login in DashboardAPI');

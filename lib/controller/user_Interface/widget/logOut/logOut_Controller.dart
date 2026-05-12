@@ -4,6 +4,7 @@ import 'package:classic/controller/application_Programing_interface/callApi/call
 import 'package:classic/controller/user_Interface/menu/home/home_Controller.dart';
 import 'package:classic/view/screen/credentials/login/loginScreen/login.dart';
 import 'package:classic/view/screen/menu/home/homeScreen/home.dart';
+import 'package:classic/view/screen/menu/dashbord/dashbordScreen/dashbord.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restart_app/restart_app.dart';
@@ -45,6 +46,7 @@ class LogoutController extends GetxController {
     Get.delete<JewelleryAPICall>();
 
     Home.apiCalled = false;
+    Dashbord.apiCalled = false;
 
     print("After clear userID: ${pref!.getString('userId')}");
 

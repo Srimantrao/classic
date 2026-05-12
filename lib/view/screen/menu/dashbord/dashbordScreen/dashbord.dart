@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, unused_import, unused_local_variable, unnecessary_null_comparison, dead_code, strict_top_level_inference
 
+import 'package:classic/controller/application_Programing_interface/apiController/banner/banner_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/dashbord/cardRecord_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/dashbord/totalRecored_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
@@ -12,10 +13,12 @@ import 'package:classic/view/screen/menu/dashbord/dasboadWidget/body/diamondSect
 import 'package:classic/view/screen/menu/dashbord/dasboadWidget/header/appbar.dart';
 import 'package:classic/view/screen/menu/dashbord/dashbordExtraWidget/dashbordExtraWidget.dart';
 import 'package:classic/view/utils/app_Color.dart';
+import 'package:classic/view/utils/app_Constants.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_icon.dart';
 import 'package:classic/view/utils/app_json.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
+import 'package:classic/view/utils/app_URL.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,6 +37,7 @@ class Dashbord extends StatelessWidget {
   final cartAPICallAPI = Get.put(CartAPICall());
   final cardRecord = Get.put(CardRecordController());
   final homeAPI = Get.put(HomeAPICall());
+  final banner = Get.put(BannerController());
   final jewellry = Get.put(JewelleryAPICall());
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final value = Listviwe();
@@ -51,6 +55,10 @@ class Dashbord extends StatelessWidget {
         dashbord_API.onInit(),
         jewellry.onInit(),
       ]);
+    }
+    if (isLogin && !(pref?.getBool('isAdShown') ?? false)) {
+      pref?.setBool('isAdShown', true);
+      Ads(banner);
     }
     return Fullscreen(
       scaffoldKey: scaffoldKey,
@@ -189,10 +197,43 @@ class Dashbord extends StatelessWidget {
   }
 }
 
+void Ads(banner) {
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    Get.dialog(
+      AlertDialog(
+        backgroundColor: Colors.transparent,
+        content: Obx(() {
+          if (banner.bannerData.isEmpty || banner.bannerData['data'] == null) {
+            return const SizedBox(
+              height: 100,
+              child: Center(child: CircularProgressIndicator()),
+            );
+          }
+          var data = banner.bannerData['data'];
+          var imageUrl = "";
+          if (data is List && data.isNotEmpty) {
+            imageUrl = data[0]['mobileImage'] ?? "";
+          } else if (data is Map) {
+            imageUrl = data['mobileImage'] ?? "";
+          }
+          if (imageUrl.isEmpty) {
+            return const Text("Image not found");
+          }
+          return Image.network(
+            imageUrl.startsWith('http')
+                ? imageUrl
+                : AppUrl.imagebaseUrl + imageUrl,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              return const Text("Image not found");
+            },
+          );
+        }),
+      ),
+    );
+  });
+}
+
 Widget spacing() {
-  return Padding(
-    padding: EdgeInsetsGeometry.only(
-      bottom: Get.height * 0.02,
-    ),
-  );
+  return Padding(padding: EdgeInsetsGeometry.only(bottom: Get.height * 0.02));
 }

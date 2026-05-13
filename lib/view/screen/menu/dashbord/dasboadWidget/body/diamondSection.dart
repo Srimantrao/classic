@@ -85,7 +85,7 @@ Widget selectIndexText({
 
 //Jewellwery List
 Widget jewelryListViwe({required List jewelryList}) {
-  if(jewelryList == null || jewelryList.isEmpty){
+  if (jewelryList == null || jewelryList.isEmpty) {
     return Expanded(child: Center(child: Lottie.asset(AppJson.noData)));
   }
   return Expanded(
@@ -123,13 +123,14 @@ Widget cartJewelryList({required List jewelryList}) {
       itemBuilder: (BuildContext context, int index) {
         final item = jewelryList[index]['productDetails'] ?? {};
         final imageList = item['images'] ?? [];
-        final imageUrl =
-        imageList.isNotEmpty ? imageList.first['zoom'] ?? '' : '';
+        final imageUrl = imageList.isNotEmpty
+            ? imageList.first['zoom'] ?? ''
+            : '';
         return jeawellweryList(
           imageUrl: imageUrl,
           productTitle: item['productTitle'] ?? '',
           finalPrice:
-          '\$${(double.tryParse(item['finalPrice']?.toString() ?? '0') ?? 0).toStringAsFixed(2)}',
+              '\$${(double.tryParse(item['finalPrice']?.toString() ?? '0') ?? 0).toStringAsFixed(2)}',
           itemCode: item['itemCode'] ?? '',
           metalType: item['metalType'] ?? '',
           appxMetalWgt: item['appxMetalWgt']?.toString() ?? '',

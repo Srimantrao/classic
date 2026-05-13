@@ -2,6 +2,7 @@
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/fitterWish/deletWish_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/fitterWish/fitterWish_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
+import 'package:classic/view/screen/menu/dashbord/dashbordScreen/diamondDetail.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_json.dart';
@@ -68,30 +69,40 @@ Widget diamondListWish(header) {
       itemBuilder: (context, index) {
         final diamond = diamondList[index] as Map?;
         final details = diamond?['diamondDetails'] as Map? ?? {};
-        return cartViwe(
-          imageURL: details['imageurl1']?.toString() ?? '',
-          stockId: details['stockId']?.toString() ?? '',
-          shape: details['shape']?.toString() ?? '',
-          color: details['color']?.toString() ?? '',
-          clarity: details['clarity']?.toString() ?? '',
-          carat: details['carat']?.toString() ?? '',
-          cut: details['cut']?.toString() ?? '',
-          lab: details['lab']?.toString() ?? '',
-          parcarat: details['carat']?.toString() ?? '',
-          customeJewellerDiscountAmount: details['CustomeDiamondDiscount']
-              .toString(),
-          finalamount: details['finalamount'] != null
-              ? (details['finalamount'] as num).toDouble().toStringAsFixed(2)
-              : '0.00',
-          checkBoxWidget: GestureDetector(
-            onTap: () async {
-              final deletWish = Get.put(DeletWishController());
-              final fitterWish = Get.put(FitterWishController());
-              await deletWish.deleWishList(diamond?['_id']);
-              await fitterWish.fitterWishList();
-              calculateWishCount(fitterWish);
-            },
-            child: removeIcon(),
+        return GestureDetector(
+          onTap: () {
+            Get.to(
+              () => DiamondDetail(
+                id: diamondList[index]['_id'],
+                image: details['imageurl1']?.toString() ?? '',
+              ),
+            );
+          },
+          child: cartViwe(
+            imageURL: details['imageurl1']?.toString() ?? '',
+            stockId: details['stockId']?.toString() ?? '',
+            shape: details['shape']?.toString() ?? '',
+            color: details['color']?.toString() ?? '',
+            clarity: details['clarity']?.toString() ?? '',
+            carat: details['carat']?.toString() ?? '',
+            cut: details['cut']?.toString() ?? '',
+            lab: details['lab']?.toString() ?? '',
+            parcarat: details['carat']?.toString() ?? '',
+            customeJewellerDiscountAmount: details['CustomeDiamondDiscount']
+                .toString(),
+            finalamount: details['finalamount'] != null
+                ? (details['finalamount'] as num).toDouble().toStringAsFixed(2)
+                : '0.00',
+            checkBoxWidget: GestureDetector(
+              onTap: () async {
+                final deletWish = Get.put(DeletWishController());
+                final fitterWish = Get.put(FitterWishController());
+                await deletWish.deleWishList(diamond?['_id']);
+                await fitterWish.fitterWishList();
+                calculateWishCount(fitterWish);
+              },
+              child: removeIcon(),
+            ),
           ),
         );
       },

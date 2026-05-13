@@ -5,6 +5,7 @@ import 'package:classic/controller/application_Programing_interface/apiControlle
 import 'package:classic/controller/application_Programing_interface/apiController/hedder/drawer/myAccount/fitterWish/fitterWish_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/dashbord/cardRecord_Controller.dart';
 import 'package:classic/controller/application_Programing_interface/apiController/menu/jewellery/productDetail/createWishList_Controller.dart';
+import 'package:classic/controller/application_Programing_interface/callApi/callAPI.dart';
 import 'package:classic/view/utils/app_Color.dart';
 import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/app_json.dart';
@@ -243,12 +244,14 @@ Widget recentviwe(dashbord_API) {
                   : '0.00',
               cartOnTap: () {
                 final cartAPI = Get.put(CartController());
+                final cartAPICallAPI = Get.put(CartAPICall());
                 adToCart.createCart(
                   price: jsonEncode(details['finalamount'] ?? 0).toString(),
                   DiamondId: jsonEncode([diamond!['diamondId']]),
                   qty: '1',
                 );
                 cartAPI.filterCart();
+                calculateCartCount(cartAPICallAPI.cartAPI);
               },
               camaraOnTap: () {
                 final String? image = details['imageurl1']?.toString();
@@ -274,12 +277,14 @@ Widget recentviwe(dashbord_API) {
                 }
               },
               isWishlistOnTap: (){
+                final cartAPICallAPI = Get.put(CartAPICall());
                 addWishListCart.createWishlist(
                   DiamondId: jsonEncode([diamond!['_id']]),
                   qty: '1',
                 );
                 print("Add WhisList :- ${[diamond['_id']]}");
                 fitterWish.fitterWishList();
+                calculateWishCount(cartAPICallAPI.fitterWish);
               },
             );
           },

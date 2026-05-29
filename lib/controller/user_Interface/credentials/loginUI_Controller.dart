@@ -15,7 +15,7 @@ class LoginuiController extends GetxController {
   final usernameController = TextEditingController(
     text: 'Khageshsoni98@gmail.com',
   );
-  final passwordController = TextEditingController(text: 'Ilove@2026');
+  final passwordController = TextEditingController(text: 'Test@123');
   var usernameHasError = false.obs;
   var passwordHasError = false.obs;
 

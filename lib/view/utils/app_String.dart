@@ -8,6 +8,11 @@ class AppString {
   static const noCerturl = 'In Proesss, No Certurl';
   static const noCertno = 'In Proesss, No Certno';
 
+  //Internet Connection Check
+  static const noInternet = 'No Internet Connection';
+  static const checkInternet = 'Please check your internet connection';
+  static const retry = 'Retry';
+
   //hedding
   static const category = 'Category';
   static const dashboard = 'Dashboard';

@@ -1,7 +1,11 @@
 // ignore_for_file: use_key_in_widget_constructors, deprecated_member_use, file_names, unnecessary_import
 
+import 'package:classic/controller/internetConnctionCheck/internetConnctionCheck.dart';
 import 'package:classic/controller/user_Interface/widget/bottaomBar/bottombar_Controller.dart';
 import 'package:classic/view/screen/hedder/drawer/drawar/drawerScreen/drawer.dart';
+import 'package:classic/view/utils/app_Borderradius.dart';
+import 'package:classic/view/utils/app_Color.dart';
+import 'package:classic/view/utils/app_String.dart';
 import 'package:classic/view/utils/widget/bottom/bottomWidget/bottomWidget.dart';
 import 'package:classic/view/utils/widget/fullScreen.dart';
 import 'package:classic/view/utils/widget/horizontalpaddind.dart';
@@ -9,36 +13,98 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Bottombar extends StatelessWidget {
+  Bottombar({super.key});
   final bottomController = Get.put(BottombarController());
+  final internetController = Get.put(InternetController());
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    return Fullscreen(
-      endDrawer: Drawers(),
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Obx(() {
-              return bottomController.selectscreen(
-                bottomController.selectindex.value,
-              );
-            }),
+    return Obx(() {
+      //No Internet
+      if (!internetController.isConnected.value) {
+        return Scaffold(
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // No Internet Icon
+                Icon(Icons.wifi_off_rounded, size: 90, color: AppColor.primary),
+                SizedBox(height: Get.height * 0.025),
 
-            Obx(() {
-              if (bottomController.isDrawerOpen.value) {
-                return const SizedBox.shrink();
-              }
-              return Positioned(
-                left: 1,
-                right: 1,
-                bottom: Get.height * 0.02,
-                child: horizontalPadding(child: flotingBar(bottomController)),
-              );
-            }),
-          ],
+                // Title
+                Text(
+                  AppString.noInternet,
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: AppColor.primary,
+                  ),
+                ),
+
+                SizedBox(height: Get.height * 0.008),
+
+                // Subtitle
+                Text(
+                  AppString.checkInternet,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 15, color: Colors.grey),
+                ),
+
+                SizedBox(height: Get.height * 0.038),
+
+                // Retry Button
+                ElevatedButton(
+                  onPressed: () async {
+                    await internetController.checkInternet();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        borderradius.buttonboder,
+                      ),
+                    ),
+                  ),
+                  child: Text(
+                    AppString.retry,
+                    style: TextStyle(fontSize: Get.width * 0.040),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+
+      // Internet Available
+      return Fullscreen(
+        endDrawer: Drawers(),
+        body: SafeArea(
+          child: Stack(
+            children: [
+              Obx(() {
+                return bottomController.selectscreen(
+                  bottomController.selectindex.value,
+                );
+              }),
+
+              Obx(() {
+                if (bottomController.isDrawerOpen.value) {
+                  return const SizedBox.shrink();
+                }
+
+                return Positioned(
+                  left: 1,
+                  right: 1,
+                  bottom: Get.height * 0.02,
+                  child: horizontalPadding(child: flotingBar(bottomController)),
+                );
+              }),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
 
